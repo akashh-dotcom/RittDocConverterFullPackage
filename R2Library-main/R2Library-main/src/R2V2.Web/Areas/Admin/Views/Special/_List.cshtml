@@ -1,0 +1,54 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Special.SpecialList
+    
+@if (Model.Specials != null)
+{
+
+    <div class="tablecontent">
+        <table class="list">
+            <thead>
+                <tr>
+                    <th>Special Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Discounts and Resource Count</th>
+                    <th></th>
+                </tr>
+            </thead>
+                
+            <tbody>
+                
+                @foreach (var special in Model.Specials)
+                {
+                <tr>                            
+                    <td>@Html.DisplayFor(x => special.Name)</td>
+                    <td>@Html.DisplayFor(x => special.StartDate)</td>
+                    <td>@Html.DisplayFor(x => special.EndDate)</td>
+                    <td>
+                        @if (special.SpecialDiscounts != null)
+                        {
+                            foreach (var specialDiscount in special.SpecialDiscounts)
+                            {
+                                <div>
+                                    <span style="padding-right: 15px;">@Html.DisplayFor(x => specialDiscount.DiscountPercentage)</span>
+                                    <span style="padding-right: 15px;"><img src="@specialDiscount.IconUrl" alt="@specialDiscount.IconUrl" style="display: inline; vertical-align: middle"/></span>
+                                    <span>@Html.DisplayFor(x => specialDiscount.ResourceCount)</span>
+                                </div>
+                            }
+                        }
+                    </td>
+                    <td class="actions">
+                        <a href="@Url.Action("Edit", new {specialId = special.SpecialId})" class="btn btn-medium"><span>Edit</span></a>
+                        <a href="@Url.Action("DeleteSpecial", new {specialId = special.SpecialId})" class="btn btn-medium"><span>Delete</span></a>
+                    </td>
+                </tr>
+                }
+                
+            </tbody>
+                
+        </table>
+    </div>
+}
+else
+{
+    <p><strong>No Specials Available.</strong></p>
+}

@@ -1,0 +1,58 @@
+﻿@model R2V2.Web.Models.MyR2.UserContent
+           
+<div class="sidebar">
+    <div class="sidebarmodule savedsearches">
+        <div class="sidebarmoduleinner">
+            <h2>Searches</h2>
+            
+            <h3>Saved Searches:</h3>
+            @if (Model.SavedSearchCount > 0)
+            {
+                foreach (var searchItem in Model.SavedSearches)
+                {
+                    <p>
+                        <a href="@searchItem.Href">@searchItem.Name</a>
+                        <a href="@Url.Action("DeleteSavedSearch", "UserContent", new { savedSearchId = searchItem.Id }, null)" class="ir btn-delete">Delete</a><br />
+                        @searchItem.Description<br />
+                        <em>@string.Format("{0:#,##0}", searchItem.ResultsCount) results on @Html.DisplayFor(x => searchItem.SearchDate)</em>
+                    </p>
+                }
+            }
+            else
+            {
+                <p>No saved searches available</p>
+            }
+            @if (Model.SavedSearchResultsCount > 0)
+            {
+                <div class="sidebarsubsection">
+                    <h3>Saved Search Results:</h3>
+                    @foreach (var savedSearchResult in Model.SavedSearchResults)
+                    {
+                        <p>
+                            <a href="@savedSearchResult.Href">@savedSearchResult.Name</a>
+                            <a href="@Url.Action("DeleteSavedSearchResult", "UserContent", new {savedSearchResultId = savedSearchResult.Id}, null)" class="ir btn-delete">Delete</a><br/>
+                            @savedSearchResult.Description<br/>
+                            <em>@string.Format("{0:#,##0}", savedSearchResult.ResultsCount) results out of @string.Format("{0:#,##0}", savedSearchResult.TotalResultsCount) on @Html.DisplayFor(x => savedSearchResult.SearchDate)</em>
+                        </p>
+                    }
+                </div>
+            }
+            <div class="sidebarsubsection">
+                @if (Model.SearchHistoryCount > 0)
+                {
+                    <h3>Search History (last @Model.SearchHistoryCount searches):</h3>
+                    foreach (var searchItem in Model.SearchHistories)
+                    {
+                        <p><a href="@searchItem.Href">@searchItem.Description</a><br />
+                            <em>@string.Format("{0:#,##0}", searchItem.ResultsCount) results on @Html.DisplayFor(x => searchItem.SearchDate)</em></p>
+                    }
+                }
+                else
+                {
+                    <h3>Search History:</h3>
+                    <p>No history available</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

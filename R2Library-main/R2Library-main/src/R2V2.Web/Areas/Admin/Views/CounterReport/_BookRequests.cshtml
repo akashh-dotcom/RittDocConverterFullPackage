@@ -1,0 +1,76 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.CounterBookRequestsDetail
+<div class="group-actions-wrapper">
+    <div class="clearfix group-actions">
+        <p class="header">
+            Successful Section Requests for @Html.Raw(Model.CounterBookRequests.ReportRequest.DateRangeStart.ToShortDateString())
+            to @Html.Raw(Model.CounterBookRequests.ReportRequest.DateRangeEnd.ToShortDateString())</p>
+    </div>
+</div>
+
+<div class="tablecontent counter-scroll">
+    <table class="list" >
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th class="counter-total">Total</th>
+                <th class="counter-type">Metric Type</th>
+                @foreach (var item in Model.CounterBookRequests.CounterBookRequestResources[0].TotalItemResourcePeriods)
+                {
+                    <th>@Html.Raw(item.ShortMonth())-@Html.Raw(item.Year.ToString())</th>
+                }
+            </tr>
+        </thead>
+        <tr>
+            <td>All</td>
+            <td><b>@Html.Raw(Model.ResourceTotalItemRequests().ToString())</b></td>
+            <td>Total Item Requests</td>
+            @foreach (var hit in Model.ResourceTotalItemRequestsList)
+            {
+                <td><b>@Html.DisplayFor(x => hit)</b></td>
+            }
+        </tr>
+        <tr>
+            <td>All</td>
+            <td><b>@Html.Raw(Model.ResourceUniqueTitleRequests().ToString())</b></td>
+            <td>Unique Title Requests</td>
+            @foreach (var hit in Model.ResourceUniqueTitleRequestsList)
+            {
+                <td><b>@Html.DisplayFor(x => hit)</b></td>
+            }
+        </tr>
+        @foreach (var item in Model.CounterBookRequests.CounterBookRequestResources)
+        {
+            <tr>
+                <td id="hover-wrapper" rowspan="2">
+                    @Html.DisplayFor(x => item.Isbn13)
+                    @if (!Model.IsEmailMode)
+                    {
+                        <div class="hover-parent" >
+                            <div class="hover-child titleitem">
+                                <ul>
+                                    <li>@Html.LabelFor(x => item.Title)@Html.DisplayFor(x => item.Title)</li>
+                                    <li>@Html.LabelFor(x => item.Isbn10) @Html.DisplayFor(x => item.Isbn10)</li>
+                                    <li>@Html.LabelFor(x => item.Publisher) @Html.DisplayFor(x => item.Publisher)</li>
+                                </ul>                             
+                            </div>
+                        </div>
+                    }                    
+                </td>
+                <td><b>@Html.Raw(item.TotalItemResourcePeriods.Sum(x => x.HitCount).ToString())</b></td>
+                <td>Total Item Requests</td> 
+                @foreach (var hit in item.TotalItemResourcePeriods)
+                {
+                    <td>@Html.DisplayFor(x => hit.HitCount)</td>   
+                }
+            </tr>
+            <tr>
+                <td><b>@Html.Raw(item.UniqueTitleResourcePeriods.Sum(x => x.HitCount).ToString())</b></td>
+                <td>Unique Title Requests</td> 
+                @foreach(var hit in item.UniqueTitleResourcePeriods)
+                {
+                    <td>@Html.DisplayFor(x=> hit.HitCount)</td>   
+                }
+            </tr>
+        }
+    </table>
+</div>

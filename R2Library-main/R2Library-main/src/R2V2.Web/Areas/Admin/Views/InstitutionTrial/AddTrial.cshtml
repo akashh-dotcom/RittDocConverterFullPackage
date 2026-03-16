@@ -1,0 +1,54 @@
+﻿@model R2V2.Web.Areas.Admin.Models.TrialInstitution.NewTrial
+@{
+    ViewBag.Title = "Trial Institution";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+    
+<div class="fullcol contentcontainer">
+	<form action="" method="post">
+			<div id="content" class="content" role="main">
+				<h1>Trial Institution</h1>
+
+				@*@Html.Partial("_InstitutionInfo")*@
+
+				<div class="group-actions-wrapper">
+					<div class="clearfix group-actions" data-implement="fixed">
+						<ul class="actions">
+							@if (Model.DisplayTestButton)
+							{
+								<li>
+									<button class="btn-medium" type="submit" value="TestAccountNumber" name="action:TestAccountNumber"><span>Test Account Number</span></button>
+								</li>
+							}
+							<li>
+								<button class="btn-medium" type="submit" value="CheckAccountNumber" name="action:CheckAccountNumber"><span>Check Account Number</span></button>
+							</li>
+							<li><a href="@Url.Action("List", "Institution")" class="btn btn-medium"><span>Cancel</span></a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="tablecontent">
+					<table class="edit">
+						<tr>
+							<td class="label">@Html.LabelFor(model => model.AccountNumber)</td>
+							<td class="field">
+								@Html.TextBoxFor(model => model.AccountNumber)
+								@Html.ValidationMessageFor(model => model.AccountNumber)
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</form>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+}

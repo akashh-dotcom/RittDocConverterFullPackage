@@ -1,0 +1,23 @@
+﻿@using R2V2.Web
+@model R2V2.Web.Models.Resource.IAccessInfo
+
+@if (Model.IsFullTextAvailable)
+{
+    <a href="" class="access-info" rel="tooltip" title="@Resources.FullTextAvailableTooltip">@Resources.FullTextAvailable</a>
+}
+else if(Model.IsPdaResource)
+{
+    <a href="" class="access-info" rel="tooltip" title="@Resources.TOCAvailablePDATooltip">@Resources.TOCAvailable</a>
+}
+else
+{
+    <a href="" class="access-info" rel="tooltip" title="@Resources.TOCAvailableTooltip">@Resources.TOCAvailable</a>
+}
+@if (Model.IsForthcoming)
+{
+    <a href="" class="access-info" rel="tooltip" title="Pre-Order titles">Pre-Order</a>
+}
+@if (Model.IsArchive)
+{
+    <a href="" class="access-info resource-archived" rel="tooltip" title="@Resources.TitleArchivedTooltip">@Resources.TitleArchived</a>
+}

@@ -1,0 +1,66 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Review.ReviewList
+@{
+    ViewBag.Title = "Expert Reviewer Review Lists";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    
+    <div id="content" class="content" role="main">
+        <h1>Expert Reviewer Review Lists</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+    
+		@if (!Model.IsExpertReviewer)
+		{
+			<div class="group-actions-wrapper">
+				<div class="clearfix group-actions">
+					<ul class="actions">
+						<li><a href="@Url.Action("Edit", new {institutionId = Model.InstitutionId, reviewId = 0})" class="btn btn-medium"><span>Add Review List</span></a></li>
+					</ul>
+				</div>
+			</div>
+		}
+        @if (Model.Reviews != null && Model.Reviews.Any())
+        {
+            <div class="tablecontent">
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th class="reserve-shelf-title">Title</th>
+                            <th class="reserve-shelf-description">Description</th>
+                            <th class="reserve-shelf-title-count"># of Titles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Reviews)
+                        {
+                            <tr>
+                                <td class="reserve-shelf-title"><a href="@Url.Action("Detail", new { institutionId = Model.InstitutionId, reviewId = item.Id })">@Html.DisplayFor(model => item.Name)</a></td>
+                                <td class="reserve-shelf-description">@Html.DisplayFor(model => item.Description)</td>
+                                <td class="reserve-shelf-title-count">@Html.DisplayFor(model => item.ResourceCount)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p><strong>No Reviews Available.</strong></p>
+        }
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

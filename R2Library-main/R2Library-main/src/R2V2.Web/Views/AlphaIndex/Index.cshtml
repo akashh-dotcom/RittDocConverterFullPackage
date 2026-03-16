@@ -1,0 +1,69 @@
+﻿@using R2V2.Core.Institution
+@model R2V2.Web.Models.AlphaIndex.AlphaIndex
+@{
+    ViewBag.Title = "A to Z Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    @if (Model.AuthenticationInfo.HomePage == HomePage.AtoZIndex)
+    {
+        @Html.Partial("_WelcomeIntro", Model.AuthenticationInfo)
+    }
+    
+    <div id="content" class="content" role="main">
+        <div id="copy"></div>
+    </div>
+
+    <div class="nav-sub">
+        <div class="facet-history" id="alpha-history"></div>
+
+        <h2>Show:</h2>
+        <ul id="show" data-history="bookmark">
+            <li><a href="#all">All</a></li>
+            <li><a href="#drug-names">Drug Names</a></li>
+            <li><a href="#diseases">Diseases</a></li>
+            <li><a href="#topics">Topics</a></li>
+        </ul>
+            
+        @if (Model.PracticeAreas != null && Model.PracticeAreas.Any())
+        {
+            <h2>Filter by:</h2>
+            <ul id="filter-by">
+                <li class="subgroup">
+                    <h3>Practice Area</h3>
+                    
+                    <ul id="practice-area" data-history="bookmark" data-has-counts="true">
+                        @foreach (var practiceArea in Model.PracticeAreas)
+                        {
+                            <li><a href="#@practiceArea.Id">@practiceArea.Name</a></li>
+                        }
+                    </ul>
+                </li>
+                @if (Model.SpecialtySummaries != null && Model.SpecialtySummaries.Specialties != null && Model.SpecialtySummaries.Specialties.Any())
+                {
+                    <li class="subgroup">
+                        <h3>Discipline</h3>
+                        <ul id="disciplines" data-history="bookmark" data-has-counts="true" data-toggle="moreless">
+                            @foreach (var discipline in Model.SpecialtySummaries.Specialties)
+                            {
+                                if (discipline != null && !string.IsNullOrWhiteSpace(discipline.Name))
+                                {
+                                    <li><a href="#@discipline.Id">@discipline.Name</a></li>
+                                }
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.AlphaIndex.History({ $container: $('#alpha-history') });
+    new R2V2.AlphaIndex.Filters();
+    new R2V2.AlphaIndex.Results({ $container: $('#copy') });
+    new R2V2.AlphaIndex({ dataUrl: '@Url.Action("JsonResults", "AlphaIndex")' });
+}

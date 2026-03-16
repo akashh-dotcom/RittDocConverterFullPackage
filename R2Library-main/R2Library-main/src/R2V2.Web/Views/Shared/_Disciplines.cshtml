@@ -1,0 +1,43 @@
+﻿@model R2V2.Web.Models.SpecialtySummaries
+
+@if (Model != null && Model.Specialties != null && Model.Specialties.Any())
+{
+    <div id="discipline" class="clearfix columns three-columns" data-history="bookmark">
+        <div class="column">
+            <h2 class="header-alpha-group">A - H</h2>
+            <ul class="alpha-group">
+                @foreach (var discipline in Model.Specialties.Where(x => x.Name.Length > 0 && x.Name.ToUpper()[0] >= 'A' && x.Name.ToUpper()[0] <= 'H'))
+                {
+                    if (discipline != null && !string.IsNullOrWhiteSpace(discipline.Name))
+                    {
+                        <li><a href="#@discipline.Id">@discipline.Name</a> (@discipline.ResourceCount)</li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="column">
+            <h2 class="header-alpha-group">I - O</h2>
+            <ul class="alpha-group">
+                @foreach (var discipline in Model.Specialties.Where(x => x.Name.Length > 0 && x.Name.ToUpper()[0] >= 'I' && x.Name.ToUpper()[0] <= 'O'))
+                {
+                    if (discipline != null && !string.IsNullOrWhiteSpace(discipline.Name))
+                    {
+                        <li><a href="#@discipline.Id">@discipline.Name</a> (@discipline.ResourceCount)</li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="column">
+            <h2 class="header-alpha-group">P - Z</h2>
+            <ul class="alpha-group">
+                @foreach (var discipline in Model.Specialties.Where(x => x.Name.Length > 0 && x.Name.ToUpper()[0] >= 'P' && x.Name.ToUpper()[0] <= 'Z'))
+                {
+                    if (discipline != null && !string.IsNullOrWhiteSpace(discipline.Name))
+                    {
+                        <li><a href="#@discipline.Id">@discipline.Name</a> (@discipline.ResourceCount)</li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+}

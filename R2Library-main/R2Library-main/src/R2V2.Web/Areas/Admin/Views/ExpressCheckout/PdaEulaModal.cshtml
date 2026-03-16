@@ -1,0 +1,64 @@
+﻿@using R2V2.Core.CollectionManagement
+@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.Cart.CollectionAdd
+@{
+    ViewBag.Title = "EULA";
+	ViewBag.BodyCssClass = "admin";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content collection-manage" role="main">
+        <h1>R2 Digital Library</h1>        
+		<div id="service-agreement">
+			<h2>Acknowledgement of Patron Driven Collection and Access</h2>
+			<p>The R2 Digital Library offers a patron driven collection development option in order to help support the growing need for diversity in the collection development process. Patron Driven Acquisition (PDA) can be a valuable tool for the collection development librarian.</p>
+
+			<p>By starting an R2 Digital Library PDA collection, I acknowledge the following:</p>
+	
+			<ul>
+				<li>My library has the ability to make the records for all active R2 titles available to our patrons. Selections for eBooks that will be available through my PDA collection are at the sole discretion of the library and collection development staff.</li>
+				<li>My library agrees to add records for all PDA titles to our online catalog or OPAC, enabling users to find and access PDA titles.</li>
+				<li>My library understands that all PDA titles will made available full text for 2 accesses.</li>
+				<li>My library understands that a 3rd access of full text content constitutes a trigger event. At a trigger event 1) the title reverts to table of contents access only 2) selected administrators are notified via email of the trigger event 3) the title is automatically moved to a shopping cart and remains there for 30 days. If the title is not purchased within 30 days, it is deleted from the cart and remains available for purchase, but is no longer available for patron driven acquisition.</li>
+				<li>My library understands that we can utilize the PDA History Report to track and identify all PDA activity related to our R2 collection.</li>
+			    <li>Titles made available on the R2 Digital Library via PDA are subject to the same copyright protections, warranties, and restrictions of the R2 Library License Agreement.</li>
+			    <li>My Library understands that our PDA collection is subject to the R2 Library annual fee after the initial 12 month period.</li>
+			</ul>
+			<p><strong>THANK YOU FOR CHOOSING THE R2 LIBRARY.</strong></p>
+		</div>
+
+		@using (Html.BeginForm("PdaEulaModal", "ExpressCheckout"))
+		{   
+			@Html.Partial("../CollectionManagement/_HiddenQueryFields", Model.ResourceQuery)
+            
+			<div class="group-actions-wrapper">
+				<div class="clearfix group-actions">
+					<ul class="actions">
+					    <li><a data-toggle="print" href="#"><span>Print</span></a></li>
+                        @if (Model.ResourceQuery.IsPdaProfile)
+                        {
+                            <li><a href="@Url.Action("PdaProfile", "Pda", Model.ResourceQuery.ToRouteValues())">Cancel</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action("Index", new CollectionManagementQuery {InstitutionId = Model.InstitutionId}.ToRouteValues())">Cancel</a></li>
+                        }
+						<li><button class="btn-medium" type="submit"><span>I Agree</span></button></li>
+					</ul>
+				</div>
+			</div>
+		}		
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

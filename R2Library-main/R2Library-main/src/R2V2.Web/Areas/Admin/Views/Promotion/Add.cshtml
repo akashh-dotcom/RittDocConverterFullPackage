@@ -1,0 +1,49 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Promotion.PromotionModel
+
+@{
+    ViewBag.Title = "Add New Promotion";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="clearfix fullcol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Add New Promotion</h1>
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><button type="submit" class="btn btn-medium"><span>Save</span></button></li>
+                        <li><a href="@Url.Action("List")" class="btn btn-medium"><span>Cancel</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            @Html.Partial("_PromotionDetails")
+        }
+    </div>
+</div>
+
+
+@section JsDocumentReady
+{
+	$('#add-products').click(function() {
+        return !$('#ProductsSelectListItems option:selected').appendTo('#ProductsSelected');
+    });
+    $('#remove-products').click(function() {
+        return !$('#ProductsSelected option:selected').appendTo('#ProductsSelectListItems');
+    });
+    
+    new R2V2.Admin.DatePicker({$dateTextBox: $("input[id$=Date]"), $endDatePlusYears: 10});
+    
+    
+
+    $("#save").click(function() {
+		$("#ProductsSelected option").each(function() {
+			$(this).attr("selected", "selected");
+		});        
+    });
+}

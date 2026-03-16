@@ -1,0 +1,239 @@
+﻿@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.Dashboard.DashboardModel
+
+@{
+    ViewBag.Title = "Dashboard";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="dashboard" class="content" role="main">
+
+        @using (Html.BeginForm("Index", "Dashboard", null, FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.InstitutionId)
+            @Html.Partial("_DashboardPeriod")
+        }
+        
+
+
+
+        <section id="dashboard-quickNotes">
+            <ul>
+                @if (Model.QuickNotes != null)
+                {
+                    foreach (var item in Model.QuickNotes)
+                    {
+                        <li>
+                            @Html.Raw(item)
+                        </li>
+                    }
+               }
+            </ul>
+        </section>
+
+
+
+
+        @if (Model.ShowAccountUsage())
+        {
+            <section id="dashboard-accountUsage">
+            <h3>Account Usage</h3>
+            <h5>@Model.GetDateSelectorString(Model.Period)</h5>
+
+            <div class="usageStats">
+                <ul>
+                    <li class="label">@Html.LabelFor(x => x.TotalResourceCount)</li>
+                    <li class="value">@Html.DisplayFor(x => x.TotalResourceCount)</li>
+                </ul>
+                <ul>
+                    <li class="label">@Html.LabelFor(x => x.ContentCount)</li>
+                    <li class="value">@Html.DisplayFor(x => x.ContentCount)</li>
+                </ul>
+                <ul>
+                    <li class="label">@Html.LabelFor(x => x.TocCount)</li>
+                    <li class="value">@Html.DisplayFor(x => x.TocCount)</li>
+                </ul>
+                <ul>
+                    <li class="label">@Html.LabelFor(x => x.SessionCount)</li>
+                    <li class="value">@Html.DisplayFor(x => x.SessionCount)</li>
+                </ul>
+                <ul>
+                    <li class="label">@Html.LabelFor(x => x.PrintCount)</li>
+                    <li class="value">@Html.DisplayFor(x => x.PrintCount)</li>
+                </ul>
+                <ul>
+                    <li class="label">@Html.LabelFor(x => x.EmailCount)</li>
+                    <li class="value">@Html.DisplayFor(x => x.EmailCount)</li>
+                </ul>
+                <ul>
+                    <li class="label">@Html.LabelFor(x => x.TurnawayConcurrencyCount)</li>
+                    <li class="value">@Html.DisplayFor(x => x.TurnawayConcurrencyCount)</li>
+                </ul>
+                <ul>
+                    <li class="label">@Html.LabelFor(x => x.TurnawayAccessCount)</li>
+                    <li class="value">@Html.DisplayFor(x => x.TurnawayAccessCount)</li>
+                </ul>
+            </div>
+
+            <h4>Want to increase Usage? <a href="@Url.Action("Index", "Contact", new {Area = ""})">Start the discussion</a>.</h4>
+        </section>
+
+        }
+        
+
+
+
+        @if (Model.DisplayHightlights())
+        {
+            <section id="dashboard-highlights">
+                <h3>Highlights</h3>
+                <h5>@Model.GetDateSelectorString(Model.Period)</h5>
+                
+                <div class="countStat">
+                    <h4>Most Popular Discipline</h4>
+                    @if (!string.IsNullOrWhiteSpace(Model.MostPopularSpecialtyName))
+                    {
+                        <h5><a href="@Url.Action("List", "CollectionManagement", Model.ToRouteValues(Model.MostPopularSpecialtyId))">@Html.DisplayFor(x => x.MostPopularSpecialtyName)</a></h5>
+                        <h2>@Html.DisplayFor(x => x.MostPopularSpecialtyCount)</h2>
+                        <p>Content Views</p>
+                        <h5><a href="@Url.Action("List", "CollectionManagement", Model.ToRouteValues(Model.MostPopularSpecialtyId))">View the Latest Releases</a></h5>
+                    }
+                    else
+                    {
+                        <p>No data for the given time period</p>
+                    }
+                </div>
+                
+                <div class="countStat">
+                    <h4>Least Popular Discipline</h4>
+                    @if (!string.IsNullOrWhiteSpace(Model.LeastPopularSpecialtyName))
+                    {
+                        <h5><a href="@Url.Action("List", "CollectionManagement", Model.ToRouteValues(Model.LeastPopularSpecialtyId))">@Html.DisplayFor(x => x.LeastPopularSpecialtyName)</a></h5>
+                        <h2>@Html.DisplayFor(x => x.LeastPopularSpecialtyCount)</h2>
+                        <p>Content Views</p>
+                        <h5><a href="@Url.Action("List", "CollectionManagement", Model.ToRouteValues(Model.LeastPopularSpecialtyId))">View the Latest Releases</a></h5>
+                    }
+                    else
+                    {
+                        <p>No data for the given time period</p>
+                    }
+                </div>
+                
+                <div class="resourceGroup">
+                    <h4>Most Accessed Title</h4>
+                    @if (Model.MostAccessed != null)
+                    {
+                        @Html.Partial("_DashboardResource", Model.MostAccessed)
+                    }
+                    else
+                    {
+                        <p>No data for the given time period</p>
+                    }
+                </div>
+                <div class="resourceGroup">
+                    <h4>Least Accessed Title</h4>
+                    @if (Model.LeastAccessed != null)
+                    {
+                        @Html.Partial("_DashboardResource", Model.LeastAccessed)
+                    }
+                    else
+                    {
+                        <p>No data for the given time period</p>
+                    }
+                </div>
+                <div class="resourceGroup">
+                    <h4>Most Access Turnaway</h4>
+                    @if (Model.MostTurnawayAccess != null)
+                    {
+                        @Html.Partial("_DashboardResource", Model.MostTurnawayAccess)
+                    }
+                    else
+                    {
+                        <p>No data for the given time period</p>
+                    }
+                </div>
+                <div class="resourceGroup">
+                    <h4>Most Concurrent Turnaway</h4>
+                    @if (Model.MostTurnawayConcurrent != null)
+                    {
+                        @Html.Partial("_DashboardResource", Model.MostTurnawayConcurrent)
+                    }
+                    else
+                    {
+                        <p>No data for the given time period</p>
+                    }
+                </div>
+                
+            </section>
+        }
+
+
+
+
+        <section id="dashboard-contentSpotlight">
+            @if (Model.FeaturedTitles != null && Model.FeaturedTitles.Any())
+            {
+                <div class="spotlightGroup">
+                    <h3>Featured Titles</h3>
+
+                    @foreach (var item in Model.FeaturedTitles)
+                    {
+                        @Html.Partial("_DashboardResource", item)
+                    }
+                    
+                    <a class="viewMore" href="@Url.Action("List", "CollectionManagement", Model.FeaturedTitles.FirstOrDefault().ToRouteValues("FeaturedTitles"))">View More</a>
+                </div>
+            }
+            @if (Model.SpecialTitles != null && Model.SpecialTitles.Any())
+            {
+                <div class="spotlightGroup">
+                    <h3>Specials</h3>
+
+                    @foreach (var item in Model.SpecialTitles)
+                    {
+                        @Html.Partial("_DashboardResource", item)
+                    }
+
+                    <a class="viewMore" href="@Url.Action("List", "CollectionManagement", Model.SpecialTitles.FirstOrDefault().ToRouteValues("Specials"))">View More</a>
+                </div>
+            }
+            @if (Model.RecommendedTitles != null && Model.RecommendedTitles.Any())
+            {
+                <div class="spotlightGroup">
+                    <h3>Recommended eBooks</h3>
+
+                    @foreach (var item in Model.RecommendedTitles)
+                    {
+                        @Html.Partial("_DashboardResource", item)
+                    }
+
+                    <a class="viewMore" href="@Url.Action("List", "CollectionManagement", Model.RecommendedTitles.FirstOrDefault().ToRouteValues("Recommendations"))">View More</a>
+                </div>
+            }
+        </section>
+  
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.ToggleOptionalFields({ $container: $('#filter-date-range'), $trigger: $('#Period'), action: 'change', triggerValue: 'UserSpecified' });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+
+    $('#filter-date-range .input-daterange').datepicker({
+    format: "mm/yyyy",
+    startDate: "@Model.DateRangeMin()",
+    endDate: "@Model.DateRangeMax()",
+    minViewMode: 1,
+    autoclose: true,
+    hideIfNoPrevNext: true,
+    });
+}

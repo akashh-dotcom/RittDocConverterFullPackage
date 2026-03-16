@@ -1,0 +1,41 @@
+﻿@model R2V2.Web.Models.Subscriptions.SubscriptionPurchaseModel
+
+<div class="content modal alert" id="subscriptionModel">
+    <div class="modal-header">
+        <h1>Purchase Subscription</h1>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+
+    <div class="modal-body" style="font-size: .85em;">
+        <h2>@Model.Subscription.Name</h2>
+        <div class="alertbox">
+            <p>@Html.Raw(Model.Subscription.Description)</p>
+        </div>
+        <div style="margin: 15px 30px 0;">
+            <ul>
+                <li>Number of Titles: @Model.Subscription.SubResources.Count</li>
+                <li>Monthly Price: @string.Format("{0:C}", Model.Subscription.MonthlyPrice)</li>
+                <li>Annual Price: @string.Format("{0:C}", Model.Subscription.AnnualPrice)</li>
+            </ul>
+        </div>
+        
+        
+        <div class="alertbox">
+            <p>In order to purchase a subscription you must be logged in. Please close this window and login above or click the button the below to create an account.</p>
+        </div>
+        @*<div style="margin-bottom: 2%;margin-top: 2%; text-align: right;">
+            <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+            <button class="btn-medium" type="button" id="create_user_button"><span>Create Account</span></button>
+        </div>*@
+        <div class="group-actions-wrapper" style="margin-top: 25px;">
+            <div class="clearfix group-actions">
+                <ul class="actions">
+                    <li><a class="btn btn-medium" href="#" data-dismiss="modal"><span>Cancel</span></a></li>
+                    <li><button class="btn-medium" type="button"  id="create_user_button"><span>Create Account</span></button></li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+</div>

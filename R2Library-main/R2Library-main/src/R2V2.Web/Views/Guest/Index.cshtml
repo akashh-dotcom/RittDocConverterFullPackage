@@ -1,0 +1,70 @@
+﻿@model R2V2.Web.Models.GuestUser
+           
+@{
+    ViewBag.Title = "Add Guest User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ <div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Guest User</h1>
+        
+        @using (Html.BeginForm())
+        {
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><button class="btn-medium" type="submit"><span>Save</span></button></li>
+                        <li><a class="btn btn-medium" data-history="back"><span>Cancel</span></a></li>
+                    </ul>
+                </div>
+            </div>            
+           
+            <div class="tablecontent">
+                <table class="edit">
+                    <tbody>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.FirstName)</td>
+                            <td class="field">
+                                @Html.EditorFor(model => model.FirstName)
+                                @Html.ValidationMessageFor(model => model.FirstName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.LastName)</td>
+                            <td class="field">
+                                @Html.EditorFor(model => model.LastName)
+                                @Html.ValidationMessageFor(model => model.LastName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.Email)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "input-full" })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.UserName)</td>
+                            <td class="field">Your User Name will be your Email Address</td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.NewPassword)</td>
+                            <td class="field">
+                                @Html.PasswordFor(model => model.NewPassword)
+                                @Html.ValidationMessageFor(model => model.NewPassword)                            
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.ConfirmPassword)</td>
+                            <td class="field">
+                                @Html.PasswordFor(model => model.ConfirmPassword)
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword)                            
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

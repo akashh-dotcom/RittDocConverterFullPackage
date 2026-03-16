@@ -1,0 +1,331 @@
+﻿@model R2V2.Web.Models.Trial.RequestAccountModel
+
+<div class="resource-test-section" id="Section-5">
+	<div class="resource-test-section-title">Company & Ownership Information</div>
+<div class="resource-test-wrapper-review">
+	<div class="resource-test-label">Name of Business: </div>
+	<div class="resource-test-field"><span id="CompanyInformation-ContactAddress-Name"></span>@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.Name)</div>
+</div>
+
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Business Type: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-Type"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Name of Officer: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-OfficerName"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Officer Title: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-OfficerTitle"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Address 1: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-ContactAddress-Address1"></span>@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.Address1)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Address 2: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-ContactAddress-Address2"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">City: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-ContactAddress-City"></span>@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.City)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">State: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-ContactAddress-State"></span>@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.State)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Zip Code: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-ContactAddress-Zip"></span>@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.Zip)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Country: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-ContactAddress-Country"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Email: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-Email"></span>@Html.ValidationMessageFor(x => x.CompanyInformation.Email)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-ContactAddress-Phone"></span>@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.Phone)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Fax: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-ContactAddress-Fax"></span>@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.Fax)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Website: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-Website"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">San #: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-SanNumber"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">EIN: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-Ein"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Duns #: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-DunsNumber"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Consortium: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-Consortium"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Store #/Customer ID Code: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-CustomerId"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Affiliated Institution: </div>
+		<div class="resource-test-field"><span id="CompanyInformation-AffiliatedInstitution"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Account Expiration: <br />(if applicable)</div>
+		<div class="resource-test-field"><span id="CompanyInformation-AccountExpiration"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Max Billing Limit: <br />(if applicable)</div>
+		<div class="resource-test-field"><span id="CompanyInformation-MaxBillingLimit"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Sales Tax Exemption #: <br/>(if applicable)</div>
+		<div class="resource-test-field"><span id="CompanyInformation-SalesTaxExemptionNumber"></span></div>
+	</div>
+	<div class="resource-test-section-title">Billing Information</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Name of Business/Contact: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-BillingInformation-ContactAddress-Name"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Name)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Name of Officer: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-BillingInformation-OfficerName"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Address 1: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-BillingInformation-ContactAddress-Address1"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Address1)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Address 2: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-BillingInformation-ContactAddress-Address2"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">City: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-BillingInformation-ContactAddress-City"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.City)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">State: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-BillingInformation-ContactAddress-State"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.State)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Zip Code: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-BillingInformation-ContactAddress-Zip"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Zip)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Country: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-BillingInformation-ContactAddress-Country"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-BillingInformation-ContactAddress-Phone"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Phone)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Fax: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-BillingInformation-ContactAddress-Fax"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Fax)</div>
+	</div>
+	<div class="resource-test-section-title">Shipping Information</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Name of Business/Contact: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-ShippingInformation-ContactAddress-Name"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Name)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Name of Officer: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-ShippingInformation-OfficerName"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Address 1: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-ShippingInformation-ContactAddress-Address1"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Address1)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Address 2: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-ShippingInformation-ContactAddress-Address2"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">City: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-ShippingInformation-ContactAddress-City"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.City)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">State: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-ShippingInformation-ContactAddress-State"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.State)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Zip Code: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-ShippingInformation-ContactAddress-Zip"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Zip)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Country: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-ShippingInformation-ContactAddress-Country"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-ShippingInformation-ContactAddress-Phone"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Phone)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Fax: </div>
+		<div class="resource-test-field"><span id="CompanyAddresses-ShippingInformation-ContactAddress-Fax"></span>@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Fax)</div>
+	</div>
+	<div class="resource-test-section-title">Accounts Payable Information</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Contact: </div>
+		<div class="resource-test-field"><span id="PayableInformation-AccountsPayableInformation-ContactName"></span>@Html.ValidationMessageFor(x => x.PayableInformation.AccountsPayableInformation.ContactName)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Email: </div>
+		<div class="resource-test-field"><span id="PayableInformation-AccountsPayableInformation-Email"></span>@Html.ValidationMessageFor(x => x.PayableInformation.AccountsPayableInformation.Email)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field"><span id="PayableInformation-AccountsPayableInformation-Phone"></span>@Html.ValidationMessageFor(x => x.PayableInformation.AccountsPayableInformation.Phone)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Fax: </div>
+		<div class="resource-test-field"><span id="PayableInformation-AccountsPayableInformation-Fax"></span></div>
+	</div>
+	<div class="resource-test-section-title">Purchasing Information</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Contact: </div>
+		<div class="resource-test-field"><span id="PayableInformation-PurchasingInformation-ContactName"></span>@Html.ValidationMessageFor(x => x.PayableInformation.PurchasingInformation.ContactName)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Email: </div>
+		<div class="resource-test-field"><span id="PayableInformation-PurchasingInformation-Email"></span>@Html.ValidationMessageFor(x => x.PayableInformation.PurchasingInformation.Email)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field"><span id="PayableInformation-PurchasingInformation-Phone"></span>@Html.ValidationMessageFor(x => x.PayableInformation.PurchasingInformation.Phone)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Fax: </div>
+		<div class="resource-test-field"><span id="PayableInformation-PurchasingInformation-Fax"></span></div>
+	</div>
+
+	<div class="resource-test-section-title">Banking Information</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Name: </div>
+		<div class="resource-test-field"><span id="PayableInformation-BankingInformation-Name"></span>@Html.ValidationMessageFor(x => x.PayableInformation.BankingInformation.Name)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Account #: </div>
+		<div class="resource-test-field"><span id="PayableInformation-BankingInformation-AccountNumber"></span>@Html.ValidationMessageFor(x => x.PayableInformation.BankingInformation.AccountNumber)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Contact: </div>
+		<div class="resource-test-field"><span id="PayableInformation-BankingInformation-ContactName"></span>@Html.ValidationMessageFor(x => x.PayableInformation.BankingInformation.ContactName)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field"><span id="PayableInformation-BankingInformation-Phone"></span>@Html.ValidationMessageFor(x => x.PayableInformation.BankingInformation.Phone)</div>
+	</div>
+	<div class="resource-test-section-title">Trade Reference 1</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Name: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference1-Name"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.Name)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Address 1: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference1-Address1"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.Address1)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Address 2: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference1-Address2"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">City: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference1-City"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.City)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">State: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference1-State"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.State)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Zip Code: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference1-Zip"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.Zip)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference1-Phone"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.Phone)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Account #: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference1-AccountNumber"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.AccountNumber)</div>
+	</div>
+	<div class="resource-test-section-title">Trade Reference 2</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Name: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference2-Name"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.Name)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Address 1: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference2-Address1"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.Address1)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Address 2: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference2-Address2"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">City: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference2-City"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.City)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">State: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference2-State"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.State)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Zip Code: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference2-Zip"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.Zip)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference2-Phone"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.Phone)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Account #: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference2-AccountNumber"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.AccountNumber)</div>
+	</div>
+	<div class="resource-test-section-title">Trade References 3</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Name: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference3-Name"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.Name)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Address 1: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference3-Address1"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.Address1)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Address 2: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference3-Address2"></span></div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">City: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference3-City"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.City)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">State: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference3-State"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.State)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Zip Code: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference3-Zip"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.Zip)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference3-Phone"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.Phone)</div>
+	</div>
+	<div class="resource-test-wrapper-review">
+		<div class="resource-test-label">Account #: </div>
+		<div class="resource-test-field"><span id="TradeReferences-Reference3-AccountNumber"></span>@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.AccountNumber)</div>
+	</div>
+</div>

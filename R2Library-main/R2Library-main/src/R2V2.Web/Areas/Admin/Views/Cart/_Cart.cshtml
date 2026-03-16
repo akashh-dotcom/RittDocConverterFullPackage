@@ -1,0 +1,433 @@
+﻿@using R2V2.Core.CollectionManagement
+@using R2V2.Web.Areas.Admin.Models.Order
+@model R2V2.Web.Areas.Admin.Models.Order.Order
+
+<div class="tablecontent">
+    <table>
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>Details</th>
+                <th class="cart-items"># of Licenses</th>
+                <th class="cart-price">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Items != null && Model.Items.Any())
+            {
+                foreach (var resourceOrderItem in Model.PurchasableItems.OfType<ResourceOrderItem>())
+                {
+                    if (resourceOrderItem == null)
+                    {
+                        continue;
+                    }
+            <tr>
+                <td>
+                    <span class="resource-status">@ResourceHelpers.ResourceStatus(resourceOrderItem.Resource.Status)</span>
+                    @ResourceHelpers.ShowListedStatus(resourceOrderItem.Resource, Model.SpecialIconBaseUrl, Model.ActionsMenu == null, resourceOrderItem.SpecialIconName, resourceOrderItem.SpecialIconText())
+                </td>
+                <td class="cart-items">
+                    <div class="titleitem">
+                        <h2><a href="@Url.Action("Title", "Resource", new {Area = "", resourceOrderItem.Resource.Isbn})" data-toggle="collapse" data-target="#item-@resourceOrderItem.Resource.Isbn">@Html.DisplayFor(modelItem => resourceOrderItem.Resource.Title)</a></h2>
+                        <ul>
+                            <li>@resourceOrderItem.Resource.Authors</li>
+                            <li>@Html.LabelFor(x => resourceOrderItem.Resource.PublisherName) @Html.DisplayFor(x => resourceOrderItem.Resource.PublisherName)</li>
+                            <li>@Html.LabelFor(x => resourceOrderItem.Resource.PublicationDate) @Html.DisplayFor(x => resourceOrderItem.Resource.PublicationDate)</li>
+                            <li>@Html.LabelFor(x => resourceOrderItem.Resource.ReleaseDate) @Html.DisplayFor(x => resourceOrderItem.Resource.ReleaseDate)</li>
+                            @if (resourceOrderItem.WasAddedViaPda)
+                            {
+                                <li class="license-own">
+                                    Added via PDA @Html.DisplayFor(x => @resourceOrderItem.AddedToCartDate).
+                                    @if (Model.SavedDate.HasValue && Model.SavedDate.GetValueOrDefault() != DateTime.MinValue)
+                                    {
+                                        <span>Saved to cart on @Html.DisplayFor(x => x.SavedDate).</span>
+                                    }
+                                    else
+                                    {
+
+                                        <span>Will expire on @Html.DisplayFor(x => @resourceOrderItem.ExpireDate).</span>
+                                    }
+                                </li>
+                            }
+
+                            @if (resourceOrderItem.AddedByNewEditionDate != null)
+                            {
+                                <li class="license-own">
+                                    Automatically added via New Edition Notification on @Html.DisplayFor(x => resourceOrderItem.AddedByNewEditionDate)
+                                </li>
+                            }
+
+                            <li class="license-cart">@Html.DisplayFor(x => resourceOrderItem.SpecialText)</li>
+                            @if (resourceOrderItem.Recommendations != null && resourceOrderItem.Recommendations.Any() && Model.CartType != CartTypeEnum.AutomatedCart)
+                            {
+                                foreach (var recommended in resourceOrderItem.Recommendations)
+                                {
+                                    @Html.Partial("_ResourceRecommendNote", recommended)
+                                }
+                            }
+                            @if (resourceOrderItem.AutomatedReasonCodes != null)
+                            {
+                                foreach (var automatedReasonCode in resourceOrderItem.AutomatedReasonCodes)
+                                {
+                                    <li class="license-own">@automatedReasonCode</li>
+                                }
+                            }
+                        </ul>
+
+                        <div id="item-@resourceOrderItem.Resource.Isbn" class="collapse title-detail">
+                            <div class="title-container">
+                                <div class="title-meta">
+                                    <ul>
+                                        @if (resourceOrderItem.Resource.DueDate != null)
+                                        {
+                                            <li>@Html.LabelFor(x => resourceOrderItem.Resource.DueDate)@Html.DisplayFor(x => resourceOrderItem.Resource.DueDate)</li>
+                                        }
+                                        @if (resourceOrderItem.Resource.PracticeAreas != null && resourceOrderItem.Resource.PracticeAreas.Any())
+                                        {
+                                            var firstPracticeArea = true;
+                                            <li>
+                                                @Html.LabelFor(modelItem => resourceOrderItem.Resource.PracticeAreas)
+                                                @foreach (var practiceArea in resourceOrderItem.Resource.PracticeAreas)
+                                                {
+                                                    @(firstPracticeArea ? "" : ", ")@practiceArea.Name
+                                                    firstPracticeArea = false;
+                                                }
+                                            </li>
+                                        }
+                                        @if (resourceOrderItem.Resource.Specialties != null && resourceOrderItem.Resource.Specialties.Any())
+                                        {
+                                            var firstSpecialty = true;
+                                            <li>
+                                                @Html.LabelFor(x => resourceOrderItem.Resource.Specialties)
+                                                @foreach (var specialty in resourceOrderItem.Resource.Specialties)
+                                                {
+                                                    @(firstSpecialty ? "" : ", ")@specialty.Name
+                                                    firstSpecialty = false;
+                                                }
+                                            </li>
+                                        }
+                                        <li>@Html.LabelFor(x => resourceOrderItem.Resource.Isbn10) @Html.DisplayFor(x => resourceOrderItem.Resource.Isbn10)</li>
+                                        <li>@Html.LabelFor(x => resourceOrderItem.Resource.Isbn13) @Html.DisplayFor(x => resourceOrderItem.Resource.Isbn13)</li>
+                                        @if (resourceOrderItem.Resource.EIsbn != null)
+                                        {
+                                            <li>@Html.LabelFor(x => resourceOrderItem.Resource.EIsbn) @Html.DisplayFor(x => resourceOrderItem.Resource.EIsbn)</li>
+                                        }
+                                        <li>@Html.LabelFor(x => resourceOrderItem.Resource.Edition) @Html.DisplayFor(x => resourceOrderItem.Resource.Edition)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="title-image"><img alt="@resourceOrderItem.Resource.Title" src="@resourceOrderItem.Resource.ImageUrl" /></div>
+                            </div>
+
+                            <p>@resourceOrderItem.Resource.ResourceDescription</p>
+
+                            <p><strong><a href="@Url.Action("Title", "Resource", new {Area = "", resourceOrderItem.Resource.Isbn})" target="_blank" data-toggle="window">View Full Detail</a></strong></p>
+                        </div>
+                    </div>
+                </td>
+                <td style="text-align: center;">
+                    @if (Model.ActionsMenu != null && Model.Editable && !resourceOrderItem.Resource.IsFreeResource && !resourceOrderItem.IsBundle)
+                    {
+                        using (Html.BeginForm("Update", "Cart", new { institutionId = Model.InstitutionId, cartId = Model.OrderId }))
+                        {
+                            @Html.TextBoxFor(x => resourceOrderItem.NumberOfLicenses, new { @class = "input-xsmall field-license-count force-numeric", @maxlength = "4" })
+                            @Html.HiddenFor(x => resourceOrderItem.ItemId)
+                            <button class="btn btn-medium hide-onclick" type="submit"><span>Update</span></button>
+                        }
+                    }
+                    else
+                    {
+                        @PurchaseHelper.GetLicensesCountDisplay(resourceOrderItem)
+                        if (resourceOrderItem.IsBundle)
+                        {
+                            <br /><span style="font-weight: bold;">Bundle</span>
+                        }
+                    }
+                    </td>
+                    <td class="cart-price">
+                        @PurchaseHelper.GetPriceDisplay(resourceOrderItem)
+
+                        @if (Model.ActionsMenu != null && Model.Editable)
+                        {
+                            <a class="btn btn-medium hide-onclick" href="@Url.Action("Delete", "Cart", new { institutionId = Model.InstitutionId, itemId = resourceOrderItem.ItemId, cartId = Model.OrderId })"><span>Remove</span></a>
+                        }
+                    </td>
+                </tr>
+                }
+
+                foreach (var productOrderItem in Model.PurchasableItems.OfType<ProductOrderItem>())
+                {
+                    if (productOrderItem == null || productOrderItem.Product == null || (!Model.Editable && !productOrderItem.Include))
+                    {
+                        continue;
+                    }
+                    <tr>
+                        <td></td>
+                        <td><strong>@productOrderItem.Product.Name</strong></td>
+                        <td class="cart-items">
+                            @if (productOrderItem.Product.Optional)
+                            {
+                                if (Model.Editable)
+                                {
+                                    using (Html.BeginForm("Include", "Cart", new { institutionId = Model.InstitutionId }))
+                                    {
+                                        @Html.CheckBoxFor(x => productOrderItem.Include, new { onchange = "this.form.submit();" })
+                                        @Html.LabelFor(x => productOrderItem.Include, "Include")
+                                        @Html.HiddenFor(x => productOrderItem.ItemId)
+                                    }
+                                }
+                            }
+                        </td>
+                        @if (productOrderItem.ListPrice == productOrderItem.DiscountPrice)
+                        {
+                            <td class="cart-price">
+                                <span class="saleprice">@Html.DisplayFor(x => productOrderItem.ListPrice)</span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="cart-price">
+                                <span class="fullprice">Retail Price: @Html.DisplayFor(x => productOrderItem.ListPrice)</span>
+                                <span class="saleprice">Discount Price: @Html.DisplayFor(x => productOrderItem.DiscountPrice)</span>
+                            </td>                            
+                        }
+                        
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4"><strong>Shopping Cart is empty</strong></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                @*<td></td>*@
+                <th colspan="2">Subtotal</th>
+                <td>@Model.LicenseTotal </td>
+                <td>@Html.DisplayFor(x => Model.SubTotal)</td>
+            </tr>
+            <tr>
+                @*<td></td>*@
+                @*<text>Discount</text>*@
+                <th colspan="2" style="text-align: right">@Html.Raw(Model.GetDisplayDiscountLabel())@if (Model.IsPromotionApplied){<text>*</text>}</th>
+                @if (Model.IsSingleDiscount())
+                {
+                    <td>@Html.Raw(Model.GetDisplayDiscount())@if (Model.IsPromotionApplied){<text>*</text>}</td>
+                    <td>@Html.DisplayFor(x => Model.DiscountTotal)@if (Model.IsPromotionApplied){<text>*</text>}</td>
+                }
+                else
+                {
+                    <td colspan="2">@Html.Raw(Model.GetDisplayDiscount())@if (Model.IsPromotionApplied){<text>*</text>}
+                    @Html.DisplayFor(x => Model.DiscountTotal)@if (Model.IsPromotionApplied){<text>*</text>}</td>
+                }
+                
+            </tr>
+            <tr>
+                @*<td></td>*@
+                <th colspan="2">Total</th>
+                <td></td>
+                <td>@Html.DisplayFor(x => Model.OrderTotal)</td>
+            </tr>
+        </tfoot>
+    </table>
+    @if (Model.ArchivedItems != null && Model.ArchivedItems.Any() && Model.Editable)
+    {
+        <table>
+            <tr>
+                <td colspan="3">
+                    <p><strong style="color: red">Please Note the following items are no longer available for sale:</strong>
+                    </p>
+                </td>
+                <td>
+                    @if (Model.ActionsMenu != null && Model.Editable)
+                    {
+                        <a class="btn btn-medium" href="@Url.Action("DeleteNonPurchaseable", "Cart", new {institutionId = Model.InstitutionId, cartId = Model.OrderId, nonPurchaseType = "archived"})"><span>Remove All</span></a>
+                    }
+                </td>
+            </tr>
+            @foreach (var archivedOrderItem in Model.ArchivedItems)
+            {
+                <tr>
+                    <td><span class="resource-status">@ResourceHelpers.ResourceStatus(archivedOrderItem.Resource.Status)</span></td>
+                    <td class="cart-items">
+                        <div class="titleitem">
+                            <h2><a href="@Url.Action("Title", "Resource", new {Area = "", archivedOrderItem.Resource.Isbn})" data-toggle="collapse" data-target="#item-@archivedOrderItem.Resource.Isbn">@Html.DisplayFor(modelItem => archivedOrderItem.Resource.Title)</a></h2>                                            
+                            <div id="item-@archivedOrderItem.Resource.Isbn" class="collapse title-detail">
+                                <div class="clearfix">
+                                    <ul>
+                                        <li>@archivedOrderItem.Resource.Authors</li>
+                                        <li>@Html.LabelFor(x => archivedOrderItem.Resource.PublisherName) @Html.DisplayFor(x => archivedOrderItem.Resource.PublisherName)</li>
+                                        <li>@Html.LabelFor(x => archivedOrderItem.Resource.PublicationDate) @Html.DisplayFor(x => archivedOrderItem.Resource.PublicationDate)</li>
+                                        <li>@Html.LabelFor(x => archivedOrderItem.Resource.ReleaseDate) @Html.DisplayFor(x => archivedOrderItem.Resource.ReleaseDate)</li>
+                                        @*@if (archivedOrderItem.WasAddedViaPda)
+                                        {
+                                            <li class="license-own">Added via PDA @Html.DisplayFor(x => @archivedOrderItem.AddedToCartDate). Will expire on @Html.DisplayFor(x => @archivedOrderItem.ExpireDate).</li>
+                                        }*@
+                                    </ul>
+
+                                    <div class="title-container">
+                                        <div class="title-meta">
+                                            <ul>
+                                                @if (archivedOrderItem.Resource.DueDate != null)
+                                                {
+                                                    <li>@Html.LabelFor(x => archivedOrderItem.Resource.DueDate)@Html.DisplayFor(x => archivedOrderItem.Resource.DueDate)</li>
+                                                }
+                                                @if (archivedOrderItem.Resource.PracticeAreas != null && archivedOrderItem.Resource.PracticeAreas.Any())
+                                                {
+                                                    var firstPracticeArea = true;
+                                                    <li>
+                                                        @Html.LabelFor(modelItem => archivedOrderItem.Resource.PracticeAreas)
+                                                        @foreach (var practiceArea in archivedOrderItem.Resource.PracticeAreas)
+                                                        {
+                                                            @(firstPracticeArea ? "" : ", ")@practiceArea.Name
+                                                            firstPracticeArea = false;
+                                                        }
+                                                    </li>
+                                                }
+                                                @if (archivedOrderItem.Resource.Specialties != null && archivedOrderItem.Resource.Specialties.Any())
+                                                {
+                                                    var firstSpecialty = true;
+                                                    <li>
+                                                        @Html.LabelFor(x => archivedOrderItem.Resource.Specialties)
+                                                        @foreach (var specialty in archivedOrderItem.Resource.Specialties)
+                                                        {
+                                                            @(firstSpecialty ? "" : ", ")@specialty.Name
+                                                            firstSpecialty = false;
+                                                        }
+                                                    </li>
+                                                }
+                                                <li>@Html.LabelFor(x => archivedOrderItem.Resource.Isbn10) @Html.DisplayFor(x => archivedOrderItem.Resource.Isbn10)</li>
+                                                <li>@Html.LabelFor(x => archivedOrderItem.Resource.Isbn13) @Html.DisplayFor(x => archivedOrderItem.Resource.Isbn13)</li>
+                                                @if (archivedOrderItem.Resource.EIsbn != null)
+                                                {
+                                                    <li>@Html.LabelFor(x => archivedOrderItem.Resource.EIsbn) @Html.DisplayFor(x => archivedOrderItem.Resource.EIsbn)</li>
+                                                }
+                                                <li>@Html.LabelFor(x => archivedOrderItem.Resource.Edition) @Html.DisplayFor(x => archivedOrderItem.Resource.Edition)</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="title-image"><img alt="@archivedOrderItem.Resource.Title" src="@archivedOrderItem.Resource.ImageUrl" /></div>
+                                    </div>
+                                </div>
+                                        
+                                <p>@archivedOrderItem.Resource.ResourceDescription</p>
+                                            
+                                <p><strong><a href="@Url.Action("Title", "Resource", new {Area = "", archivedOrderItem.Resource.Isbn})" target="_blank" data-toggle="window">View Full Detail</a></strong></p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                    </td>
+                    <td class="cart-price">
+                        @if (Model.ActionsMenu != null && Model.Editable)
+                        {
+                            <a class="btn btn-medium" href="@Url.Action("Delete", "Cart", new {institutionId = Model.InstitutionId, itemId = archivedOrderItem.ItemId, cartId = Model.OrderId})"><span>Remove</span></a>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    
+    @if (Model.NotForSaleItems != null && Model.NotForSaleItems.Any() && Model.Editable)
+    {
+        <table>
+            <tr>
+                <td colspan="3">
+                    <p><strong style="color: red">Please Note the following items have been removed by the Publisher and are no longer available for sale:</strong>
+                    </p>
+                </td>
+                <td>
+                    @if (Model.ActionsMenu != null && Model.Editable)
+                    {
+                        <a class="btn btn-medium" href="@Url.Action("DeleteNonPurchaseable", "Cart", new {institutionId = Model.InstitutionId, cartId = Model.OrderId, nonPurchaseType = "notsaleable"})"><span>Remove All</span></a>
+                    }
+                </td>
+            </tr>
+
+    @foreach (var notForSaleItem in Model.NotForSaleItems)
+    {
+        <tr>
+            <td><span class="resource-status">@ResourceHelpers.ResourceStatus(notForSaleItem.Resource.Status)</span></td>
+            <td class="cart-items">
+                <div class="titleitem">
+                    <h2><a href="@Url.Action("Title", "Resource", new {Area = "", notForSaleItem.Resource.Isbn})" data-toggle="collapse" data-target="#item-@notForSaleItem.Resource.Isbn">@Html.DisplayFor(modelItem => notForSaleItem.Resource.Title)</a></h2>
+                    <div id="item-@notForSaleItem.Resource.Isbn" class="collapse title-detail">
+                        <div class="clearfix">
+                            <ul>
+                                <li>@notForSaleItem.Resource.Authors</li>
+                                <li>@Html.LabelFor(x => notForSaleItem.Resource.PublisherName) @Html.DisplayFor(x => notForSaleItem.Resource.PublisherName)</li>
+                                <li>@Html.LabelFor(x => notForSaleItem.Resource.PublicationDate) @Html.DisplayFor(x => notForSaleItem.Resource.PublicationDate)</li>
+                                <li>@Html.LabelFor(x => notForSaleItem.Resource.ReleaseDate) @Html.DisplayFor(x => notForSaleItem.Resource.ReleaseDate)</li>
+                                @*@if (notForSaleItem.WasAddedViaPda)
+            {
+                <li class="license-own">Added via PDA @Html.DisplayFor(x => @notForSaleItem.AddedToCartDate). Will expire on @Html.DisplayFor(x => @notForSaleItem.ExpireDate).</li>
+            }*@
+                            </ul>
+
+                            <div class="title-container">
+                                <div class="title-meta">
+                                    <ul>
+                                        @if (notForSaleItem.Resource.DueDate != null)
+                                        {
+                                            <li>@Html.LabelFor(x => notForSaleItem.Resource.DueDate)@Html.DisplayFor(x => notForSaleItem.Resource.DueDate)</li>
+                                        }
+                                        @if (notForSaleItem.Resource.PracticeAreas != null && notForSaleItem.Resource.PracticeAreas.Any())
+                                        {
+                                            var firstPracticeArea = true;
+                                            <li>
+                                                @Html.LabelFor(modelItem => notForSaleItem.Resource.PracticeAreas)
+                                                @foreach (var practiceArea in notForSaleItem.Resource.PracticeAreas)
+                                                {
+                                                    @(firstPracticeArea ? "" : ", ")@practiceArea.Name
+                                                    firstPracticeArea = false;
+                                                }
+                                            </li>
+                                        }
+                                        @if (notForSaleItem.Resource.Specialties != null && notForSaleItem.Resource.Specialties.Any())
+                                        {
+                                            var firstSpecialty = true;
+                                            <li>
+                                                @Html.LabelFor(x => notForSaleItem.Resource.Specialties)
+                                                @foreach (var specialty in notForSaleItem.Resource.Specialties)
+                                                {
+                                                    @(firstSpecialty ? "" : ", ")@specialty.Name
+                                                    firstSpecialty = false;
+                                                }
+                                            </li>
+                                        }
+                                        <li>@Html.LabelFor(x => notForSaleItem.Resource.Isbn10) @Html.DisplayFor(x => notForSaleItem.Resource.Isbn10)</li>
+                                        <li>@Html.LabelFor(x => notForSaleItem.Resource.Isbn13) @Html.DisplayFor(x => notForSaleItem.Resource.Isbn13)</li>
+                                        @if (notForSaleItem.Resource.EIsbn != null)
+                                        {
+                                            <li>@Html.LabelFor(x => notForSaleItem.Resource.EIsbn) @Html.DisplayFor(x => notForSaleItem.Resource.EIsbn)</li>
+                                        }
+                                        <li>@Html.LabelFor(x => notForSaleItem.Resource.Edition) @Html.DisplayFor(x => notForSaleItem.Resource.Edition)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="title-image"><img alt="@notForSaleItem.Resource.Title" src="@notForSaleItem.Resource.ImageUrl" /></div>
+                            </div>
+                        </div>
+
+                        <p>@notForSaleItem.Resource.ResourceDescription</p>
+
+                        <p><strong><a href="@Url.Action("Title", "Resource", new {Area = "", notForSaleItem.Resource.Isbn})" target="_blank" data-toggle="window">View Full Detail</a></strong></p>
+                    </div>
+                </div>
+            </td>
+            <td></td>
+            <td class="cart-price">
+                @if (Model.ActionsMenu != null && Model.Editable)
+                {
+                    <a class="btn btn-medium" href="@Url.Action("Delete", "Cart", new {institutionId = Model.InstitutionId, itemId = notForSaleItem.ItemId, cartId = Model.OrderId})"><span>Remove</span></a>
+                }
+            </td>
+        </tr>
+    }
+        </table>
+    }
+</div>

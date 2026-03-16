@@ -1,0 +1,100 @@
+﻿@model R2V2.Web.Areas.Admin.Models.PublisherConsolidation.PublishersList
+@{
+	ViewBag.Title = "Publisher Consolidation";
+	ViewBag.BodyCssClass = "admin";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="fullcol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Publishers</h1>
+        
+        @if (Model.DisplayAddPublisher)
+        {
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><a href="@Url.Action("Add", "Publisher")" class="btn btn-medium"><span>Add Publisher</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        }
+        
+
+        <div class="tablecontent">
+            <table class="list">
+                <thead>
+                    <tr>
+                        @*<th class="publishers-status">&nbsp;</th>*@
+                        <th class="publishers-id">Id</th>
+                        <th class="publishers-name">Publisher</th>
+                        <th class="publishers-number">Vendor #</th>
+                        <th class="publishers-address">City, State</th>
+                        <th class="publishers-resource-count">Resource Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Publishers)
+                    {
+                        
+                    <tr class="@(item.RowClass())">
+                        @*<td class="publishers-status"><strong class="@item.RecordStatus.ToLower().Replace(" ", "-")">@item.RecordStatus</strong></td>*@
+                        <td class="publishers-id">@item.Id</td>
+                        <td class="publishers-name">
+                            <a href="@Url.Action("Detail", new { publisherId = item.Id })">@item.Name</a>
+                            @if (item.ConsolidatedPublisher != null)
+                            {
+                                <p>Colidated to: @item.ConsolidatedPublisher.Name (@item.ConsolidatedPublisher.Id), @item.ConsolidatedPublisher.CityAndState, Status: @item.ConsolidatedPublisher.RecordStatus</p>
+                            }
+                            @if (item.IsFeaturedPublisher)
+                            {
+                                <strong>(Featured Publisher)</strong>
+                            }
+                            @if (item.NotSaleableDate.HasValue)
+                            {
+                                <strong>(Not Saleable)</strong>
+                            }
+
+                            @if (item.ChildPublishers != null)
+                            {
+                                foreach (var child in item.ChildPublishers)
+                                {
+                                    <div style="margin-left: 10px; margin-top: 5px;">
+                                        @Html.DisplayFor(x => child.Name) --
+                                        @Html.LabelFor(x => child.ResourceCount) @Html.DisplayFor(x => child.ResourceCount)
+
+                                    </div>
+
+                                }
+
+                            }
+
+
+
+
+                        </td>
+                        <td class="publishers-number">@item.VendorNumber</td>
+                        <td class="publishers-address">@item.CityAndState</td>
+                        <td class="publishers-resource-count">@item.ResourceCount</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+}
+
+<style>
+    table.list tr.selected {
+        background: greenyellow;
+        }
+</style>

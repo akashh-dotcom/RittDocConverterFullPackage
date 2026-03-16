@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package unique-identifier="pub-identifier" version="3.0" xml:lang="en" xmlns="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+  <metadata>
+    <dc:identifier id="pub-identifier">urn:isbn:978-3-031-28218-8</dc:identifier>
+    <dc:title id="pub-title">Principles of Microbial Metabolism and Metabolic Ecology</dc:title>
+    <meta property="title-type" refines="#pub-title">main</meta>
+    <dc:language id="pub-language">en</dc:language>
+    <meta property="dcterms:modified">2023-12-30T22:28:35Z</meta>
+    <dc:creator id="creator1">Alfred M. Spormann</dc:creator>
+    <meta property="display-seq" refines="#creator1">1</meta>
+    <meta property="role" refines="#creator1" scheme="marc:relators">aut</meta>
+    <dc:publisher>Springer International Publishing</dc:publisher>
+    <dc:rights>Copyright © 2023 Springer Nature Switzerland AG</dc:rights>
+    <meta property="schema:accessMode">textual</meta>
+    <meta property="schema:accessMode">visual</meta>
+    <meta property="schema:accessModeSufficient">textual,visual</meta>
+    <meta property="schema:accessibilitySummary">This publication is missing alternative text for complex diagrams. The publication otherwise conforms to the EPUB Accessibility specification at WCAG Level A.</meta>
+    <meta property="schema:accessibilityFeature">structuralNavigation</meta>
+    <meta property="schema:accessibilityFeature">readingOrder</meta>
+    <meta property="schema:accessibilityFeature">tableOfContents</meta>
+    <meta property="schema:accessibilityHazard">none</meta>
+    <!-- Springer Nature EPUB3 Converter v2.30 -->
+  <!--Spr-dds_system: DDS-Send-->
+<!--Spr-embedder version: 2.0.3-->
+<!--Spr-metadata owner id: 00003A26-->
+</metadata>
+  <manifest>
+    <item href="navigation.xhtml" id="nav" media-type="application/xhtml+xml" properties="nav"/>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+    <item href="html/Cover.xhtml" id="ACover" media-type="application/xhtml+xml"/>
+    <item href="html/483209_1_En_BookFrontmatter_OnlinePDF.xhtml" id="A483209_1_En_BookFrontmatter_OnlinePDF" media-type="application/xhtml+xml"/>
+    <item href="html/483209_1_En_1_Chapter.xhtml" id="A483209_1_En_1_Chapter" media-type="application/xhtml+xml"/>
+    <item href="html/483209_1_En_2_Chapter.xhtml" id="A483209_1_En_2_Chapter" media-type="application/xhtml+xml"/>
+    <item href="html/483209_1_En_3_Chapter.xhtml" id="A483209_1_En_3_Chapter" media-type="application/xhtml+xml"/>
+    <item href="html/483209_1_En_4_Chapter.xhtml" id="A483209_1_En_4_Chapter" media-type="application/xhtml+xml"/>
+    <item href="html/483209_1_En_5_Chapter.xhtml" id="A483209_1_En_5_Chapter" media-type="application/xhtml+xml"/>
+    <item href="html/483209_1_En_6_Chapter.xhtml" id="A483209_1_En_6_Chapter" media-type="application/xhtml+xml"/>
+    <item href="html/483209_1_En_7_Chapter.xhtml" id="A483209_1_En_7_Chapter" media-type="application/xhtml+xml"/>
+    <item href="html/483209_1_En_8_Chapter.xhtml" id="A483209_1_En_8_Chapter" media-type="application/xhtml+xml"/>
+    <item href="html/483209_1_En_9_Chapter.xhtml" id="A483209_1_En_9_Chapter" media-type="application/xhtml+xml"/>
+    <item href="html/483209_1_En_10_Chapter.xhtml" id="A483209_1_En_10_Chapter" media-type="application/xhtml+xml"/>
+    <item href="html/483209_1_En_BookBackmatter_OnlinePDF.xhtml" id="A483209_1_En_BookBackmatter_OnlinePDF" media-type="application/xhtml+xml"/>
+    <item href="css/springer_epub.css" id="Acss_springer_epub" media-type="text/css"/>
+    <item href="css/envelope.png" id="Acss_envelope" media-type="image/png"/>
+    <item href="css/sidebar.gif" id="Acss_sidebar" media-type="image/gif"/>
+    <item href="images/483209_1_En_BookBackmatter_OnlinePDF_TeX_IEq4.png" id="Aimages_483209_1_En_BookBackmatter_OnlinePDF_TeX_IEq4" media-type="image/png"/>
+    <item href="images/483209_1_En_BookBackmatter_Tab3_HTML.png" id="Aimages_483209_1_En_BookBackmatter_Tab3_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_BookBackmatter_OnlinePDF_TeX_IEq2.png" id="Aimages_483209_1_En_BookBackmatter_OnlinePDF_TeX_IEq2" media-type="image/png"/>
+    <item href="images/483209_1_En_BookBackmatter_Tab4_HTML.png" id="Aimages_483209_1_En_BookBackmatter_Tab4_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_BookBackmatter_OnlinePDF_TeX_IEq3.png" id="Aimages_483209_1_En_BookBackmatter_OnlinePDF_TeX_IEq3" media-type="image/png"/>
+    <item href="images/483209_1_En_BookFrontmatter_Figa_HTML.png" id="Aimages_483209_1_En_BookFrontmatter_Figa_HTML" media-type="image/png"/>
+    <item href="images/978-3-031-28218-8_CoverFigure.jpg" id="Aimages_978-3-031-28218-8_CoverFigure" media-type="image/jpeg" properties="cover-image"/>
+    <item href="images/483209_1_En_BookBackmatter_OnlinePDF_TeX_IEq1.png" id="Aimages_483209_1_En_BookBackmatter_OnlinePDF_TeX_IEq1" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equl.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equl" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Fig3_HTML.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Fig3_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Fig7_HTML.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Fig7_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equd.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equd" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Fig8_HTML.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Fig8_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Fig1_HTML.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Fig1_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq19.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq19" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq12.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq12" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equx.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equx" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equr.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equr" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equc.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equc" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equk.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equk" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Fig2_HTML.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Fig2_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Fig5_HTML.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Fig5_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equcz.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equcz" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq20.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq20" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq8.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq8" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equw.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equw" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equb.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equb" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equi.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equi" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq6.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq6" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq5.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq5" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq7.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq7" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equv.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equv" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Eque.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Eque" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq9.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq9" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equo.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equo" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equt.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equt" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equa.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equa" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equj.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equj" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq22.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq22" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Fig9_HTML.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Fig9_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equg.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equg" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq17.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq17" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equaz.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equaz" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq10.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq10" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq3.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq3" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Fig4_HTML.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Fig4_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq11.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq11" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equn.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equn" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equy.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equy" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq15.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq15" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equh.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equh" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equs.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equs" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq24.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq24" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equu.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equu" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq2.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq2" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equf.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equf" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq13.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq13" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Fig6_HTML.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Fig6_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq18.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq18" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equm.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equm" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq14.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq14" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq21.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq21" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_Equbz.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_Equbz" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq23.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq23" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq1.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq1" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq16.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq16" media-type="image/png"/>
+    <item href="images/483209_1_En_3_Chapter/483209_1_En_3_Chapter_TeX_IEq4.png" id="Aimages_483209_1_En_3_Chapter_483209_1_En_3_Chapter_TeX_IEq4" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig2_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig2_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig19_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig19_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig24_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig24_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig29_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig29_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig17_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig17_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig22_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig22_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig9_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig9_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig8_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig8_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig26_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig26_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Chapter_TeX_Equ7.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Chapter_TeX_Equ7" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig20_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig20_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig21_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig21_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig16_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig16_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig27_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig27_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig3_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig3_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig13_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig13_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Chapter_TeX_Equ1.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Chapter_TeX_Equ1" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Chapter_TeX_Equ3.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Chapter_TeX_Equ3" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Chapter_TeX_Equ8.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Chapter_TeX_Equ8" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig11_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig11_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig30_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig30_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig15_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig15_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Figa_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Figa_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Chapter_TeX_IEq1.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Chapter_TeX_IEq1" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig23_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig23_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig14_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig14_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Chapter_TeX_Equ6.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Chapter_TeX_Equ6" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig18_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig18_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig10_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig10_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig31_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig31_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig12_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig12_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig32_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig32_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Chapter_TeX_Equ2.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Chapter_TeX_Equ2" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig1_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig1_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Chapter_TeX_Equ5.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Chapter_TeX_Equ5" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig4_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig4_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Chapter_TeX_Equ4.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Chapter_TeX_Equ4" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig25_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig25_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig7_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig7_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig28_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig28_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig5_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig5_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_9_Chapter/483209_1_En_9_Fig6_HTML.png" id="Aimages_483209_1_En_9_Chapter_483209_1_En_9_Fig6_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq3.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq3" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equcz.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equcz" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Fig9_HTML.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Fig9_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq22.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq22" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq4.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq4" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq20.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq20" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq14.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq14" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equag.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equag" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equad.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equad" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq17.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq17" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq1.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq1" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equj.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equj" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equ1.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equ1" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Fig6_HTML.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Fig6_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Fig4_HTML.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Fig4_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq21.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq21" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equaa.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equaa" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equac.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equac" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equp.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equp" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq16.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq16" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq9.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq9" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equdz.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equdz" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equay.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equay" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq10.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq10" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equabc.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equabc" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equc.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equc" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq2.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq2" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equabd.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equabd" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Eque.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Eque" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equh.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equh" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq15.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq15" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq19.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq19" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equf.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equf" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equb.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equb" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq13.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq13" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq11.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq11" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equl.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equl" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq18.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq18" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equae.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equae" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equa.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equa" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equ2.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equ2" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equg.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equg" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Fig2_HTML.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Fig2_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equm.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equm" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equab.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equab" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equo.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equo" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq12.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq12" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equaf.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equaf" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equez.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equez" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equ3.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equ3" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq25.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq25" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Fig1_HTML.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Fig1_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq5.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq5" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq7.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq7" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equi.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equi" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Fig3_HTML.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Fig3_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equaz.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equaz" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Fig7_HTML.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Fig7_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Fig5_HTML.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Fig5_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Fig8_HTML.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Fig8_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equd.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equd" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equfz.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equfz" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq6.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq6" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq24.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq24" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq23.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq23" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equk.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equk" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_Equn.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_Equn" media-type="image/png"/>
+    <item href="images/483209_1_En_5_Chapter/483209_1_En_5_Chapter_TeX_IEq8.png" id="Aimages_483209_1_En_5_Chapter_483209_1_En_5_Chapter_TeX_IEq8" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig23_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig23_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig18_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig18_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig17_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig17_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig16_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig16_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig13_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig13_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig10_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig10_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig4_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig4_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig22_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig22_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig8_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig8_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig9_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig9_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig3_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig3_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig21_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig21_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig12_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig12_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig19_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig19_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig11_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig11_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig24_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig24_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig1_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig1_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Chapter_TeX_Equb.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Chapter_TeX_Equb" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig5_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig5_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig2_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig2_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig15_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig15_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig14_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig14_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig20_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig20_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Chapter_TeX_Equa.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Chapter_TeX_Equa" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig6_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig6_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_10_Chapter/483209_1_En_10_Fig7_HTML.png" id="Aimages_483209_1_En_10_Chapter_483209_1_En_10_Fig7_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Chapter_TeX_IEq1.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Chapter_TeX_IEq1" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Fig4_HTML.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Fig4_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Chapter_TeX_IEq6.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Chapter_TeX_IEq6" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Fig6_HTML.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Fig6_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Fig5_HTML.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Fig5_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Fig2_HTML.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Fig2_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Fig3_HTML.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Fig3_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Fig1_HTML.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Fig1_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Chapter_TeX_Equa.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Chapter_TeX_Equa" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Fig8_HTML.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Fig8_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Fig10_HTML.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Fig10_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Chapter_TeX_IEq5.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Chapter_TeX_IEq5" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Fig7_HTML.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Fig7_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Fig9_HTML.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Fig9_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Chapter_TeX_IEq3.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Chapter_TeX_IEq3" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Chapter_TeX_IEq4.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Chapter_TeX_IEq4" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Chapter_TeX_IEq7.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Chapter_TeX_IEq7" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Chapter_TeX_IEq2.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Chapter_TeX_IEq2" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Chapter_TeX_Equb.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Chapter_TeX_Equb" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Chapter_TeX_IEq8.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Chapter_TeX_IEq8" media-type="image/png"/>
+    <item href="images/483209_1_En_2_Chapter/483209_1_En_2_Chapter_TeX_Equc.png" id="Aimages_483209_1_En_2_Chapter_483209_1_En_2_Chapter_TeX_Equc" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig26_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig26_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig22_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig22_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig32_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig32_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Chapter_TeX_Equaag.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Chapter_TeX_Equaag" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig15_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig15_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig29_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig29_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig10_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig10_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Chapter_TeX_Equaan.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Chapter_TeX_Equaan" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig20_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig20_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig13_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig13_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig7_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig7_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig31_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig31_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Figd_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Figd_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig1_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig1_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig21_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig21_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig19_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig19_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Figb_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Figb_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Chapter_TeX_IEq1.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Chapter_TeX_IEq1" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig16_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig16_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Chapter_TeX_Equaab.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Chapter_TeX_Equaab" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Chapter_TeX_Equaal.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Chapter_TeX_Equaal" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig28_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig28_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Figc_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Figc_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Chapter_TeX_Equaam.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Chapter_TeX_Equaam" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig6_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig6_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig18_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig18_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig5_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig5_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig12_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig12_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Chapter_TeX_Equa.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Chapter_TeX_Equa" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig3_HTML.jpg" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig3_HTML" media-type="image/jpeg"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig9_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig9_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig33_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig33_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig4_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig4_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig23_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig23_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig24_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig24_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Chapter_TeX_Equb.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Chapter_TeX_Equb" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Figa_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Figa_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Chapter_TeX_Equaao.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Chapter_TeX_Equaao" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Chapter_TeX_Equaac.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Chapter_TeX_Equaac" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig11_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig11_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig8_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig8_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig17_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig17_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig2_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig2_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig25_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig25_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig27_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig27_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig30_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig30_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_6_Chapter/483209_1_En_6_Fig14_HTML.png" id="Aimages_483209_1_En_6_Chapter_483209_1_En_6_Fig14_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_1_Chapter/483209_1_En_1_Fig5_HTML.png" id="Aimages_483209_1_En_1_Chapter_483209_1_En_1_Fig5_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_1_Chapter/483209_1_En_1_Fig4_HTML.png" id="Aimages_483209_1_En_1_Chapter_483209_1_En_1_Fig4_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_1_Chapter/483209_1_En_1_Fig2_HTML.png" id="Aimages_483209_1_En_1_Chapter_483209_1_En_1_Fig2_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_1_Chapter/483209_1_En_1_Fig1_HTML.png" id="Aimages_483209_1_En_1_Chapter_483209_1_En_1_Fig1_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_1_Chapter/483209_1_En_1_Fig3_HTML.png" id="Aimages_483209_1_En_1_Chapter_483209_1_En_1_Fig3_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig22_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig22_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig23_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig23_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig20_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig20_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equo.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equo" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equm.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equm" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig13_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig13_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig10_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig10_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Eque.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Eque" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig26_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig26_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig11_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig11_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig2_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig2_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equa.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equa" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig14_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig14_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equb.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equb" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equp.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equp" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equc.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equc" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig18_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig18_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equf.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equf" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig3_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig3_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig21_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig21_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig19_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig19_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equv.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equv" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig7_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig7_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig5_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig5_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig15_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig15_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equu.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equu" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equn.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equn" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig6_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig6_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equl.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equl" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig8_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig8_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equr.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equr" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equs.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equs" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig24_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig24_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equg.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equg" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equi.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equi" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig1_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig1_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig4_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig4_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equq.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equq" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig16_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig16_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equd.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equd" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equh.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equh" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equt.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equt" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig12_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig12_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig17_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig17_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig9_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig9_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Fig25_HTML.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Fig25_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equk.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equk" media-type="image/png"/>
+    <item href="images/483209_1_En_8_Chapter/483209_1_En_8_Chapter_TeX_Equj.png" id="Aimages_483209_1_En_8_Chapter_483209_1_En_8_Chapter_TeX_Equj" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig18_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig18_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig13_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig13_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig17_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig17_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig6_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig6_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig25_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig25_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig10_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig10_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig26_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig26_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig7_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig7_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig1_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig1_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig11_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig11_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig27_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig27_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig21_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig21_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig22_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig22_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig24_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig24_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Chapter_TeX_Equa.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Chapter_TeX_Equa" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Chapter_TeX_Equb.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Chapter_TeX_Equb" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig14_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig14_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig12_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig12_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig5_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig5_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig3_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig3_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig8_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig8_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig4_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig4_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig9_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig9_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig15_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig15_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig19_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig19_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig2_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig2_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig20_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig20_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig23_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig23_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_7_Chapter/483209_1_En_7_Fig16_HTML.png" id="Aimages_483209_1_En_7_Chapter_483209_1_En_7_Fig16_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Fig5_HTML.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Fig5_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Fig8_HTML.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Fig8_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Chapter_TeX_IEq1.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Chapter_TeX_IEq1" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Fig2_HTML.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Fig2_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Chapter_TeX_Equa.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Chapter_TeX_Equa" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Fig7_HTML.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Fig7_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Fig6_HTML.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Fig6_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Chapter_TeX_Equc.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Chapter_TeX_Equc" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Fig1_HTML.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Fig1_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Fig9_HTML.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Fig9_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Fig4_HTML.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Fig4_HTML" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Chapter_TeX_IEq2.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Chapter_TeX_IEq2" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Chapter_TeX_Equb.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Chapter_TeX_Equb" media-type="image/png"/>
+    <item href="images/483209_1_En_4_Chapter/483209_1_En_4_Fig3_HTML.png" id="Aimages_483209_1_En_4_Chapter_483209_1_En_4_Fig3_HTML" media-type="image/png"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="ACover" linear="no"/>
+    <itemref idref="A483209_1_En_BookFrontmatter_OnlinePDF"/>
+    <itemref idref="A483209_1_En_1_Chapter"/>
+    <itemref idref="A483209_1_En_2_Chapter"/>
+    <itemref idref="A483209_1_En_3_Chapter"/>
+    <itemref idref="A483209_1_En_4_Chapter"/>
+    <itemref idref="A483209_1_En_5_Chapter"/>
+    <itemref idref="A483209_1_En_6_Chapter"/>
+    <itemref idref="A483209_1_En_7_Chapter"/>
+    <itemref idref="A483209_1_En_8_Chapter"/>
+    <itemref idref="A483209_1_En_9_Chapter"/>
+    <itemref idref="A483209_1_En_10_Chapter"/>
+    <itemref idref="A483209_1_En_BookBackmatter_OnlinePDF"/>
+  </spine>
+  <guide>
+    <reference href="html/Cover.xhtml" title="Cover" type="cover"/>
+    <reference href="html/483209_1_En_BookFrontmatter_OnlinePDF.xhtml#Toc" title="Table of Contents" type="toc"/>
+    <reference href="html/483209_1_En_1_Chapter.xhtml" title="Body Matter" type="text"/>
+  </guide>
+</package>

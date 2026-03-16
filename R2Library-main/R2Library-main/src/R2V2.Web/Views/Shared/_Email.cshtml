@@ -1,0 +1,84 @@
+﻿@model R2V2.Core.Authentication.IUserEmailOptions
+
+@using (Html.BeginForm(@Model.ActionName, @Model.ControllerName, new { }, FormMethod.Post, new { Id = "EmailOptionForm" }))
+{
+    <div class="group-actions-wrapper">
+        <div class="clearfix group-actions" data-implement="fixed">
+            <ul class="actions">
+                <li><button class="btn-medium" type="submit" id="SubmitButton"><span>Save</span></button></li>
+                <li><a class="btn btn-medium" data-history="back"><span>Cancel</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="tablecontent">
+        @Html.HiddenFor(x => x.SubscribedOptions)
+        @Html.HiddenFor(x => x.UnSubscribedOptions)
+        @Html.HiddenFor(x=>x.IsSelf)
+        @Html.HiddenFor(x=>x.UserId)
+        <table class="edit">
+            <tbody>
+                @if (Model.OtherOptions().Any())
+                {
+                    <tr>
+                        <th colspan="3" style="background-color: #dde5eb; font-weight: bold; padding: 5px 10px; text-align: left; font-size: 1em; ">On Demand Notifications</th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Subscribe</th>
+                        <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Unsubscribe</th>
+                        <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Notification</th>
+                    </tr>
+                    foreach (var option in Model.OtherOptions())
+                    {
+                        <tr>
+                            <td>@Html.RadioButton(option.Code.ToString(), true, option.Value)</td>
+                            <td>@Html.RadioButton(option.Code.ToString(), false, option.Value == false)</td>
+                            <td>@Html.Raw(option.Description)</td>
+                        </tr>
+                    }
+                }
+
+                @if (Model.WeeklyOptions().Any())
+                {
+                    <tr>
+                        <th colspan="3" style="background-color: #dde5eb; font-weight: bold; padding: 5px 10px; text-align: left; font-size: 1em; ">Weekly Notifications</th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Subscribe</th>
+                        <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Unsubscribe</th>
+                        <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Notification</th>
+                    </tr>
+                    foreach (var option in Model.WeeklyOptions())
+                    {
+                        <tr>
+                            <td>@Html.RadioButton(option.Code.ToString(), true, option.Value)</td>
+                            <td>@Html.RadioButton(option.Code.ToString(), false, option.Value == false)</td>
+                            <td>@Html.Raw(option.Description)</td>
+                        </tr>
+                    }
+                }
+
+                @if (Model.MonthlyOptions().Any())
+                {
+                    <tr>
+                        <th colspan="3" style="background-color: #dde5eb; font-weight: bold; padding: 5px 10px; text-align: left; font-size: 1em; ">Monthly Notifications</th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Subscribe</th>
+                        <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Unsubscribe</th>
+                        <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Notification</th>
+                    </tr>
+                    foreach (var option in Model.MonthlyOptions())
+                    {
+                        <tr>
+                            <td>@Html.RadioButton(option.Code.ToString(), true, option.Value)</td>
+                            <td>@Html.RadioButton(option.Code.ToString(), false, option.Value == false)</td>
+                            <td>@Html.Raw(option.Description)</td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+}

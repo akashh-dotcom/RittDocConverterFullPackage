@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RittenhouseWebLoader>
+	<EmailConfigurations>
+		<EmailConfiguration type="Success" send="true">
+			<ToAddresses>
+				<EmailAddress>thomas.bradford@rittenhouse.com</EmailAddress>
+			</ToAddresses>
+		</EmailConfiguration>
+		<EmailConfiguration type="Error" send="true">
+			<ToAddresses>
+				<EmailAddress>thomas.bradford@rittenhouse.com</EmailAddress>
+			</ToAddresses>
+		</EmailConfiguration>
+	</EmailConfigurations>
+</RittenhouseWebLoader>

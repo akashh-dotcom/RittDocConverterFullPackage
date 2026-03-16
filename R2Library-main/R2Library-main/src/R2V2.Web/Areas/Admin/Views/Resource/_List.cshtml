@@ -1,0 +1,209 @@
+﻿@using R2V2.Core.Resource
+@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.Resource.ResourcesList
+
+<div id="content" class="content" role="main">
+    <h1>Resource Management</h1>
+
+    @if (Model.ActionsMenu != null)
+    {
+        using (Html.BeginForm())
+        {
+            <div class="display-per-page no-inst">
+                <p class="screenreader">Choose the number of titles to display per page.</p>
+                @Html.DropDownListFor(x => x.ResourceQuery.PageSize, Model.PageSizeSelectList, new { onchange = "this.form.submit();" })
+                @Html.LabelFor(x => x.PageSizeSelectList)
+            </div>
+            @Html.HiddenFor(x => x.ResourceQuery.Query)
+            @Html.HiddenFor(x => x.ResourceQuery.ResourceStatus)
+            @Html.HiddenFor(x => x.ResourceQuery.ResourceFilterType)
+            @Html.HiddenFor(x => x.ResourceQuery.SortBy)
+            @Html.HiddenFor(x => x.ResourceQuery.SortDirection)
+            @Html.Hidden("page", "1")
+            @Html.HiddenFor(x => x.ResourceQuery.PracticeAreaFilter)
+            @Html.HiddenFor(x => x.ResourceQuery.SpecialtyFilter)
+            @Html.HiddenFor(x => x.ResourceQuery.CollectionFilter)
+        }
+        
+        <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+            <ul class="actions">
+                <li><a href="@Url.Action("Add")" class="btn btn-medium"><span>Add New Resource</span></a></li>
+            </ul>
+        </div></div>
+        
+    if (Model.PageLinks != null && Model.PageLinks.Count() > 1)
+    {
+            <div class="nav-section-wrapper"><div class="clearfix nav-section" data-implement="fixed">
+                <div class="previous">
+                    @if (Model.PreviousLink.Active)
+                    {
+                        <a href="@Model.FirstLink.Href">&lt; @Model.FirstLink.Text</a>
+                        <a href="@Model.PreviousLink.Href">&lt;&lt; @Model.PreviousLink.Text</a>
+                    }
+                </div>
+
+                <div class="next">
+                    @if (Model.NextLink.Active)
+                    {
+                        <a href="@Model.NextLink.Href">@Model.NextLink.Text &gt;&gt;</a>
+                        <a href="@Model.LastLink.Href">@Model.LastLink.Text &gt;</a>
+                    }
+                </div>
+                    
+                <ul class="nav-number nav-content">
+                    <li><strong>Jump to page:</strong></li>
+                    @foreach (var link in Model.PageLinks)
+                    {
+                        if (link.Active)
+                        {
+                            <li@(StyleHelpers.AddSelectedState(link.Selected))><a href="@Url.Action("List", Model.ResourceQuery.ToRouteValues(link.Text))"><span>@link.Text</span></a></li>
+                        }
+                        else
+                        {
+                            <li><span>@link.Text</span></li>
+                        }
+                    }
+                </ul>
+            </div></div>
+    }
+    }
+        
+    <div class="alertbox">
+        <h3>Displaying results <strong>@string.Format("{0:#,##0} - {1:#,##0}", Model.ResultsFirstItem, Model.ResultsLastItem)</strong> out of <strong>@string.Format("{0:#,##0}", Model.TotalCount)</strong>.</h3>
+        @if (!string.IsNullOrWhiteSpace(Model.SelectedFilters) || (!Model.ResourceQuery.DefaultQuery && Model.ActionsMenu != null))
+        {
+            <div class="criteria clearfix">
+                <p>Search criteria:</p>
+                @if (!string.IsNullOrWhiteSpace(Model.SelectedFilters))
+                {
+                    <ul>
+                        @Html.Raw(Model.SelectedFilters)
+                    </ul>
+                }
+                @if (!Model.ResourceQuery.DefaultQuery && Model.ActionsMenu != null)
+                {
+                    <p><a href="@Url.Action("List", "Resource")">Clear Results</a> or <a href="#sort-and-filter" data-toggle="link">Add More Criteria</a>.</p>
+                }    
+            </div>
+        }
+    </div>
+
+    <div class="tablecontent">
+        <table class="list">
+            <thead>
+                <tr>
+                    <th class="resource-status">&nbsp;</th>
+                    <th class="resource-details">Details</th>
+                    <th class="resource-price">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Resources)
+                {
+                    <tr>
+                        <td class="resource-status">
+                            @ResourceHelpers.ResourceStatus(item.Status)
+                            @ResourceHelpers.ShowListedStatus(item, Model.SpecialIconBaseUrl, Model.ActionsMenu == null)
+                            @if (item.NotSaleable && item.NotSaleableDate.HasValue)
+                            {
+                                <br /><strong>@Html.LabelFor(x => item.NotSaleable)@Html.DisplayFor(x => item.NotSaleableDate)</strong>
+                            }
+                        </td>
+                        <td class="resource-details">
+                            <div class="titleitem">
+                                @if (Model.ActionsMenu != null)
+                                {
+                                    <h2><a href="@Url.Action("Detail", Model.ResourceQuery.ToRouteValues("ResourceId", item.Id))">@Html.DisplayFor(modelItem => item.Title)</a></h2>
+                                }
+                                else
+                                {
+                                    <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+                                }
+                                    @Html.Raw(item.SubTitleDisplay())
+                                @if (item.FeaturedTitleId > 0)
+                                {
+                                    <p>
+                                        @if (Model.ActionsMenu != null)
+                                        {
+                                            <a class="featured-info" rel="tooltip" title="Starting <strong>@item.FeaturedTitleStartDate</strong> to <strong>@item.FeaturedTitleEndDate</strong>">@item.FeaturedTitleStatus()</a>
+                                        }
+                                        else
+                                        {
+                                            @item.FeaturedTitleStatus()
+                                        }
+                                    </p>
+                                }
+                                    
+                                <div class="clearfix title-meta">
+                                    <ul>
+                                        <li>@Html.LabelFor(modelItem => item.Authors) @item.Authors</li>
+                                        <li>@Html.LabelFor(modelItem => item.Affiliation) @Html.Raw(item.Affiliation)</li>
+                                        <li>@Html.LabelFor(modelItem => item.PublisherName) @Html.DisplayFor(modelItem => item.PublisherName)</li>
+                                        <li>@Html.LabelFor(modelItem => item.PublicationDate) @Html.DisplayFor(modelItem => item.PublicationDate)</li>
+                                        <li>@Html.LabelFor(modelItem => item.ReleaseDate) @Html.DisplayFor(modelItem => item.ReleaseDate)</li>
+                                        @if (item.StatusId == (int)ResourceStatus.Forthcoming)
+                                        {
+                                            <li>@Html.LabelFor(modelItem => item.DueDate) @Html.DisplayFor(modelItem => item.DueDate)</li>
+                                        }
+                                        @if (Model.DisplayPromotionFields)
+                                        {
+                                            <li>@Html.LabelFor(modelItem => item.QaApprovalDate) @Html.DisplayFor(modelItem => item.QaApprovalDate)</li>
+                                            <li>@Html.LabelFor(modelItem => item.LastPromotionDate) @Html.DisplayFor(modelItem => item.LastPromotionDate)</li>
+                                        }
+                                        @if (item.StatusId == (int)ResourceStatus.Archived)
+                                        {
+                                            <li>@Html.LabelFor(modelItem => item.ArchiveDate) @Html.DisplayFor(modelItem => item.ArchiveDate)</li>
+                                        }
+                                    </ul>
+
+                                    <ul>
+                                        @if (item.PracticeAreas != null && item.PracticeAreas.Any())
+                                        {
+                                            var firstPracticeArea = true;
+                                            <li>
+                                                @Html.LabelFor(modelItem => item.PracticeAreas)
+                                                @foreach (var practiceArea in item.PracticeAreas)
+                                                {
+                                                    @(firstPracticeArea ? "" : ", ")@practiceArea.Name
+                                                    firstPracticeArea = false;
+                                                }
+                                            </li>
+                                        }
+                                        @if (item.Specialties != null && item.Specialties.Any())
+                                        {
+                                            var firstSpecialty = true;
+                                            <li>
+                                                @Html.LabelFor(modelItem => item.Specialties)
+                                                @foreach (var specialty in item.Specialties)
+                                                {
+                                                    @(firstSpecialty ? "" : ", ")@specialty.Name
+                                                    firstSpecialty = false;
+                                                }    
+                                            </li>
+                                        }
+                                        <li>@Html.LabelFor(modelItem => item.Isbn10) @Html.DisplayFor(modelItem => item.Isbn10)</li>
+                                        <li>@Html.LabelFor(modelItem => item.Isbn13) @Html.DisplayFor(modelItem => item.Isbn13)</li>
+                                        @if (item.EIsbn != null)
+                                        {
+                                            <li>@Html.LabelFor(modelItem => item.EIsbn) @Html.DisplayFor(modelItem => item.EIsbn)</li>
+                                        }
+                                        <li>@Html.LabelFor(modelItem => item.Edition) @Html.DisplayFor(modelItem => item.Edition)</li>
+                                        @if (!string.IsNullOrEmpty(item.PromotionQueueStatus))
+                                        {
+                                            <li>&nbsp;</li>
+                                            <li>@Html.LabelFor(modelItem => item.PromotionQueueStatus) @Html.DisplayFor(modelItem => item.PromotionQueueStatus)</li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div style="color: #008000">@Html.DisplayFor(x=> item.SpecialText)</div>
+                        </td>
+                        <td class="resource-price">
+                            @PurchaseHelper.GetPriceDisplay(item)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

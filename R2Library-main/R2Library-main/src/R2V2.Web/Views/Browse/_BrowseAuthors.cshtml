@@ -1,0 +1,8 @@
+﻿@model R2V2.Web.Models.AuthorSummaries
+           
+@if (Model != null && Model.Authors != null && Model.Authors.Any())
+{
+    <h1>Browse by Author</h1>
+
+    @Html.Partial("_Authors", Model)
+}

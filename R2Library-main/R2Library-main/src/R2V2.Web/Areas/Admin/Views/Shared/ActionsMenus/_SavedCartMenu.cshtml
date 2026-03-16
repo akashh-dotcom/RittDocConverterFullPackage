@@ -1,0 +1,54 @@
+﻿@using R2V2.Core.CollectionManagement
+@model R2V2.Web.Areas.Admin.Models.Menus.ActionsMenu
+
+
+@if (Model.DisplaySavedCartLink)
+{
+    <li>
+        <a href="#saved-carts" class="tools" role="button" aria-expanded="false" aria-controls="saved-carts">Saved Carts (@Model.SavedCartsCount)</a>
+        <div id="saved-carts" class="megamenu" data-panel="menu">
+            @if (Model.SavedCartsCount > 0)
+            {
+                <div>
+                    <table style="margin-left: 10px; margin-top: 15px">
+                        @foreach (var cart in Model.AllCarts.Where(x=> x.CartType == CartTypeEnum.Active))
+                        {
+                            <tr>
+                                <td rowspan="2">@Html.ActionLink(cart.CartName ?? "Default Cart", "ShoppingCart", "Cart", new { cart.InstitutionId, cartId = cart.Id }, null)</td>
+                                <td><b>@Html.LabelFor(x => cart.ItemCount)</b>@Html.DisplayFor(x => cart.ItemCount)</td>
+                                <td><b>@Html.LabelFor(x => cart.Total)</b>@Html.DisplayFor(x => cart.Total)</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 10px;"><b>@Html.LabelFor(x => cart.CreatedBy)</b>@Html.DisplayFor(x => cart.CreatedBy)</td>
+                                <td style="padding-bottom: 10px;"><b>@Html.LabelFor(x => cart.CreatedDate)</b>@Html.DisplayFor(x => cart.CreatedDate)</td>
+                                <td style="padding-bottom: 10px;"><b>@Html.LabelFor(x => cart.UpdatedDate)</b>@Html.DisplayFor(x => cart.UpdatedDate)</td>
+                            </tr>
+                        }
+                        @foreach (var cart in Model.AllCarts.Where(x => x.CartType != CartTypeEnum.Active))
+{
+                            <tr>
+                                <td rowspan="2">@Html.ActionLink(cart.CartName ?? "Default Cart", "ShoppingCart", "Cart", new {cart.InstitutionId, cartId = cart.Id}, null)</td>
+                                <td><b>@Html.LabelFor(x => cart.ItemCount)</b>@Html.DisplayFor(x => cart.ItemCount)</td>
+                                <td><b>@Html.LabelFor(x => cart.Total)</b>@Html.DisplayFor(x => cart.Total)</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 10px;"><b>@Html.LabelFor(x => cart.CreatedBy)</b>@Html.DisplayFor(x => cart.CreatedBy)</td>
+                                <td style="padding-bottom: 10px;"><b>@Html.LabelFor(x => cart.CreatedDate)</b>@Html.DisplayFor(x => cart.CreatedDate)</td>
+                                <td style="padding-bottom: 10px;"><b>@Html.LabelFor(x => cart.UpdatedDate)</b>@Html.DisplayFor(x => cart.UpdatedDate)</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div>
+                    You have no saved carts. You can save a cart once on the shopping cart page. 
+                </div>
+            }
+        </div>
+    </li>
+}
+

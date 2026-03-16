@@ -1,0 +1,23 @@
+﻿@model R2V2.Web.Models.SpecialtyDetail
+		
+@if (Model != null && Model.Resources != null)
+{
+    if (Model.BrowseQuery.Page > 1)
+    {
+        foreach (var resource in Model.Resources)
+        {
+            @Html.Partial("_ResourceSummary", resource)
+        }
+    }
+    else
+    {
+        <h1>@Model.Name Resources</h1>
+    
+        <div id="resource-summaries" class="titlelist">
+            @foreach (var resource in @Model.Resources)
+            {
+                @Html.Partial("_ResourceSummary", resource)
+            }
+        </div>
+    }
+}

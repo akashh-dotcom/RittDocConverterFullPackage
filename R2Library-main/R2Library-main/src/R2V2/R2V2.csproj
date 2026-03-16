@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net481</TargetFramework>
+    <ProjectGuid>{B3071828-95B4-49E2-8881-D418348710D5}</ProjectGuid>
+    <AssemblyName>R2V2</AssemblyName>
+    <RootNamespace>R2V2</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.4.0" />
+    <PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="6.1.0" />
+
+    <PackageReference Include="ClosedXML" Version="0.75.0" />
+    <PackageReference Include="Common.Logging" Version="3.4.1" />
+    <PackageReference Include="CommonServiceLocation" Version="1.0.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.5" />
+    <PackageReference Include="DotNetZip" Version="1.9.8" />
+    <PackageReference Include="EasyNetQ" Version="2.3.1" />
+    <PackageReference Include="FluentNHibernate" Version="3.4.1" />
+    <PackageReference Include="Iesi.Collections" Version="4.1.1" />
+    <PackageReference Include="log4net" Version="3.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="NHibernate" Version="5.6.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
+    <PackageReference Include="RestSharp" Version="105.2.3" />
+  </ItemGroup><ItemGroup>
+    <Reference Include="dtSearchNetApi4">
+      <HintPath>..\..\Libs\DtSearch\dtSearchNetApi4.dll</HintPath>
+    </Reference>
+  </ItemGroup><ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+  </ItemGroup>
+
+  <!-- COM references are not supported in .NET Core SDK style projects
+  <ItemGroup>
+    <COMReference Include="dtengine">
+      <Guid>{A967E5C4-B0E1-11D3-B57C-00105AA461D0}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  -->
+
+</Project>

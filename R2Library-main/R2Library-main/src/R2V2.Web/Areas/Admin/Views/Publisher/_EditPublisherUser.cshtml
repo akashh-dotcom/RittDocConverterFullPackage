@@ -1,0 +1,96 @@
+﻿@model R2V2.Web.Areas.Admin.Models.PublisherConsolidation.PublisherDetail
+
+@using (Html.BeginForm("SavePublisherUser", "Publisher", new { publisherId = Model.EditPublisher.Id }))
+{
+    <div class="tablecontent">
+        @if (Model.EditPublisherUser != null)
+        {
+            @Html.HiddenFor(x => Model.EditPublisher.Id)
+            @Html.HiddenFor(x => Model.EditPublisherUser.Id)
+            @Html.HiddenFor(x => Model.EditPublisherUser.Password)
+            @Html.HiddenFor(x => Model.EditPublisherUser.PublisherId)
+            //@Html.HiddenFor(x => Model.EditPublisherUser.RecordStatus)
+        }
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="publisher-user-status">Status</th>
+                    <th class="publisher-user-name">Username</th>
+                    <th class="publisher-user-pw">Password</th>
+                    <th class="publisher-user-confirmpw">Confirm Password</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.EditPublisherUser != null && Model.EditPublisherUser.Id == -1)
+                {            
+                    <tr>
+                        <td class="publisher-user-status"></td>
+                        <td class="publisher-user-name">
+                            @Html.EditorFor(x => Model.EditPublisherUser.UserName)
+                            @Html.ValidationMessageFor(x => Model.EditPublisherUser.UserName)
+                        </td>
+                        <td class="publisher-user-password">
+                            @Html.PasswordFor(x => Model.EditPublisherUser.NewPassword)
+                            @Html.ValidationMessageFor(x => Model.EditPublisherUser.NewPassword)
+                        </td>
+                        <td class="publisher-user-confirmpassword">
+                            @Html.PasswordFor(x => Model.EditPublisherUser.ConfirmPassword)
+                            @Html.ValidationMessageFor(x => Model.EditPublisherUser.ConfirmPassword)
+                        </td>
+                        <td class="actions">
+                            <button class="btn-medium" type="submit"><span>Save</span></button>
+                            <a class="btn btn-medium" href="@Url.Action("Detail", new { publisherId = Model.EditPublisher.Id, publisherUserId = 0 })"><span>Cancel</span></a>
+                        </td>
+                    </tr>
+                }
+                else if (Model.PublisherUsers == null || !Model.PublisherUsers.Any())
+                {
+                    <tr>
+                        <td colspan="5">There are no users associated with this Publisher</td>
+                    </tr>
+                }
+                               
+                @foreach (var item in Model.PublisherUsers)
+                {
+                    if (Model.EditPublisherUser != null && Model.EditPublisherUser.Id == item.Id)
+                    {
+                        <tr>
+                            <td class="publisher-user-status">@Html.EditorFor(x => Model.EditPublisherUser.RecordStatus)</td>
+                            <td class="publisher-user-name">
+                                @Html.EditorFor(x => Model.EditPublisherUser.UserName)
+                                @Html.ValidationMessageFor(x => Model.EditPublisherUser.UserName)
+                            </td>
+                            <td class="publisher-user-password">
+                                @Html.PasswordFor(x => Model.EditPublisherUser.NewPassword)
+                                @Html.ValidationMessageFor(x => Model.EditPublisherUser.NewPassword)
+                            </td>
+                            <td class="publisher-user-confirmpassword">
+                                @Html.PasswordFor(x => Model.EditPublisherUser.ConfirmPassword)
+                                @Html.ValidationMessageFor(x => Model.EditPublisherUser.ConfirmPassword)
+                            </td>
+                            <td class="actions">
+                                <button class="btn-medium" type="submit"><span>Save</span></button>
+                                <a class="btn btn-medium" href="@Url.Action("Detail", new { publisherId = Model.EditPublisher.Id, publisherUserId = 0 })"><span>Cancel</span></a>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="publisher-user-status"><strong class="@item.RecordStatusValue.ToLower().Replace(" ", "-")">@item.RecordStatusValue</strong></td>
+                            <td class="publisher-user-name">@item.UserName</td>
+                            <td class="publisher-user-password"></td>
+                            <td class="publisher-user-confirmpassword"></td>
+                            <td class="actions">
+                                <a class="btn btn-medium" href="@Url.Action("EditPublisherUser", new { publisherId = Model.EditPublisher.Id, publisherUserId = item.Id })"><span>Edit</span></a>
+                                <a class="btn btn-medium" href="@Url.Action("DeletePublisherUser", new { publisherId = Model.EditPublisher.Id, publisherUserId = item.Id })"><span>Delete</span></a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+}

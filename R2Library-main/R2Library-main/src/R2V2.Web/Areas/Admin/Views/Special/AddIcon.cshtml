@@ -1,0 +1,74 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Special.SpecialIcon
+
+@{
+    ViewBag.Title = "Special Detail";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    
+
+<div class="clearfix fullcol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Special Edit</h1>
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><a href="@Url.Action("Edit", new{ Model.SpecialId })" class="btn btn-medium"><span>Cancel</span></a></li>
+                    <li><button class="btn-medium" type="submit"><span>Submit</span></button></li>
+                </ul>
+            </div>
+        </div>
+        <table class="edit">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="title-image-upload">
+                            <div class="actions remove-image">
+                                @Html.ValidationMessageFor(x => Model.SpecialId)
+                                @Html.HiddenFor(x=>x.SpecialId)
+                                <h3>Required icon specifications:</h3>
+                                <ul class="clearfix">
+                                    <li><strong>Format:</strong> Transparent PNG, JPG or GIF</li>
+                                    <li><strong>Maximum width:</strong> <span>28</span>px</li>
+                                    <li><strong>Maximum height:</strong> <span>28</span>px</li>
+                                </ul>
+                                <input type="file" name="file"  />
+                                @*<button class="btn-medium" type="submit" name="ActionType" value="VerifyImage"><span>Save Image</span></button>*@
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+
+        
+
+        @*@Html.Partial("_EditSpecial1")
+        
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><a href="@Url.Action("AddDiscount", new{specialId = Model.Special.Id})" class="btn btn-medium"><span>Add Discount</span></a></li>
+                    <li><a href="@Url.Action("AddDiscount", new{specialId = Model.Special.Id})" class="btn btn-medium"><span>Manage Icons</span></a></li>
+                </ul>                              
+            </div>
+        </div>
+        @Html.Partial("_EditDiscounts1")
+        
+        @Html.Partial("_EditResources")*@
+        
+
+    </div>
+</div>
+
+}
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+}

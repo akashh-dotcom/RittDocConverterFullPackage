@@ -1,0 +1,61 @@
+﻿@model R2V2.Web.Models.Resource.ResourceDetail
+
+<div id="export-citation" class="panel" data-panel="exportcitation">
+    @using (Html.BeginForm("Download", "Citation"))
+    {
+        <input type="hidden" name="resourceId" value="@Model.Id" />
+        <input type="hidden" name="url" value="@Model.LinkUrl" />
+
+        <p>Citations are available for download in the following formats:</p>
+
+        <ul class="radio-group">
+            <li><label class="radio"><input type="radio" name="format" value="apa" /> APA Format</label></li>
+            <li><label class="radio"><input type="radio" name="format" value="endnote" /> EndNote</label></li>
+            <li><label class="radio"><input type="radio" name="format" value="refworks" /> RefWorks</label></li>
+            <li><label class="radio"><input type="radio" name="format" value="procite" /> ProCite</label></li>
+        </ul>
+
+        <div id="apa" class="citation">
+            <ol>
+                <li>
+                    <div class="textarea">@Html.Raw(Model.ApaCitation)</div>
+                </li>
+                <li class="actions">
+                    <button type="submit" class="btn btn-medium"><span>Download</span></button>
+                    <button type="reset" class="btn btn-medium"><span>Cancel</span></button>
+                </li>
+            </ol>
+        </div>
+        
+        <div id="endnote" class="citation">
+            <ol>
+                <li>@Html.TextAreaFor(x => x.EndNoteCitation)</li>
+                <li class="actions">
+                    <button type="submit" class="btn btn-medium"><span>Download</span></button>
+                    <button type="reset" class="btn btn-medium"><span>Cancel</span></button>
+                </li>
+            </ol>
+        </div>
+
+        <div id="refworks" class="citation">
+            <ol>
+                <li>@Html.TextAreaFor(x => x.RefWorksCitation)</li>
+                <li class="actions">
+                    <button type="submit" class="btn btn-medium"><span>Download</span></button>
+                    <a href="http://www.refworks.com/express/ExpressImport.asp?vendor=R2%20Digital%20Library&filter=RefWorks%20Tagged%20Format&encoding=65001&url=@Url.Encode(Url.Action("ExportRefWorks", "Citation", new { resourceId = Model.Id, url = Model.LinkUrl }, "http"))" class="btn btn-medium" data-dismiss="menu" target="_blank" data-toggle="window" data-target="RefWorksMain"><span>Export</span></a>
+                    <button type="reset" class="btn btn-medium"><span>Cancel</span></button>
+                </li>
+            </ol>
+        </div>
+
+        <div id="procite" class="citation">
+            <ol>
+                <li>@Html.TextAreaFor(x => x.ProCiteCitation)</li>
+                <li class="actions">
+                    <button type="submit" class="btn btn-medium"><span>Download</span></button>
+                    <button type="reset" class="btn btn-medium"><span>Cancel</span></button>
+                </li>
+            </ol>
+        </div>
+    }
+</div>

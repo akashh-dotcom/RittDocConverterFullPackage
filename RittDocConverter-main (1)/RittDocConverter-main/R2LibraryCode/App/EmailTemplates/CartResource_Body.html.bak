@@ -1,0 +1,44 @@
+<p>This is a friendly reminder that you have items saved in your R2 Digital Library <a href="{CartUrl}" style="color:#2B6395; text-decoration:none;" target="_blank">shopping cart</a>. You can <a href="{CartUrl}" style="color:#2B6395; text-decoration:none;" target="_blank">complete your purchase</a> by logging in and selecting "checkout" from your shopping cart.</p>
+<p>Have questions about the R2 Digital Library? Email customer service at <a href="mailto:customerservice@r2library.com" style="color:#2B6395; text-decoration:none;">customerservice@r2library.com</a> or call Rittenhouse Customer Service at 800.345.6425. Thank you for using the R2 Digital Library.</p>
+{Unsubscribe}
+		
+<div class="tablecontent">
+	<table>
+		<thead>
+			<tr>
+				<th class="status">&nbsp;</th>
+				<th class="details">Details</th>
+				<th class="licenses"># of Licenses</th>
+				<th class="price">Price</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--<tr>
+				<td colspan="4">&nbsp;</td>
+			</tr>-->
+			<!-- Starts the Cart_Item-->
+			{Resource_Body}
+			<!-- Ends the Cart_Item-->
+		<tbody>
+		<tfoot>
+			<tr>
+				<td></td>
+				<th>Subtotal</th>
+				<td class="licenses">{TotalLicenses}</td>
+				<td class="price">{TotalRetailPrice}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<th>Discount</th>
+				<td class="licenses">{InstitutionDiscount}</td>
+				<td class="price">({DiscountTotal})</td>
+			</tr>
+			<tr>
+				<td></td>
+				<th>Total</th>
+				<td class="licenses"></td>
+				<td class="price">{TotalDiscountPrice}</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>

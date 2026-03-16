@@ -1,0 +1,223 @@
+﻿@using R2V2.Core.Institution
+@model R2V2.Web.Areas.Admin.Models.TrialInstitution.TrialInstitution
+
+<form action="" method="post">
+	@*@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "trialForm" }))
+	{*@
+		@Html.HiddenFor(x => x.InstitutionTrial.AccountNumber)
+		@Html.HiddenFor(x => x.User.UserName)
+
+		<div class="group-actions-wrapper">
+			<div class="clearfix group-actions" data-implement="fixed">
+				<ul class="actions">
+					@if (Model.IsTestMode)
+					{
+						<li>
+							<button class="btn-medium" type="submit" value="TestProcessTrial" name="action:TestProcessTrial"><span>Create Test</span></button>
+							@*<button class="btn-medium" type="submit" id="SubmitTrial" onClick="this.form.submit();return false;"><span>Create</span></button>*@
+						</li>
+					}
+					else
+					{
+						<li>
+							<button class="btn-medium" type="submit" value="ProcessTrial" name="action:ProcessTrial"><span>Create</span></button>
+							@*<button class="btn-medium" type="submit" id="SubmitTrial" onClick="this.form.submit();return false;"><span>Create</span></button>*@
+						</li>
+					}
+					<li><a class="btn btn-medium" href="@Url.Action("List", "Institution")"><span>Cancel</span></a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="info-bar">
+			<p>Institution:</p>
+		</div>
+
+		<div class="tablecontent">
+			<table class="edit">
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.TrialEndDate)</td>
+					<td class="field">
+						@Html.EditorFor(model => model.InstitutionTrial.TrialEndDate)
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.TrialEndDate)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.InstitutionName)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.InstitutionTrial.InstitutionName, new { @class = "input-full" })
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.InstitutionName)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.AccountNumber)</td>
+					<td class="field">@Html.DisplayFor(model => model.InstitutionTrial.AccountNumber)</td>
+				</tr>
+
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.TerritorySelectList)</td>
+					<td class="field">
+						@Html.DropDownListFor(model => model.InstitutionTrial.InstitutionTerritory.TerritoryId, Model.InstitutionTrial.TerritorySelectList)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.InstitutionTypeSelectList)</td>
+					<td class="field">
+						@Html.DropDownListFor(model => model.InstitutionTrial.Type.Id, Model.InstitutionTrial.InstitutionTypeSelectList)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.Address.Address1)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.InstitutionTrial.Address.Address1, new { @class = "input-full" })
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.Address.Address1)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.Address.Address2)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.InstitutionTrial.Address.Address2, new { @class = "input-full" })
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.Address.Address2)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.Address.City)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.InstitutionTrial.Address.City, new { @class = "input-full" })
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.Address.City)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.Address.State)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.InstitutionTrial.Address.State, new { @class = "input-xxsmall" })
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.Address.State)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.Address.Zip)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.InstitutionTrial.Address.Zip, new { @class = "input-small" })
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.Address.Zip)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.HomePage)</td>
+					<td class="field">
+						<ul>
+							<li>@Html.RadioButtonFor(x => x.InstitutionTrial.HomePageId, (int)HomePage.Discipline) @Html.Raw(InstitutionHomePage.Discipline.Description)</li>
+							<li>@Html.RadioButtonFor(x => x.InstitutionTrial.HomePageId, (int)HomePage.Titles) @Html.Raw(InstitutionHomePage.Titles.Description)</li>
+							<li>@Html.RadioButtonFor(x => x.InstitutionTrial.HomePageId, (int)HomePage.AtoZIndex) @Html.Raw(InstitutionHomePage.AtoZIndex.Description)</li>
+						</ul>
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.HomePageId)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.AccessTypeSelectList)</td>
+					<td class="field">
+						@Html.DropDownListFor(model => model.InstitutionTrial.AccessType, Model.InstitutionTrial.AccessTypeSelectList)
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.AccessTypeSelectList)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.Discount)</td>
+					<td class="field">
+						@(Model.IsRittenhouseAdmin ? Html.EditorFor(model => model.InstitutionTrial.Discount) : Html.TextBoxFor(model => model.InstitutionTrial.Discount, new { disabled = "disabled" }))
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.Discount)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.AthensAffiliation)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.InstitutionTrial.AthensAffiliation)
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.AthensAffiliation)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.LogUrl)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.InstitutionTrial.LogUrl, new { @class = "input-full" })
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.LogUrl)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.InstitutionTrial.TrustedKey)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.InstitutionTrial.TrustedKey)
+						@Html.ValidationMessageFor(model => model.InstitutionTrial.TrustedKey)
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="info-bar">
+			<p>Institution Administrator:</p>
+		</div>
+
+		<div class="tablecontent">
+			<table class="edit">
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.User.FirstName)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.User.FirstName)
+						@Html.ValidationMessageFor(model => model.User.FirstName)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.User.LastName)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.User.LastName, new { @class = "input-medium" })
+						@Html.ValidationMessageFor(model => model.User.LastName)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.User.Email)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.User.Email, new { @class = "input-full" })
+						@Html.ValidationMessageFor(model => model.User.Email)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.User.DepartmentSelectList)</td>
+					<td class="field">
+						@Html.DropDownListFor(model => model.User.Department.Id, Model.User.DepartmentSelectList)
+						@Html.EditorFor(model => model.User.CustomDepartment) @Html.HiddenFor(model => model.User.CustomDepartmentId)
+						@Html.ValidationMessageFor(model => model.User.DepartmentSelectList)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.User.UserName)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.User.UserName, new { disabled = "disabled", @class = "input-medium" })
+						@Html.ValidationMessageFor(model => model.User.UserName)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.User.NewPassword)</td>
+					<td class="field">
+						@Html.PasswordFor(model => model.User.NewPassword, new { @class = "input-medium" })
+						@Html.ValidationMessageFor(model => model.User.NewPassword)
+					</td>
+				</tr>
+				<tr>
+					<td class="label">@Html.LabelFor(model => model.User.ConfirmPassword)</td>
+					<td class="field">
+						@Html.PasswordFor(model => model.User.ConfirmPassword, new { @class = "input-medium" })
+						@Html.ValidationMessageFor(model => model.User.ConfirmPassword)
+					</td>
+				</tr>
+				@*<tr>
+					<td class="label">@Html.LabelFor(model => model.User.AthensUserName)</td>
+					<td class="field">
+						@Html.TextBoxFor(model => model.User.AthensUserName, new { @class = "input-medium" })
+						@Html.ValidationMessageFor(model => model.User.AthensUserName)
+					</td>
+				</tr>*@
+				<tr>
+					<td class="label">Email Preferences:</td>
+					<td class="field">Will be set to default values. Can edit after creation.</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+	@*}*@

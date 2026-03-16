@@ -1,0 +1,373 @@
+﻿/* ==========================================================================
+    Layout
+   ========================================================================== */
+   
+html, body {
+    height: 100%; min-height: 100%;
+    }
+
+body {
+    min-width: 960px;
+    background: #B1D2ED url(../images/layout/bg-body.jpg) repeat 0 0;
+    }
+
+
+/*
+ * Structure
+ */
+#container {
+    background: url(../images/layout/bg-bodytop.jpg) repeat-x 0 0;
+    padding-top: 15px; min-height: 536px;
+    font-size: 1em;
+    }
+
+.navbar, .contentcontainer, footer {
+    margin-left: auto; margin-right: auto; width: 960px;
+    text-align: left;
+    }
+.navbar {
+    margin-bottom: 12px;
+    }
+
+/* SHIMS */
+.ie7 .navbar {
+    position: relative; z-index: 99999;
+    }
+
+
+/*
+ * Masthead (Header) Area
+ */
+header {
+    position: relative; z-index: 1;
+    border-bottom: 1px solid #0D2E59;
+    background: #FFF url(../images/layout/bg-masthead.jpg) repeat-x bottom left;
+    font-size: 0.875em; /* 14px / 16px */
+    }
+    header:after,
+    header span.bottomfade {
+        position: absolute; left: 0; bottom: -4px;
+        width: 100%; height: 3px;
+        background: url(../images/layout/bg-masthead-shadow.jpg) no-repeat top center;
+        }
+    header:after {
+        content: "";
+        }
+    
+    .masthead {
+        position: relative;
+        margin: 0 auto; padding: 18px 0; width: 960px; min-height: 67px;
+        text-align: right;
+        }
+
+    /* Branding */
+    .branding-main {
+        float: left;
+        width: 336px;
+        text-align: left;
+        }
+        .branding-main img {
+            display: inline-block;
+            }
+    .branding-logo img {
+        max-height: 67px;
+        height: auto !important; 
+        height: 67px;
+
+        max-width: 334px;		
+        width: auto !important; 
+        width: 334px;
+    }
+    .branding-sub {
+        float: right;
+        margin: 0 0 0 12px;
+        }
+        
+    /* Env */
+    .env {
+        position: absolute; left: -60px; top: 21px;
+        padding:  4px 8px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        background: #3E3E3E;
+        font-size: .85em; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; color:  #FFF;
+        }
+
+    /* Utilities */
+    .utilities {
+        float: right;
+        }
+    
+        /* Auth */
+        .utilities p {
+            margin: 0 0 -13px;
+            font-style: italic; font-size: 0.9285em; /* 13px / 14px */
+            }
+            
+            .utilities p a.logout {
+                margin: 0 0 0 3px;
+                font-style: normal; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: .85em; /* 11px / 14px */
+                }
+        
+        /* Login/Forgot Password forms */
+        #auth-confirmation {
+            position: relative;
+            min-width: 50px;
+            height: 1em;
+            margin: 5px 0 0 48px;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 0.9285em; /* 13px / 14px */
+            }
+            #auth-confirmation p {
+                font-style: normal; font-size: 0.875em; color: #666666; text-align: left;
+                }
+
+        #login,
+        #forgot-password {
+            position: relative;
+            margin: 7px 0 0;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 0.9285em; /* 13px / 14px */
+            }
+        #forgot-password {
+            display: none;
+            }
+
+
+            .validation-message {
+                position: relative; top: -17px; right: 0;
+                }
+                .validation-message p {
+                    margin: 0 0 -11px;
+                    font-style: normal; font-size: 0.875em; color: #FF0000; text-align: right;
+                    }
+
+                .validation-message .validation-summary-errors ul {
+                    margin: 0 0 -11px; padding: 0;
+                    list-style: none;
+                    font-size: 0.9285em; color: #FF0000; text-align: right;
+                    }
+        
+            .authentication label,
+            .authentication .textfield,
+            .authentication button {
+                float: left;
+                margin: -.5ex 0 0 7px;
+                }
+        
+            .authentication label {
+                margin: 3px 0 0; padding: 0 0 3px;
+                font-weight: bold;
+                }
+            
+            #login .textfield {
+                width: 130px;
+                }
+            #forgot-password .textfield {
+                width: 136px;
+                }
+                
+                .authentication .textfield input {
+                    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 1em;
+                    }
+                .authentication .textfield input:focus {
+                    outline: none;
+                    }
+
+                #login .textfield input {
+                    width: 114px;
+                    }
+                #forgot-password .textfield input {
+                    width: 120px;
+                    }
+                
+            .authentication .btn-medium span {
+                text-transform: none;
+                }
+
+        /* Login links */
+        ul.login-links {
+            float: right;
+            margin: 4px 0 -3px; padding: 0 0 1px;
+            list-style: none;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: .7857em; /* 11px / 14px */
+            }
+            ul.login-links li {
+                display: inline-block;
+                margin: 0 0 0 3px;
+                }
+            ul.login-links li:first-child {
+                margin: 0;
+                }
+            
+            ul.login-links li:before,
+            ul.login-links li span {
+                display: inline-block;
+                margin: 0 7px 0 0;
+                content: "-";
+                }
+            ul.login-links li:first-child:before,
+            ul.login-links li:first-child span {
+                content: "";
+                }
+            
+/* SHIMS */
+.ie7 .utilities.full {
+    width: 612px;
+    }
+.ie7 .utilities.condensed {
+    width: 488px;
+    }
+    
+.ie7 .utilities p {
+    margin: 0;
+    }
+.ie7 .utilities p + #login,
+.ie7 .utilities p + #login + #forgot-password {
+    margin-top: 23px;
+    }
+.ie7 .validation-message p {
+    margin: 0 0 -11px;
+    }
+    
+.ie7 #login,
+.ie7 #forgot-password {
+    width: 382px;
+    }
+
+.ie7 ul.login-links li,
+.ie7 ul.login-links li span {
+    display: inline; zoom: 1;
+    }
+.ie7 ul.login-links li span {
+    margin: 0 5px 0 4px;
+    }
+
+
+/*
+ * Footer
+ */
+footer {
+    padding: 20px 0 35px;
+    font-size: 0.75em; /* 12px / 16px */ font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; color: #010101; text-align: center;
+    }
+    
+    footer .nav-footer {
+        margin: 0 0 15px;
+        font-size: 1.25em; line-height: 1.1;
+        }
+        footer .nav-footer li {
+            padding: 0 8px 0 15px;
+        }
+        footer .nav-footer li:first-child {
+            border: 0;
+            }
+
+    footer p,
+    footer .nav-legal,
+    footer ul li {
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: 4px;
+        line-height: 1.4em;
+    }
+    footer p {
+        margin-top: 0;
+        }
+    footer ul li {
+        padding: 0 4px 0 7px; border-left: 1px solid #010101;
+        }
+    
+    footer .machine-name {
+        padding: 5px 0 0;
+        font-family: Courier, "Courier New", monospace; color: #B1D2ED;
+        }
+
+.hidden-text a {
+        font-family: Courier, "Courier New", monospace; color: #B1D2ED; text-decoration: none; font-size: 0.3em; text-decoration-color: #B1D2ED;
+        }	
+    
+.hidden-text a:hover {
+        font-family: Courier, "Courier New", monospace; color: #B1D2ED; text-decoration: none; font-size: 0.3em; text-decoration-color: #B1D2ED;
+        }	
+    
+/* SHIMS */
+.ie7 footer p,
+.ie7 footer ul li,
+.ie7 footer .nav-legal {
+    display: inline; zoom: 1;
+    }
+.ie7 footer p,
+.ie7 footer ul li {
+    padding-bottom: 3px;
+    }
+
+input#CaptchaCode {
+    font-size: 12px;
+    font-family: Arial, ​"Helvetica Neue", ​ Helvetica, ​ sans-serif;
+}
+
+.athens-container {
+    width: 100%;
+    padding-top: 20px;
+    min-height: 300px;
+}
+
+.athens-option {
+    background: #ececec;
+    min-height: 302px;
+    width: 30%;
+    margin: 10px;
+    float: left;
+}
+
+.athens-title {
+    background: #cbcbcb;
+    padding-left: 10px;
+    margin-top: 0px;
+    font-weight: bold;
+}
+
+.athens-sub-title {
+    padding-left: 10px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.athens-description {
+    margin-top: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.athens-link { text-align: center; }
+
+.athens-error {
+    padding-left: 12px;
+    font-style: normal;
+    font-size: 0.75em;
+    color: #FF0000;
+}
+
+.athens-login-wrapper {
+    font-size: 13px;
+    padding-left: 5px;
+}
+
+.athens-textfield { margin-top: 8px; }
+
+.athens-submit-wrapper {
+    padding-left: 5px;
+    padding-top: 77px;
+}
+.athens-submit {
+    font-size: 13px;
+}
+
+.subscription-highlight {
+    color: red;
+    display: inline;
+    font-size: 2.2em;
+    position: absolute;
+    padding-left: 5px;
+    line-height: 24px;
+}

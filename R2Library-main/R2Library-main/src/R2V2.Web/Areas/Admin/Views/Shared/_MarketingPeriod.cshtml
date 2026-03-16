@@ -1,0 +1,18 @@
+@model R2V2.Web.Areas.Admin.Models.Marketing.IWebReportPeriodSelect
+<tr>
+    <td class="label">@Html.LabelFor(model => model.PeriodList)</td>
+    <td class="field">
+        @Html.DropDownListFor(model => model.Period, Model.PeriodList, new{ id = "ReportQuery_Period", Name = "ReportQuery.Period" })
+        @Html.ValidationMessageFor(x => x.PeriodList)
+        @Html.ValidationMessageFor(x=>x.PeriodStartDate)
+        @Html.ValidationMessageFor(x=>x.PeriodEndDate)
+        
+        <div id="filter-date-range" class="in collapse" style="height: 64px;">
+            <div class="input-daterange" id="datepicker">
+                <input type="text" class="input-small" name="ReportQuery.PeriodStartDate" id="ReportQuery.PeriodStartDate" value="@string.Format("{0:MM/dd/yyyy}", Model.PeriodStartDate)" readonly="readonly" />
+                <label for="DateRangeEnd">To:</label>
+                <input type="text" class="input-small" name="ReportQuery.PeriodEndDate" id="ReportQuery.PeriodEndDate" value="@string.Format("{0:MM/dd/yyyy}", Model.PeriodEndDate)" readonly="readonly" />
+            </div>
+        </div>
+    </td>
+</tr>

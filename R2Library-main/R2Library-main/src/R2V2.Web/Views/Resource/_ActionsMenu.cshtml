@@ -1,0 +1,112 @@
+﻿@using R2V2.Core.MyR2
+@model R2V2.Web.Models.Resource.ResourceDetail
+
+<div class="actions-page-wrapper"><div class="clearfix actions-page" data-implement="fixed">
+	<ul class="actions-menu" data-toggle="menu">
+        <li>
+            <a href="#browse-and-search" class="browse-and-search" role="button" aria-expanded="false" aria-controls="browse-and-search">@Model.ActionMenu.BrowseSearchText</a>
+            <div id="browse-and-search" class="megamenu">
+                <p><strong>@Model.Title</strong></p>
+                
+                <div class="megasearch" data-panel="search">
+                    @using (Html.BeginForm("Index", "Search", FormMethod.Get))
+                    {
+                        <label for="megasearchfield">Search within this title:</label>
+                        <input type="text" name="q" id="megasearchfield" />
+                        <input type="hidden" name="within" value="@Model.Isbn" />
+                        <input type="hidden" name="include" value="@Model.Include" />
+                        <button type="submit"><span>Search</span></button>
+					}
+                </div>
+                
+				@if (Model.ActionMenu.ShowToc)
+				{
+					<div id="section" class="columns" data-history="bookmark" data-panel="toc">
+						@Html.Raw(Model.Toc)
+					</div>
+				}
+            </div>
+        </li>
+        @if (Model.Topics != null && Model.Topics.Any())
+		{
+            <li>
+                <a href="#topics" class="topics" role="button" aria-expanded="false" aria-controls="topics">Topics</a>
+                <div id="topics" class="megamenu">
+                    <div class="clearfix columns two-columns">
+                        <div class="column">
+                            <strong>Jump directly to a topic in @Model.Title.</strong>
+
+                            <ul>
+                                @foreach (var topic in Model.Topics)
+								{
+                                    <li>@Html.ActionLink(topic, "Index", "Search", null, null, "within=" + Model.Isbn, new { q = topic }, null)</li>
+								}
+                            </ul>
+                        </div>                    
+                        <div class="column" data-panel="topics"></div>
+                    </div>
+                </div>
+            </li>
+		}
+        @if (Model.IsFullTextAvailable)
+		{
+            <li>
+                <a href="#tools" class="tools" role="button" aria-expanded="false" aria-controls="tools">Tools</a>
+                <div id="tools" class="megamenu">
+                    <ul class="clearfix toolbar" data-toggle="menu">
+                        <li>
+                            @if (Model.IsPrintingEnabled)
+                            {
+                                <a class="print" href="#"data-toggle="print">Print page</a>
+                            }
+                            else
+                            {
+                                <a class="print disabled" href="#">Print disabled</a>
+                            }
+                        </li>
+                        <li>
+                            <a href="#email" class="email" role="button" aria-expanded="false" aria-controls="email">Email this page</a>
+                            <div id="email" class="panel" data-panel="email">
+                                @using (Html.BeginForm("Email", "Resource", new { Model.Isbn }))
+								{
+                                    @Html.Partial("_EmailUserContentPanel", Model.ToolLinks.EmailPage)
+								}
+                            </div>
+                        </li>
+	                    <li>
+		                    <a href="#export-citation" class="export" role="button" aria-expanded="false" aria-controls="export-citation">Export Citation</a>
+		                    @Html.Partial("_ExportCitationContentPanel", Model)
+	                    </li>
+						@if (Model.UserContentFolders.ContainsKey(UserContentType.Bookmark))
+						{
+							<li>
+								<a href="#@UserContentType.Bookmark.ToString().ToLower()" class="save-bookmark" role="button" aria-expanded="false" aria-controls="@UserContentType.Bookmark.ToString().ToLower()">Save a Bookmark</a>
+								@Html.Partial("_SaveUserContentPanel", Model.UserContentFolders[UserContentType.Bookmark], new ViewDataDictionary {{"type", UserContentType.Bookmark}})
+							</li>
+						}
+						@if (Model.UserContentFolders.ContainsKey(UserContentType.Reference))
+						{
+							<li>
+								<a href="#@UserContentType.Reference.ToString().ToLower()" class="save-reference" role="button" aria-expanded="false" aria-controls="@UserContentType.Reference.ToString().ToLower()">Save this Reference</a>
+								@Html.Partial("_SaveUserContentPanel", Model.UserContentFolders[UserContentType.Reference], new ViewDataDictionary {{"type", UserContentType.Reference}})
+							</li>
+						}
+						@if (Model.UserContentFolders.ContainsKey(UserContentType.CourseLink))
+						{
+							<li>
+								<a href="#@UserContentType.CourseLink.ToString().ToLower()"  class="save-courselink" role="button" aria-expanded="false" aria-controls="@UserContentType.CourseLink.ToString().ToLower()">Save as Courselink</a>
+								@Html.Partial("_SaveUserContentPanel", Model.UserContentFolders[UserContentType.CourseLink], new ViewDataDictionary {{"type", UserContentType.CourseLink}})
+							</li>
+						}
+                    </ul>
+                </div>
+            </li>
+			if (Model.DictionaryTerms.Enable)
+			{
+			    <li>
+					@Html.ActionLink(Model.DictionaryTerms.ActionMenuText(), "Detail", "Resource", new { isbn = Model.Isbn, section = ViewContext.RouteData.Values["section"], showAllDictionaryTerms = !Model.DictionaryTerms.ShowAll }, new { @class = "dictionary" })
+				</li>
+			}
+        }
+	</ul>
+</div></div>

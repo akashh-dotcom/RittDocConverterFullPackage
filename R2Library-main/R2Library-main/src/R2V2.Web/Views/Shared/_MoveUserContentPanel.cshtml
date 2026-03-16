@@ -1,0 +1,27 @@
+﻿@using R2V2.Core.MyR2
+@model IEnumerable<R2V2.Web.Models.MyR2.UserContentFolder>
+@{
+    var userContentType = (UserContentType)ViewData["type"];
+    var sUserContentType = userContentType.ToString().ToLower();
+}
+
+<div id="@sUserContentType" class="panel move" data-panel="move">
+    @using (Html.BeginForm("Move", "UserContent", new { type = userContentType }, FormMethod.Get))
+    {
+        <ol>
+            <li>
+                <label for="folder-@sUserContentType">Create @userContentType in Folder:</label>
+                <select id="folder-@sUserContentType" name="newFolderId">
+                    @foreach(var folder in Model)
+                    {
+                        <option value="@folder.Id">@folder.FolderName</option>
+                    }
+                </select>
+            </li>
+            <li class="actions">
+                <button type="submit" class="btn btn-medium"><span>Save</span></button>
+                <button type="reset" class="btn btn-medium"><span>Cancel</span></button>
+            </li>
+        </ol>
+    }
+</div>

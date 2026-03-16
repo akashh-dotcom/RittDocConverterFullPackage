@@ -1,0 +1,10 @@
+﻿/* ==|== print styles =======================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+	#resource-content {
+	    display:block;
+        }
+}

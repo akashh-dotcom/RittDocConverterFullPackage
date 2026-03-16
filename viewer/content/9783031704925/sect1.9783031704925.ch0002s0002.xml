@@ -1,0 +1,1310 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sect1 id="ch0002s0002" role="Heading">
+         <title>
+            <emphasis role="HeadingNumber">2.2 </emphasis> Purnell Cultural Assessment Tool</title>
+         <para role="Para">An extensive cultural assessment is rarely completed in the clinical setting because of time and other circumstances. A seasoned clinical practitioner will know when further assessment is required. Thus, this tool should be used as a guide. Furthermore, cultures change over time. <emphasis>Shaded items in italics are part of any standard assessment. Other items may also be part of a standard assessment, depending on the organization, setting, and clinical area.</emphasis>
+         </para>
+         <table id="ch0002s0002ta01">
+            <title>Table 1</title>
+            <tgroup cols="2">
+               <colspec colname="c1" colnum="1"/>
+               <colspec colname="c2" colnum="2"/>
+               <tbody>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Cultural assessment tool</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">Comments</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry nameend="c2" namest="c1">
+                        <para role="SimplePara">
+                           <emphasis role="bold">Overview, inhabited localities, and topography</emphasis>
+                        </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Where do you currently live</emphasis>?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What is your ancestry?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Where were you born?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How many years have you lived in the United States (or other country, as appropriate)?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Were your parents born in the United States (or other country, as appropriate)?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What brought you (your parents/ancestors) to the United States (or other country, as appropriate)?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Describe the land or countryside where you live. Is it mountainous, swampy, etc.?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Have you lived in other places in the United States/world?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What was the land or countryside like when you lived there?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What is your income level?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Does your income allow you to afford the essentials of life?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you have health insurance?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Are you able to afford health insurance on your salary?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What is your educational level (formal/informal/self-taught)?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>What is your current occupation? If retired, ask about previous occupations</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Have you worked in other occupations? What were they?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Are there (were there) any health hazards associated with your job(s)?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Have you been in the military? If so, in what foreign countries were you stationed?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry nameend="c2" namest="c1">
+                        <para role="SimplePara">
+                           <emphasis role="bold">Communications</emphasis>
+                        </para>
+                        <para role="SimplePara">How do you wish to be greeted?</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>What is your full name?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>What is your legal name?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>By what name do you wish to be called?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>What is your primary language?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you speak a specific dialect?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What other languages do you speak?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you find it difficult to share your thoughts, feelings, and ideas with family? Friends? Health-care providers?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you mind being touched by friends? Strangers? Health-care workers?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How do wish to be greeted? Handshake? Nod of the head, verbal greeting only etc.?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Are you usually on time for appointments?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Are you usually on time for social engagements?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Observe the patient’s speech pattern. Is the speech pattern high- or low-context? Note: Patients from highly contexted cultures place greater value on silence</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Observe the patient when physical contact is made. Does he/she withdraw from the touch or become tense?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How close does the patient stand when talking with family members? With health-care providers?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Does the patient maintain eye contact when talking with the nurse/physician/etc.?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry nameend="c2" namest="c1">
+                        <para role="SimplePara">
+                           <emphasis role="bold">Family roles and organization</emphasis>
+                        </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What is your <emphasis>marital</emphasis>/partner status?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>How many children do you have?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Who makes most of the decisions in your family?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What types of decisions do(es) the female(s) in your family make?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What types of decisions do(es) the male(s) in your family make?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What are the duties of the women in the family?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What are the duties of the men in the family?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What should children do to make a good impression for themselves and for the family?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What should children <emphasis>not</emphasis> do to make a good impression for themselves and for the family?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What are children forbidden to do?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What should adolescents do to make a good impression for themselves and for the family?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What should adolescents <emphasis>not</emphasis> do to make a good impression for themselves and for the family?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What are adolescents forbidden to do?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What are the priorities for your family?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What are the roles of the older people in your family? Are they sought for their advice?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Are there extended family members in your household? Who else lives in your household?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What are the roles of extended family members in this household? What gives you and your family status?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Is it acceptable to you for people to have children out of wedlock?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Is it acceptable to you for people to live together and not be married?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Is it acceptable to you for people to admit being gay or lesbian?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What is your sexual preference/orientation? (ask only if appropriate and later in the assessment after a modicum of trust has been established)</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry nameend="c2" namest="c1">
+                        <para role="SimplePara">
+                           <emphasis role="bold">Workforce issues</emphasis>
+                        </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you usually report to work on time?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you usually report to meetings on time?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What concerns do you have about working with someone of the opposite gender?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you consider yourself a “loyal” employee?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How long do you expect to remain in your position?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What do you do when you do not know how to do something related to your job?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you consider yourself to be assertive in your job?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What difficulty does English (or another language) give you in the workforce?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What difficulties do you have working with people older (younger) than you?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What difficulty do you have in taking directions from someone younger/older than you?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What difficulty do you have working with people whose religions are different from yours?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What difficulty do you have working with people whose sexual orientation is different from yours?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What difficulty do you have working with someone whose race or ethnicity is different from yours?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you consider yourself to be an independent decision maker?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry nameend="c2" namest="c1">
+                        <para role="SimplePara">
+                           <emphasis role="bold">Biocultural ecology</emphasis>
+                        </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Are you allergic to any medications?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>What problems did you have when you took over-the-counter medications?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>What problems did you have when you took prescription medications?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>What are the major illnesses and diseases in your family?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Are you aware of any genetic diseases in your family?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What are the major health problems in the country from which you come (if appropriate)?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>With what races and ethnic groups(s) do you identify?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Observe and document skin coloration and physical characteristics</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Observe for and document physical handicaps and disabilities</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry nameend="c2" namest="c1">
+                        <para role="SimplePara">
+                           <emphasis role="bold">High-risk health behaviors</emphasis>
+                        </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How many cigarettes a day do you smoke?</para>
+                        <para role="SimplePara">Do you smoke a pipe (or cigars)?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you chew tobacco?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>For how many years have you smoked/chewed tobacco?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>How much alcohol do you drink each day? Ask about wine, beer, spirits?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How many energy drinks do you consume each day</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>What recreational drugs do you use?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>How often do you use recreational drugs?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>What type of exercise do you do each day?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you use seat belts?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What precautions do you take to prevent getting a sexually transmitted infections or HIV/AIDS?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry nameend="c2" namest="c1">
+                        <para role="SimplePara">
+                           <emphasis role="bold">Nutrition</emphasis>
+                        </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Are you on a special diet?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Are you satisfied with your weight?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Which foods do you eat to maintain your health?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Do you avoid certain foods to maintain your health?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Why do you avoid these foods?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Which foods do you eat when you are ill?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Which foods do you avoid when you are ill?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Why do you avoid these foods (if appropriate)?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">For what illnesses do you eat certain foods?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Which foods do you eat to balance your diet?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Which foods do you eat every day?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Which foods do you eat every week?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Which foods do you eat that are part of your cultural heritage?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Which foods are high-status foods in your family/culture?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Which foods are eaten only by men? Women? Children? Teenagers? Elderly?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How many meals do you eat each day?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What time do you eat each meal?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Do you snack between meals?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>What foods do you eat when you snack?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What holidays do you celebrate?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Which foods do you eat on particular holidays?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Who is present at each meal? Is the entire family present?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you primarily eat the same foods as the rest of your family?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Where do you usually buy your food?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Who usually buys the food in your household?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Who does the cooking in your household?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How frequently do you eat at a restaurant?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">When you eat at a restaurant, in what type of restaurant do you eat?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you eat foods left from previous meals?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Where do you keep your food?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you have a refrigerator?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How do you cook your food?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How do you prepare meat?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How do you prepare vegetables?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What type of spices do you use?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What do you drink with your meals?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you drink special teas?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Do you have any food allergies?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Are there certain foods that cause you problems when you eat them?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How does your diet change with each season?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Are your food habits different on days you work versus when you are not working?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry nameend="c2" namest="c1">
+                        <para role="SimplePara">
+                           <emphasis role="bold">Pregnancy and childbearing practices</emphasis>
+                        </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>How many children do you have?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What do you use for birth control?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What does it mean to you and your family when you are pregnant?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What special foods do you eat when you are pregnant? Looking for pica</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What foods do you avoid when you are pregnant?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What activities do you avoid when you are pregnant?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you do anything special when you are pregnant?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you eat non-food substances when you are pregnant?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Who do you want with you when you deliver your baby?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">In what position do you want to be when you deliver your baby?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What special foods do you eat after delivery?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What foods do you avoid after delivery?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What activities do you avoid after you deliver?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you do anything special after delivery?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Who will help you with the baby after delivery?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What bathing restrictions do you have after you deliver?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you want to keep the placenta?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What do you do to care for the baby’s umbilical cord?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry nameend="c2" namest="c1">
+                        <para role="SimplePara">
+                           <emphasis role="bold">Death rituals</emphasis>
+                        </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What special activities need to be performed to prepare for death?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What special activities need to be performed after death?</para>
+                        <para role="SimplePara">Who do you want to be with you when dying?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Would you want to know about your impending death?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What is your preferred burial practice? Interment, cremation?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How soon after death does burial occur?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How do men grieve?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How do women grieve?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What does death mean to you?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you believe in an afterlife?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Are children included in death rituals?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry nameend="c2" namest="c1">
+                        <para role="SimplePara">
+                           <emphasis role="bold">Spirituality</emphasis>
+                        </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>What is your religion?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you consider yourself deeply religious?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How many times a day do you pray?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What do you need in order to say your prayers?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you practice meditation such as TM, mindfulness, meditation?</para>
+                        <para role="SimplePara">What gives strength and meaning to your life?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">In what spiritual practices do engage for your physical and emotional status?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry nameend="c2" namest="c1">
+                        <para role="SimplePara">
+                           <emphasis role="bold">Health-care practices</emphasis>
+                        </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>In what prevention activities do you engage to maintain your health?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Who in your family takes responsibility for your health?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Who takes care of family members when they are sick?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>What over-the-counter medicines do you use?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What herbal teas and folk medicines do you use?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">For what conditions do you use herbal medicines?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What do you usually do when you are in pain?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How do you express your pain?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How are people in your culture viewed or treated when they have a mental illness?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How are people with physical disabilities treated in your culture?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What do you do when you are sick? Stay in bed, continue your normal activities, etc.?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What are your beliefs about rehabilitation?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">How are people with chronic illnesses viewed or treated in your culture?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Are you averse to blood transfusions?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Is organ donation acceptable to you?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">
+                           <emphasis>Are you listed as a potential organ donor?</emphasis>
+                        </para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Would you consider having an organ transplant if needed?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Are health-care services readily available to you?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you have transportation problems accessing needed health-care services?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you feel welcome when you see a health-care professional?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What traditional health-care practices do you use? For example, mineral baths, sweating, acupuncture, acupressure, <emphasis>cai gao</emphasis>, coining, <emphasis>moxibustion</emphasis>, aromatherapy, etc.?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What home difficulties do you have that might prevent you from receiving health care?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry nameend="c2" namest="c1">
+                        <para role="SimplePara">
+                           <emphasis role="bold">Health-care practitioners</emphasis>
+                        </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What health-care providers do you see when you are ill? Physicians, nurses?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Do you prefer a same-sex health-care provider for routine health problems? For intimate care?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">What healers do you use beside physicians and nurses?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">For what conditions do you use healers?</para>
+                     </entry>
+                     <entry/>
+                  </row>
+               </tbody>
+            </tgroup>
+         </table>
+      </sect1>
+      

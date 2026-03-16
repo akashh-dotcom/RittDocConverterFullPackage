@@ -1,0 +1,175 @@
+﻿@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.User.InstitutionUsers
+
+<div id="content" class="content" role="main">
+    <h1>User Management</h1>
+
+    @if (Model.ActionsMenu != null)
+    {
+        using (Html.BeginForm())
+        {
+
+
+                if (!Model.UserQuery.LoadAllUsers)
+                {
+                    <div class="display-per-page">
+                        <p class="screenreader">Choose the number of users to display per page.</p>
+                        @Html.DropDownListFor(x => x.UserQuery.PageSize, Model.PageSizeSelectList, new { onchange = "this.form.submit();" })
+                        @Html.LabelFor(x => x.PageSizeSelectList)
+                    </div>
+                    @Html.Partial("_InstitutionInfo")
+
+                    <div class="group-actions-wrapper">
+                        <div class="clearfix group-actions">
+                            <ul class="actions">
+                                <li><a href="@Url.Action("Edit", new { institutionId = Model.InstitutionId, id = 0 })" class="btn btn-medium"><span>Add New User</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="display-per-page no-inst">
+                        <p class="screenreader">Choose the number of users to display per page.</p>
+                        @Html.DropDownListFor(x => x.UserQuery.PageSize, Model.PageSizeSelectList, new { onchange = "this.form.submit();" })
+                        @Html.LabelFor(x => x.PageSizeSelectList)
+                    </div>
+                }
+
+                @Html.HiddenFor(x => x.UserQuery.InstitutionId)
+                @Html.Hidden("page", "1")
+                @Html.HiddenFor(x => x.UserQuery.PageSize)
+
+                @Html.HiddenFor(x => x.UserQuery.RoleCode)
+                @Html.HiddenFor(x => x.UserQuery.SearchType)
+                @Html.HiddenFor(x => x.UserQuery.SortBy)
+                @Html.HiddenFor(x => x.UserQuery.Query)
+                @Html.HiddenFor(x => x.UserQuery.UserStatus)
+
+            }
+
+            if (Model.PageLinks != null && Model.PageLinks.Count() > 1)
+            {
+                <div class="nav-section-wrapper">
+                    <div class="clearfix nav-section" data-implement="fixed">
+                        <div class="previous">
+                            @if (Model.PreviousLink.Active)
+                            {
+                                <a href="@Model.FirstLink.Href">&lt; @Model.FirstLink.Text</a>
+                                <a href="@Model.PreviousLink.Href">&lt;&lt; @Model.PreviousLink.Text</a>
+                            }
+                        </div>
+
+                        <div class="next">
+                            @if (Model.NextLink.Active)
+                            {
+                                <a href="@Model.NextLink.Href">@Model.NextLink.Text &gt;&gt;</a>
+                                <a href="@Model.LastLink.Href">@Model.LastLink.Text &gt;</a>
+                            }
+                        </div>
+
+                        <ul class="nav-number nav-content">
+                            <li><strong>Jump to page:</strong></li>
+                            @foreach (var link in Model.PageLinks)
+                            {
+                                if (link.Active)
+                                {
+                                    <li@(StyleHelpers.AddSelectedState(link.Selected))>
+                                        <a href="@Url.Action("List", Model.UserQuery.ToRouteValues(link.Text))"><span>@link.Text</span></a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><span>@link.Text</span></li>
+                                    }
+                                }
+                    </ul>
+                </div>
+            </div>
+        }
+    }
+
+    <div class="alertbox">
+        <h3>Displaying results <strong>@string.Format("{0:#,##0} - {1:#,##0}", Model.ResultsFirstItem, Model.ResultsLastItem)</strong> out of <strong>@string.Format("{0:#,##0}", Model.TotalCount)</strong>.</h3>
+        @if (!string.IsNullOrWhiteSpace(Model.SelectedFilters) || (!Model.UserQuery.DefaultQuery && Model.ActionsMenu != null))
+        {
+            <div class="criteria clearfix">
+                <p>Search criteria:</p>
+                @if (!string.IsNullOrWhiteSpace(Model.SelectedFilters))
+                {
+                    <ul>
+                        @Html.Raw(Model.SelectedFilters)
+                    </ul>
+                }
+                @if (!Model.UserQuery.DefaultQuery && Model.ActionsMenu != null)
+                {
+                    <p><a href="@Url.Action("List", "User", new { institutionId = Model.InstitutionId })">Clear Results</a> or <a href="#sort-and-filter" data-toggle="link">Add More Criteria</a>.</p>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="tablecontent">
+        <table class="list">
+            <thead>
+                <tr>
+                    <th class="user-status">Active</th>
+                    @if (Model.UserQuery.LoadAllUsers)
+                    {
+                        <th class="user-institution-name">Institution</th>
+                    }
+                    <th class="user-name">Last Name, First Name</th>
+                    <th class="user-email">Email</th>
+                    <th class="user-role">Role</th>
+                    <th class="user-last-session">Last Session</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Users)
+                {
+                    <tr>
+                        <td class="user-status"><strong class="active-@item.RecordStatusText.ToLower().Replace(" ", "-")">@Html.DisplayFor(modelItem => item.RecordStatusText)</strong></td>
+                        @if (Model.UserQuery.LoadAllUsers)
+                        {
+                            <td class="user-institution-name">
+                                @if (Model.ActionsMenu != null)
+                                {
+                                    if (item.DisplayLink)
+                                    {
+                                        <a href="@Url.Action("Detail", "Institution", new {id = item.InstitutionId})">@Html.DisplayFor(modelItem => item.InstitutionName)</a>
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.InstitutionName)
+                                    }
+
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.InstitutionName)
+                                }
+                            </td>
+                        }
+                        @if (Model.ActionsMenu != null)
+                        {
+                            if (item.DisplayLink)
+                            {
+                                <td class="user-name">@Html.ActionLink(item.DisplayName(), "Edit", new { institutionId = item.InstitutionId, item.Id })</td>
+                            }
+                            else
+                            {
+                                <td class="user-name">@Html.Raw(item.DisplayName())</td>
+                            }
+                        }
+                        else
+                        {
+                            <td class="user-name">@Html.Raw(item.DisplayName())</td>
+                        }
+                        <td class="user-email">@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td class="user-role">@Html.DisplayFor(modelItem => item.Role.Description)</td>
+                        <td class="user-last-session">@Html.DisplayFor(modelItem => item.LastSession)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+{
+  "EnableDomainVerification": true,
+  "DomainPairs": [
+    {
+      "IncomingDomain": "r2library.com",
+      "PrimaryDomain": "www.r2library.com"
+    },
+    {
+      "IncomingDomain": "dev-local.r2library.com",
+      "PrimaryDomain": "local-dev.r2library.com"
+    }
+  ]
+}

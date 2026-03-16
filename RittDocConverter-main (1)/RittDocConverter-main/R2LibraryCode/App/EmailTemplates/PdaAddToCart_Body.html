@@ -1,0 +1,56 @@
+<p>A patron drive acquisition titles has been added to your R2 Digital Library <a href="{CartUrl}" style="color:#2B6395; text-decoration:none;" target="_blank">shopping cart</a>. You can <a href="{CartUrl}" style="color:#2B6395; text-decoration:none;" target="_blank">complete your purchase</a> by logging in and selecting "checkout" from your shopping cart.</p>
+<p>Have questions about the R2 Digital Library or wish to stop receiving these alerts? Email customer service at <a href="mailto:customerservice@r2library.com" style="color:#2B6395; text-decoration:none;">customerservice@r2library.com</a> or call Rittenhouse Customer Service at 800.345.6425. Thank you for using the R2 Digital Library.</p>
+		
+<div class="tablecontent">
+	<table>
+		<thead>
+			<tr>
+				<th class="status">&nbsp;</th>
+				<th class="details">Details</th>
+				<th class="licenses"># of Licenses</th>
+				<th class="price">Price</th>
+			</tr>
+		</thead>
+		<tbody>
+
+		<tr>
+			<td class="status"><strong class="{Resource_StatusLower}">{Resource_Status}</strong></td>
+			<td class="details">
+				<div class="title-item">
+					<h2><a href="{Resource_Url}" style="color:#2B6395; text-decoration:none;" target="_blank">{Resource_Title}</a></h2>
+					<p class="title-author">{Resource_Author}</p>
+					<table>
+						<tr>
+							<td rowspan="5" class="title-image"><a href="{Resource_Url}" target="_blank"><img alt="{Resource_Title}" src="{Resource_ImageUrl}" width="54" /></a></td>
+							<td class="title-info-col-1">{Resource_Publisher}</td>
+							<td class="title-info-col-2">{Resource_PracticeArea}</td>
+						</tr>
+						<tr>
+							<td class="title-info-col-1">{Resource_PublicationYear}</td>
+							<td class="title-info-col-2">{Resource_Specialties}</td>
+						</tr>
+						<tr>
+							<td class="title-info-col-1">{Resource_ReleaseDate}</td>
+							<td class="title-info-col-2">{Resource_ISBN10}</td>
+						</tr>
+						<tr>
+							<td class="title-info-col-1">{Resource_Edition}</td>
+							<td class="title-info-col-2">{Resource_ISBN13}</td>
+						</tr>
+						<tr>
+							<td class="title-info-col-1"></td>
+							<td class="title-info-col-2">{Resource_EISBN}</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+			<td class="licenses">{Resource_License}</td>
+			<td class="price">
+				<div class="fullprice">Retail Price: {Resource_RetailPrice}</div>
+				<div class="saleprice">Discount Price: {Resource_DiscountPrice}</div>
+			</td>
+		</tr>
+
+		<tbody>
+	</table>
+</div>

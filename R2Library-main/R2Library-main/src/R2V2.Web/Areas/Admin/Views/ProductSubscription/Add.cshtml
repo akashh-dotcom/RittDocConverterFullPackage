@@ -1,0 +1,63 @@
+﻿@model R2V2.Web.Areas.Admin.Models.ProductSubscription.ProductSubscriptionAdd
+
+@{
+    ViewBag.Title = "Add";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Add @Model.Product.Name</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+
+        @using (Html.BeginForm())
+        {
+            @Html.HiddenFor(x => x.Product.Id)
+
+            <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><button class="btn-medium" type="submit"><span>Save</span></button></li>
+                    <li><a href="@Url.Action("Detail", new { Model.InstitutionId, productId = Model.Product.Id })" class="btn btn-medium"><span>Cancel</span></a></li>
+                </ul>
+            </div></div>
+            
+            <div class="tablecontent">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>@Html.LabelFor(x => x.StartDate)</td>    
+                            <td>
+                                @Html.EditorFor(x => x.StartDate)
+                                @Html.ValidationMessageFor(x=>x.StartDate)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@Html.LabelFor(x => x.EndDate)</td>
+                            <td>
+                                @Html.EditorFor(x => x.EndDate)
+                                @Html.ValidationMessageFor(x=>x.EndDate)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@Html.LabelFor(x => x.ProductSubscriptionStatus)</td>
+                            <td>@Html.DropDownListFor(x => x.ProductSubscriptionStatus, Model.ProductSubscriptionStatusSelectList)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

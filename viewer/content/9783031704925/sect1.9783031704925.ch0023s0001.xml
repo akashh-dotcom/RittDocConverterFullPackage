@@ -1,0 +1,601 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sect1 id="ch0023s0001" role="Heading">
+         <title>
+            <emphasis role="HeadingNumber">23.1 </emphasis> Overview and Heritage</title>
+         <para role="Para">Jamaica is the third largest island (next to Puerto Rico, Hispaniola, and Cuba) within a chain of islands that form the Greater Antilles in the northern area of the Caribbean Sea. Sitting between latitudes 17° and 19°N and longitudes 76° and 79°W, Jamaica is about 146 miles east to west; 22–51 miles north to south; and a total area of about 4400 miles <superscript>2</superscript>. Its highest peak (Blue Mountain) is 7404 ft (about 2.26 km) and harvests some of the richest coffee. In some places, white and yellow limestone (bauxite) runs about 8200 ft (about 2.5 km) deep. Bauxite, the ore from which aluminum is made, is found in enormous quantities and Jamaica was the largest exporter in the world. Other exports include sugarcane, banana, coffee, and tobacco.</para>
+         <para role="Para">The capital of Jamaica is Kingston, located at the southeast end of the island. The currency is the Jamaican Dollar (JMD). Due to economic failure, the worth of the JMD is about $155 to $1 United States (US) dollar. The population in Jamaica is about 2.8 million people, divided amongst three counties and 14 parishes. Please see below approximate demographic and division of Jamaica in Table <emphasis role="InternalRef">
+               <link linkend="ch0023s0001ta01">23.1</link>
+            </emphasis> and <emphasis role="InternalRef">
+               <link linkend="ch0023s0001ta02">23.2</link>
+            </emphasis>.</para>
+         <table id="ch0023s0001ta01">
+            <title>
+               <emphasis role="CaptionNumber">Table 23.1</emphasis> Demographic population of Jamaica</title>
+            <tgroup cols="2">
+               <colspec colname="c1" colnum="1"/>
+               <colspec colname="c2" colnum="2"/>
+               <tbody>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Ethnic group</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">% population</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Negro/Black</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">90</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Negro/Mixed</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">7</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">East Indian</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">1</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Chinese, white, other</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">2</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Total</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">100</para>
+                     </entry>
+                  </row>
+               </tbody>
+            </tgroup>
+         </table>
+         <table id="ch0023s0001ta02">
+            <title>
+               <emphasis role="CaptionNumber">Table 23.2</emphasis> Division of counties and Parish</title>
+            <tgroup cols="3">
+               <colspec colname="c1" colnum="1"/>
+               <colspec colname="c2" colnum="2"/>
+               <colspec colname="c3" colnum="3"/>
+               <tbody>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Cornwall</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">Middlesex</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">Surrey</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">St. Elizabeth</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">St. Catherine</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">Kingston and St. Andrew</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Trelawny</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">Clarendon</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">St. Thomas</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">St. James</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">St. Ann</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">Portland</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Hanover</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">St. Mary</para>
+                     </entry>
+                     <entry/>
+                  </row>
+                  <row>
+                     <entry>
+                        <para role="SimplePara">Westmoreland</para>
+                     </entry>
+                     <entry>
+                        <para role="SimplePara">Manchester</para>
+                     </entry>
+                     <entry/>
+                  </row>
+               </tbody>
+            </tgroup>
+         </table>
+         <para role="Para">The island has a tropical climate with temperatures ranging from 60 °F (inland/mountains) to 90 °F (coastal). Unfortunately, due to location, Jamaica is vulnerable to Hurricanes and tropical storms. Fifteen hurricanes have directly hit Jamaica, with the most devastating being Hurricane Charlie (1951) and Hurricane Gilbert (1988). Earthquakes are another hazard of the island as it is located at the northern edge of the Caribbean Plate. The earthquake of 1692 in Port Royal measured a 7.5 on the Richter Scale. It killed about 5000 people and sank 2/3 of the city below sea level. In 1907, a 6.2 magnitude earthquake with subsequent fires ravished Kingston for about 3–4 h and was followed by an 8-ft tsunami. About 1K people were killed.</para>
+         <para role="Para">The original people of Jamaica (Amerindians) settled for several centuries before Christopher Columbus landed on the island in 1494. In later years, they named themselves Taino (Arawaks) and the island was known as Xaymaca by their neighboring islands. Spain took formal possession of Jamaican in 1509; English captured Jamaica in 1655; the maroons (freed slaves) waged war until 1660. The abolition of slave trade to British colonies ended in 1808; the abolition of slavery dated 1834; and full Emancipation of Slavery ended in 1838. Jamaica remained under the British rule until 1848. However, to govern the country, the Jamaica Labor Party formed in 1943 and the People’s National Party formed in 1938. Jamaica claimed their independence from British rule in 1962.</para>
+         <sect2 id="ch0023s0001s0001" role="Heading">
+            <title>
+               <emphasis role="HeadingNumber">23.1.1 </emphasis> Communication</title>
+            <itemizedlist role="UnorderedListMarkBullet">
+               <listitem>
+                  <para role="Para">Due to British rule, the people of Jamaica speak, read, and scribe English.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaican Creole (Patois), developed in the seventieth century, is known for its lyrical styles, phrases, and unique terms when slaves from West and Central Africa were exposed to and learned the dialect forms during their enslavement.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">By the end of the eighteenth century, their culturally native language, Patois was the accepted language developed from a combination of English, Spanish, West African, and French.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaica continues to follow the British Education System with English, Math, and Sciences at the forefront.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">There are four levels of education in Jamaica: Basic, Primary, Secondary, and University.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Basic education (ages 1–6) is provided by the government. However, primary education (while compulsory) is financed by the family. Secondary and university education is for those who attain exemplary scores on the equivalency exams and have the financial support to attend.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Literacy is at an all-time high of about 96% with almost 98% of those being female. Verbal and non-verbal communication is vital to the friendly population of Jamaica.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Use greetings and salutations for the time of day: “good morning,” “good afternoon,” “good evening,” or “good night.”</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Status is respected in Jamaica, so it is important that you show reverence and respect to those in positions of authority and to the elderly. Address people by their title (Mr., Mrs., or Miss) and their surname until a personal relationship has developed. Always wait until you have permission to call someone by their first name or their nickname.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">The most common greeting for a Jamaican is the handshake, with direct eye contact and a warm smile. Jamaicans are very friendly and stand very close when conversing.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Once a friendship has been established, women may hug and kiss on each cheek and men pat each other’s shoulder or arm during the greeting process or while conversing.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">While Jamaicans are outwardly warm and friendly, they often appear standoffish at the initial introduction because they are reserved and observing behavior until they get to know someone. Do not appear overly familiar at the initial greeting. This might be seen as rude.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaicans can be direct communicators and are not afraid to say what they think expect others to be the same. However, they value tact, sensitivity, and dislike overt aggression.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Most importantly, out of respect to adults and elders that are speaking, children are to remain quiet, seen, and not heard.</para>
+               </listitem>
+            </itemizedlist>
+         </sect2>
+         <sect2 id="ch0023s0001s0002" role="Heading">
+            <title>
+               <emphasis role="HeadingNumber">23.1.2 </emphasis> Family Roles and Organization</title>
+            <itemizedlist role="UnorderedListMarkBullet">
+               <listitem>
+                  <para role="Para">Family roles among people of Jamaican heritage are influenced by traditional values, historical factors, and contemporary dynamics. The roles often vary based on socioeconomic status, urban verses rural residence, and generational differences.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaican families emphasize collectivism and interconnectedness. Families are seen as the central support system, and individuals are expected to contribute to the well-being of the family unit. This can involve financial support, caregiving for elders, and helping younger family members.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaican families tend to be extended and include not only parents and children but also aunts, uncles, cousins, and sometimes close family friends. These extended networks provide a powerful sense of community, emotional and financial support which have proven vital especially in times of economic hardship.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Respect for elders is a fundamental value in Jamaican culture. Older family members are given high regard and often hold positions of authority within the family. Children are taught to show deference and care for their elders.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Women play a central role as matriarchs, managing household concerns and serve as the emotional anchors for the family.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Traditionally, Jamaican men were expected to provide the financial support and protect the family from harm. However, recent years demonstrate gender role evolution where women assume professional careers and contribute to the household income.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Parenting in Jamaican families is viewed as stern, emphasizing discipline and respect for authority. While corporal punishment was common many years ago, attitudes have evolved, and many families now advocate for non-violent forms of discipline.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Education is highly valued. Jamaican parents encourage their children to excel academically to secure a better future for the family.</para>
+               </listitem>
+            </itemizedlist>
+         </sect2>
+         <sect2 id="ch0023s0001s0003" role="Heading">
+            <title>
+               <emphasis role="HeadingNumber">23.1.3 </emphasis> Workforce Issues</title>
+            <itemizedlist role="UnorderedListMarkBullet">
+               <listitem>
+                  <para role="Para">Jamaica is equipped with a hospital in each parish except for Kingston, St. Catherine, and Clarendon where there are several hospitals.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">According to World Health Organization (2018), Jamaica has 0.8 nurses and midwives per 1000 population. This is compared to the United States which has an average of 17.6 nurses and midwives per 1000 population.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">When looking at physicians, Jamaica has 1.3 per 1000 population and 2.6 per 1000 in the US.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Healthcare providers, nurses, and physician upon receiving specialized education and training migrate to other countries for a better lifestyle and economic stability.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">The migration of healthcare personnel contributes to continued shortages in Jamaica.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Increased bureaucracy and the inability to compensate with foreign healthcare workers worsen the nursing workforce shortage.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Additional workforce issues include shortages in medical supplies, equipment, and infrastructure.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">The island has a relaxed pace of life that extends to the workplace. There is a slow response to service and punctuality is non-existent. “Soon come” is a phrase commonly used and translates to acknowledgment only, not urgency or immediacy.</para>
+               </listitem>
+            </itemizedlist>
+         </sect2>
+         <sect2 id="ch0023s0001s0004" role="Heading">
+            <title>
+               <emphasis role="HeadingNumber">23.1.4 </emphasis> Biocultural Ecology</title>
+            <itemizedlist role="UnorderedListMarkBullet">
+               <listitem>
+                  <para role="Para">Given the influx of varied races and ethnicities into Jamaica over time, its biocultural ecology is rather complex, and in some ways unique.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">The people exhibit influences from various races including Black, White, East Indian, Chinese, and Indigenous populations not only in appearance but also in cultural practices.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Exploring various aspects of Jamaica’s biocultural ecology, it has to be appreciated that variations among different subsets of people do exist.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaicans tend to exhibit a mixture of races even though specific individuals categorize themselves as belonging to a specific ethnic or racial group.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Influences involving the Spanish, English, and African peoples have resulted in a population that have varied skin colors and biological features.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaicans acknowledge their multicultural background and verbalize beliefs that racism is not a major force in class structures.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">In surveys of Jamaicans, a perceived ethno-racial homogeneity is often described among respondents. This explains why 92% of those individuals cite their identity as either Black or Black mixed. This reflects the process of creolization, a term specific to the Caribbean region that reflects the intermixture of indigenous, European, and African races over time.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">In terms of biological features, the vast majority of Jamaicans fall into racial categories of African descent.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Asian, indigenous, and European racial influences exist within the population and within genetic histories, however the larger influence came from slaves brought over from Central and West Africa.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">This is important from a biological perspective in that many health risks and tendencies common to African descendants are also common to Jamaicans.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">The number one cause of death in Jamaica is stroke, which combined with other cardiovascular diseases accounts for 37% of all-cause mortality in the country. These figures have risen over the past few decades in part due to rising overweight and obesity issues.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">A high incidence of hypertension, heart disease, and diabetes are prevalent.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">In addition to cardiovascular conditions, other noncommunicable diseases are also prevalent in Jamaica.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Prostate cancer and lung cancer account for neoplastic conditions, which, along with other cancers, account for 14% of deaths.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Most concerning communicable condition involves that of human immunodeficiency virus (HIV) infections, which remains a top 10 causes of death in the country.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Poor health education and social practices account for its continued prevalence among the Jamaican population.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Biological differences among individuals living in Jamaican or of Jamaican descent, variations can exist in drug response and metabolism.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Given the high degree of cultural, racial, and ethnic influence on the population from its African-related heritage, pharmacologic variations related to this racial segment is likely relevant.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Particularly in conditions like diabetes, hypertension, and other chronic diseases, adherence is critical to optimize quality care.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Due to cultural beliefs and practices as well as health education limitations, medication adherence is often low among Jamaican patients.</para>
+               </listitem>
+            </itemizedlist>
+         </sect2>
+         <sect2 id="ch0023s0001s0005" role="Heading">
+            <title>
+               <emphasis role="HeadingNumber">23.1.5 </emphasis> High-Risk Health Behaviors</title>
+            <itemizedlist role="UnorderedListMarkBullet">
+               <listitem>
+                  <para role="Para">In addition to biological aspects of Jamaican culture, inherent cultural beliefs, traditions and practices are also highly relevant to health outcomes and optimal care.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">In order to appreciate these influences, it is worth noting that Jamaicans currently experience two healthcare systems. One involves westernized biomedical care strategies while the other relates to traditional medicinal practices. Both systems are important in understanding health behaviors among the population as Jamaicans tend to weave these together in their healthcare strategies.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Based on prior population surveys, most Jamaicans initially seek the advice of a primary care doctor when symptoms develop in order to understand a diagnosis.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaicans routinely use a variety of plants and herbs to prevent and treat a variety of conditions.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Each of these have been handed down via oral tradition from either African or indigenous heritage, and many have now been studied through more scientific means to determine efficacy.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Several such plants and herbs are commonly used today for various ailments.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Limited literacy and health knowledge often fail to guide sexual and other behaviors to reduce disease.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Combined with beliefs in God’s power to protect and heal as well as punish, challenges exist in getting Jamaicans to adopt best health practices in some instances.</para>
+               </listitem>
+            </itemizedlist>
+         </sect2>
+         <sect2 id="ch0023s0001s0006" role="Heading">
+            <title>
+               <emphasis role="HeadingNumber">23.1.6 </emphasis> Nutrition</title>
+            <itemizedlist role="UnorderedListMarkBullet">
+               <listitem>
+                  <para role="Para">Jamaicans are experiencing a state of flux when it comes to dietary practices. Traditional foods and rituals continue to play a significant role in dietary behaviors but increasingly these practices are being combined with westernized foods and diets.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Over the last 30 years, there has been a process of remote acculturation taking place, which describes the adoption of other cultures’ dietary practices despite being immersed in that culture.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaicans perceive food as a source of nutrition and sustenance.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Diets have always consisted of a variety of foodstuffs that offer a complex array of vitamins and minerals as well as caloric support.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Desserts and sweets play a role in celebrating occasions, but at the same time foods chosen represent Jamaica’s historical struggles to a great degree.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">In this regard, meanings of food serve to remind Jamaicans of their background and heritage.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">In the traditional diet of island Jamaica, there are several foods that are commonly consumed on a regular basis.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Rice, peas, and beans are included in most meals, as are endemic fruits and vegetables around the region.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Guava and papaya are tropical fruits common in addition to other berries and citrus.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Meat is also regularly consumed but differs from other cultures in terms of its type.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Food rituals are a centerpiece for various festivals and celebrations.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">In the past, access to food was limited; therefore high-density carbohydrates offered the chance to gain the calories needed to survive the day.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">While dietary changes have occurred through the influence of other countries and through remote acculturation, some rituals and tendencies persist in terms of foods.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Foods do have a role in promoting health in addition to its role in preserving cultural identity for Jamaicans.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Though most Jamaicans today do not avoid salt religiously, salt is still considered to prevent spiritual connections.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Though jerked meats no longer are essential to prevent spoilage and secondary illnesses, they remain a staple within the Jamaican diet.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaica struggles with some nutritional deficiencies.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">One of the most notable nutrient deficiencies involves iron, as anemia is common among children and women.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Young preschool children have been shown to have an anemia rate of over 30% while iron deficient anemia averages about 10% in older children.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">In pregnant Jamaican women, low hemoglobin and ferritin levels indicative of iron deficiency approaching nearly 40%.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Educational programs and social support are needed to overcome barriers to healthy eating and to improve existing nutritional limitations among the population.</para>
+               </listitem>
+            </itemizedlist>
+         </sect2>
+         <sect2 id="ch0023s0001s0007" role="Heading">
+            <title>
+               <emphasis role="HeadingNumber">23.1.7 </emphasis> Pregnancy and Childbearing Practices</title>
+            <itemizedlist role="UnorderedListMarkBullet">
+               <listitem>
+                  <para role="Para">As of 2022, the population is about 2.8 million; the life expectancy is 75-years-old, and there were 15 births per 1000 people and 10 deaths per 1000 live births.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">There are several things that Jamaicans say that are signs that a woman is pregnant. The most popular saying is that if a lizard jumps on a woman, she is pregnant. Another widespread belief is that if you have a random dream about fish, it is a sure sign that someone close to you has a child on the way.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">When you are pregnant, be careful. According to Jamaican folklore, using needle and thread while pregnant can cause the baby to become tied up in the umbilical cord.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Do not hold your hands above your head, the baby’s umbilical cord will somehow wrap around its neck causing inevitable death.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">An expectant mother is believed to “mark” her child with the things she craves during pregnancy. So, if the mother craves mangoes, the baby is likely to be born with a birthmark resembling a mango.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">In Jamaica, as with many cultures, a midwife, or nana, was the main overseer in birth and other transitional rituals. No matter the place, class or race of the family, all midwives shared a deep connection to and respect for the spirit world. Delivering at home was most common.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Pregnant people were encouraged to drink okra to facilitate a healthy pregnancy and birth.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Prior to the birth, the room would have to have an open bible on display, often open to a Psalm. The midwife would anoint the mother’s belly with castor oil, which would later be given to the baby and mother.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">The navel string (umbilical cord) of a newborn may be buried and a tree planted on the spot. This tree is called the birth tree or navel string tree. It is usually a source of immense pride to children as they are growing up. It also indicates an unbreakable connection with the land on which the tree is planted.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">An open Bible is often placed in a newborn’s crib or bed to protect the baby and ward off evil. The Bible is usually left open at a Psalm. A red string may be tied around a newborn’s wrist or in the hair. This is to “run duppy” (chase ghosts away) and ward off evil.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Many parents will not cut an infant’s hair before the child has started to speak. It is believed that cutting their hair will delay the start of speech. The fingernails of an infant should not be cut with scissors as this might make the child grow up to be a thief.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">New mothers are encouraged to stay indoors for a few days so as not to catch a “baby cold.” It used to be customary for both mother and newborn to be isolated up to 8 days after birth.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">On or about the tenth day after the baby’s birth, the mother and child would be taken out into the community to receive greetings and gifts from family and friends. The child would also be named on this day. This tradition has roots in West African birth beliefs and traditions surrounding birth.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Belly banding postpartum was also a customary practice, done for 2–3 months, using a type of bark that was heating.</para>
+               </listitem>
+            </itemizedlist>
+         </sect2>
+         <sect2 id="ch0023s0001s0008" role="Heading">
+            <title>
+               <emphasis role="HeadingNumber">23.1.8 </emphasis> Death Rituals</title>
+            <itemizedlist role="UnorderedListMarkBullet">
+               <listitem>
+                  <para role="Para">A plethora of Jamaican customs associated with death were exercised, many originating in rural parts of the country. Though modern values and ways of thinking have shifted the culture, several customs have survived.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">When someone dies, family, friends, and community members gather at night to sing Christian hymns and read Bible passages for 9 days. This ritual, known as set-up, dates back to slavery and is still practiced today. On the ninth day (“dead-yard” or nine-night”), a ceremony is performed to usher the spirit of the dead, or duppy, out of the dwelling to forever rest in peace.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Depending on how the deceased lived his life, Jamaicans believe that in death, the surviving ghost perpetuates the same traits.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">To restrict the movement of the ghost of the deceased and prevent his return to haunt the living, several measures are taken, including cutting out the pockets of the burial suit and inserting pins in the soles of both feet while chanting to prevent the ghost from walking about.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">The widow of a nagging husband would cut a handkerchief in halves, placing one half into the hand of the departed while burning the remaining half. It is believed that the spirit of the departed spends all his time searching for the other half of the handkerchief, allowing no time to plague his widow. The widow would also wear red panties for an extended time as an additional ghost repellant.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Unusual crying of animals, birds or insects and the crowing of a cock inside the house represent omens of death in the Jamaican culture.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Superstition surrounds graves and grave digging. It is a customary practice to attend a burial in odd numbers to prevent odd occurrences in the cemetery.</para>
+               </listitem>
+            </itemizedlist>
+         </sect2>
+         <sect2 id="ch0023s0001s0009" role="Heading">
+            <title>
+               <emphasis role="HeadingNumber">23.1.9 </emphasis> Spirituality</title>
+            <itemizedlist role="UnorderedListMarkBullet">
+               <listitem>
+                  <para role="Para">Obeah is a form of folk magic or folk religion that is practiced in some Caribbean countries, including Jamaica. Originating from African spiritual traditions, obeah represents a belief system that encompasses spiritual and mystical practices, witchcraft, and sorcery. Obeah is often associated with healing, divination, and protection.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Obeah is not an organized religion with a central doctrine. It is a set of practices that vary among those who follow its beliefs. Obeah receives mixed reviews as some herald it as a respected aspect of Jamaican heritage while others regard it as a superstition or even an illegal practice. Obeah.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Obeah is often performed secretively by someone paid for services including shadow-catching, ointment and poison preparations, and talismans.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">The term Obeah is use throughout the Caribbean, but the phrase Myal is specifically a Jamaican term to describe the good obeah.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Many Jamaicans believe that the purpose of Myal is to counteract the evil spirits of Obeah.</para>
+               </listitem>
+            </itemizedlist>
+         </sect2>
+         <sect2 id="ch0023s0001s0010" role="Heading">
+            <title>
+               <emphasis role="HeadingNumber">23.1.10 </emphasis> Healthcare Practices</title>
+            <itemizedlist role="UnorderedListMarkBullet">
+               <listitem>
+                  <para role="Para">Infection control is standard on the island due to fear of disease. Natural remedies are used as preventative care.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaicans generally mistrust mainstream medicine and often use herbal medicine instead of prescribed medicine by health professionals to treat illnesses.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Physicians can prescribe medication in the country, or patients may go to the drug store, speak to the Pharmacist, and obtain medicine based on symptoms.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaicans in the lower socioeconomic group do not access healthcare due to possible out-of-pocket fees and the location of services.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Especially in rural areas, there is minimal access to transportation and the cost, which decreases the incidence of patients accessing healthcare services.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Private healthcare is available to those with health insurance or who can afford to pay cash.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Public healthcare is available at no cost; however, access is still poor due to long wait times and a lack of facilities and healthcare workers available to provide care.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Immunization is mandatory for children to attend school.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">There are currently five pathologists on the island. A police officer must order an autopsy. Most families are reluctant to come and identify the body; hence, there are many delays and a lack of storage due to no public facilities provided by the government.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">The Jamaican culture believes in bodily integrity at death; hence, this is a barrier to obtaining deceased donors. The access to living donors is also diminished due to Jamaica’s high immigration rate to North America, Canada, Europe, and other Caribbean islands.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaicans have an increased fear of needles, which precludes them from donating blood. As a result, the island has an extreme shortage of banked blood due to a lack of volunteers.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Mental illness is underfunded, and this diagnosis has a considerable amount of stigma, leading to avoidance, rejection, and victimization.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Marijuana is viewed as an acceptable way to treat various illnesses, especially pain.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaicans have a poor adherence to pharmacotherapy, and using pills daily is not a usual practice and is usually guided by religious and cultural traditions. Different teas and purification methods are common antidotes that are acceptable.</para>
+               </listitem>
+            </itemizedlist>
+         </sect2>
+         <sect2 id="ch0023s0001s0011" role="Heading">
+            <title>
+               <emphasis role="HeadingNumber">23.1.11 </emphasis> Healthcare Providers</title>
+            <itemizedlist role="UnorderedListMarkBullet">
+               <listitem>
+                  <para role="Para">Most Jamaicans refer to the physician as “di docta man or bush doctor.”</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Ensure the patient is comfortable, which will increase open communication.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaicans may use herbal medicine in conjunction with mainstream medicine.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Most Jamaicans use herbal medicine as a primary source of healthcare despite scientific advancement in medicine.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">The practice of herbal medicine is independent of socioeconomic status.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Traditional medicine is an afterthought due to access to care, lack of insurance, location, and socioeconomic status.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Jamaicans’ perception of quality versus efficiency also influences the choice between public and private healthcare facilities.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">There are two primary sectors of care (public and private), and not all providers work in the public sector, further decreasing access to care.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Although unregulated, the private sector of the health system is more technologically advanced and provides outpatient services and cutting-edge procedures.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">Due to the lack of physicians, junior physicians are trained to bridge healthcare facilities’ gaps.</para>
+               </listitem>
+               <listitem>
+                  <para role="Para">The 2030 Vision of the Ministry of Health in Jamaica is to provide Universal Healthcare to the entire population of Jamaica.</para>
+               </listitem>
+            </itemizedlist>
+         </sect2>
+      </sect1>
+      

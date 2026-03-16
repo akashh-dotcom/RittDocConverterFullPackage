@@ -1,0 +1,225 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.PublisherUsageDetail
+           
+<div id="content" class="content" role="main">
+    <h1>Publisher Usage Report</h1>
+
+
+    @if (Model.ActionsMenu != null)
+    {
+        using (Html.BeginForm("PublisherUsage", "Report", null, FormMethod.Post))
+        {
+            <div id="report-filters" class="tablecontent">
+                <table class="edit">
+                    @*@Html.Partial("_PublisherFilter")*@
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.PublisherList)</td>
+                        <td class="field">
+                            @Html.DropDownListFor(model => model.ReportQuery.PublisherId, Model.PublisherList, new { style = "width:500px" })
+                        </td>
+                    </tr>
+                    @*@Html.Partial("_PublisherPeriod")*@
+                    @Html.Partial("_Period")
+                    <tr>
+                        <td></td>
+                        <td class="actions">
+                            <button class="btn-medium" type="submit"><span>Run Report</span></button>
+                            @if (Model.IsSaveEnabled)
+                            {
+                                <button class="btn-medium" type="submit" id="save-report-submit"><span>Save / Schedule Report</span></button>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    }
+    @if (Model.PageLinks.Count() > 1 && Model.ActionsMenu != null)
+    {
+    <div class="nav-section-wrapper">
+        <div class="clearfix nav-section" data-implement="fixed">
+            <div class="previous">
+                @if (Model.PreviousLink.Active)
+                {
+                    <a href="@Model.FirstLink.Href" class="nav-page-link">&lt; @Model.FirstLink.Text</a>
+                    <a href="@Model.PreviousLink.Href" class="nav-page-link">&lt;&lt; @Model.PreviousLink.Text</a>
+                }
+            </div>
+
+            <div class="next">
+                @if (Model.NextLink.Active)
+                {
+                    <a href="@Model.NextLink.Href" class="nav-page-link">@Model.NextLink.Text &gt;&gt;</a>
+                    <a href="@Model.LastLink.Href" class="nav-page-link">@Model.LastLink.Text &gt;</a>
+                }
+            </div>
+
+            <ul class="nav-number nav-content">
+                <li><strong>Jump to page:</strong></li>
+                @foreach (var link in Model.PageLinks)
+                {
+                    if (link.Active)
+                    {
+                        <li@(StyleHelpers.AddSelectedState(link.Selected))><a href="@link.Href" class="nav-page-link"><span>@link.Text</span></a></li>
+                    }
+                    else
+                    {
+                        <li><span>@link.Text</span></li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+    }
+    <div class="group-actions-wrapper">
+        <div class="clearfix group-actions">
+            <p class="header">Publisher Usage for @Html.DisplayFor(model => model.DateRangeStart) to @Html.DisplayFor(model => model.DateRangeEnd)</p>
+        </div>
+    </div>
+
+    <div class="tablecontent">
+        <table class="report">
+            <tr>
+                <td class="label">@Html.LabelFor(model => model.PublisherName)</td>
+                <td class="field">@Html.DisplayFor(model => model.PublisherName)</td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(model => model.VendorNumber)</td>
+                <td class="field">@Html.DisplayFor(model => model.VendorNumber)</td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(model => model.NewTitlesCount)</td>
+                <td class="field">@Html.DisplayFor(model => model.NewTitlesCount)</td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(model => model.TitlesSoldCount)</td>
+                <td class="field">@Html.DisplayFor(model => model.TitlesSoldCount)</td>
+            </tr>
+            <tr>
+                <td class="label success">@Html.LabelFor(model => model.TotalSales)</td>
+                <td class="field success">@Html.DisplayFor(model => model.TotalSales)</td>
+            </tr>
+        </table>
+    </div>
+
+
+    @if (Model.Items != null && Model.Items.Any())
+    {
+        <div class="alertbox">
+            <p>Showing Resources @string.Format("{0:#,##0}", Model.PageResourceFirstNumber) to @string.Format("{0:#,##0}", Model.PageResourceLastNumber) of @string.Format("{0:#,##0}", Model.ResourceCount)</p>
+        </div>
+
+        <div class="tablecontent">
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th class="resource-report-image">&nbsp;</th>
+                        <th class="resource-report-usage">Usage Stats</th>
+                        <th class="resource-report-cost">Cost Stats</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td class="resource-report-image">
+                                <div class="title-image">
+                                    @if (Model.ActionsMenu != null)
+                                    {
+                                        <img alt="@item.Resource.Title" src="@item.Resource.ImageUrl" width="80" />
+                                    }
+                                </div>
+                                <div class="resource-report-status">@ResourceHelpers.ResourceStatus(item.Status)</div>
+                            </td>
+                            <td colspan="2">
+                                <div class="titleitem">
+                                    <h2><a href="@Url.Action("Title", "Resource", new { Area = "", item.Resource.Isbn })" data-toggle="collapse" data-target="#item-@item.Resource.Isbn">@Html.DisplayFor(x => item.Resource.Title)</a></h2>
+                                    @*<h2>@Html.DisplayFor(modelItem => item.ResourceTitle)</h2>*@
+
+                                    <table>
+                                        <tr>
+                                            <td class="resource-report-usage">
+                                                <table>
+                                                    <tr>
+                                                        <td class="success">@Html.LabelFor(modelItem => item.IsNewTitle)</td>
+                                                        <td class="success">@Html.DisplayFor(modelItem => @item.IsNewTitle)</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="resource-report-cost">
+                                                <table>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(modelItem => item.Licenses)</td>
+                                                        <td>@Html.DisplayFor(modelItem => @item.Licenses)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(modelItem => item.TotalSales)</td>
+                                                        <td>@Html.DisplayFor(modelItem => @item.TotalSales)</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div id="item-@item.Resource.Isbn" class="collapse title-detail">
+                                        <div class="clearfix">
+                                            @*<div class="title-image"><img alt="@item.Title" src="@Model.ImageUrl" /></div>*@
+
+                                            <div class="title-meta">
+                                                <ul style="float: left; width: 279px;">
+                                                    <li><b>Author(s):</b> @Html.DisplayFor(x => item.Resource.Authors)</li>
+                                                    <li><b>Publisher:</b> @Html.DisplayFor(x => item.Resource.Publisher.DisplayName)</li>
+                                                    <li><strong>Affiliation: </strong>@Html.Raw(item.Resource.Affiliation)</li>
+                                                    <li><b>Publication Date:</b> @Html.Raw(string.Format("{0:M/d/yyyy}", item.Resource.PublicationDate))</li>
+                                                    <li><b>R2 Release Date:</b> @Html.Raw(string.Format("{0:M/d/yyyy}", item.Resource.ReleaseDate))</li>
+                                                </ul>
+                                                <ul style="float: left; margin-left: 50px;">
+
+                                                    @if (item.Resource.PracticeAreas != null && item.Resource.PracticeAreas.Any())
+                                                    {
+                                                        var firstPracticeArea = true;
+                                                    <li>
+                                                        <b>Practice Area:</b>
+                                                        @foreach (var practiceArea in item.Resource.PracticeAreas)
+                                                        {
+                                                            @(firstPracticeArea ? "" : ", ")@practiceArea.Name
+                                                            firstPracticeArea = false;
+                                                        }
+                                                    </li>
+                                                    }
+                                                    @if (item.Resource.Specialties != null && item.Resource.Specialties.Any())
+                                                    {
+                                                        var firstSpecialty = true;
+                                                    <li>
+                                                    <b>Discipline:</b>
+                                                        @foreach (var specialty in item.Resource.Specialties)
+                                                        {
+                                                            @(firstSpecialty ? "" : ", ")@specialty.Name
+                                                            firstSpecialty = false;
+                                                        }
+                                                    </li>
+                                                    }
+                                                    <li><b>ISBN 10:</b> @Html.DisplayFor(x => item.Resource.Isbn10)</li>
+                                                    <li><b>ISBN 13:</b> @Html.DisplayFor(x => item.Resource.Isbn13)</li>
+                                                    @if (item.Resource.EIsbn != null)
+                                                    {
+                                                        <li><b>eISBN:</b> @Html.DisplayFor(x => item.Resource.EIsbn)</li>
+                                                    }
+                                                    <li><b>Edition:</b> @Html.DisplayFor(modelItem => item.Resource.Edition)</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <p>@item.Resource.Description</p>
+                                        <p><strong><a href="@Url.Action("Title", "Resource", new { Area = "", item.Resource.Isbn })" target="_blank" data-toggle="window">View Full Detail</a></strong></p>
+                                        <p><strong><a href="@Url.Action("List", "CollectionManagement", new { Model.InstitutionId, query=  item.Resource.Isbn })">Purchase License</a></strong></p>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+</div>

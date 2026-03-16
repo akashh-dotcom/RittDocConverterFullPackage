@@ -1,0 +1,136 @@
+﻿@using R2V2.Core.Institution
+@using R2V2.Core.Resource
+@model R2V2.Web.Models.Browse.Browse
+@{
+    ViewBag.Title = "Browse Library";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    @if ((Model.AuthenticationInfo.HomePage == HomePage.Titles || Model.AuthenticationInfo.HomePage == HomePage.Discipline) && Model.AuthenticationInfo.IsNotGuest)
+    {
+        @Html.Partial("_WelcomeIntro", Model.AuthenticationInfo)
+    }
+
+    <div id="content" class="content" role="main">
+        <div id="copy"></div>
+    </div>
+
+    <div class="nav-sub">
+        <div class="facet-history" id="browse-history"></div>
+
+        <h2>Include:</h2>
+        <ul class="clearfix checkboxes">
+            <li><input data-history="bookmark" data-bookmark-group="include" id="active" name="active" value="@((int)Include.Active)" type="checkbox" /> <label for="active">Active</label></li>
+            <li><input data-history="bookmark" data-bookmark-group="include" id="archive" name="archive" value="@((int)Include.Archive)" type="checkbox" /> <label for="archive">Archive</label></li>
+        </ul>
+
+        @if (Model.DisplayTocAvailable)
+        {
+            <ul class="clearfix checkboxes">
+                <li><input data-history="bookmark" id="toc-available" name="toc-available" value="true" type="checkbox" /> <label for="toc-available">Table of Contents Available</label></li>
+            </ul>
+        }
+        @if (Model.EnableCollectionLink)
+        {
+            <div id="type" data-history="bookmark" style="padding-top: 15px;display: grid;margin-bottom: -15px;">
+                <a style="float: none;margin-left: auto;margin-right: auto;" class="btn btn-intro" href="#collections"><span style="padding:0 20px 0 10px !important"><strong>@Model.CollectionLinkName</strong></span></a>
+            </div>
+        }
+        
+        
+
+        <h2>Browse by:</h2>
+        <ul id="type" data-history="bookmark">
+            <li><a href="#publications">Publication Title</a></li>
+            <li><a href="#disciplines">Discipline</a></li>
+            <li><a href="#authors">Author</a></li>
+            <li><a href="#publishers">Publisher</a></li>
+        </ul>
+
+        <h2>Sort by:</h2>
+        <ul id="sort-by" data-history="bookmark">
+            <li><a href="#title">Title</a></li>
+            @*<li><a href="#author">Author</a></li>*@
+            <li><a href="#publisher">Publisher</a></li>
+            <li><a href="#publication-date">Publication Date</a></li>
+        </ul>
+        @if (Model.Publishers != null && Model.Publishers.Any())
+        {
+            <div>
+                <h2>Publishers:</h2>
+                <ul id="publisherId" data-history="bookmark" data-has-counts="true">
+                    @foreach (var publisher in Model.Publishers)
+                    {
+                        if (string.IsNullOrWhiteSpace(publisher.DisplayName))
+                        {
+                            <li><a href="#@publisher.Id">@publisher.Name <strong class="result-count"></strong></a></li>
+                        }
+                        else
+                        {
+                            <li><a href="#@publisher.Id">@publisher.DisplayName <strong class="result-count"></strong></a></li>
+                        }
+
+                    }
+                </ul>
+            </div>
+        }
+        @if (Model.Disciplines != null && Model.Disciplines.Any())
+        {
+            <div>
+                <h2>Disciplines:</h2>
+                <ul id="disciplineId" data-history="bookmark" data-has-counts="true">
+                    @foreach (var discipline in Model.Disciplines)
+                    {
+                        <li><a href="#@discipline.Id">@discipline.Name <strong class="result-count"></strong></a></li>
+                    }
+                </ul>
+            </div>
+        }
+        @if (Model.PracticeAreas != null && Model.PracticeAreas.Any())
+        {
+            <h2>Practice Area:</h2>
+            <ul id="practice-area" data-history="bookmark" data-has-counts="true">
+                @foreach (var practiceArea in Model.PracticeAreas)
+                {
+                    <li><a href="#@practiceArea.Id">@practiceArea.Name <strong class="result-count"></strong></a></li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@section InlineModal
+{
+    <div class="content modal preview">
+        <div class="modal-header">
+            <h1>R2 Digital Library 2.0 Preview Release Notes</h1>
+            <a class="close" data-dismiss="modal" href="#">Close</a>
+        </div>
+
+        <div class="modal-body">
+            <p>This preview of version 2.0 of the R2 Digital Library is designed exclusively to give R2 Digital Library users a sneak peak of the new user interface prior to market release.  Rittenhouse makes no guarantee of performance or functionality of the R2 Digital Library 2.0 preview release.</p>
+
+            <h4>STABILITY</h4>
+            <p>R2 Digital Library 2.0 is still in development and may not perform as expected.  Some links are not yet active.</p>
+
+            <h4>CONTENT</h4>
+            <p>R2 Digital Library 2.0 will NOT reflect your R2 Library collection or your preferences.</p>
+
+            <h4>ORDERS</h4>
+            <p>PLEASE DO NOT PLACE ORDERS using the preview site.  They will not be processed.</p>
+
+            <h4>STATISTICS</h4>
+            <p>R2 Digital Library 2.0 will NOT reflect your R2 Library statistics.</p>
+        </div>
+    </div>
+}
+
+@section JsDocumentReady
+{
+    new R2V2.Browse.History({ $container: $('#browse-history') });
+    new R2V2.Browse.Sort({ $container: $('#sort-by') });
+    new R2V2.Browse.Filters();
+    new R2V2.Browse.Results({ $container: $('#copy'), page: 1, pageSize: @Model.PageSize, resultsSelector: '.titleitem' });
+    new R2V2.Browse({ dataUrl: '@Url.Action("JsonResults", "Browse")', type: '@Model.DefaultType', include: @Model.DefaultInclude });
+}

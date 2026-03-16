@@ -1,0 +1,134 @@
+﻿@model R2V2.Web.Areas.Admin.Models.OrderHistory.OrderHistoryDetail
+
+<div id="content" class="content" role="main">
+    <h1>R2 LIBRARY ORDER SUMMARY</h1>
+    <div>Active resources are available for use immediately!</div>
+    @Html.Partial("_InstitutionInfo")
+
+    @if (Model != null && Model.OrderHistory != null)
+    {
+        <div id="order-summary">
+            @Html.Partial("_OrderSummary", Model)
+        </div>
+
+        <div class="tablecontent">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="order-summary-isbn">ISBN</th>
+                        <th class="order-summary-title">Title</th>
+                        <th class="order-summary-license-count"># of Licenses</th>
+                        <th class="order-summary-price">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderHistory.OrderHistoryResources)
+                    {
+                    <tr>
+                        <td>
+                            <span class="resource-status">@ResourceHelpers.ResourceStatus(item.Resource.Status)</span>
+                            @ResourceHelpers.ShowListedStatus(item.Resource, Model.SpecialIconBaseUrl, Model.ActionsMenu == null, item.SpecialIconName, item.SpecialText)
+                        </td>
+                        <td class="order-summary-isbn">@item.Resource.Isbn13</td>
+                        <td class="order-summary-title">
+                            <div class="titleitem">
+                                <h2>@item.Resource.Title</h2>
+                                <div class="item">@item.Resource.Authors</div>
+                                <div>@Html.LabelFor(x => item.Resource.PublisherName) @Html.DisplayFor(x => item.Resource.PublisherName)</div>
+                                <div class="item"><a href="@Url.Action("Title", "Resource", new {isbn = item.Resource.Isbn, area = ""}, Model.RequireSsl ? "https" : "http")" target="_blank" data-toggle="window">@Url.Action("Title", "Resource", new { isbn = item.Resource.Isbn, area = "" }, Model.RequireSsl ? "https" : "http")</a></div>
+                                <div class="license-cart">@Html.DisplayFor(x => item.SpecialText)</div>
+                                @if (item.Recommendations != null && item.Recommendations.Any())
+                                {
+                                    foreach (var recommended in item.Recommendations)
+                                    {
+                                        @Html.Partial("_ResourceRecommendNote", recommended)
+                                    }
+                                }
+                            </div>
+                        </td>
+                        @PurchaseHelper.GetOrderHistoryPriceDisplay(item)
+                    </tr>
+                    }
+
+                    @foreach (var productItem in Model.OrderHistory.OrderHistoryProducts)
+                    {
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td class="order-summary-isbn"></td>
+                            <td class="order-summary-title">
+                                @productItem.Product.Name
+                            </td>
+                            <td class="order-summary-license-count"></td>
+                            @if (productItem.ListPrice == productItem.DiscountPrice)
+                            {
+                                <td class="order-summary-price">
+                                    <span class="saleprice">@Html.DisplayFor(x => productItem.ListPrice)</span>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="order-summary-price">
+                                    <span class="fullprice">Retail Price: @Html.DisplayFor(x => productItem.ListPrice)</span>
+                                    <span class="saleprice">Discount Price: @Html.DisplayFor(x => productItem.DiscountPrice)</span>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+
+
+            </table>
+            <table>
+                <tfoot>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="order-summary-isbn"></td>
+                        <th class="order-summary-title">Subtotal</th>
+                        <td class="order-summary-license-count">@Model.OrderHistory.NumberofLicenses</td>
+                        <td class="order-summary-price">@Html.DisplayFor(x => Model.OrderHistory.SubTotal)</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        @*<td class="order-summary-isbn"></td>*@
+                        <th class="order-summary-title" colspan="2" style="text-align: right">
+                            @Html.Raw(Model.GetDisplayDiscountLabel())@if (Model.OrderHistory.IsPromotionApplied)
+                        {<text>*</text>}
+                        </th>
+                        @if (Model.IsSingleDiscount())
+                        {
+                            <td class="order-summary-license-count">
+                                @Html.Raw(Model.GetDisplayDiscount())@if (Model.OrderHistory.IsPromotionApplied)
+                            {<text>*</text>}
+                            </td>
+                            <td class="order-summary-price">
+                                @Html.DisplayFor(x => Model.OrderHistory.DiscountTotal)@if (Model.OrderHistory.IsPromotionApplied)
+                            {<text>*</text>}
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="order-summary-license-count" colspan="2">
+                                @Html.Raw(Model.GetDisplayDiscount())@if (Model.OrderHistory.IsPromotionApplied)
+                                {<text>*</text>}
+                                @Html.DisplayFor(x => Model.OrderHistory.DiscountTotal)@if (Model.OrderHistory.IsPromotionApplied)
+                                {<text>*</text>}
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        @*<td class="order-summary-isbn"></td>*@
+                        <th class="order-summary-title" colspan="2" style="text-align: right">Total</th>
+                        <td class="order-summary-license-count"></td>
+                        <td class="order-summary-price">@Html.DisplayFor(x => Model.OrderHistory.OrderTotal)</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        if (!string.IsNullOrWhiteSpace(Model.OrderHistory.PromotionCode))
+        {
+            <div class="billing">* = promotion applied to order</div>
+        }
+    }
+</div>

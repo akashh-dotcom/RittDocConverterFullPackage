@@ -1,0 +1,29 @@
+﻿@using R2V2.Extensions
+@model R2V2.Web.Models.Error.ExpectedErrorViewModel
+@{
+    ViewBag.Title = "Expected Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="onecol contentcontainer">
+    <div class="hero" role="main">
+        <h1>@Model.ErrorMessage</h1>
+        
+        <p>If you believe this is in error, please Contact Rittenhouse Customer Service via our <a href="@Url.Action("Index", "Contact", new {Area = ""})">online form</a>.</p>
+        
+        <p>Please select from one of the following to continue:</p>
+
+        <ul>
+            <li>Return to the <a href="/">R2 Library home page</a>, or</li>
+            <li>Return to the <a data-history="back">previous page</a></li>
+        </ul>
+        
+        <ul class="list-errors">
+            @if(Model.ErrorId.IsNotEmpty()){
+                <li><strong>Request Id:</strong> @Model.ErrorId</li>
+            }
+            <li><strong>Time:</strong> @DateTime.Now.ToString()</li>
+            <li><strong>Reported Error Path:</strong> @Model.AspxErrorPath</li>
+        </ul>
+    </div>
+</div>

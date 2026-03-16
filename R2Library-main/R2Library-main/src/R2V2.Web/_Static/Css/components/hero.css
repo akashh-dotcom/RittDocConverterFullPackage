@@ -1,0 +1,110 @@
+﻿/* ==========================================================================
+	Hero
+   ========================================================================== */
+
+.hero {
+    position: relative;
+	margin: 0; padding: 35px; border: 1px solid #BABABA; width: 888px; height: 186px;
+    background: transparent url(../images/hero/generic.jpg) 0 0 no-repeat;
+    font-size: 1.075em; line-height: 1.4117; /* 24px / 17px */
+    }
+    
+    .hero h1 {
+		font-size: 1.5882em; /* 27px / 17px */ color: #AF1B3F;
+	    }
+	        
+	.hero h1 + p {
+		margin-top: 5px;
+	    }
+	    
+	.hero p {
+	    font-size: .8em;
+	    }
+	    
+	.hero ul {
+		list-style: none;
+		margin-left: 0;
+	    font-size: .8em;
+	    }
+	    .hero ul li {
+		    margin-top: 4px; padding-left: 15px;
+		    background: url(../images/icons/ul-bullet-level1.gif) no-repeat 0 .6em;
+	        }
+
+	.hero img {
+		width: 958px;
+		height: 257px;
+	    }
+
+
+/*Slider*/
+.slider div.hero {
+	visibility: hidden;
+	padding: inherit;
+	height: inherit;
+    }
+
+.slider-nav table {
+	height: 33px;
+	font-family: arial,verdana,helvetica,sans-serif;
+	font-size: 11px;
+	line-height: 11px;
+	font-weight: bold;
+	white-space: nowrap;
+	background-color: #ffffff;
+	table-layout: fixed;
+	}
+
+.slide-title {
+	vertical-align: middle;
+	text-align: center;
+	}
+
+.slide-title-link {
+    color: #3e3e3e;
+    }
+.slide-title-link.selected {
+    color: #e0150c;
+    }
+
+
+/*Slick*/
+.slick-prev, .slick-next { 
+	width: 25px;
+	height: 37px;
+    }
+
+	.slick-prev {
+		left: 0;
+		background: transparent url(../images/icons/left_arrow.png) no-repeat 0 0;
+	    }
+
+	.slick-next {
+		right: 0;
+		background: transparent url(../images/icons/right_arrow.png) no-repeat 0 0; 
+	    }
+
+.slick-prev:before, .slick-next:before {
+	content: none;
+	}
+
+.slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus {
+	outline: none;
+	color: transparent;
+	}
+
+	.slick-prev:hover, .slick-prev:focus {
+		background: transparent url(../images/icons/left_over_arrow.png) no-repeat 0 0;
+		}
+
+	.slick-next:hover, .slick-next:focus {
+		background: transparent url(../images/icons/right_over_arrow.png) no-repeat 0 0;
+		}
+
+.slick-initialized div.hero {
+    visibility: visible;
+    }
+
+.slick-slider {
+    margin-bottom: 0;
+    }

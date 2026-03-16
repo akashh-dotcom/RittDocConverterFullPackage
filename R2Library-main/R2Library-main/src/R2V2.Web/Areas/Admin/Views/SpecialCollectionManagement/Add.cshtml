@@ -1,0 +1,44 @@
+﻿@model R2V2.Web.Areas.Admin.Models.SpecialCollectionManagement.EditModel
+
+@{
+    ViewBag.Title = "Special Collection Edit";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+
+@using (Html.BeginForm())
+{
+    <div class="clearfix fullcol contentcontainer">
+        <div id="content" class="content" role="main">
+            <h1>Special Collection Add</h1>
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><a href="@Url.Action("List")" class="btn btn-medium"><span>Cancel</span></a></li>
+                        <li><button class="btn btn-medium" type="submit"><span>Save</span></button></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tablecontent">
+                <table class="edit">
+                    <tbody>
+                        <tr>
+                            <td class="label">@Html.LabelFor(x => x.Name)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(x => x.Name, new { @class = "input-large", placeholder = "Will be displayed in the left hand navigation" })
+                                @Html.ValidationMessageFor(x => x.Name)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                </div>
+            </div>
+    </div>
+}

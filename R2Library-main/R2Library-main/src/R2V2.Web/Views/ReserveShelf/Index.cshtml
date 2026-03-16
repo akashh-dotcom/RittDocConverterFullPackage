@@ -1,0 +1,91 @@
+﻿@model R2V2.Web.Models.ReserveShelf.ReserveShelfIndex
+@{
+    ViewBag.Title = "Reserve Shelf";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myForm" }))
+        {
+            <h1>Reserve Shelf</h1>
+            <div class="display-per-page no-inst">
+                <p class="screenreader">Choose the sort order of the resources.</p>
+                @Html.LabelFor(x => x.SortbySelectList)
+                @Html.DropDownListFor(x => x.SelectedSortBy, Model.SortbySelectList)
+                
+                <strong class="sort-type">
+                    <span id="AscendingSpan" class="ascending@(StyleHelpers.AddSelectedStateWithoutClass(Model.IsAscending))" title="Ascending"></span>
+                    <span id="DescendingSpan" class="descending@(StyleHelpers.AddSelectedStateWithoutClass(!Model.IsAscending))" title="Descending"></span>
+                    @Html.HiddenFor(x=>x.IsAscending)
+                </strong>
+
+                @Html.HiddenFor(x=>x.SelectedReserveShelfId)
+            </div>
+        }
+        @if (Model.SelectedReserveShelf != null && Model.SelectedReserveShelf.Resources != null && Model.SelectedReserveShelf.Resources.Any())
+        {
+            <div class="alertbox">
+	            <p>@Html.Raw(Model.SelectedReserveShelf.Description)</p>
+            </div>
+            
+            <div class="titlelist">
+                @foreach (var reserveShelfResource in Model.ReserveShelfUrls)
+                {
+                    <div class="titleitem">
+                        <div>
+                            <a href="@reserveShelfResource.Url" data-toggle="window">@reserveShelfResource.Url</a><br/>
+                            @Html.DisplayFor(item => reserveShelfResource.Description)
+                        </div>
+                    </div>
+                }
+            </div>
+            
+            <div class="titlelist">
+                @foreach (var reserveShelfResource in Model.SelectedReserveShelf.Resources)
+                {
+                    @Html.Partial("_ResourceSummary", reserveShelfResource)
+                }
+            </div>
+        }
+    </div>
+
+    <div class="nav-sub">
+        @if (Model.ReserveShelves != null && Model.ReserveShelves.Any())
+        {
+            <h2>Resource List</h2>
+            <ul>
+                @foreach (var reserveShelf in Model.ReserveShelves)
+                {
+                    if (Model.SelectedReserveShelf != null && reserveShelf.Id == Model.SelectedReserveShelf.Id)
+                    {
+                        <li>@reserveShelf.Name</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink(reserveShelf.Name, "Index", "ReserveShelf", new { reserveShelf.Id }, null)</li>
+                    }
+                }
+            </ul> 
+        }
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    $('.content').tips();
+    
+    $('#AscendingSpan').click(function(){
+        $('#IsAscending').val("true");
+        $('#myForm').submit();
+    });
+    $('#DescendingSpan').click(function(){
+        $('#IsAscending').val("false");
+        $('#myForm').submit();
+    });
+    
+    $('#SelectedSortBy').change(function(){
+        $('#IsAscending').val("true");
+        $('#myForm').submit();
+    });
+}

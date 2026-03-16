@@ -1,0 +1,15 @@
+﻿<div id="save-query" class="panel save" data-panel="savequery">
+    @using (Html.BeginForm("SaveSearch", "UserContent"))
+    {
+        <ol>
+            <li>
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" />
+            </li>
+            <li class="actions">
+                <button type="submit" class="btn btn-medium"><span>Save</span></button>
+                <button type="reset" class="btn btn-medium"><span>Cancel</span></button>
+            </li>
+        </ol>
+    }
+</div>

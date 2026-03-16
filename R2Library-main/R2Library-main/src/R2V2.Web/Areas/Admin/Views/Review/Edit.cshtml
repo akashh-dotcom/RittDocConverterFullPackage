@@ -1,0 +1,86 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Review.ReviewEdit
+@{
+    ViewBag.Title = "Expert Reviewer Review Lists";
+	ViewBag.BodyCssClass = "admin";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    
+    <div id="content" class="content" role="main">
+        <h1>Expert Reviewer Review Lists</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+        
+        @using (Html.BeginForm())
+		{
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions">
+                    <ul class="actions">
+                        <li><button class="btn-medium" type="submit"><span>Save</span></button></li>
+                        <li><a data-history="back" class="btn btn-medium"><span>Cancel</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tablecontent">
+                @Html.HiddenFor(model => model.Review.Id)
+                
+                <table class="edit">
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.Review.Name)</td>
+                        <td class="field" colspan="2">
+                            @Html.TextBoxFor(x => x.Review.Name, new { @class = "input-full" })
+                            @Html.ValidationMessageFor(model => model.Review.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.Review.Description)</td>
+                        <td class="field" colspan="2">
+                            @Html.TextAreaFor(x => x.Review.Description, new { @class = "input-full" })
+                            @Html.ValidationMessageFor(model => model.Review.Description)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.Review.ReviewUsers)</td>
+	                    <td class="field">
+		                    <table class="edit">
+			                    @foreach (var user in Model.ExpertReviewers)
+			                    {
+				                    <tr>
+					                    @if (user.IsSelected)
+					                    {
+						                    <td><div class="checkbox"><label for="user-@user.UserId" class="checkbox"><input type="checkbox" id="user-@user.UserId" name="SelectedExpertReviewerUserIds" value="@user.UserId" checked="checked" /> @user.LastName<text>, </text>@user.FirstName</label></div></td>
+					                    }
+					                    else
+					                    {
+						                    <td><div class="checkbox"><label for="user-@user.UserId" class="checkbox"><input type="checkbox" id="user-@user.UserId" name="SelectedExpertReviewerUserIds" value="@user.UserId"  /> @user.LastName<text>, </text>@user.FirstName</label></div></td>
+					                    }	                    
+				                    </tr>
+			                    }
+		                    </table>
+	                    </td>
+                        <td>
+                            @if (Model.Review.Id != 0)
+                            {
+                                <div><button class="btn-medium" type="submit" name="ActionType" value="EmailSelectedUsers"><span>Email Review to Selected User</span></button></div>
+                                <div>@Model.ActionResultsMessage</div>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+		}
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

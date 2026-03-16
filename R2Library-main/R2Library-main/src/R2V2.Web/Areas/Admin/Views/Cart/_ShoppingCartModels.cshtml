@@ -1,0 +1,133 @@
+﻿@using R2V2.Core.CollectionManagement
+@model R2V2.Web.Areas.Admin.Models.Order.Order
+
+<div id="SaveCartLink" class="content modal title-text">
+    <div class="modal-header center">
+        <h3>@Model.SaveCopyCartText</h3>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+
+    @using (Html.BeginForm("SaveCart", "Cart"))
+    {
+        @Html.HiddenFor(x => x.OrderId)
+        @Html.HiddenFor(x => x.InstitutionId)
+        @Html.HiddenFor(x => x.CartType)
+
+
+        <div class="modal-body center modal-cart">
+            @Html.LabelFor(x => x.CartName)
+            @Html.TextBoxFor(x => x.CartName, new { @class = "input-large", maxlength = 50 })
+            @Html.ValidationMessageFor(x => x.CartName)
+        </div>
+        <div class="actions modal-footer">
+            <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+
+            <button class="btn-medium" type="submit">
+                @if (Model.CartType == CartTypeEnum.Saved)
+                {
+                    <span>Copy Cart</span>
+                }
+                else
+                {
+                    <span>Save Cart</span>
+                }
+            </button>
+        </div>
+    }
+</div>
+
+<div id="MergeLink" class="content modal title-text">
+
+    <div class="modal-header center">
+        <h3>Merge Cart Into</h3>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+
+    <div class="modal-body center modal-cart">
+        <table id="modelCartTable" style="border: 0 none">
+            @foreach (var cart in Model.ActionsMenu.AllCarts.Where(x => x.Id != Model.OrderId))
+            {
+            <tr>
+	            <td rowspan="2">@Html.ActionLink(cart.CartName ?? "Default Cart", "MergeCarts", "Cart", new { currentCartId = Model.OrderId,  cart.InstitutionId, mergeIntoCartId = cart.Id }, null)</td>
+				<td><b>@Html.LabelFor(x => cart.ItemCount)</b>@Html.DisplayFor(x => cart.ItemCount)</td>
+                <td><b>@Html.LabelFor(x => cart.Total)</b>@Html.DisplayFor(x => cart.Total)</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>@Html.LabelFor(x => cart.CreatedBy)</b>@Html.DisplayFor(x => cart.CreatedBy)</td>
+                <td><b>@Html.LabelFor(x => cart.CreatedDate)</b>@Html.DisplayFor(x => cart.CreatedDate)</td>
+                <td><b>@Html.LabelFor(x => cart.UpdatedDate)</b>@Html.DisplayFor(x => cart.UpdatedDate)</td>
+            </tr>
+            }
+        </table>
+    </div>
+    <div class="actions modal-footer">
+        <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+    </div>
+</div>
+
+<div id="DeleteCartLink" class="content modal title-text">
+    <div class="modal-header center">
+        @if (Model.CartType == CartTypeEnum.Saved || Model.CartType == CartTypeEnum.AutomatedCart)
+        {
+            <h3>Delete Cart</h3>
+        }
+        else
+        {
+            <h3>Clear Cart</h3>
+        }
+
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+    <div class="modal-body center modal-cart">
+        Are you sure you want to
+        @if (Model.CartType == CartTypeEnum.Saved || Model.CartType == CartTypeEnum.AutomatedCart)
+        {
+            <span>delete this cart?</span>
+        }
+        else
+        {
+            <span>clear this cart?</span>
+        }
+    </div>
+    <div class="actions modal-footer">
+        <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+
+        <a class="btn btn-medium" href="@Url.Action("ClearCart", "Cart", new{Model.CollectionManagementQuery.InstitutionId, cartId = Model.OrderId})">
+            @if (Model.CartType == CartTypeEnum.Saved || Model.CartType == CartTypeEnum.AutomatedCart)
+            {
+                <span>Delete Cart</span>
+            }
+            else
+            {
+                <span>Clear Cart</span>
+            }
+        </a>
+
+    </div>
+</div>
+
+<div id="RenameCartLink" class="content modal title-text">
+    <div class="modal-header center">
+        <h3>Rename Cart</h3>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+
+    @using (Html.BeginForm("SaveCart", "Cart"))
+    {
+        @Html.HiddenFor(x => x.OrderId)
+        @Html.HiddenFor(x => x.InstitutionId)
+        @Html.HiddenFor(x => x.CartType)
+        @Html.Hidden("IsCartRename", true)
+
+        <div class="modal-body center modal-cart">
+            @Html.LabelFor(x => x.CartName)
+            @Html.TextBoxFor(x => x.CartName, new { @class = "input-large", maxlength = 50 })
+            @Html.ValidationMessageFor(x => x.CartName)
+        </div>
+        <div class="actions modal-footer">
+            <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+            <button class="btn-medium" type="submit"><span>Rename Cart</span></button>
+        </div>
+    }
+</div>

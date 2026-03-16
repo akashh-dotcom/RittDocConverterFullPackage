@@ -1,0 +1,111 @@
+﻿@using R2V2.Core.Authentication
+@model R2V2.Web.Models.Subscriptions.CheckoutModel
+@{
+    ViewBag.Title = "Subscription Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Subscription - Checkout</h1>
+        <div class="tablecontent">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Details</th>
+                        <th>Subscription Type</th>
+                        <th class="cart-price" style="width: 50px; text-align: right">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            <p>@Html.Raw(Model.Subscription.Name)</p>
+                            <p>@Html.Raw(Model.Subscription.Description)</p>
+                        </td>
+                        <td>@Html.Raw(Model.Type)</td>
+                        <td style="text-align: right">
+                            @if (Model.Type == SubscriptionType.Annual)
+                            {
+                                <span class="saleprice">@string.Format("{0:C}", Model.Subscription.AnnualPrice)</span>
+                            }
+                            @if (Model.Type == SubscriptionType.Monthly)
+                            {
+                                <span class="saleprice">@string.Format("{0:C}", Model.Subscription.MonthlyPrice)</span>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2">&nbsp;</th>
+                        <th>Subtotal</th>
+                        <td>
+                            @if (Model.Type == SubscriptionType.Annual)
+                            {
+                                @Html.Raw(string.Format("{0:C}", Model.Subscription.AnnualPrice))
+                            }
+                            @if (Model.Type == SubscriptionType.Monthly)
+                            {
+                                @Html.Raw(string.Format("{0:C}", Model.Subscription.MonthlyPrice))
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">&nbsp;</th>
+                        <th>Total</th>
+                        <td>
+                            @if (Model.Type == SubscriptionType.Annual)
+                            {
+                                @Html.Raw(string.Format("{0:C}", Model.Subscription.AnnualPrice))
+                            }
+                            @if (Model.Type == SubscriptionType.Monthly)
+                            {
+                                @Html.Raw(string.Format("{0:C}", Model.Subscription.MonthlyPrice))
+                            }
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="info-bar">
+            <p>Please provide the following information for your purchase:</p>
+        </div>
+        <div class="billing">
+            @using (Html.BeginForm("Checkout", "Subscriptions"))
+            {
+                @Html.HiddenFor(x => x.Subscription.Id)
+                @Html.HiddenFor(x => x.Type)
+
+                <ol>
+                    @*<li>
+                        @Html.LabelFor(model => model.OrderHistory.PurchaseOrderNumber, "PO #:")
+                        @Html.TextBoxFor(model => model.OrderHistory.PurchaseOrderNumber, new { @class = "input-medium" })
+                        @Html.ValidationMessageFor(model => model.OrderHistory.PurchaseOrderNumber)
+                    </li>*@
+                    <li>
+                        @Html.LabelFor(model => model.OrderHistory.PurchaseOrderComment, "Order Notes (250 characters max, Please do not include credit card information):")
+                        @Html.TextAreaFor(model => model.OrderHistory.PurchaseOrderComment)
+                        @Html.ValidationMessageFor(model => model.OrderHistory.PurchaseOrderComment)
+                    </li>
+                    <li>
+                        @Html.LabelFor(model => model.OrderHistory.MembershipNumber, "Membership #:")
+                        @Html.TextBoxFor(model => model.OrderHistory.MembershipNumber, new { @class = "input-medium" })
+                        @Html.ValidationMessageFor(model => model.OrderHistory.MembershipNumber)
+                    </li>
+                </ol>
+                <div class="group-actions-wrapper">
+                    <div class="clearfix group-actions">
+                        <ul class="actions">
+                            @*<li style="margin-top: 2px;font-size: 1.35em;margin-right: 10px;"><a class="cancel" href="/Subscriptions">Cancel</a></li>*@
+                            <li><a class="btn btn-medium" href="@Url.Action("Index", new {id = Model.Subscription.Id})"><span>Cancel</span></a></li>
+                            <li><button class="btn-medium" type="submit"><span>Purchase</span></button></li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    
+</div>
+

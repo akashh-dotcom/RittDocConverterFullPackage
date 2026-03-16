@@ -1,0 +1,81 @@
+﻿#region
+
+using System;
+using System.Data.SqlClient;
+using System.Text;
+using R2Library.Data.ADO.Core;
+
+#endregion
+
+namespace R2Utilities.DataAccess
+{
+    public class ArchiveResource : FactoryBase, IDataEntity
+    {
+        public int Id { get; set; }
+        public virtual string Title { get; set; }
+        public virtual string Isbn { get; set; }
+        public virtual string PublisherName { get; set; }
+        public virtual DateTime? ReleaseDate { get; set; }
+        public virtual decimal ResourcePrice { get; set; }
+        public virtual int LicenseCount { get; set; }
+
+        public void Populate(SqlDataReader reader)
+        {
+            try
+            {
+                Id = GetInt32Value(reader, "iResourceId", -1);
+                Title = GetStringValue(reader, "vchResourceTitle");
+                Isbn = GetStringValue(reader, "vchResourceISBN");
+                PublisherName = GetStringValue(reader, "vchPublisherName");
+                ReleaseDate = GetDateValueOrNull(reader, "dtRISReleaseDate");
+                ResourcePrice = GetDecimalValue(reader, "decResourcePrice", 0);
+                LicenseCount = GetInt32Value(reader, "LicenseCount", 0);
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public string ToDebugString()
+        {
+            var sb = new StringBuilder("ArchiveResource = [");
+            sb.AppendFormat("Id: {0}", Id);
+            sb.AppendFormat(", Title: {0}", Title);
+            sb.AppendFormat(", Isbn: {0}", Isbn);
+            sb.AppendFormat(", PublisherName: {0}", PublisherName);
+            sb.AppendFormat(", ReleaseDate: {0}", ReleaseDate == null ? "null" : ReleaseDate.Value.ToShortDateString());
+            sb.AppendFormat(", ResourcePrice: {0}", ResourcePrice);
+            sb.AppendFormat(", LicenseCount: {0}", LicenseCount);
+            sb.Append("]");
+
+            return sb.ToString();
+        }
+
+        public string ToEmailString(int counter)
+        {
+            var sb = new StringBuilder();
+            sb.AppendFormat("<div>{1}.{2}ISBN: {0}</div>", Isbn, counter, SmallSpacer());
+            sb.AppendFormat("<div>{1}Title: {0}</div>", Title, LargeSpacer());
+            sb.AppendFormat("<div>{1}Publisher Name: {0}</div>", PublisherName, LargeSpacer());
+            sb.AppendFormat("<div>{1}Resource Price: {0}</div>", ResourcePrice, LargeSpacer());
+            sb.AppendFormat("<div>{1}License Count: {0}</div>", LicenseCount, LargeSpacer());
+            sb.AppendFormat("<div>{1}Release Date: {0}</div>",
+                ReleaseDate == null ? "null" : ReleaseDate.Value.ToShortDateString(), LargeSpacer());
+            sb.Append("<div>&nbsp;</div>");
+
+            return sb.ToString();
+        }
+
+        private static string SmallSpacer()
+        {
+            return "<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+        }
+
+        private static string LargeSpacer()
+        {
+            return "<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+        }
+    }
+}

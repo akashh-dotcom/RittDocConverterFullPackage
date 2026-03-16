@@ -1,0 +1,4 @@
+.config
+log4net.xml
+hibernate.config
+.ncconf

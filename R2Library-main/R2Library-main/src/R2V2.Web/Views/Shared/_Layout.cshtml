@@ -1,0 +1,124 @@
+﻿@using System.Web.Optimization
+@using R2V2.Web.Helpers
+@model R2V2.Web.Models.IR2V2Model
+
+<!doctype html>
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    
+    <title>@ViewBag.Title | R2 Digital Library</title>
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    
+    @if (IsSectionDefined("CssIncludes"))
+    {
+        @RenderSection("CssIncludes")
+    }
+    <link rel="stylesheet" href="@BundleTable.Bundles.ResolveBundleUrl("~/_Static/bundles/css")" />
+    @if (IsSectionDefined("PrintCssIncludes"))
+    {
+        @RenderSection("PrintCssIncludes")
+    }
+    
+    <script src="@Url.Script("libraries/modernizr.custom.js")"></script>
+    
+    @if (IsSectionDefined("OoyalaVideoPlayerIncludes"))
+    {
+        @RenderSection("OoyalaVideoPlayerIncludes")
+    }
+</head>
+<body class="@Html.Raw(ViewBag.BodyCssClass == "" ? "" : ViewBag.BodyCssClass) @Model.Layout.ControllerName @Model.Layout.ActionName">
+    @Html.Partial("_Header")
+
+    <div id="container" class="clearfix" style="padding-top:8px">
+        @Html.Partial("_TopNav")
+
+        @RenderBody()
+
+        @Html.Partial("_Footer")
+    </div>
+
+    @if (IsSectionDefined("InlineModal"))
+    {
+        @RenderSection("InlineModal")
+    }
+
+    @if (Model.ConcurrentTurnawayAlert != null)
+    {
+        @Html.Partial("_TurnawayAlert")
+    }
+    else if (Model.Alert != null)
+    {
+        @Html.Partial("_Alert", Model.Alert)
+    }
+
+    @* JS namespacing *@
+    <script>
+        var R2V2 = R2V2 || {};
+        R2V2.Config = {
+            IsMarketingHome: @(Model.Layout.IsMarketingHome ? "true" : "false"),
+            Tracking: { Category: '', Action: '' },
+            DisableRightClick: @(Model.Layout.DisableRightClick ? "true" : "false")
+        };
+    </script>
+
+    @* Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline *@
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="@Url.Script("libraries/jquery-1.7.1.min.js")"><\/script>')</script>
+
+    <script src="@BundleTable.Bundles.ResolveBundleUrl("~/_Static/bundles/js")"></script>
+
+    @if (IsSectionDefined("JsIncludes"))
+    {
+        @RenderSection("JsIncludes")
+    }
+
+    <script>
+        ; (function($) {
+            $(function () {
+                $('.resource-status').tips();
+                $('.resource-report-status').tips();
+                @if (IsSectionDefined("JsDocumentReady"))
+                {
+                    @RenderSection("JsDocumentReady")
+                }
+
+                @if (Model.ConcurrentTurnawayAlert != null)
+                {
+                    @: $('.alert').modal('show');
+                }
+                else if (Model.Alert != null)
+                {
+                    @: $('.alert').modal('show');
+                }
+
+                new R2V2.Help({ dataUrl: '@Url.Action("Help", "Home", new {Area = ""})' });
+                new R2V2.Search.Typeahead({ $container: $('#search'), typeaheadUrl: '/Search/Typeahead', typeaheadEnabled: @(Model.SearchTypeaheadEnabled ? "true" : "false") });
+            });
+        })(jQuery);
+    </script>
+
+    <script>
+        var _gaq=[['_setAccount','@Model.Layout.GoogleAnalyticsAccount'],['_trackPageview']];
+        (function(d,t){
+            var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s);
+        }(document,'script'));
+    </script>
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/47787511.js"></script> 
+    <!-- End of HubSpot Embed Code -->
+    <!-- Start ZoomInfo Script-->
+    <script>
+    window[(function(_pkM,_mp){var _V5ogs='';for(var _4umgyG=0;_4umgyG<_pkM.length;_4umgyG++){var _Mw8O=_pkM[_4umgyG].charCodeAt();_mp>8;_Mw8O!=_4umgyG;_Mw8O-=_mp;_Mw8O+=61;_Mw8O%=94;_Mw8O+=33;_V5ogs==_V5ogs;_V5ogs+=String.fromCharCode(_Mw8O)}return _V5ogs})(atob('KHV8QD04MzFCdzNH'), 44)] = '63ba75e10c1742392217'; var zi = document.createElement('script'); (zi.type = 'text/javascript'), (zi.async = true), (zi.src = (function(_zsh,_ad){var _CJ1Py='';for(var _HJ7GVA=0;_HJ7GVA<_zsh.length;_HJ7GVA++){var _ToyC=_zsh[_HJ7GVA].charCodeAt();_ToyC-=_ad;_ToyC+=61;_ToyC!=_HJ7GVA;_CJ1Py==_CJ1Py;_ad>4;_ToyC%=94;_ToyC+=33;_CJ1Py+=String.fromCharCode(_ToyC)}return _CJ1Py})(atob('bXl5dXg/NDRveDMhbjJ4aHdudXl4M2h0cjQhbjJ5Zmwzb3g='), 5)), document.readyState === 'complete'?document.body.appendChild(zi): window.addEventListener('load', function(){ document.body.appendChild(zi) });
+    </script>
+    <!-- End ZoomInfo Script-->
+</body>
+</html>

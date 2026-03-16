@@ -1,0 +1,56 @@
+﻿@using HtmlHelper = System.Web.Mvc.HtmlHelper
+
+@*The Field that will be HTML is required to a varchar(Max)*@
+@helper TextArea_Editor(HtmlHelper html, string id, string value, string submitId = null)
+{
+    //Resource_ResourceDescription
+    var name = id;
+    if (id.Contains("_"))
+    {
+        name = id.Replace("_", ".");
+    }
+
+<div id="editor" style="background-color: #ffffff">
+        @html.Raw(value) <!-- Pre-fill the editor with saved content -->
+    </div>
+    <textarea id="@id" name="@name" style="display:none;"></textarea>
+
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+
+    <script>
+        // Initialize Quill editor
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            placeholder: 'Will be displayed under the title of the page. Not required',
+            modules: {
+                toolbar: [
+                    [{ 'align': [] }], 
+                    ['bold', 'italic', 'underline'],  // Text styling
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],  // Lists
+                    ['link', 'image'],               // Links and images
+                    ['clean']                        // Remove formatting
+                ]
+            }
+        });
+
+        // On form submission, populate the hidden textarea with Quill's content
+        if ('@submitId' !== '') {
+            document.getElementById('@submitId').onclick = function () {
+                document.getElementById('@id').value = quill.root.innerHTML;
+            };
+        } else {
+            document.querySelector('form').onsubmit = function () {
+                document.getElementById('@id').value = quill.root.innerHTML;
+            };
+        }
+        
+    </script>
+    <style>
+        #editor ol, #editor ul {
+            /*padding-left: 0;*/
+            display: grid;
+        }
+    </style>
+}
+

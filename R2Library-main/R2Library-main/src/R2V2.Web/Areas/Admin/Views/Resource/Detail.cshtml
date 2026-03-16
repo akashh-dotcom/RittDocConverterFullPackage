@@ -1,0 +1,141 @@
+﻿@using R2V2.Core.Promotion
+@using R2V2.Core.Resource
+@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.Resource.ResourceDetail
+@{
+    ViewBag.Title = "Resource Detail";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="onecol contentcontainer">        
+    <div id="content" class="content" role="main">
+        <h1>
+            @Model.Resource.Title
+            <span>@Model.Resource.Subtitle</span>
+        </h1>
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><a href="@Url.Action("Edit", Model.ResourceQuery.ToRouteValues())" class="btn btn-medium"><span>Edit</span></a></li>
+                        <li><a href="#delete" data-toggle="modal" class="btn btn-medium"><span>Delete</span></a></li>
+                        <li><a href="@Url.Action("List", Model.ResourceQuery.ToRouteValues(excludeResourceId: true))" class="btn btn-medium"><span>Cancel</span></a></li>
+                        @if (Model.DisplayAddToPromoteQueueButtons)
+                        {
+                            <li><a href="@Url.Action("AddToPromoteQueue", Model.ResourceQuery.ToRouteValues())" class="btn btn-medium"><span>Add to Promote Queue</span></a></li>
+                        }
+                        @if (Model.DisplayRemovedFromPromoteQueueButtons)
+                        {
+                            <li><a href="@Url.Action("RemoveFromPromoteQueue", Model.ResourceQuery.ToRouteValues())" class="btn btn-medium"><span>Remove from Promote Queue</span></a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div id="resource-content">
+                <div class="clearfix resource-detail">
+                    <div class="resource-cover">
+                        <img src="@Model.Resource.ImageUrl" alt="Image of the book cover for '@Model.Resource.Title'" />
+                    </div>
+
+                    <div class="resource-info">
+                        <div class="clearfix columns two-columns-50-40">
+                            <div class="column">
+                                <strong>Author:</strong> @Model.Resource.Authors<br />
+                                <strong>Affiliation:</strong>  @Html.Raw(Model.Resource.Affiliation)<br />
+
+                                <strong>@Html.LabelFor(x => x.Resource.PublisherName)</strong>
+                                @if (Model.Resource.ConsolidatedPublisherName != null)
+                                {
+                                    <a rel="tooltip" title="Consolidated from @Model.Resource.ConsolidatedPublisherName">@Html.DisplayFor(x => x.Resource.PublisherName)</a>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(x => x.Resource.PublisherName)
+                                }
+
+                                <br />
+                                <strong>@Html.LabelFor(x => x.Resource.PublicationDate)</strong>  @Html.DisplayFor(x => x.Resource.PublicationDate)<br />
+                                <strong>@Html.LabelFor(x => x.Resource.ReleaseDate)</strong>  @Html.DisplayFor(x => x.Resource.ReleaseDate)<br />
+                                @if (Model.Resource.StatusId == (int)ResourceStatus.Archived)
+                                {
+                                    <strong>@Html.LabelFor(x => x.Resource.ArchiveDate)</strong> @Html.DisplayFor(x => x.Resource.ArchiveDate)<br />
+                                }
+                                <strong>@Html.LabelFor(x => x.Resource.ListPrice)</strong>  <span>@PurchaseHelper.GetPriceDisplay(Model.Resource)</span><br />
+                            </div>
+                            <div class="column">
+                                <strong>ISBN 10:</strong> @Model.Resource.Isbn10<br />
+                                <strong>ISBN 13:</strong> @Model.Resource.Isbn13<br />
+                                @if (Model.Resource.EIsbn != null)
+                                {
+                                    <strong>eISBN:</strong> @Model.Resource.EIsbn<br />
+                                }
+                                @if (Model.Resource.Edition != null)
+                                {
+                                    <strong>Edition:</strong> @Model.Resource.Edition<br />
+                                }
+                                @if (!string.IsNullOrWhiteSpace(Model.Resource.PageCount))
+                                {
+                                    <strong>Page Count:</strong> @Model.Resource.PageCount<br />
+                                }
+                            </div>
+                        </div>
+                        <br />
+                        @if (Model.DisplayPromotionFields)
+                        {
+                            <div class="column"><strong>Last Promotion Date: </strong>@Model.Resource.LastPromotionDate</div>
+                            <div class="column"><strong>QA Approval Date: </strong> @Model.Resource.QaApprovalDate</div>
+                            if (!string.IsNullOrEmpty(Model.Resource.PromotionQueueStatus))
+                            {
+                                <div class="column"><strong>Promotion Status: </strong> @Model.Resource.PromotionQueueStatus</div>
+                            }
+                        }
+                        <h2>Description:</h2>
+
+                        <div class="richText">@Html.Raw(Model.Resource.ResourceDescription)</div>
+
+                        <p><strong><a href="@Url.Action("Title", "Resource", new { Area = "", Model.Resource.Isbn })" target="_blank" data-toggle="window">View Full Detail</a></strong></p>
+
+                    </div>
+                </div>
+                @if (Model.DisplayOngoingPdaEventLinks)
+                {
+                    <br /><br />
+                    <div class="group-actions-wrapper">
+                        <div class="clearfix group-actions" data-implement="fixed">
+                            <h2 align="left">Ongoing PDA Events</h2>
+                            <ul class="actions">
+                                <li><a href="@Url.Action("OngoingPdaEvent", Model.ResourceQuery.ToRouteValues(OngoingPdaEventType.Promotion))">Send Ongoing PDA Promotion Event</a> - This will result in the ongoing PDA promotoin rules being executed for this resource.</li>
+                                <li><a href="@Url.Action("OngoingPdaEvent", Model.ResourceQuery.ToRouteValues(OngoingPdaEventType.NewEdition))">Send Ongoing PDA New Edition Event</a> - This will result in the ongoing PDA new edition rules being executed for this resource.</li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+    </div>
+</div>
+
+@section InlineModal
+{
+    <div id="delete" class="content modal delete">
+        <div class="modal-header">
+            <h1>Delete Resource</h1>
+            <a class="close" data-dismiss="modal" href="#">Close</a>
+        </div>
+
+        <div class="modal-body">
+            <p>You have chosen to delete this title. All content and images will be deleted from the server. Do you want to proceed?</p>
+
+            <div class="actions">
+                <a href="@Url.Action("Delete", Model.ResourceQuery.ToRouteValues())" class="btn btn-medium"><span>Yes</span></a>
+                <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+            </div>
+        </div>
+    </div>
+}
+@section JsDocumentReady
+{    
+    $('.list').tips();
+}

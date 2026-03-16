@@ -1,0 +1,69 @@
+﻿@model R2V2.Web.Areas.Admin.Models.InstitutionReferrer.InstitutionReferrerList
+
+@{
+    ViewBag.Title = "Manage Referers";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    @using (Html.BeginForm()) 
+    {
+        @Html.HiddenFor(x => x.InstitutionId)
+
+        <div id="content" class="content" role="main">
+            <h1>Manage Referrers</h1>
+            
+            @Html.Partial("_InstitutionInfo")
+            @Html.Partial("_UrlReferrerInstructions")
+
+            <div class="tablecontent">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2">Valid Referrers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.TextBoxFor(x => x.EditReferrer.ValidReferer, new { @class = "input-xlarge" }) 
+                                @Html.ValidationSummary()
+                                @Html.HiddenFor(x => x.EditReferrer.ValidReferrerId)
+                                @Html.HiddenFor(x => x.EditReferrer.InstitutionId)
+                                <input id="EditReferrer_VerifiedReferrer" type="hidden" value="@Model.EditReferrer.VerifiedReferrer" name="EditReferrer.VerifiedReferrer">
+                                
+                            </td>
+                            <td class="actions">
+                                <button class="btn-medium" type="submit"><span>Save</span></button>
+                                <a href="@Url.Action("List", new { institutionId = Model.InstitutionId })" class="btn btn-medium"><span>Cancel</span></a>
+                            </td>
+                        </tr>
+                        @foreach (var item in Model.InstitutionReferrers)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.ValidReferer)</td>
+                                <td class="actions">
+                                    <a href="@Url.Action("Edit", new { institutionId = Model.InstitutionId, id = item.ValidReferrerId })" class="btn btn-medium"><span>Edit</span></a> 
+                                    <a href="@Url.Action("Delete", new { institutionId = Model.InstitutionId, id = item.ValidReferrerId })" class="btn btn-medium"><span>Delete</span></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

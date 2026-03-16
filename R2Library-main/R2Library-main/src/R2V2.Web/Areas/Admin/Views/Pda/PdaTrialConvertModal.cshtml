@@ -1,0 +1,38 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Cart.CollectionAdd
+@{
+    ViewBag.Title = "EULA";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="clearfix contentcontainer">
+	<div id="content" class="content" role="main">
+		<h1>R2 Digital Library</h1>
+		<div id="service-agreement">
+			<p>You are about to create an R2 PDA Collection.</p>
+			<p>This will end your trial.</p>
+		</div>
+
+		@using (Html.BeginForm("PdaTrialConvertModal", "Pda"))
+		{   
+			@Html.Partial("../CollectionManagement/_HiddenQueryFields", Model.ResourceQuery)
+            
+			<div class="group-actions-wrapper">
+				<div class="clearfix group-actions">
+					<ul class="actions">
+						<li><a class="cancel" data-dismiss="modal"><span>Cancel</span></a></li>
+						<li><button class="btn-medium" type="submit"><span>Continue</span></button></li>
+					</ul>
+				</div>
+			</div>
+		}		
+	</div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.IFrameModal({ 
+        $dismiss: $('a[data-dismiss="modal"]'), 
+        parent: window.parent
+    });
+}

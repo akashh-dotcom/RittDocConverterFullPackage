@@ -1,0 +1,40 @@
+﻿/* ==========================================================================
+	MyR2
+   ========================================================================== */
+
+.folders {
+    margin: 2px 0 0; border-top: 1px solid #BEBEBE;
+    }
+    
+    .folders .titlelist {
+        padding: 2px 0;
+        }
+    
+    .folders .titleitem {
+        position: relative;
+        }
+
+
+/*
+ * Add Folder button
+ */
+#add-folder {
+	margin: 25px 0 0;
+	text-align: center;
+	}
+	
+	
+/*
+ * Saved Searches sidebar
+ */
+.savedsearches a.btn-delete {
+	visibility: hidden;
+    }
+.savedsearches p:hover a.btn-delete {
+	visibility: visible;
+	}
+
+/* SHIMS */
+.ie7 .savedsearches p {
+    zoom: 1;
+    }

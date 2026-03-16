@@ -1,0 +1,11 @@
+@model R2V2.Web.Areas.Admin.Models.AdminBaseModel
+
+@if (Model.IsRittenhouseAdmin || Model.IsSalesAssociate)
+{
+    if (Model.Institution != null)
+    {
+        <div class="institution-info">
+            <p>@Model.Institution.Name (#@Model.Institution.AccountNumber)</p>
+        </div>
+    }
+}

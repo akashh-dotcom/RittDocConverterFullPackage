@@ -1,0 +1,43 @@
+﻿@model R2V2.Web.Models.Search.SearchResultSet
+@{
+	ViewBag.Title = "Federated";
+	Layout = "";
+}
+<!doctype html>
+<html>
+<head>
+    <title>Federated Search | R2 Digital Library</title>
+</head>
+<body>
+    <h2>R2 Library Federated Search</h2>
+    @using (Html.BeginForm("Federated", "Search", FormMethod.Get))
+    {
+		if (!string.IsNullOrWhiteSpace(Model.FederatedSearchMessage))
+		{
+			<div style="color:#f00; padding-bottom: 10px;">@Html.Raw(Model.FederatedSearchMessage)</div>
+		}
+
+		<div>Search Term: @Html.TextBoxFor(model => model.Q) <button type="submit"><span>Search</span></button></div>
+
+        <h3>We found @string.Format("{0:#,##0}", Model.TotalResultsCount) results for "@Model.Query.GetText()"@(Html.Raw(string.IsNullOrEmpty(Model.SearchWithinTitle) ? "" : " within the title \"" + Model.SearchWithinTitle + "\"")).</h3>
+
+        if (Model.SearchResults != null)
+        {
+            if (Model.DisplayJson)
+            {
+                <textarea id="jsonResults" rows="12" cols="100">@Model.ResultsAsJson()</textarea>
+            }
+
+            if (Model.DisplayHtml)
+            {
+                <div class="titlelist">
+                    @foreach (var searchResult in Model.SearchResults)
+                    {
+                        @Html.Partial("_ResourceSummary", searchResult)
+                    }
+                </div>
+            }
+        }
+    }
+</body>
+</html>

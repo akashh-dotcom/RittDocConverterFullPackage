@@ -1,0 +1,282 @@
+﻿@using R2V2.Web.Helpers
+@model R2V2.Web.Models.Contact.ContactUs    
+    
+<div class="onecol contentcontainer">
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(x => x.IsAskYourLibrarian)
+        @Html.HiddenFor(x => x.Token1)
+        @Html.HiddenFor(x => x.Token2)
+        @Html.HiddenFor(x => x.Token3)
+
+        <div id="content" class="content" role="main">
+            <h1>@Html.DisplayFor(x => x.PageTitle)</h1>
+
+            @if (!Model.IsEmailView)
+            {
+                <div class="group-actions-wrapper">
+                    <div class="clearfix group-actions" data-implement="fixed">
+                        <ul class="actions">
+                            <li><button class="btn-medium" type="submit"><span>Submit</span></button></li>
+                            <li><a class="btn btn-medium" data-history="back"><span>Cancel</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div>
+                    @Html.DisplayFor(x => x.InstitutionName) @Html.DisplayFor(x => x.AccountNumber)
+                </div>
+            }
+        
+            <div class="field-validation-error">@Html.Raw(Model.SecurityMessage)</div>     
+
+            <div class="tablecontent">
+                <table class="edit">
+                    <tbody>
+                        <tr class="honey">
+                            <td class="label">@Html.LabelFor(model => model.Token4)</td>
+                            <td class="field">
+                                @if (!Model.IsEmailView)
+                                {
+                                    @Html.TextBoxFor(model => model.Token4, new { @class = "input-medium" })
+                                    @Html.ValidationMessageFor(model => model.Token4)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.Token4)
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.Name)</td>
+                            <td class="field">
+                                @if (!Model.IsEmailView)
+                                {
+                                    @Html.TextBoxFor(model => model.Name, new { @class = "input-medium" })
+                                    @Html.ValidationMessageFor(model => model.Name)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.Name)
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.Title)</td>
+                            <td class="field">
+                                @if (!Model.IsEmailView)
+                                {
+                                    @Html.TextBoxFor(model => model.Title, new { @class = "input-medium" })
+                                    @Html.ValidationMessageFor(model => model.Title)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.Title)
+                                }
+                            </td>
+                        </tr>
+
+                        @if (!Model.IsAskYourLibrarian || (Model.IsAskYourLibrarian && Model.IsEmailView))
+                        {
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.InstitutionName)</td>
+                                <td class="field">
+                                    @if (!Model.IsEmailView)
+                                    {
+                                        @Html.TextBoxFor(model => model.InstitutionName, new { @class = "input-medium" })
+                                        @Html.ValidationMessageFor(model => model.InstitutionName)
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(model => model.InstitutionName)
+                                    }
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.AccountNumber)</td>
+                                <td class="field">
+                                    @if (!Model.IsEmailView)
+                                    {
+                                        @Html.TextBoxFor(model => model.AccountNumber, new { @class = "input-medium" })
+                                        @Html.ValidationMessageFor(model => model.AccountNumber)
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(model => model.AccountNumber)
+                                    }
+                                </td>
+                            </tr>
+                            if (!Model.IsAskYourLibrarian)
+                            {
+
+
+                                <tr>
+                                    <td class="label">@Html.LabelFor(model => model.Address1)</td>
+                                    <td class="field">
+                                        @if (!Model.IsEmailView)
+                                        {
+                                            @Html.TextBoxFor(model => model.Address1, new { @class = "input-full" })
+                                            @Html.ValidationMessageFor(model => model.Address1)
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(model => model.Address1)
+                                        }
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">@Html.LabelFor(model => model.Address2)</td>
+                                    <td class="field">
+                                        @if (!Model.IsEmailView)
+                                        {
+                                            @Html.TextBoxFor(model => model.Address2, new { @class = "input-full" })
+                                            @Html.ValidationMessageFor(model => model.Address2)
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(model => model.Address2)
+                                        }
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">@Html.LabelFor(model => model.City)</td>
+                                    <td class="field">
+                                        @if (!Model.IsEmailView)
+                                        {
+                                            @Html.TextBoxFor(model => model.City, new { @class = "input-medium" })
+                                            @Html.ValidationMessageFor(model => model.City)
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(model => model.City)
+                                        }
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">@Html.LabelFor(model => model.State)</td>
+                                    <td class="field">
+                                        @if (!Model.IsEmailView)
+                                        {
+                                            @Html.TextBoxFor(model => model.State, new { @class = "input-xxsmall" })
+                                            @Html.ValidationMessageFor(model => model.State)
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(model => model.State)
+                                        }
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">@Html.LabelFor(model => model.Zip)</td>
+                                    <td class="field">
+                                        @if (!Model.IsEmailView)
+                                        {
+                                            @Html.TextBoxFor(model => model.Zip, new { @class = "input-small" })
+                                            @Html.ValidationMessageFor(model => model.Zip)
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(model => model.Zip)
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.PhoneNumber)</td>
+                            <td class="field">
+                                @if (!Model.IsEmailView)
+                                {
+                                    @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "input-medium" })
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.PhoneNumber)
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.Email)</td>
+                            <td class="field">
+                                @if (!Model.IsEmailView)
+                                {
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "input-medium" })
+                                    @Html.ValidationMessageFor(model => model.Email)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.Email)
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(x => Model.Comment)</td>
+                            <td class="field">
+                                @if (!Model.IsEmailView)
+                                {
+                                    @Html.TextAreaFor(x => x.Comment)
+                                    @Html.ValidationMessageFor(model => model.Comment)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.Comment)
+                                }
+                            </td>
+                        </tr>
+                        @if (!Model.IsEmailView)
+                        {
+                            @Html.HiddenFor(x => x.ResourceTitle)
+                            @Html.HiddenFor(x => x.ResourceIsbn)
+                            @Html.HiddenFor(x => x.ResourceIsbn13)
+                        }
+                        else if (!string.IsNullOrWhiteSpace(Model.ResourceIsbn))
+                        {
+                            <tr>
+                                <td class="label">@Html.LabelFor(x => Model.ResourceTitle)</td>
+                                <td class="field">@Html.DisplayFor(model => model.ResourceTitle)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(x => Model.ResourceIsbn)</td>
+                                <td class="field">@Html.DisplayFor(model => model.ResourceIsbn)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(x => Model.ResourceIsbn13)</td>
+                                <td class="field">@Html.DisplayFor(model => model.ResourceIsbn13)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @if (!Model.IsEmailView)
+                {
+                    if (!Model.IsAskYourLibrarian)
+                    {
+                        <p>To submit form, please type the text and click submit</p>
+                        <div>
+                            @Html.GenerateNonGoogleCaptcha()
+                            @Html.ValidationMessageFor(x => x.RecaptchaMessage)
+                        </div>
+
+                        <div class="group-actions-wrapper">
+                            <div class="clearfix group-actions" data-implement="fixed">
+                                <ul class="actions">
+                                    <li><button class="btn-medium" type="submit"><span>submit</span></button></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    }
+                }
+
+            </div>
+        </div>
+    }
+</div>

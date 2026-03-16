@@ -1,0 +1,43 @@
+﻿@model R2V2.Web.Areas.Admin.Models.WebServiceAuthentication.InstitutionWebServiceAuthenticationDetail
+<table>
+    <thead>
+        <tr>
+            <th>IP Address</th>
+            <th>Web Service Authentication Key</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+                    
+    <tr>
+        <td class="error-td" colspan="3">
+            @Html.ValidationMessageFor(x => x.WebServiceAuthentication)
+            @Html.ValidationMessageFor(x => x.WebServiceAuthentication.OctetA)
+            @Html.ValidationMessageFor(x => x.WebServiceAuthentication.OctetB)
+            @Html.ValidationMessageFor(x => x.WebServiceAuthentication.OctetC)
+            @Html.ValidationMessageFor(x => x.WebServiceAuthentication.OctetD)
+            @Html.ValidationMessageFor(x => x.WebServiceAuthentication.AuthenticationKey)
+        </td>
+        <td class="error-td"colspan="2"></td>
+    </tr>
+
+    <tr>
+        <td style="vertical-align:middle;">
+            @Html.TextBoxFor(x => x.WebServiceAuthentication.OctetA, new { maxlength = 3, @class = "input-xxsmall" }).
+            @Html.TextBoxFor(x => x.WebServiceAuthentication.OctetB, new { maxlength = 3, @class = "input-xxsmall" }).
+            @Html.TextBoxFor(x => x.WebServiceAuthentication.OctetC, new { maxlength = 3, @class = "input-xxsmall" }).
+            @Html.TextBoxFor(x => x.WebServiceAuthentication.OctetD, new { maxlength = 3, @class = "input-xxsmall" })
+        </td>
+        <td>
+            @Html.DisplayFor(x => x.WebServiceAuthentication.AuthenticationKey)
+            @Html.HiddenFor(x => x.WebServiceAuthentication.AuthenticationKey)
+        </td>
+        <td>
+            <button class="btn-medium" type="submit" value="generatekey" name="action"><span>Generate Key</span></button>
+        </td>
+        <td class="actions">
+            <button class="btn-medium" type="submit" ><span>Save</span></button> 
+            <a href="@Url.Action("List", new { institutionId = Model.InstitutionId })" class="btn btn-medium"><span>Cancel</span></a>
+        </td>
+    </tr>
+</table>

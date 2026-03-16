@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RittDoc Editor - Professional XML/PDF Editor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/editor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/advanced-editors.css') }}">
+
+    <!-- Monaco Editor -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/editor/editor.main.css">
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <!-- PDF.js Text Layer CSS for selectable text -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf_viewer.min.css">
+
+    <!-- Epub.js for EPUB viewing -->
+    <script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
+
+    <!-- MathJax for TeX/MathML rendering in previews -->
+    <script>
+        window.__mathjaxPending = [];
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            startup: {
+                typeset: false,
+                ready: () => {
+                    MathJax.startup.defaultReady();
+                    if (window.__mathjaxPending && window.__mathjaxPending.length) {
+                        MathJax.typesetPromise(window.__mathjaxPending).catch((error) => {
+                            console.warn('MathJax typeset failed:', error);
+                        });
+                        window.__mathjaxPending = [];
+                    }
+                }
+            }
+        };
+    </script>
+    <script id="mathjax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-left">
+            <i class="fas fa-book-open"></i>
+            <h1>RittDoc Editor</h1>
+            <span class="version">v1.0</span>
+            <span id="packageIndicator" class="package-indicator" style="display: none;">
+                <i class="fas fa-archive"></i> Package Mode
+            </span>
+        </div>
+        <div class="header-center">
+            <div class="view-mode-toggle">
+                <button id="xmlViewBtn" class="mode-btn active" title="XML Code Editor">
+                    <i class="fas fa-code"></i> XML
+                </button>
+                <button id="htmlViewBtn" class="mode-btn" title="HTML Preview">
+                    <i class="fas fa-eye"></i> HTML Preview
+                </button>
+                <button id="htmlEditBtn" class="mode-btn" title="WYSIWYG HTML Editor">
+                    <i class="fas fa-edit"></i> HTML Edit
+                </button>
+            </div>
+        </div>
+        <div class="header-right">
+            <button id="chaptersBtn" class="btn btn-secondary" title="View Chapters" style="display: none;">
+                <i class="fas fa-list"></i> Chapters
+            </button>
+            <button id="refreshPreviewBtn" class="btn btn-secondary" title="Refresh Book Preview" style="display: none;">
+                <i class="fas fa-sync"></i> Refresh Preview
+            </button>
+            <button id="editPreviewBtn" class="btn btn-secondary" title="Edit Preview Mode" style="display: none;">
+                <i class="fas fa-edit"></i> Edit Preview
+            </button>
+            <button id="saveReprocessBtn" class="btn btn-success" title="Save and Reprocess">
+                <i class="fas fa-sync-alt"></i> Save & Process
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Left Panel - PDF/EPUB Viewer -->
+        <div class="left-panel">
+            <div class="panel-header">
+                <h2 id="viewerTitle"><i class="fas fa-file-pdf"></i> PDF Document</h2>
+
+                <!-- MS Word-like Tools Toolbar for Preview Editing -->
+                <div class="preview-edit-toolbar" id="previewEditToolbar" style="display: none;">
+                    <div class="toolbar-section">
+                        <span class="toolbar-label">Format:</span>
+                        <button class="preview-toolbar-btn" onclick="formatSelectedText('bold')" title="Bold">
+                            <i class="fas fa-bold"></i>
+                        </button>
+                        <button class="preview-toolbar-btn" onclick="formatSelectedText('italic')" title="Italic">
+                            <i class="fas fa-italic"></i>
+                        </button>
+                        <button class="preview-toolbar-btn" onclick="formatSelectedText('underline')" title="Underline">
+                            <i class="fas fa-underline"></i>
+                        </button>
+                    </div>
+
+                    <div class="toolbar-separator-vertical"></div>
+
+                    <div class="toolbar-section">
+                        <span class="toolbar-label">Insert:</span>
+                        <button class="preview-toolbar-btn" onclick="showInsertImageDialog()" title="Insert Image">
+                            <i class="fas fa-image"></i> Image
+                        </button>
+                        <button class="preview-toolbar-btn" onclick="showInsertTableDialog()" title="Insert Table">
+                            <i class="fas fa-table"></i> Table
+                        </button>
+                        <button class="preview-toolbar-btn" onclick="showInsertShapeDialog()" title="Insert Shape">
+                            <i class="fas fa-shapes"></i> Shape
+                        </button>
+                        <button class="preview-toolbar-btn" onclick="showInsertLinkDialog()" title="Insert Link">
+                            <i class="fas fa-link"></i> Link
+                        </button>
+                    </div>
+
+                    <div class="toolbar-separator-vertical"></div>
+
+                    <div class="toolbar-section">
+                        <span class="toolbar-label">Lists:</span>
+                        <button class="preview-toolbar-btn" onclick="insertListItem('ordered')" title="Numbered List">
+                            <i class="fas fa-list-ol"></i>
+                        </button>
+                        <button class="preview-toolbar-btn" onclick="insertListItem('unordered')" title="Bullet List">
+                            <i class="fas fa-list-ul"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pdf-controls" id="pdfControls">
+                    <button id="prevPageBtn" class="control-btn" title="Previous Page">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="page-info">
+                        <input type="number" id="pageNumberInput" min="1" value="1" />
+                        <span> / </span>
+                        <span id="totalPages">0</span>
+                    </span>
+                    <button id="nextPageBtn" class="control-btn" title="Next Page">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <button id="zoomOutBtn" class="control-btn" title="Zoom Out">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <span class="zoom-info" id="zoomLevel">100%</span>
+                    <button id="zoomInBtn" class="control-btn" title="Zoom In">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                    <button id="screenshotBtn" class="control-btn" title="Screenshot Mode">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <div class="epub-controls" id="epubControls" style="display: none;">
+                    <button id="epubPrevBtn" class="control-btn" title="Previous Chapter">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="chapter-info" id="chapterInfo">Loading...</span>
+                    <button id="epubNextBtn" class="control-btn" title="Next Chapter">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <button id="epubTocBtn" class="control-btn" title="Table of Contents">
+                        <i class="fas fa-list"></i> TOC
+                    </button>
+                    <button id="epubZoomOutBtn" class="control-btn" title="Decrease Font Size">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <span class="zoom-info" id="epubFontSize">100%</span>
+                    <button id="epubZoomInBtn" class="control-btn" title="Increase Font Size">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main PDF Canvas with Continuous Scroll -->
+            <div class="pdf-content-wrapper" id="pdfContentWrapper">
+                <div class="pdf-viewer" id="pdfViewer">
+                    <div class="pdf-pages-container" id="pdfPagesContainer">
+                        <!-- Pages will be rendered here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- EPUB Viewer Container -->
+            <div class="epub-viewer-wrapper" id="epubViewerWrapper" style="display: none;">
+                <div id="epubViewer" class="epub-viewer"></div>
+            </div>
+
+            <!-- Thumbnail Bar (Bottom) -->
+            <div class="thumbnail-bar" id="thumbnailBar">
+                <button id="toggleThumbnailsBtn" class="thumbnail-toggle-btn" title="Show/Hide Pages">
+                    <i class="fas fa-chevron-down"></i> Pages
+                </button>
+                <div class="thumbnail-bar-content" id="thumbnailBarContent">
+                    <div class="thumbnail-list-horizontal" id="thumbnailList"></div>
+                </div>
+            </div>
+
+            <!-- EPUB Table of Contents -->
+            <div id="epubTocPanel" class="epub-toc-panel" style="display: none;">
+                <div class="toc-header">
+                    <h3>Table of Contents</h3>
+                    <button class="close-toc-btn" onclick="closeEpubToc()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="epubTocList" class="toc-list"></div>
+            </div>
+        </div>
+
+        <!-- Resizer -->
+        <div class="resizer" id="resizer"></div>
+
+        <!-- Right Panel - XML/HTML Editor -->
+        <div class="right-panel">
+            <div class="panel-header">
+                <h2 id="editorTitle"><i class="fas fa-code"></i> XML Editor</h2>
+                <div class="editor-controls">
+                    <button id="formatBtn" class="control-btn" title="Format XML">
+                        <i class="fas fa-indent"></i> Format
+                    </button>
+                    <button id="validateBtn" class="control-btn" title="Validate XML">
+                        <i class="fas fa-check-circle"></i> Validate
+                    </button>
+                    <button id="refreshHtmlBtn" class="control-btn" title="Refresh HTML Preview" style="display: none;">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                    <button id="blockOverlayBtn" class="control-btn" title="Toggle Block Info Overlay" onclick="toggleBlockOverlay()">
+                        <i class="fas fa-layer-group"></i> Blocks
+                    </button>
+                </div>
+            </div>
+
+            <!-- XML Monaco Editor -->
+            <div id="xmlEditor" class="editor-container"></div>
+
+            <!-- HTML Preview (Read-only) -->
+            <div id="htmlPreview" class="html-preview" style="display: none;"></div>
+
+            <!-- HTML Editor (Editable) -->
+            <div id="htmlEditor" class="html-editor" style="display: none;">
+                <div class="editor-notice">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Edit the HTML directly. Changes will be saved when you click Save.</span>
+                </div>
+
+                <!-- Rich Text Editor Toolbar -->
+                <div class="rich-text-toolbar">
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" data-command="bold" title="Bold (Ctrl+B)">
+                            <i class="fas fa-bold"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="italic" title="Italic (Ctrl+I)">
+                            <i class="fas fa-italic"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="underline" title="Underline (Ctrl+U)">
+                            <i class="fas fa-underline"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="strikeThrough" title="Strikethrough">
+                            <i class="fas fa-strikethrough"></i>
+                        </button>
+                    </div>
+
+                    <div class="toolbar-separator"></div>
+
+                    <div class="toolbar-group">
+                        <select class="toolbar-select" id="fontSizeSelect" title="Font Size">
+                            <option value="">Size</option>
+                            <option value="1">8pt</option>
+                            <option value="2">10pt</option>
+                            <option value="3">12pt</option>
+                            <option value="4">14pt</option>
+                            <option value="5">18pt</option>
+                            <option value="6">24pt</option>
+                            <option value="7">36pt</option>
+                        </select>
+
+                        <select class="toolbar-select" id="fontNameSelect" title="Font Family">
+                            <option value="">Font</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Courier New">Courier New</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Verdana">Verdana</option>
+                            <option value="Helvetica">Helvetica</option>
+                        </select>
+
+                        <input type="color" class="toolbar-color" id="textColorPicker" title="Text Color">
+                        <input type="color" class="toolbar-color" id="bgColorPicker" title="Background Color" value="#ffffff">
+                    </div>
+
+                    <div class="toolbar-separator"></div>
+
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" data-command="justifyLeft" title="Align Left">
+                            <i class="fas fa-align-left"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="justifyCenter" title="Align Center">
+                            <i class="fas fa-align-center"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="justifyRight" title="Align Right">
+                            <i class="fas fa-align-right"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="justifyFull" title="Justify">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+                    </div>
+
+                    <div class="toolbar-separator"></div>
+
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" data-command="insertOrderedList" title="Numbered List">
+                            <i class="fas fa-list-ol"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="insertUnorderedList" title="Bullet List">
+                            <i class="fas fa-list-ul"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="indent" title="Indent">
+                            <i class="fas fa-indent"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="outdent" title="Outdent">
+                            <i class="fas fa-outdent"></i>
+                        </button>
+                    </div>
+
+                    <div class="toolbar-separator"></div>
+
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" onclick="insertLink()" title="Insert Link">
+                            <i class="fas fa-link"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="unlink" title="Remove Link">
+                            <i class="fas fa-unlink"></i>
+                        </button>
+                        <button class="toolbar-btn table-btn" onclick="showAdvancedTableDialog()" title="Insert Table">
+                            <i class="fas fa-table"></i>
+                        </button>
+                    </div>
+
+                    <div class="toolbar-separator"></div>
+
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn math-btn" onclick="showMathEquationEditor()" title="Insert Math Equation">
+                            <i class="fas fa-square-root-alt"></i> fx
+                        </button>
+                        <button class="toolbar-btn" onclick="showMathSymbolPicker()" title="Insert Math Symbol">
+                            <i class="fas fa-infinity"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="subscript" title="Subscript">
+                            <i class="fas fa-subscript"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="superscript" title="Superscript">
+                            <i class="fas fa-superscript"></i>
+                        </button>
+                    </div>
+
+                    <div class="toolbar-separator"></div>
+
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" data-command="undo" title="Undo (Ctrl+Z)">
+                            <i class="fas fa-undo"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="redo" title="Redo (Ctrl+Y)">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="removeFormat" title="Clear Formatting">
+                            <i class="fas fa-remove-format"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="htmlEditableContent" class="html-editable-content" contenteditable="true"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter Navigator Panel -->
+    <div id="chapterNavigator" class="chapter-navigator" style="display: none;">
+        <div class="nav-header">
+            <h3><i class="fas fa-book"></i> Book Chapters</h3>
+            <button class="close-nav-btn" onclick="closeChapterNavigator()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="nav-info">
+            <p id="packageInfo" class="package-info"></p>
+        </div>
+        <div id="chapterList" class="chapter-list">
+            <!-- Chapters will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Screenshot Dialog -->
+    <div id="screenshotDialog" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-camera"></i> Save Screenshot</h3>
+                <button class="modal-close" onclick="closeScreenshotDialog()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="screenshotFilename">Filename:</label>
+                    <input type="text" id="screenshotFilename" placeholder="screenshot_001.png" value="screenshot_001.png">
+                </div>
+                <div class="form-group">
+                    <label>Preview:</label>
+                    <div class="screenshot-preview">
+                        <img id="screenshotPreview" src="" alt="Screenshot preview">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Replace existing image:</label>
+                    <select id="replaceImageSelect">
+                        <option value="">-- New image --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeScreenshotDialog()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveScreenshot()">
+                    <i class="fas fa-save"></i> Save Screenshot
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Math Symbol Picker Dialog -->
+    <div id="mathSymbolDialog" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-square-root-alt"></i> Insert Math Symbol</h3>
+                <button class="modal-close" onclick="closeMathSymbolDialog()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="math-symbols-grid">
+                    <!-- Greek Letters -->
+                    <div class="symbol-category">
+                        <h4>Greek Letters</h4>
+                        <div class="symbol-buttons">
+                            <button class="symbol-btn" onclick="insertSymbol('α')">α</button>
+                            <button class="symbol-btn" onclick="insertSymbol('β')">β</button>
+                            <button class="symbol-btn" onclick="insertSymbol('γ')">γ</button>
+                            <button class="symbol-btn" onclick="insertSymbol('δ')">δ</button>
+                            <button class="symbol-btn" onclick="insertSymbol('ε')">ε</button>
+                            <button class="symbol-btn" onclick="insertSymbol('θ')">θ</button>
+                            <button class="symbol-btn" onclick="insertSymbol('λ')">λ</button>
+                            <button class="symbol-btn" onclick="insertSymbol('μ')">μ</button>
+                            <button class="symbol-btn" onclick="insertSymbol('π')">π</button>
+                            <button class="symbol-btn" onclick="insertSymbol('σ')">σ</button>
+                            <button class="symbol-btn" onclick="insertSymbol('τ')">τ</button>
+                            <button class="symbol-btn" onclick="insertSymbol('φ')">φ</button>
+                            <button class="symbol-btn" onclick="insertSymbol('ω')">ω</button>
+                            <button class="symbol-btn" onclick="insertSymbol('Δ')">Δ</button>
+                            <button class="symbol-btn" onclick="insertSymbol('Σ')">Σ</button>
+                            <button class="symbol-btn" onclick="insertSymbol('Ω')">Ω</button>
+                        </div>
+                    </div>
+
+                    <!-- Math Operators -->
+                    <div class="symbol-category">
+                        <h4>Math Operators</h4>
+                        <div class="symbol-buttons">
+                            <button class="symbol-btn" onclick="insertSymbol('±')">±</button>
+                            <button class="symbol-btn" onclick="insertSymbol('×')">×</button>
+                            <button class="symbol-btn" onclick="insertSymbol('÷')">÷</button>
+                            <button class="symbol-btn" onclick="insertSymbol('≠')">≠</button>
+                            <button class="symbol-btn" onclick="insertSymbol('≈')">≈</button>
+                            <button class="symbol-btn" onclick="insertSymbol('≤')">≤</button>
+                            <button class="symbol-btn" onclick="insertSymbol('≥')">≥</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∞')">∞</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∑')">∑</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∏')">∏</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∫')">∫</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∂')">∂</button>
+                            <button class="symbol-btn" onclick="insertSymbol('√')">√</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∛')">∛</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∜')">∜</button>
+                        </div>
+                    </div>
+
+                    <!-- Set Theory -->
+                    <div class="symbol-category">
+                        <h4>Set Theory</h4>
+                        <div class="symbol-buttons">
+                            <button class="symbol-btn" onclick="insertSymbol('∈')">∈</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∉')">∉</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⊂')">⊂</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⊃')">⊃</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⊆')">⊆</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⊇')">⊇</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∪')">∪</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∩')">∩</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∅')">∅</button>
+                        </div>
+                    </div>
+
+                    <!-- Arrows & Logic -->
+                    <div class="symbol-category">
+                        <h4>Arrows & Logic</h4>
+                        <div class="symbol-buttons">
+                            <button class="symbol-btn" onclick="insertSymbol('→')">→</button>
+                            <button class="symbol-btn" onclick="insertSymbol('←')">←</button>
+                            <button class="symbol-btn" onclick="insertSymbol('↑')">↑</button>
+                            <button class="symbol-btn" onclick="insertSymbol('↓')">↓</button>
+                            <button class="symbol-btn" onclick="insertSymbol('↔')">↔</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⇒')">⇒</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⇐')">⇐</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⇔')">⇔</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∀')">∀</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∃')">∃</button>
+                            <button class="symbol-btn" onclick="insertSymbol('¬')">¬</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∧')">∧</button>
+                            <button class="symbol-btn" onclick="insertSymbol('∨')">∨</button>
+                        </div>
+                    </div>
+
+                    <!-- Superscripts & Fractions -->
+                    <div class="symbol-category">
+                        <h4>Superscripts & Fractions</h4>
+                        <div class="symbol-buttons">
+                            <button class="symbol-btn" onclick="insertSymbol('²')">²</button>
+                            <button class="symbol-btn" onclick="insertSymbol('³')">³</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⁴')">⁴</button>
+                            <button class="symbol-btn" onclick="insertSymbol('½')">½</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⅓')">⅓</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⅔')">⅔</button>
+                            <button class="symbol-btn" onclick="insertSymbol('¼')">¼</button>
+                            <button class="symbol-btn" onclick="insertSymbol('¾')">¾</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⅛')">⅛</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⅜')">⅜</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⅝')">⅝</button>
+                            <button class="symbol-btn" onclick="insertSymbol('⅞')">⅞</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeMathSymbolDialog()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Advanced Math Equation Editor Dialog -->
+    <div id="mathEquationDialog" class="modal">
+        <div class="math-dialog-content">
+            <div class="math-dialog-header">
+                <h3><i class="fas fa-square-root-alt"></i> Math Equation Editor</h3>
+                <button class="math-dialog-close" onclick="closeMathEquationDialog()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="math-dialog-body">
+                <!-- LaTeX Input -->
+                <div class="math-input-section">
+                    <label for="mathLatexInput">Enter LaTeX or Math Expression:</label>
+                    <textarea id="mathLatexInput" placeholder="e.g., \frac{a}{b} or x^2 + y^2 = z^2"></textarea>
+                </div>
+
+                <!-- Preview -->
+                <div class="math-preview-section">
+                    <label>Preview:</label>
+                    <div id="mathPreview">
+                        <span class="placeholder">Preview will appear here...</span>
+                    </div>
+                </div>
+
+                <!-- Templates -->
+                <div class="math-templates-section">
+                    <h4>Common Structures</h4>
+                    <div class="math-templates-grid">
+                        <button class="math-template-btn" onclick="insertMathTemplate('fraction')" title="Fraction">
+                            <span class="template-symbol">a/b</span>
+                            <span class="template-label">Fraction</span>
+                        </button>
+                        <button class="math-template-btn" onclick="insertMathTemplate('sqrt')" title="Square Root">
+                            <span class="template-symbol">√x</span>
+                            <span class="template-label">Sqrt</span>
+                        </button>
+                        <button class="math-template-btn" onclick="insertMathTemplate('power')" title="Power">
+                            <span class="template-symbol">xⁿ</span>
+                            <span class="template-label">Power</span>
+                        </button>
+                        <button class="math-template-btn" onclick="insertMathTemplate('subscript')" title="Subscript">
+                            <span class="template-symbol">xₙ</span>
+                            <span class="template-label">Subscript</span>
+                        </button>
+                        <button class="math-template-btn" onclick="insertMathTemplate('sum')" title="Summation">
+                            <span class="template-symbol">∑</span>
+                            <span class="template-label">Sum</span>
+                        </button>
+                        <button class="math-template-btn" onclick="insertMathTemplate('product')" title="Product">
+                            <span class="template-symbol">∏</span>
+                            <span class="template-label">Product</span>
+                        </button>
+                        <button class="math-template-btn" onclick="insertMathTemplate('integral')" title="Integral">
+                            <span class="template-symbol">∫</span>
+                            <span class="template-label">Integral</span>
+                        </button>
+                        <button class="math-template-btn" onclick="insertMathTemplate('limit')" title="Limit">
+                            <span class="template-symbol">lim</span>
+                            <span class="template-label">Limit</span>
+                        </button>
+                        <button class="math-template-btn" onclick="insertMathTemplate('derivative')" title="Derivative">
+                            <span class="template-symbol">d/dx</span>
+                            <span class="template-label">Derivative</span>
+                        </button>
+                        <button class="math-template-btn" onclick="insertMathTemplate('partialDerivative')" title="Partial Derivative">
+                            <span class="template-symbol">∂/∂x</span>
+                            <span class="template-label">Partial</span>
+                        </button>
+                        <button class="math-template-btn" onclick="insertMathTemplate('matrix2x2')" title="2x2 Matrix">
+                            <span class="template-symbol">[2×2]</span>
+                            <span class="template-label">Matrix</span>
+                        </button>
+                        <button class="math-template-btn" onclick="insertMathTemplate('vector')" title="Vector">
+                            <span class="template-symbol">v⃗</span>
+                            <span class="template-label">Vector</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Symbol Tabs -->
+                <div class="math-symbols-section">
+                    <div class="math-symbols-tabs">
+                        <button class="math-symbols-tab active" onclick="showMathTab('greek')">Greek</button>
+                        <button class="math-symbols-tab" onclick="showMathTab('operators')">Operators</button>
+                        <button class="math-symbols-tab" onclick="showMathTab('relations')">Relations</button>
+                        <button class="math-symbols-tab" onclick="showMathTab('arrows')">Arrows</button>
+                        <button class="math-symbols-tab" onclick="showMathTab('sets')">Sets</button>
+                    </div>
+
+                    <!-- Greek Letters -->
+                    <div id="mathTab-greek" class="math-symbols-grid">
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('α')">α</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('β')">β</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('γ')">γ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('δ')">δ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('ε')">ε</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('ζ')">ζ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('η')">η</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('θ')">θ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('ι')">ι</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('κ')">κ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('λ')">λ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('μ')">μ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('ν')">ν</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('ξ')">ξ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('π')">π</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('ρ')">ρ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('σ')">σ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('τ')">τ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('υ')">υ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('φ')">φ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('χ')">χ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('ψ')">ψ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('ω')">ω</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('Γ')">Γ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('Δ')">Δ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('Θ')">Θ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('Λ')">Λ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('Σ')">Σ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('Φ')">Φ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('Ψ')">Ψ</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('Ω')">Ω</button>
+                    </div>
+
+                    <!-- Operators -->
+                    <div id="mathTab-operators" class="math-symbols-grid" style="display: none;">
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('+')">+</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('−')">−</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('×')">×</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('÷')">÷</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('±')">±</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∓')">∓</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('·')">·</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∘')">∘</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('√')">√</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∛')">∛</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∜')">∜</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∑')">∑</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∏')">∏</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∫')">∫</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∬')">∬</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∭')">∭</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∂')">∂</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∇')">∇</button>
+                    </div>
+
+                    <!-- Relations -->
+                    <div id="mathTab-relations" class="math-symbols-grid" style="display: none;">
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('=')"> =</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('≠')">≠</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('<')"><</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('>')">></button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('≤')">≤</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('≥')">≥</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('≈')">≈</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('≡')">≡</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∝')">∝</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('≪')">≪</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('≫')">≫</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∞')">∞</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('⊥')">⊥</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∥')">∥</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∠')">∠</button>
+                    </div>
+
+                    <!-- Arrows -->
+                    <div id="mathTab-arrows" class="math-symbols-grid" style="display: none;">
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('→')">→</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('←')">←</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('↔')">↔</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('⇒')">⇒</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('⇐')">⇐</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('⇔')">⇔</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('↑')">↑</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('↓')">↓</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('↕')">↕</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('⟶')">⟶</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('⟵')">⟵</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('⟷')">⟷</button>
+                    </div>
+
+                    <!-- Sets -->
+                    <div id="mathTab-sets" class="math-symbols-grid" style="display: none;">
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∈')">∈</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∉')">∉</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('⊂')">⊂</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('⊃')">⊃</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('⊆')">⊆</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('⊇')">⊇</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∪')">∪</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∩')">∩</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∅')">∅</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∀')">∀</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∃')">∃</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∄')">∄</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∧')">∧</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('∨')">∨</button>
+                        <button class="math-symbol-btn" onclick="insertMathSymbol('¬')">¬</button>
+                    </div>
+                </div>
+            </div>
+            <div class="math-dialog-footer">
+                <button class="btn-secondary" onclick="closeMathEquationDialog()">Cancel</button>
+                <button class="btn-purple" onclick="insertMathEquation('mathml')">
+                    <i class="fas fa-code"></i> Insert as MathML
+                </button>
+                <button class="btn-primary" onclick="insertMathEquation('html')">
+                    <i class="fas fa-plus"></i> Insert Equation
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Advanced Insert Table Dialog -->
+    <div id="insertTableDialog" class="modal">
+        <div class="insert-table-content">
+            <div class="insert-table-header">
+                <h3><i class="fas fa-table"></i> Insert Table</h3>
+                <button class="insert-table-close" onclick="closeInsertTableDialog()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="insert-table-body">
+                <div class="table-settings-row">
+                    <div class="table-settings-group">
+                        <label for="newTableRows">Rows:</label>
+                        <input type="number" id="newTableRows" value="3" min="1" max="100" onchange="updateTablePreview()">
+                    </div>
+                    <div class="table-settings-group">
+                        <label for="newTableCols">Columns:</label>
+                        <input type="number" id="newTableCols" value="3" min="1" max="20" onchange="updateTablePreview()">
+                    </div>
+                    <div class="table-settings-group">
+                        <label for="newTableWidth">Width:</label>
+                        <input type="text" id="newTableWidth" value="100%" placeholder="100% or 500px">
+                    </div>
+                </div>
+
+                <div class="table-checkbox-group">
+                    <input type="checkbox" id="newTableHeader" checked onchange="updateTablePreview()">
+                    <label for="newTableHeader">Include header row</label>
+                </div>
+
+                <div class="table-settings-row">
+                    <div class="table-settings-group" style="flex: 2;">
+                        <label for="newTableCaption">Caption (optional):</label>
+                        <input type="text" id="newTableCaption" placeholder="Table title...">
+                    </div>
+                </div>
+
+                <div id="tablePreviewGrid">
+                    <!-- Preview will be generated here -->
+                </div>
+            </div>
+            <div class="insert-table-footer">
+                <button class="btn-secondary" onclick="closeInsertTableDialog()">Cancel</button>
+                <button class="btn-success" onclick="insertNewTable()">
+                    <i class="fas fa-plus"></i> Insert Table
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cell Properties Dialog -->
+    <div id="cellPropertiesDialog" class="modal">
+        <div class="properties-dialog-content">
+            <div class="properties-dialog-header">
+                <h3><i class="fas fa-th-large"></i> Cell Properties</h3>
+                <button class="properties-dialog-close" onclick="closeCellProperties()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="properties-dialog-body">
+                <div class="property-row">
+                    <div class="property-group">
+                        <label for="cellWidth">Width:</label>
+                        <input type="text" id="cellWidth" placeholder="e.g., 100px or 25%">
+                    </div>
+                    <div class="property-group">
+                        <label for="cellHeight">Height:</label>
+                        <input type="text" id="cellHeight" placeholder="e.g., 50px">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="property-group">
+                        <label for="cellBgColor">Background:</label>
+                        <input type="color" id="cellBgColor" value="#ffffff">
+                    </div>
+                    <div class="property-group">
+                        <label for="cellBorderColor">Border Color:</label>
+                        <input type="color" id="cellBorderColor" value="#e2e8f0">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="property-group">
+                        <label for="cellVerticalAlign">Vertical Align:</label>
+                        <select id="cellVerticalAlign">
+                            <option value="top">Top</option>
+                            <option value="middle" selected>Middle</option>
+                            <option value="bottom">Bottom</option>
+                        </select>
+                    </div>
+                    <div class="property-group">
+                        <label for="cellPadding">Padding (px):</label>
+                        <input type="number" id="cellPadding" value="8" min="0" max="50">
+                    </div>
+                </div>
+            </div>
+            <div class="properties-dialog-footer">
+                <button class="btn-secondary" onclick="closeCellProperties()">Cancel</button>
+                <button class="btn-primary" onclick="applyCellProperties()">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Properties Dialog -->
+    <div id="tablePropertiesDialog" class="modal">
+        <div class="properties-dialog-content">
+            <div class="properties-dialog-header">
+                <h3><i class="fas fa-table"></i> Table Properties</h3>
+                <button class="properties-dialog-close" onclick="closeTableProperties()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="properties-dialog-body">
+                <div class="property-row">
+                    <div class="property-group">
+                        <label for="tableWidth">Width:</label>
+                        <input type="text" id="tableWidth" value="100%" placeholder="e.g., 100% or 600px">
+                    </div>
+                    <div class="property-group">
+                        <label for="tableBorder">Border (px):</label>
+                        <input type="number" id="tableBorder" value="1" min="0" max="10">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="property-group">
+                        <label for="tableCellSpacing">Cell Spacing:</label>
+                        <input type="number" id="tableCellSpacing" value="0" min="0" max="20">
+                    </div>
+                    <div class="property-group">
+                        <label for="tableCellPadding">Cell Padding:</label>
+                        <input type="number" id="tableCellPadding" value="8" min="0" max="50">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="property-group">
+                        <label for="tableAlign">Alignment:</label>
+                        <select id="tableAlign">
+                            <option value="none">None</option>
+                            <option value="left">Left</option>
+                            <option value="center">Center</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="properties-dialog-footer">
+                <button class="btn-secondary" onclick="closeTableProperties()">Cancel</button>
+                <button class="btn-primary" onclick="applyTableProperties()">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notificationToast" class="notification-toast"></div>
+
+    <!-- Context Menu for Preview Editing -->
+    <div id="previewContextMenu" class="context-menu" style="display: none;">
+        <div class="context-menu-item" onclick="showInsertImageDialog()">
+            <i class="fas fa-image"></i> Insert Image
+        </div>
+        <div class="context-menu-item" onclick="showInsertTableDialog()">
+            <i class="fas fa-table"></i> Insert Table
+        </div>
+        <div class="context-menu-item" onclick="showInsertShapeDialog()">
+            <i class="fas fa-shapes"></i> Insert Shape
+        </div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item" onclick="insertListItem('ordered')">
+            <i class="fas fa-list-ol"></i> Insert Numbered List
+        </div>
+        <div class="context-menu-item" onclick="insertListItem('unordered')">
+            <i class="fas fa-list-ul"></i> Insert Bullet List
+        </div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item" onclick="formatSelectedText('bold')">
+            <i class="fas fa-bold"></i> Bold
+        </div>
+        <div class="context-menu-item" onclick="formatSelectedText('italic')">
+            <i class="fas fa-italic"></i> Italic
+        </div>
+        <div class="context-menu-item" onclick="formatSelectedText('underline')">
+            <i class="fas fa-underline"></i> Underline
+        </div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item" onclick="showInsertLinkDialog()">
+            <i class="fas fa-link"></i> Insert Link
+        </div>
+    </div>
+
+    <!-- Insert Image Dialog -->
+    <div id="insertImageDialog" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-image"></i> Insert Image</h3>
+                <button class="modal-close" onclick="closeInsertImageDialog()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Image Source:</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="imageSource" value="url" checked onchange="toggleImageSource()">
+                            URL
+                        </label>
+                        <label>
+                            <input type="radio" name="imageSource" value="upload" onchange="toggleImageSource()">
+                            Upload File
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="imageUrlGroup">
+                    <label for="imageUrl">Image URL:</label>
+                    <input type="text" id="imageUrl" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group" id="imageUploadGroup" style="display: none;">
+                    <label for="imageUpload">Choose Image:</label>
+                    <input type="file" id="imageUpload" accept="image/*" onchange="previewImageUpload()">
+                </div>
+                <div class="form-group">
+                    <label for="imageAlt">Alt Text (Description):</label>
+                    <input type="text" id="imageAlt" placeholder="Image description">
+                </div>
+                <div class="form-group">
+                    <label for="imageWidth">Width (optional):</label>
+                    <input type="text" id="imageWidth" placeholder="e.g., 400px or 100%">
+                </div>
+                <div class="form-group">
+                    <label for="imageHeight">Height (optional):</label>
+                    <input type="text" id="imageHeight" placeholder="e.g., 300px or auto">
+                </div>
+                <div class="form-group">
+                    <label>Preview:</label>
+                    <div class="image-preview-box" id="imagePreviewBox">
+                        <span>Image preview will appear here</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeInsertImageDialog()">Cancel</button>
+                <button class="btn btn-primary" onclick="insertImageToPreview()">
+                    <i class="fas fa-plus"></i> Insert Image
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insert Table Dialog -->
+    <div id="insertTableDialog" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-table"></i> Insert Table</h3>
+                <button class="modal-close" onclick="closeInsertTableDialog()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="tableRows">Number of Rows:</label>
+                    <input type="number" id="tableRows" value="3" min="1" max="20">
+                </div>
+                <div class="form-group">
+                    <label for="tableCols">Number of Columns:</label>
+                    <input type="number" id="tableCols" value="3" min="1" max="10">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="tableHeader" checked>
+                        Include Header Row
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="tableCaption">Table Caption (optional):</label>
+                    <input type="text" id="tableCaption" placeholder="Table description">
+                </div>
+                <div class="form-group">
+                    <label>Preview:</label>
+                    <div class="table-preview" id="tablePreview">
+                        <!-- Preview will be generated here -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeInsertTableDialog()">Cancel</button>
+                <button class="btn btn-primary" onclick="insertTableToPreview()">
+                    <i class="fas fa-plus"></i> Insert Table
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insert Shape Dialog -->
+    <div id="insertShapeDialog" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-shapes"></i> Insert Shape</h3>
+                <button class="modal-close" onclick="closeInsertShapeDialog()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Select Shape:</label>
+                    <div class="shape-selector">
+                        <div class="shape-option" data-shape="rectangle" onclick="selectShape('rectangle')">
+                            <div class="shape-box rectangle"></div>
+                            <span>Rectangle</span>
+                        </div>
+                        <div class="shape-option" data-shape="circle" onclick="selectShape('circle')">
+                            <div class="shape-box circle"></div>
+                            <span>Circle</span>
+                        </div>
+                        <div class="shape-option" data-shape="triangle" onclick="selectShape('triangle')">
+                            <div class="shape-box triangle"></div>
+                            <span>Triangle</span>
+                        </div>
+                        <div class="shape-option" data-shape="arrow" onclick="selectShape('arrow')">
+                            <div class="shape-box arrow"></div>
+                            <span>Arrow</span>
+                        </div>
+                        <div class="shape-option" data-shape="star" onclick="selectShape('star')">
+                            <div class="shape-box star"></div>
+                            <span>Star</span>
+                        </div>
+                        <div class="shape-option" data-shape="hexagon" onclick="selectShape('hexagon')">
+                            <div class="shape-box hexagon"></div>
+                            <span>Hexagon</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="shapeWidth">Width:</label>
+                    <input type="number" id="shapeWidth" value="200" min="50" max="800">
+                </div>
+                <div class="form-group">
+                    <label for="shapeHeight">Height:</label>
+                    <input type="number" id="shapeHeight" value="150" min="50" max="600">
+                </div>
+                <div class="form-group">
+                    <label for="shapeFill">Fill Color:</label>
+                    <input type="color" id="shapeFill" value="#3b82f6">
+                </div>
+                <div class="form-group">
+                    <label for="shapeStroke">Border Color:</label>
+                    <input type="color" id="shapeStroke" value="#1e40af">
+                </div>
+                <div class="form-group">
+                    <label for="shapeText">Text (optional):</label>
+                    <input type="text" id="shapeText" placeholder="Enter text for shape">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeInsertShapeDialog()">Cancel</button>
+                <button class="btn btn-primary" onclick="insertShapeToPreview()">
+                    <i class="fas fa-plus"></i> Insert Shape
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insert Link Dialog -->
+    <div id="insertLinkDialog" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-link"></i> Insert Link</h3>
+                <button class="modal-close" onclick="closeInsertLinkDialog()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="linkText">Link Text:</label>
+                    <input type="text" id="linkText" placeholder="Click here">
+                </div>
+                <div class="form-group">
+                    <label for="linkUrl">URL:</label>
+                    <input type="text" id="linkUrl" placeholder="https://example.com">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="linkNewTab" checked>
+                        Open in new tab
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeInsertLinkDialog()">Cancel</button>
+                <button class="btn btn-primary" onclick="insertLinkToPreview()">
+                    <i class="fas fa-plus"></i> Insert Link
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Monaco Editor Loader -->
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
+
+    <!-- Main Application Script -->
+    <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
+
+    <!-- Advanced Math and Table Editors -->
+    <script src="{{ url_for('static', filename='js/advanced-editors.js') }}"></script>
+
+    <!-- Math Tab Switcher -->
+    <script>
+        function showMathTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('[id^="mathTab-"]').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            // Deactivate all tab buttons
+            document.querySelectorAll('.math-symbols-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Show selected tab
+            document.getElementById('mathTab-' + tabName).style.display = 'grid';
+            // Activate button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

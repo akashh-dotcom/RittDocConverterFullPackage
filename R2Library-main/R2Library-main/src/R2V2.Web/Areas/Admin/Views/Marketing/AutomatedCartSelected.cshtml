@@ -1,0 +1,243 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Marketing.AutomatedCartPricingModel
+
+@{
+	ViewBag.Title = "Automated Shopping Carts";
+	ViewBag.BodyCssClass = "admin";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+	<div id="content" class="content" role="main">
+		<h1>Priced Automated Shopping Carts</h1>
+		<div id="report-filters" class="tablecontent" style="padding: 0 10px">
+            <form action="" method="post">
+                @Html.HiddenFor(x => Model.ReportQuery.PeriodStartDate)
+                @Html.HiddenFor(x => Model.ReportQuery.PeriodEndDate)
+                        <table class="edit">
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.ReportQuery.Period)</td>
+                                <td class="field">
+                                    @Html.Raw(Model.GetPeriodDisplay()) <b>@Html.DisplayFor(model => model.ReportQuery.PeriodStartDate)</b> to <b>@Html.DisplayFor(model => model.ReportQuery.PeriodEndDate)</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.InstitutionTypes)</td>
+                                <td class="field">@Html.DisplayFor(model => model.InstitutionTypesDisplay)
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.Territories)</td>
+                                <td class="field">@Html.DisplayFor(model => model.TerritoriesDisplay)
+                            </tr>
+                            <tr>
+                                <td class="label">Included Titles: </td>
+                                <td class="field">
+                                    @if (Model.ReportQuery.IncludeNewEdition)
+                                    {
+                                        <span class="filter-license-filter" style="padding-right: 20px;">@Html.LabelFor(model => model.IncludeNewEdition)</span>
+                                    }
+                                    @if (Model.ReportQuery.IncludeTriggeredPda)
+                                    {
+                                        <span class="filter-license-filter" style="padding-right: 20px;">@Html.LabelFor(model => model.IncludeTriggeredPda)</span>
+                                    }
+                                    @if (Model.ReportQuery.IncludeReviewed)
+                                    {
+                                        <span class="filter-license-filter" style="padding-right: 20px;">@Html.LabelFor(model => model.IncludeReviewed)</span>
+                                    }
+                                    @if (Model.ReportQuery.IncludeTurnaway)
+                                    {
+                                        <span class="filter-license-filter" style="padding-right: 20px;">@Html.LabelFor(model => model.IncludeTurnaway)</span>
+                                    }
+                                    @if (Model.ReportQuery.IncludeRequested)
+                                    {
+                                        <span class="filter-license-filter" style="padding-right: 20px;">@Html.LabelFor(model => model.IncludeRequested)</span>
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">Included Account Numbers: </td>
+                                <td class="field" style="word-wrap: break-word; max-width: 500px;">@Html.DisplayFor(x => x.ReportQuery.AccountNumberBatch) </td>
+                            </tr>
+
+                            @if (Model.AllowDiscountOverride)
+                            {
+                                <tr>
+                                    <td class="label">Override Institution Discount: </td>
+                                    <td class="field">
+
+                                        @Html.TextBoxFor(x => x.DiscountOverride, new { placeholder = "Optional", @class = "input-small  force-numeric" })
+                                        <div style="float: right; padding-right: 10px;">
+                                            <button class="btn-medium" type="submit" value="AutomatedCartSelected" name="action:AutomatedCartSelected"><span>Update Pricing</span></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td class="label">Cart Name: </td>
+                                <td class="field">
+                                    @Html.TextBoxFor(x => x.CartName, new { placeholder = "Automated Shopping Cart", @class = "input-large" })
+                                    @Html.ValidationMessageFor(x => x.CartName)
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td class="label">Email Subject: </td>
+                                <td class="field">
+                                    @Html.TextBoxFor(x => x.EmailSubject, new { placeholder = "R2 Library Automated Shopping Cart", @class = "input-large" })
+                                    @Html.ValidationMessageFor(x => x.EmailSubject)
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td class="label">Email Title: </td>
+                                <td class="field">
+                                    @Html.TextBoxFor(x => x.EmailTitle, new { placeholder = "Automated Shopping Cart", @class = "input-large" })
+                                    @Html.ValidationMessageFor(x => x.EmailTitle)
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td class="label">Email Text: </td>
+                                <td class="field">
+                                    @Html.TextAreaFor(x => x.EmailText, new { cols = 35, rows = 3, placeholder = "This text will be displayed in all emails. Html is allowed, so you can provide links if you choose." })
+                                    @Html.ValidationMessageFor(x => x.EmailText)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="float: left">
+                                        <button class="btn-medium" type="submit" value="AutomatedCartFilter" name="action:AutomatedCartFilter"><span>Back to Institutions</span></button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="float: left; padding-left: 100px">
+                                        <button class="btn-medium" type="submit" value="ExportAutomatedCartEmail" name="action:ExportAutomatedCartEmail" target="_blank" formtarget="_blank"><span>Preview Email</span></button>
+                                    </div>
+                                    <div style="float: right;">
+                                        <button class="btn-medium" type="submit" value="AutomatedCartsFinalize" name="action:AutomatedCartsFinalize"><span>Process Institutions</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            @if (Model.Institutions != null && Model.Institutions.Any())
+                            {
+                                <tr>
+                                    <td colspan="2">@Model.Institutions.Count() Institutions to be Processed</td>
+                                </tr>
+                            }
+                        </table>
+                        @Html.HiddenFor(x => x.ReportQuery.AccountNumberBatch)
+                        @Html.HiddenFor(x => x.SelectedInstitutionIds)
+                        @Html.HiddenFor(x => x.ReportQuery.Period)
+                        @Html.HiddenFor(x => x.DateRangeStart)
+                        @Html.HiddenFor(x => x.DateRangeEnd)
+
+                        @if (Model.ReportQuery.TerritoryCodes != null)
+                        {
+                            for (var i = 0; i < Model.ReportQuery.TerritoryCodes.Length; i++)
+                            {
+                                @Html.HiddenFor(x => Model.ReportQuery.TerritoryCodes[i])
+                            }
+                        }
+
+                        @if (Model.ReportQuery.InstitutionTypeIds != null)
+                        {
+                            for (var i = 0; i < Model.ReportQuery.InstitutionTypeIds.Length; i++)
+                            {
+                                @Html.HiddenFor(x => Model.ReportQuery.InstitutionTypeIds[i])
+                            }
+                        }
+
+
+                        @Html.HiddenFor(x => x.ReportQuery.IncludeTurnaway)
+                        @Html.HiddenFor(x => x.ReportQuery.IncludeNewEdition)
+                        @Html.HiddenFor(x => x.ReportQuery.IncludeReviewed)
+                        @Html.HiddenFor(x => x.ReportQuery.IncludeTriggeredPda)
+                        @Html.HiddenFor(x => x.ReportQuery.IncludeRequested)
+                        @Html.HiddenFor(x => x.DiscountOverride)
+
+                        <button class="btn-medium" style="display: none;" type="submit" value="ExportAutomatedCartPricing" name="action:ExportAutomatedCartPricing"><span>Excel Export</span></button>
+                    </form>
+		</div>
+		
+		@if (Model.Institutions != null && Model.Institutions.Any())
+		{
+			<div class="tablecontent">
+				<table class="list">
+					<thead>
+					<tr>
+						<th>Account #</th>
+					    <th style="min-width: 231px;">Institution Name</th>
+						<th>Territory</th>
+						<th>New</th>
+						<th>PDA</th>
+						<th>Rev</th>
+					    <th>Turn</th>
+					    <th>Req</th>
+						<th>Titles</th>
+						<th>Price</th>
+					</tr>
+					</thead>
+					<tbody>
+					@foreach (var item in Model.Institutions)
+					{
+						<tr>
+							<td class="institution-account-number">@Html.DisplayFor(modelItem => item.AccountNumber)</td>
+							<td class="institution-institution-name">
+								@Html.HiddenFor(x => item.InstitutionId)
+								<a rel="tooltip" title="@Html.Raw(Model.GetToolTip(item.Address))" style="text-decoration: none !important; color: #3E3E3E;">@item.InstitutionName</a>
+								<br />
+								@if (item.InstitutionType != null)
+								{
+									<span style="font-weight: normal; font-size: .8em">@item.InstitutionType.Name</span>
+								}
+							</td>
+
+							<td style="width: 100px">
+								@if (item.InstitutionTerritory != null)
+								{
+									@item.InstitutionTerritory.Code
+								}
+								else
+								{
+									<span>N/A</span>
+								}
+							</td>
+							<td>@Html.DisplayFor(x => item.NewEdition)</td>
+							<td>@Html.DisplayFor(x => item.TriggeredPda)</td>
+							<td>@Html.DisplayFor(x => item.Reviewed)</td>
+						    <td>@Html.DisplayFor(x => item.Turnaway)</td>
+						    <td>@Html.DisplayFor(x => item.Requested)</td>
+							<td>
+								@*@Html.DisplayFor(x => item.TotalResources)*@
+								<a rel="tooltip" title="A single resource can be triggered by mulitple events" style="text-decoration: none !important; color: #3E3E3E;">@item.TotalResources</a>
+							</td>
+							<td style="font-weight: bold">
+								<span style="text-decoration: line-through">@Html.DisplayFor(x => item.TotalListPrice)</span>
+								@Html.DisplayFor(x => item.TotalDiscountPrice)
+							</td>
+						</tr>
+					}
+					</tbody>
+				</table>
+			</div>
+		}
+		else
+		{
+			if (Model.ReportQuery != null && !Model.ReportQuery.IsDefaultQuery)
+			{
+				<div>No results based on your query.</div>
+			}
+		}
+	</div>
+	@Html.Partial("_LeftNav", Model)
+</div>
+
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.Marketing.ActionsMenu({ $container: $('.actions-menu'), $linkExport: $('.actions-menu').find('a.export'), $exportButton: $('#content').find('button[value="ExportAutomatedCartPricing"]')});
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

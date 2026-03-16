@@ -1,0 +1,26 @@
+﻿@model R2V2.Web.Models.LoginParam
+@{
+    ViewBag.Title = "Login";
+    Layout = "";
+}
+
+<h2>Login</h2>
+
+<div id="login">
+    @using (Html.BeginForm("Login", "Authentication", FormMethod.Post))
+    {
+        <div class="validation-message"></div>
+        
+        <label for="login-user">Log In:</label>
+        
+        <div class="textfield"><div class="textfieldinner">
+            @Html.TextBoxFor(x => x.UserName, new { id = "login-user", @class = "text", placeholder = "Enter username", maxlength = 50 })
+        </div></div>
+        
+        <div class="textfield"><div class="textfieldinner">
+            @Html.PasswordFor(x => x.Password, new { id = "login-password", @class = "text", placeholder = "Enter password", maxlength = 20 })
+        </div></div>
+        
+        <button type="submit" class="btn-medium"><span>Login</span></button>
+    }
+</div>

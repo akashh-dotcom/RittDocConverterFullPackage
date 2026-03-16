@@ -1,0 +1,34 @@
+﻿@model R2V2.Web.Models.Profile.UserEmailOptions
+
+@{
+    ViewBag.Title = "My Email Options";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="tabs">
+    <ul class="clearfix">
+        <li><a href="@Url.Action("Index", "MyR2", new { type = "bookmarks" })"><span>Bookmarks</span></a></li>
+        <li><a href="@Url.Action("Index", "MyR2", new { type = "course-links" })"><span>Course Links</span></a></li>
+        <li><a href="@Url.Action("Index", "MyR2", new { type = "images" })"><span>Images</span></a></li>
+        <li><a href="@Url.Action("Index", "MyR2", new { type = "references" })"><span>References</span></a></li>
+        <li><a href="@Url.Action("Index", "Profile")"><span>My User Profile</span></a></li>
+        <li class="selected"><a href="@Url.Action("Email", "Profile")"><span>My Email Preferences</span></a></li>
+    </ul>
+</div>
+
+<div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>My Email Preferences</h1>
+        @Html.Partial("_Email")
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    $.CopySelectedRadioToHidden({
+        form : '#EmailOptionForm',
+        hiddenChecked : '#SubscribedOptions',
+        hiddenUnChecked : '#UnSubscribedOptions',
+        button : '#SubmitButton'
+    });
+}

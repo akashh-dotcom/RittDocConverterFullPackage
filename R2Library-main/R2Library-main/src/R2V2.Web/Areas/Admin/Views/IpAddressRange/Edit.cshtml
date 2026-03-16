@@ -1,0 +1,77 @@
+﻿@model R2V2.Web.Areas.Admin.Models.IpAddressRange.InstitutionIpRanges
+
+@{
+    ViewBag.Title = "Edit Institution IP Range";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Institution IP Ranges</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+        <div>
+            <p>
+                Current IP Address: @Html.DisplayFor(x => Model.CurrentIpAddress)
+            </p>
+        </div>
+        <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+            <ul class="actions">
+                <li><a href="@Url.Action("Add", new { institutionId = Model.InstitutionId })" class="btn btn-medium"><span>Add New</span></a></li>
+            </ul>
+        </div></div>
+
+        <div class="tablecontent">
+            @using (Html.BeginForm())
+            {
+                @Html.HiddenFor(x => x.InstitutionId)
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Start IP Address</th>
+                            <th>End IP Address</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.IpAddressRanges)
+                        {
+                            if (Model.EditIpAddressRange != null && item.Id == Model.EditIpAddressRange.Id)
+                            {
+                                @Html.HiddenFor(x => x.EditIpAddressRange.Id)
+                                @Html.Partial("_EditIpRange", Model)                                    
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(x => item.Id)
+                                <tr>
+                                    <td>@Html.DisplayFor(x => item.OctetA).@Html.DisplayFor(x => item.OctetB).@Html.DisplayFor(x => item.OctetCStart).@Html.DisplayFor(x => item.OctetDStart)</td>
+                                    <td>@Html.DisplayFor(x => item.OctetA).@Html.DisplayFor(x => item.OctetB).@Html.DisplayFor(x => item.OctetCEnd).@Html.DisplayFor(x => item.OctetDEnd)</td>
+                                    <td>@Html.DisplayFor(x => item.Description)</td>
+                                    <td class="actions">
+                                        <a href="@Url.Action("Edit", new { institutionId = Model.InstitutionId, item.Id })" class="btn btn-medium"><span>Edit</span></a> 
+                                        <a href="@Url.Action("Delete", new { institutionId = Model.InstitutionId, item.Id })" class="btn btn-medium"><span>Delete</span></a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

@@ -1,0 +1,67 @@
+﻿@model R2V2.Web.Areas.Admin.Models.PdaRules.PdaRuleModel
+
+@{
+    ViewBag.Title = "PDA Profile";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    @Html.Partial("_Rule", Model)
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+
+    var options = {
+    plugins: ['remove_button'],
+    selectOnTab: true
+    };
+
+    $('#rules select').each(function () {
+    $(this).selectize(options);
+    });
+
+    new R2V2.Admin.SelectizeAddAll({ $select: $('#SpecialtiesSelected') });
+    new R2V2.Admin.SelectizeAddAll({ $select: $('#PracticeAreasSelected') });
+
+    new R2V2.Admin.SelectizeClearAll({ $select:$('#CollectionsSelected'), $trigger: $('#Clear-Collections') });
+    new R2V2.Admin.SelectizeClearAll({ $select:$('#SpecialtiesSelected'), $trigger: $('#Clear-Specialties') });
+    new R2V2.Admin.SelectizeClearAll({ $select:$('#PracticeAreasSelected'), $trigger: $('#Clear-PracticeAreas') });
+
+    $( document ).ready(function(e) {
+    if($('#IncludeNewEditionFirm').prop('checked') || $('#IncludeNewEditionPda').prop('checked')){
+    $("#rules").hide();
+    }
+    else{
+    $("#rules").show();
+    }
+    });
+
+    $('#ApplyToAllResources').click(function(){
+    if( $("#rules").is( ":hidden" )  ){
+    $("#rules").show();
+    $('#IncludeNewEditionFirm').prop('checked', false);
+    $('#IncludeNewEditionPda').prop('checked', false);
+    }
+    else{
+    $("#rules").hide();
+    }
+    });
+
+    $('#IncludeNewEditionFirm').click(function(){
+    $("#rules").hide();
+    $('#ApplyToAllResources').prop('checked', false);
+    });
+    $('#IncludeNewEditionPda').click(function(){
+    $("#rules").hide();
+    $('#ApplyToAllResources').prop('checked', false);
+    });
+}

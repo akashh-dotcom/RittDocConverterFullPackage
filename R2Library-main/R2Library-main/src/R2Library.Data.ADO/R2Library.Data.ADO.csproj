@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net481</TargetFramework>
+    <ProjectGuid>{48D457C3-5207-487F-B2F6-CFBF1A2F5068}</ProjectGuid>
+    <AssemblyName>R2Library.Data.ADO</AssemblyName>
+    <RootNamespace>R2Library.Data.ADO</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="3.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="6.0.6" />
+  </ItemGroup>
+
+</Project>

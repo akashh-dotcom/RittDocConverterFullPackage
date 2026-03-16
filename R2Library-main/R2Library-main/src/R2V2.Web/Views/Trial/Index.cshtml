@@ -1,0 +1,24 @@
+﻿@model R2V2.Web.Models.Trial.Trial
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="fullcol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Create an R2 Library Trial Account</h1>
+        @if (Model.Institution == null)
+        {
+            <h3>Invalid Request</h3>
+            <div>Error: @Model.ErrorMessage</div>
+        }
+        else
+        {
+            using (Html.BeginForm(Model.FormPost, "Trial"))
+             {
+                 @Html.Partial("_Trial", Model)
+             }
+        }
+    </div>
+</div>
+

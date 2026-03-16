@@ -1,0 +1,561 @@
+﻿@model R2V2.Web.Models.Trial.RequestAccountModel
+
+
+<div class="resource-test-section" id="Section-1">
+	<div class="resource-test-section-title">Company & Ownership Information</div>	
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Name of Business: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.ContactAddress.Name, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.Name)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+
+		<div class="resource-test-label">Business Type: </div>
+		<div class="resource-test-field">
+			@Html.DropDownListFor(x => x.CompanyInformation.Type, Model.CompanyInformation.TypeList, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Name of Officer: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.OfficerName, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Officer Title: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.OfficerTitle, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Address 1: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.ContactAddress.Address1, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.Address1)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Address 2: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.ContactAddress.Address2, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">City: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.ContactAddress.City, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.City)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">State: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.ContactAddress.State, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.State)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Zip Code: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.ContactAddress.Zip, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.Zip)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Country: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.ContactAddress.Country, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Email: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.Email, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.CompanyInformation.Email)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.ContactAddress.Phone, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.Phone)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Fax: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.ContactAddress.Fax, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.CompanyInformation.ContactAddress.Fax)
+		</div>
+	</div>
+@*</div>
+	<div class="tablecontent resource-test-section">*@
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Website: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.Website, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">San #: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.SanNumber, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">EIN: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.Ein, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Duns #: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.DunsNumber, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Consortium: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.Consortium, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Store #/Customer ID Code: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.CustomerId, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Affiliated Institution: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.AffiliatedInstitution, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+
+		<div class="resource-test-label">Account Expiration: <br />(if applicable)</div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.AccountExpiration, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+
+		<div class="resource-test-label">Max Billing Limit: <br />(if applicable)</div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.MaxBillingLimit, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Sales Tax Exemption #: <br/>(if applicable)</div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyInformation.SalesTaxExemptionNumber, new {@class = "input-large"})
+		</div>
+	</div>
+</div>
+
+
+<div class="resource-test-section" id="Section-2">
+	<div class="resource-test-section-title">Billing Information</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Name of Business/Contact: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Name, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Name)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Name of Officer: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.BillingInformation.OfficerName, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Address 1: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Address1, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Address1)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Address 2: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Address2, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">City: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.City, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.City)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">State: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.State, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.State)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Zip Code: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Zip, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Zip)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Country: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Country, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Phone, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Phone)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Fax: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Fax, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.BillingInformation.ContactAddress.Fax)
+		</div>
+	</div>
+	
+	<div class="resource-test-section-title">Shipping Information</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Name of Business/Contact: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Name, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Name)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Name of Officer: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.ShippingInformation.OfficerName, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Address 1: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Address1, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Address1)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Address 2: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Address2, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">City: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.City, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.City)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">State: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.State, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.State)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Zip Code: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Zip, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Zip)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Country: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Country, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Phone, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Phone)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Fax: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Fax, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.CompanyAddresses.ShippingInformation.ContactAddress.Fax)
+		</div>
+	</div>
+</div>
+
+
+<div class="resource-test-section" id="Section-3">
+	<div class="resource-test-section-title">Accounts Payable Information</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Contact: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.PayableInformation.AccountsPayableInformation.ContactName, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.PayableInformation.AccountsPayableInformation.ContactName)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Email: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.PayableInformation.AccountsPayableInformation.Email, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.PayableInformation.AccountsPayableInformation.Email)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.PayableInformation.AccountsPayableInformation.Phone, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.PayableInformation.AccountsPayableInformation.Phone)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Fax: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.PayableInformation.AccountsPayableInformation.Fax, new {@class = "input-large"})
+		</div>
+	</div>
+	
+	<div class="resource-test-section-title">Purchasing Information</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Contact: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.PayableInformation.PurchasingInformation.ContactName, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.PayableInformation.PurchasingInformation.ContactName)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Email: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.PayableInformation.PurchasingInformation.Email, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.PayableInformation.PurchasingInformation.Email)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.PayableInformation.PurchasingInformation.Phone, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.PayableInformation.PurchasingInformation.Phone)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Fax: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.PayableInformation.PurchasingInformation.Fax, new {@class = "input-large"})
+		</div>
+	</div>
+	
+	<div class="resource-test-section-title">Banking Information</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Name: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.PayableInformation.BankingInformation.Name, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.PayableInformation.BankingInformation.Name)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Account #: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.PayableInformation.BankingInformation.AccountNumber, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.PayableInformation.BankingInformation.AccountNumber)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Contact: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.PayableInformation.BankingInformation.ContactName, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.PayableInformation.BankingInformation.ContactName)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.PayableInformation.BankingInformation.Phone, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.PayableInformation.BankingInformation.Phone)
+		</div>
+	</div>
+</div>
+
+
+<div class="resource-test-section" id="Section-4">
+	<div class="resource-test-section-title">Trade Reference 1</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Name: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference1.Name, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.Name)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Address 1: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference1.Address1, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.Address1)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Address 2: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference1.Address2, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">City: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference1.City, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.City)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">State: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference1.State, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.State)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Zip Code: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference1.Zip, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.Zip)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference1.Phone, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.Phone)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Account #: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference1.AccountNumber, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference1.AccountNumber)
+		</div>
+	</div>
+	<div class="resource-test-section-title">Trade Reference 2</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Name: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference2.Name, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.Name)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Address 1: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference2.Address1, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.Address1)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Address 2: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference2.Address2, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">City: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference2.City, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.City)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">State: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference2.State, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.State)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Zip Code: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference2.Zip, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.Zip)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference2.Phone, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.Phone)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Account #: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference2.AccountNumber, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference2.AccountNumber)
+		</div>
+	</div>
+	<div class="resource-test-section-title">Trade References 3</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Name: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference3.Name, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.Name)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Address 1: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference3.Address1, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.Address1)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Address 2: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference3.Address2, new {@class = "input-large"})
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">City: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference3.City, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.City)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">State: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference3.State, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.State)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Zip Code: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference3.Zip, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.Zip)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Phone: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference3.Phone, new {@class = "input-large"})
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.Phone)
+		</div>
+	</div>
+	<div class="resource-test-wrapper">
+		<div class="resource-test-label">Account #: </div>
+		<div class="resource-test-field">
+			@Html.TextBoxFor(x => x.TradeReferences.Reference3.AccountNumber, new {@class = "input-large"}) 
+			@Html.ValidationMessageFor(x => x.TradeReferences.Reference3.AccountNumber)
+		</div>
+	</div>
+</div>

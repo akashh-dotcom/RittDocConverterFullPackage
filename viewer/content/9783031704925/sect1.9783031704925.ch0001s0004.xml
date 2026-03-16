@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sect1 id="ch0001s0004" role="bibliography">
+         <title>Bibliography</title>
+         <para/>
+         <bibliography id="ch0001s0004bib0001">
+            <bibliomixed id="ch0001s0004bib01">U. S. Department of Commerce: U. S. Census Bureau (2022) <bibliomisc>
+                  <ulink url="https://www.commerce.gov/bureaus-and-offices/census">
+                     <emphasis role="RefSource">https://www.commerce.gov/bureaus-and-offices/census</emphasis>
+                  </ulink>
+               </bibliomisc>
+            </bibliomixed>
+            <bibliomixed id="ch0001s0004bib02">U. S. Department of Health and Human Services (2024) <bibliomisc>
+                  <ulink url="https://health.gov/healthypeople">
+                     <emphasis role="RefSource">https://health.gov/healthypeople</emphasis>
+                  </ulink>
+               </bibliomisc>
+            </bibliomixed>
+            <bibliomixed id="ch0001s0004bib03">US population by year, race, age, ethnicity, &amp; more. USAFacts. 18 May 2023. Accessed 4 Jun 2024<bibliomisc>
+                  <ulink url="https://usafacts.org/data/topics/people-society/population-and-demographics/our-changing-population/">
+                     <emphasis role="RefSource">https://usafacts.org/data/topics/people-society/population-and-demographics/our-changing-population/</emphasis>
+                  </ulink>
+               </bibliomisc>
+            </bibliomixed>
+         </bibliography>
+      </sect1>
+   

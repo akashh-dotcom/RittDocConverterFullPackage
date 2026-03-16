@@ -1,0 +1,177 @@
+﻿@using R2V2.Core.CollectionManagement
+@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.Order.Order
+@{
+    ViewBag.Title = "Shopping Cart";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Shopping Cart</h1>
+        @if (Model.Institution != null)
+        {
+            <div class="institution-info">
+                <div>
+                    @if (Model.IsRittenhouseAdmin || Model.IsSalesAssociate)
+                    {
+                        <span>@Model.Institution.Name (#@Model.Institution.AccountNumber)</span>
+                    }
+                        
+                    @if (!string.IsNullOrWhiteSpace(Model.CartName))
+                    {
+                        if (Model.IsRittenhouseAdmin || Model.IsSalesAssociate)
+                        {
+                            <div class="cart-name"><span>Cart Name: </span><b>@Model.CartName</b></div>
+                        }
+                        else
+                        {
+                            <span>Cart Name: </span><b>@Model.CartName</b>
+                        }
+
+                    }
+                </div>
+                @if (!string.IsNullOrWhiteSpace(Model.MergeCartsErrorMessage))
+                {
+                    <div class="promotion-error">
+                        @Html.DisplayFor(x => Model.MergeCartsErrorMessage)
+                    </div>
+                }
+            </div>
+        }
+
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions" id="clear-cart">
+                    @if (Model.ItemCount > 0)
+                    {
+                        <li>
+                            <a href="#DeleteCartLink" data-toggle="modal" class="btn-link">
+                                @if (Model.CartType == CartTypeEnum.Saved || Model.CartType == CartTypeEnum.AutomatedCart)
+                                {
+                                    <span>Delete</span>
+                                }
+                                else
+                                {
+                                    <span>Clear</span>
+                                }
+                            </a>
+                        </li>
+                    }
+                    else if (Model.CartType == CartTypeEnum.Saved || Model.CartType == CartTypeEnum.AutomatedCart)
+                    {
+                        <li><a href="#DeleteCartLink" data-toggle="modal" class="btn-link"><span>Delete</span></a></li>
+                    }
+  
+                    @if (Model.CartType == CartTypeEnum.Saved || Model.CartType == CartTypeEnum.AutomatedCart)
+                    {
+                        <li><a href="#RenameCartLink" data-toggle="modal" class="btn-link btn-divide"><span>Rename</span></a></li>
+                    }
+                    @if (Model.ItemCount > 0 && Model.CartType != CartTypeEnum.AutomatedCart)
+                    {
+                        <li><a href="#SaveCartLink" data-toggle="modal" class="btn-link btn-divide"><span>@Model.SaveCopyCartText</span></a></li>
+                    }
+                    @*@if (Model.ActionsMenu.SavedCartsCount > 0 && Model.ItemCount > 0 && Model.CartType != CartTypeEnum.AutomatedCart)*@
+                    @if (Model.ActionsMenu.SavedCartsCount > 0 && Model.ItemCount > 0)
+                    {
+                        <li><a href="#MergeLink" data-toggle="modal" class="btn-link btn-divide"><span>Merge</span></a></li>
+                    }
+                </ul>
+
+                <ul class="actions">
+
+                    <li><a class="btn-link " href="@Url.Action("List", "CollectionManagement", Model.CollectionManagementQuery.ToRouteValues())"><span>Continue Shopping</span></a></li>
+                    @if (Model.AllowCheckout)
+                    {
+                        <li><a class="btn btn-medium hide-onclick" href="@Url.Action("Checkout", "Checkout", new{Model.CollectionManagementQuery.InstitutionId, cartId = Model.OrderId})"><span>Checkout</span></a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+                @Html.Partial("_Cart")
+
+
+                @*@if (Model.IsPromotionAvailable)
+                {*@
+                    @if (Model.IsPromotionApplied)
+                    {
+                        <div class="info-bar">
+                            <p>* = Promotion applied to order:</p>
+                        </div>
+                        <div class="billing">
+                            @using (Html.BeginForm("RemovePromotion", "Cart", new { institutionId = Model.InstitutionId }))
+                            {
+                                <div>
+                                    @Html.DisplayFor(x => Model.PromotionCode) - @Html.DisplayFor(x => Model.PromotionName) (@Html.DisplayFor(x => Model.PromotionDiscount)%)
+                                </div>
+                                <div>
+                                    @Html.DisplayFor(x => Model.PromotionErrorMessage)
+                                </div>
+                                <div class="group-actions-wrapper">
+                                    <div class="clearfix group-actions">
+                                        <ul class="actions">
+                                            <li><button class="btn btn-medium hide-onclick" type="submit"><span>Remove Promotion</span></button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="info-bar">
+                            <p>Please provide promotion code (optional):</p>
+                        </div>
+                        <div class="billing">
+                            @using (Html.BeginForm("ApplyPromotion", "Cart", new { institutionId = Model.InstitutionId }))
+                            {
+                                <div>
+                                    @Html.LabelFor(model => model.PromotionCode)
+                                    @Html.TextBoxFor(model => model.PromotionCode, new { @class = "input-medium" })
+                                    @Html.ValidationMessageFor(model => model.PromotionCode)
+                                    <span class="promotion-error">@Html.DisplayFor(x => Model.PromotionErrorMessage)</span>
+                                    <span class="promotion-msg">@Html.DisplayFor(x => Model.PromotionStatusMessage)</span>
+                                </div>
+                                <div class="group-actions-wrapper">
+                                    <div class="clearfix group-actions">
+                                        <ul class="actions">
+                                            <li><button class="btn-medium hide-onclick" type="submit"><span>Apply Promotion</span></button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                @*}*@
+            </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+	new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+	new R2V2.Admin.IFrameModal({ $dismiss: $('a[data-dismiss="modal"]'), parent: window.parent });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+
+	$(document).ready(function () {
+		$(".hide-onclick").each(function(){
+			$(this).click(function(){
+				$(".hide-onclick").each(function(){
+					$(this).hide();
+				});
+			});
+
+		});
+	});
+}
+
+@section InlineModal
+{
+    @Html.Partial("_ShoppingCartModels")
+}

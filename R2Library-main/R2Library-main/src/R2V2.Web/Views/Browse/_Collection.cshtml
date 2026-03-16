@@ -1,0 +1,15 @@
+﻿@model R2V2.Web.Models.Collections.CollectionDetail
+		
+<div style="padding: 0 0 7px;border-bottom: 4px solid #BEBEBE;font-size: 1.875em;">
+    <div>@Model.Name</div>
+</div>
+<div class="alertbox richText" style="font-family: arial; font-size: 16px; font-style: normal">
+    @Html.Raw(Model.Description)
+</div>
+
+<div class="titlelist">
+    @foreach (var resource in Model.Resources)
+    {
+        @Html.Partial("_ResourceSummary", resource)
+    }
+</div>

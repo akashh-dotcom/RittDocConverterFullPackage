@@ -1,0 +1,35 @@
+﻿@model R2V2.Web.Models.Search.SavedSearchResultSet
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div class="nav-sub">
+        <h2>Search Parameters</h2>
+            
+        <ul class="clearfix checkboxes">
+            <li><p class="search-terms"><strong>Title</strong>: @Model.Title</li>
+            <li><p class="search-terms"><strong>Date Created</strong>: @string.Format("{0:MM/dd/yyyy}", Model.CreationDate)</li>
+            @Html.Raw(Model.SearchQuery.GetDescriptionListForDisplay())
+            @if(!string.IsNullOrWhiteSpace(Model.PracticeArea))
+            {
+                <li><p class="search-terms"><strong>Practice Area</strong>: @Model.PracticeArea</p></li>
+            }
+            @if(!string.IsNullOrWhiteSpace(Model.Discipline))
+            {
+                <li><p class="search-terms"><strong>Discipline</strong>: @Model.Discipline</p></li>
+            }
+            <li><p class="search-terms"><strong>Displaying</strong>: @Model.SearchResultList.Count of @string.Format("{0:#,##0}", Model.ResultsCount) Results</p></li>
+
+            <li><p class="search-terms"><a href="@Model.SearchQuery.GetSearchUrl(Url.Action("Index", "Search"), Url)">Get New Search Results</a></p></li>
+        </ul>
+    </div>
+    <div id="content" class="content" role="main">
+        <h1>Saved Search Results</h1>
+        @if (Model.SearchResultList != null)
+        {
+            <div class="titlelist">
+                @foreach (var searchResult in Model.SearchResultList)
+                {
+                    @Html.Partial("_ResourceSummary", searchResult)
+                }
+            </div>
+        }
+    </div>
+</div>

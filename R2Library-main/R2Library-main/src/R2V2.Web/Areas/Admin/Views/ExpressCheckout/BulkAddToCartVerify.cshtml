@@ -1,0 +1,80 @@
+﻿@using R2V2.Core.CollectionManagement
+@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.Cart.BulkAddToCart
+@{
+	ViewBag.Title = "Express Check Out";
+	ViewBag.BodyCssClass = "admin";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+	<div id="content" class="content collection-manage" role="main">
+		<h1>Express Check Out</h1>
+	    <p>Please click "Add All to Cart" to add all eligible resources to your Cart.<br/>	        
+	        <strong>Resource Count: @Html.DisplayFor(model => model.ResourceCount), License Count: @Html.DisplayFor(model => model.LicenseCount), Total Cost: @Html.DisplayFor(model => model.Total)</strong> <br/>
+            <strong>Excluded Resource Count: @Html.DisplayFor(model => model.ExcludedResourceCount), Invalid or not Available Resource Count: @Html.DisplayFor(model=>model.IsbnsNotFoundCount)</strong>
+	    </p>
+	    <br/>
+	    <div class="express-checkout-scroll">
+	        @if (Model.ResourceCount > 0)
+	        {
+	            <h3>A single license will be added to the cart for each of the following resources:</h3>
+	            <ul>		
+	                @foreach (var resource in Model.Resources)
+	                {
+                        @PurchaseHelper.GetBulkDetails(resource)
+	                }
+	            </ul>
+	        }
+	        else
+	        {
+	            <h3>Sorry, none of the resources selected are eligible to be added to your cart at this time.</h3>
+	        }
+
+	        @if (Model.ExcludedResourceCount > 0)
+            {
+                <h3>The following titles are not eligible for purchasing or are already in your cart:</h3>
+                <ul>
+                    @foreach (var resource in Model.ExcludedResources)
+                    {
+                        @PurchaseHelper.GetBulkDetails(resource)
+                    }
+                </ul>
+            }
+	        
+
+	        @if (!string.IsNullOrWhiteSpace(Model.IsbnsNotFound))
+	        {
+	            <h3>The following ISBNs are invalid or not available:</h3>
+	            <div id="bulk-add-not-found">@Html.DisplayFor(model => model.IsbnsNotFound)</div>
+	        }
+	        <br />
+            
+	    </div>
+	    <br/>
+        @using (Html.BeginForm())
+		{
+			@Html.Hidden("BulkAddToCart", "yes")
+			@Html.Partial("../CollectionManagement/_HiddenQueryFields", Model.ResourceQuery)
+		    <div class="actions">
+		        <a href="@Url.Action("Index", new CollectionManagementQuery{InstitutionId = Model.InstitutionId}.ToRouteValues())">Cancel</a>
+		        @if (Model.ResourceCount > 0)
+		        {
+		            <button class="btn-medium" type="submit"><span>Add All to Cart</span></button>
+		        }
+		    </div>
+		}
+
+	</div>
+@Html.Partial("_LeftNav", Model)	
+	
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

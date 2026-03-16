@@ -1,0 +1,86 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Promotion.PromotionModel
+
+<div class="tablecontent">
+    @Html.HiddenFor(x => x.PromotionId)
+    
+    <table class="edit">
+        <tbody>
+            <tr>
+                <td class="label">@Html.LabelFor(x => Model.Name)</td>
+                <td class="field">
+                    @Html.TextBoxFor(x => Model.Name)
+                    @Html.ValidationMessageFor(x => Model.Name)
+                </td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(x => Model.Code)</td>
+                <td class="field">
+                    @Html.TextBoxFor(x => Model.Code)
+                    @Html.ValidationMessageFor(x => Model.Code)
+                </td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(x => Model.Description)</td>
+                <td class="field">
+                    @Html.TextBoxFor(x => Model.Description, new { @class = "input-large" })
+                    @Html.ValidationMessageFor(x => Model.Description)
+                </td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(x => Model.Discount)</td>
+                <td class="field">
+                    @Html.TextBoxFor(x => Model.Discount)
+                    @Html.ValidationMessageFor(x => Model.Discount)
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="label">@Html.LabelFor(x => Model.StartDate)</td>
+                <td class="field">
+                    @Html.TextBoxFor(x => Model.StartDate, new { Value = Model.StartDate.ToString("MM/dd/yyyy") })
+                    @Html.ValidationMessageFor(x => Model.StartDate)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label">@Html.LabelFor(x => Model.EndDate)</td>
+                <td class="field">
+                    @Html.TextBoxFor(x => Model.EndDate, new { Value = Model.EndDate.ToString("MM/dd/yyyy") })
+                    @Html.ValidationMessageFor(x => Model.EndDate)
+                </td>
+            </tr>
+
+            <tr>                            
+                <td class="label">@Html.LabelFor(model => model.EnableCartAlert)</td>
+                <td class="field">
+                    @Html.EditorFor(x => Model.EnableCartAlert)
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="label">@Html.LabelFor(model => model.MaximumUses)</td>
+                <td class="field">
+                    @Html.EditorFor(x => Model.MaximumUses)
+                    @Html.ValidationMessageFor(x => Model.MaximumUses)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label">@Html.LabelFor(x => x.ProductsSelectListItems)</td>
+                <td class="field">
+                    <table>
+                        <tr>
+                            <td rowspan="2">@Html.ListBoxFor(x => x.ProductsSelectListItems, Model.ProductsSelectListItems, new { @class = "field-assignable" })</td>
+                            <td><a class="btn btn-medium" id="add-products"><span>Assign &gt;&gt;</span></a></td>
+                            <td rowspan="2">@Html.ListBoxFor(x => x.ProductsSelected, Model.SelectedProductsSelectListItems, new { @class = "field-assignable" })</td>
+                        </tr>
+                        <tr>
+                            <td><a class="btn btn-medium" id="remove-products"><span>&lt;&lt; Remove</span></a></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

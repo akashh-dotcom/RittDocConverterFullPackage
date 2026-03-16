@@ -1,0 +1,95 @@
+﻿@using R2V2.Web.Helpers
+@model R2V2.Web.Models.Subscriptions.SubscriptionUserModel
+
+@{
+    ViewBag.Title = "Create User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Subscription User</h1>
+
+        @using (Html.BeginForm())
+        {
+            @Html.HiddenFor(x => x.Token1)
+            @Html.HiddenFor(x => x.Token2)
+            @Html.HiddenFor(x => x.Token3)
+
+            @*<div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><button class="btn-medium" type="submit"><span>Save</span></button></li>
+                        <li><a class="btn btn-medium" href="/Subscriptions"><span>Cancel</span></a></li>
+                    </ul>
+                </div>
+            </div>*@
+
+            <div class="tablecontent">
+                <table class="edit">
+                    <tbody>
+                    <tr class="honey">
+                        <td class="label">@Html.LabelFor(model => model.Token4)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.Token4, new { @class = "input-medium" })
+                            @Html.ValidationMessageFor(model => model.Token4)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.FirstName)</td>
+                        <td class="field">
+                            @Html.EditorFor(model => model.FirstName)
+                            @Html.ValidationMessageFor(model => model.FirstName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.LastName)</td>
+                        <td class="field">
+                            @Html.EditorFor(model => model.LastName)
+                            @Html.ValidationMessageFor(model => model.LastName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.Email)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.Email, new {@class = "input-full"})
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.UserName)</td>
+                        <td class="field">Your User Name will be your Email Address</td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.NewPassword)</td>
+                        <td class="field">
+                            @Html.PasswordFor(model => model.NewPassword)
+                            @Html.ValidationMessageFor(model => model.NewPassword)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ConfirmPassword)</td>
+                        <td class="field">
+                            @Html.PasswordFor(model => model.ConfirmPassword)
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>To submit form, please type the text and click submit</p>
+                <div>
+                    @Html.GenerateNonGoogleCaptcha()
+                    @Html.ValidationMessageFor(x => x.RecaptchaMessage)
+                </div>
+                <div class="group-actions-wrapper">
+                    <div class="clearfix group-actions">
+                        <ul class="actions">
+                            <li><a class="btn btn-medium" href="@Url.Action("Index")"><span>Cancel</span></a></li>
+                            <li><button class="btn-medium" type="submit"><span>submit</span></button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

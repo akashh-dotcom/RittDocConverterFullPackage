@@ -1,0 +1,35 @@
+﻿@model R2V2.Web.Areas.Admin.Models.CollectionManagement.BulkDeletePda
+@{
+    ViewBag.Title = "PDA Delete";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="content collection-manage">
+    <div class="modal-header">
+        <h1>Bulk PDA Titles Deleted</h1>
+        <a class="close" href="@Model.KeepShoppingLink" data-dismiss="navigation">Close</a>
+    </div>
+
+    <div class="modal-body">
+        <div id="bulk-add-area">
+            <h3>PDA licenses have been deleted for the following resources:</h3>
+            <ul>
+                @foreach (var resource in Model.Resources)
+                {
+                    <li>@resource.Title, ISBN: @resource.Isbn13</li>
+                }
+            </ul>
+            <p><strong>Resource Count: @Html.DisplayFor(model => model.ResourceCount)</strong></p>
+        </div>
+        <div class="actions">
+            <a href="@Model.CollectionLink" class="btn btn-medium" data-dismiss="navigation"><span>View My PDA Collection</span></a>
+            <a href="@Model.KeepShoppingLink" class="btn btn-medium" data-dismiss="navigation"><span>Keep Shopping</span></a>
+        </div>
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.IFrameModal({ parent: window.parent, $dismiss: $('a[data-dismiss="navigation"]') });
+}

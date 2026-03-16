@@ -1,0 +1,98 @@
+﻿@using R2V2.Web
+@using R2V2.Web.Helpers
+@model R2V2.Web.Models.Resource.ReviewedTitleModel
+@{
+    ViewBag.Title = Model.ResourceDetail.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        
+        @if (string.IsNullOrWhiteSpace(Model.Type) || Model.Type.Equals("DCI", StringComparison.InvariantCultureIgnoreCase))
+        {
+            <h1>
+                @Model.ResourceDetail.Title
+                <span>@Model.ResourceDetail.SubTitle</span>
+                @if (Model.ResourceDetail.IsArchive)
+                {
+                    <a href="" class="access-info resource-archived" rel="tooltip" title="@Resources.TitleArchivedTooltip">@Resources.TitleArchived</a>
+                }
+            </h1>
+            <div id="resource-content">
+                <div class="clearfix">
+                    <div class="resource-reviewed-cover">
+                        <img src="@Model.ResourceDetail.ImageUrl" alt="Image of the book cover for '@Model.ResourceDetail.Title'"/>
+                    </div>
+
+	                <div class="resource-info resource-info-reviewed">
+		                <div class="clearfix columns two-columns-50-40">
+			                <div class="column">
+				                <strong>Author:</strong> @Model.ResourceDetail.Authors<br/>
+				                <strong>Affiliation:</strong> @Model.ResourceDetail.Affiliation<br/>
+				                <strong>Publisher:</strong> @Model.ResourceDetail.Publisher<br/>
+				                @if (Model.ResourceDetail.PublicationDate != null)
+				                {
+					                <strong>Publication Date:</strong>
+					                @Model.ResourceDetail.PublicationDate.Value.Year<br/>
+				                }
+				                <strong>ISBN 10:</strong> @Model.ResourceDetail.Isbn10<br/>
+				                <strong>ISBN 13:</strong> @Model.ResourceDetail.Isbn13<br/>
+				                @if (Model.ResourceDetail.EIsbn != null)
+				                {
+					                <strong>eISBN:</strong>
+					                @Model.ResourceDetail.EIsbn<br/>
+				                }
+
+				                <strong>Edition:</strong> @Model.ResourceDetail.Edition<br/>
+								
+
+				                <strong>Doody Star Rating:</strong> @Html.Generate5StarRating(Model.ResourceDetail.DoodyRating)
+								
+								
+
+			                </div>
+
+			                <div class="column resource-reviewed-right-column">
+				                <nav id="nav-main" style="text-align: center">
+					                @if (!Model.ResourceDetail.IsArchive)
+					                {
+						                <a href="@Url.Action("List", "CollectionManagement", new {institutionId = 0, query = Model.ResourceDetail.Isbn})" class="resource-reviewed-button"><span>Purchase this eBook</span></a>
+						                <br/>
+					                }
+                                    
+					                <a href="https://www.rittenhouse.com/Rbd/web/ContentPage.aspx?Config=R2Library" class="resource-reviewed-button"><span>Start a Trial</span></a>
+					                <br/>
+					                <a href="@Url.Action("Index", "Contact")" class="resource-reviewed-button"><span>Contact Us</span></a>
+				                </nav>
+			                </div>
+
+		                </div>
+	                </div>
+					
+
+
+	                <div class="resource-reviewed-header">Additional Doody Collections</div>
+                    <div class="resource-reviewed-link">
+                        <a href="@Url.Action("List", "CollectionManagement", new {institutionId = 0, CollectionFilter = 5})">Doody's Core Titles available on the R2 Digital Library</a>
+                    </div>
+	                <div class="resource-reviewed-link">
+		                <a href="@Url.Action("List", "CollectionManagement", new {institutionId = 0, CollectionFilter = 24})">Doody Reviewed Titles available on the R2 Digital Library</a>
+	                </div>
+					
+
+	                <div class="resource-reviewed-header">Related Titles</div>
+                    <div class="resource-reviewed-container">
+                        <ul>
+                            @foreach (var recentlyReleasedResource in Model.RecentlyReleasedResources)
+                            {
+                                <li class="resource-reviewed-title-link">
+                                    <a href="@Url.Action("ReviewedTitle", "Resource", new {recentlyReleasedResource.Isbn, Model.Type})">@recentlyReleasedResource.Title</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

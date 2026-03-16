@@ -1,0 +1,111 @@
+﻿@using R2V2.Web.Helpers
+@model R2V2.Web.Models.Contact.ContactUs
+
+<div class="onecol contentcontainer">    
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(x => x.InstitutionId)
+        @Html.HiddenFor(x => x.UserId)
+        @Html.HiddenFor(x => x.IsAdmin)
+
+        <div id="content" class="content" role="main">
+            <h1>@Html.DisplayFor(x => x.PageTitle)</h1>
+            <div>
+                @Html.DisplayFor(x => x.InstitutionName) @Html.DisplayFor(x => x.AccountNumber)
+            </div>
+            <div class="tablecontent">
+                <table class="edit">
+                    <tbody>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.Name)</td>
+                            <td class="field">@Html.DisplayFor(model => model.Name)</td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.Title)</td>
+                            <td class="field">@Html.DisplayFor(model => model.Title)</td>
+                        </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.InstitutionName)</td>
+                                <td class="field">@Html.DisplayFor(model => model.InstitutionName)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.AccountNumber)</td>
+                                <td class="field">@Html.DisplayFor(model => model.AccountNumber)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.Address1)</td>
+                                <td class="field">@Html.DisplayFor(model => model.Address1)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.Address2)</td>
+                                <td class="field">@Html.DisplayFor(model => model.Address2)</td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.City)</td>
+                                <td class="field">@Html.DisplayFor(model => model.City)</td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.State)</td>
+                                <td class="field">@Html.DisplayFor(model => model.State)</td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.Zip)</td>
+                                <td class="field">@Html.DisplayFor(model => model.Zip)</td>
+                            </tr>
+                        
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.PhoneNumber)</td>
+                            <td class="field">@Html.DisplayFor(model => model.PhoneNumber)</td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.Email)</td>
+                            <td class="field">@Html.DisplayFor(model => model.Email)</td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(x => Model.Comment)</td>
+                            <td class="field">
+                                @if (!Model.IsEmailView)
+                                {
+                                    @Html.TextAreaFor(x => x.Comment)
+                                    @Html.ValidationMessageFor(model => model.Comment)                                        
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.Comment)
+                                }
+                            </td>
+                        </tr>
+                        @if (Model.IsEmailView)
+                        {
+                            <tr>
+                                <td class="label">Instructions:</td>
+                                <td class="field">To unlock the account you must update the users password.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @if (!Model.IsEmailView)
+                {
+                    if (!Model.IsAskYourLibrarian)
+                    {
+                        <p>To submit form, please type the text and click submit</p>
+                        @Html.GenerateNonGoogleCaptcha()
+                        @Html.ValidationMessageFor(x => x.RecaptchaMessage)
+
+                        <div class="group-actions-wrapper">
+                            <div class="clearfix group-actions" data-implement="fixed">
+                                <ul class="actions">
+                                    <li><button class="btn-medium" type="submit"><span>submit</span></button></li>                      
+                                </ul>
+                            </div>
+                        </div>
+
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>

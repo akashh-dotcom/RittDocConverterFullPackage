@@ -1,0 +1,56 @@
+﻿@model R2V2.Web.Areas.Admin.Models.AdminBaseModel
+
+<div class="nav-sub admin-left-nav">
+    @if (Model.NavLinkSections != null && Model.NavLinkSections.Any())
+    {
+        foreach (var linkSection in Model.NavLinkSections)
+        {
+            if (linkSection.Href == null)
+            {
+                <h2>@linkSection.Title</h2>
+            }
+            else
+            {
+                <h2><a href="@linkSection.Href">@linkSection.Title</a></h2>
+            }
+
+            @*<ul data-number-of-visible-links="@linkSection.NumberOfVisibleLinks">*@
+            <ul>
+                @foreach (var link in linkSection.PageLinks)
+                {
+                    if (link.Active)
+                    {
+                        <li@(StyleHelpers.AddSelectedState(link.Selected))>
+                            <a href="@link.Href" title="@link.HoverText" target="@link.Target">@link.Text</a></li>
+                            if (link.ChildLinks != null)
+                            {
+                                foreach (var childLink in link.ChildLinks)
+                                {
+                                    <li class="subgroup nested">
+                                        <ul>
+                                            @foreach (var cLink in childLink.PageLinks)
+                                            {
+                                                if (cLink.Active)
+                                                {
+                                                    <li@(StyleHelpers.AddSelectedState(cLink.Selected))><a href="@cLink.Href" title="@cLink.HoverText" target="@cLink.Target">@cLink.Text</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>@cLink.Text</li>
+                                        }
+                                    }
+                                    </ul>
+                                    </li>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <li>@link.Text</li>
+                        }
+                    }
+                </ul>
+            }
+        }
+</div>

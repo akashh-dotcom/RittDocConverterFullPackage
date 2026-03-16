@@ -1,0 +1,121 @@
+﻿@model R2V2.Web.Areas.Admin.Models.ResourcePromotion.ResourcePromotionViewModel
+
+@{
+    ViewBag.Title = "Administrator Alerts";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    @using (Html.BeginForm())
+    {
+        <div id="content" class="content" role="main">
+            <h1>Resource Promotion History</h1>
+
+            @*<div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                    </ul>
+                </div>
+            </div>*@
+
+            @if (Model.PageLinks != null && Model.PageLinks.Count() > 1)
+            {
+            <div class="nav-section-wrapper">
+                <div class="clearfix nav-section" data-implement="fixed">
+                    <div class="previous">
+                        @if (Model.PreviousLink.Active)
+                        {
+                            <a href="@Model.FirstLink.Href">&lt; @Model.FirstLink.Text</a>
+                            <a href="@Model.PreviousLink.Href">&lt;&lt; @Model.PreviousLink.Text</a>
+                        }
+                    </div>
+
+                    <div class="next">
+                        @if (Model.NextLink.Active)
+                        {
+                            <a href="@Model.NextLink.Href">@Model.NextLink.Text &gt;&gt;</a>
+                            <a href="@Model.LastLink.Href">@Model.LastLink.Text &gt;</a>
+                        }
+                    </div>
+
+                    <ul class="nav-number nav-content">
+                        <li><strong>Jump to page:</strong></li>
+                        @foreach (var link in Model.PageLinks)
+                        {
+                            if (link.Active)
+                            {
+                                <li@(StyleHelpers.AddSelectedState(link.Selected))>
+                                    <a href="@Url.Action("History", new { page = link.Text, pageSize = @Model.PageSize })"><span>@link.Text</span></a></li>
+                            }
+                            else
+                            {
+                                <li><span>@link.Text</span></li>
+                            }
+                        }
+                </ul>
+            </div>
+        </div>
+        }
+
+            @if (Model.Resources != null && Model.Resources.Any())
+            {
+                <div class="tablecontent">
+                    <table class="list">
+                        <thead>
+                            <tr>
+                                <th>Resource</th>
+                                <th>Promotion Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Resources)
+                            {
+                                <tr>
+                                    <td class="resource-details">
+                                        <div class="titleitem">
+                                            <h2><a href="@Url.Action("Detail", "Resource", new { ResourceId = item.Resource.Id })">@Html.DisplayFor(modelItem => item.Resource.Title)</a></h2>
+
+                                            <div class="clearfix title-meta">
+                                                <ul style="width: 500px">
+                                                    <li>@Html.LabelFor(modelItem => item.Isbns) @Html.DisplayFor(modelItem => item.Isbns)</li>
+                                                    <li>@Html.LabelFor(modelItem => item.AddedByUserFullName) @Html.DisplayFor(modelItem => item.AddedByUserFullName) on @Html.DisplayFor(modelItem => item.ResourcePromoteQueue.CreationDate)</li>
+                                                    @if (item.ResourcePromoteQueue.PromotedByUserId != null)
+                                                    {
+                                                        <li>@Html.LabelFor(modelItem => item.PromotedByUserFullName) @Html.DisplayFor(modelItem => item.PromotedByUserFullName)</li>
+                                                    }
+                                                    <li>@Html.LabelFor(modelItem => item.BatchKey) @Html.DisplayFor(modelItem => item.BatchKey)</li>
+                                                    <li>@Html.LabelFor(modelItem => item.BatchName) @Html.DisplayFor(modelItem => item.BatchName)</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.ResourcePromoteQueue.PromoteStatus)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+            else
+            {
+                <p><strong>No Resources to Promote.</strong></p>
+            }
+
+
+        </div>
+    }
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}
+
+@section InlineModal
+{
+}

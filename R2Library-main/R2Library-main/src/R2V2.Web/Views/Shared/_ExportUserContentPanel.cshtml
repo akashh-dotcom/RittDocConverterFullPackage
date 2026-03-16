@@ -1,0 +1,35 @@
+﻿@using R2V2.Core.MyR2
+@model R2V2.Web.Models.MyR2.UserContentItem
+@{
+    var userContentType = Model.Type.ToString().ToLower();
+}
+<div id="@userContentType" class="panel export" data-panel="export">
+    @using (Html.BeginForm("Export", "UserContent", new { type = Model.Type }, FormMethod.Get))
+    {
+        <input type="hidden" name="type" value="@userContentType" />
+        <input type="hidden" name="id" value="@Model.Id" />
+        
+        <ol>
+            <li>
+                @switch (Model.Type)
+                {
+                    case UserContentType.CourseLink:
+                        <textarea>@Html.Raw(Model.CourseLinkUrl)</textarea>
+                        break;
+
+                    case UserContentType.Image:
+                        <img alt="" src="@Url.Action("Image", "UserContent", new { id = Model.Id })" />
+                        break;
+                        
+                    case UserContentType.Reference:
+                        <textarea>@Model.Resource.ApaCitation</textarea>
+                        break;
+                }
+            </li>
+            <li class="actions">
+                <button type="submit" class="btn btn-medium"><span>Download</span></button>
+                <button type="reset" class="btn btn-medium"><span>Cancel</span></button>
+            </li>
+        </ol>
+    }
+</div>

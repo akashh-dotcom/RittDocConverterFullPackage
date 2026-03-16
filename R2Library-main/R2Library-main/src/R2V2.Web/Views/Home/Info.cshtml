@@ -1,0 +1,41 @@
+﻿@model R2V2.Web.Models.Home.Info
+@{
+    ViewBag.Title = "R2 Library - Authentication Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>R2 Library Authentication Information</h1>
+        
+        <h2>Client Information</h2>
+        <div>Ip Address: @Html.DisplayFor(model => model.IpAddress)</div>
+        <div>Country Code: @Html.DisplayFor(model => model.CountryCode)</div>
+        <div>Current Referrer: @Html.DisplayFor(model => model.CurrentReferrer)</div>
+        <div><span style="background-color: #FFFF00">Authentication Referrer: @Html.DisplayFor(model => model.AuthnticationReferrer)</span></div>
+        <div>User Agent: @Html.DisplayFor(model => model.UserAgent)</div>
+        
+        <h2>Authentication Information</h2>
+        <div>Is Authenticated: @Html.DisplayTextFor(model => model.IsAuthenticated)</div>
+        @if (Model.IsAuthenticated)
+        {
+            <div>Institution Name: @Html.DisplayFor(model => model.InstitutionName)</div>
+            <div>Institution Account Number: @Html.DisplayFor(model => model.InstitutionAccountNumber)</div>
+            <div>Institution Id: @Html.DisplayFor(model => model.InstitutionId)</div>
+            <div>User Role: @Html.DisplayFor(model => model.UserRole)</div>
+
+            if (Model.UserId > 0)
+            {
+                <div>User: @Html.DisplayFor(model => model.UserDisplayName)</div>
+                <div>Username: @Html.DisplayFor(model => model.UserName)</div>
+                <div>Email: @Html.DisplayFor(model => model.UserEmailAddress)</div>
+                <div>User Id: @Html.DisplayFor(model => model.UserId)</div>
+            }
+        }
+
+        <h2>Debug Information</h2>
+        <div>Server: @Html.DisplayFor(model => model.ServerName)</div>
+        <div>Request Id: @Html.DisplayFor(model => model.RequestId)</div>
+        <div>Session Id: @Html.DisplayFor(model => model.SessionId)</div>
+    </div>
+</div>

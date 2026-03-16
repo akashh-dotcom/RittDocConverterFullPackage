@@ -1,0 +1,49 @@
+﻿@model R2V2.Web.Models.AlphaIndex.Topics
+
+@if (Model != null && Model.TopicList != null)
+{
+    var newColumn = false;
+    var currentColumn = 1;
+    const int numberOfColumns = 3;
+    var columnSize = Model.TopicList.Count() / numberOfColumns;
+    var i = 0;
+    var prevKey = "";
+    
+    <h1>A - Z Index</h1>
+        
+    @Html.Partial("_AlphaPager")
+    
+    <div class="clearfix columns three-columns">
+        <div class="column">
+            @foreach (var topic in Model.TopicList)
+            {
+                if (i == columnSize * currentColumn)
+                {
+                    newColumn = true;
+                }
+
+                if (prevKey != topic.Key)
+                {
+                    @Html.Raw("</ul>");
+
+                    if (newColumn)
+                    {
+                        @Html.Raw("</div><div class=\"column\">")
+
+                        currentColumn++;
+                        newColumn = false;
+                    }
+
+                    prevKey = topic.Key;
+                        
+                    <h2 class="header-alpha-group">@topic.Key</h2>
+                    @Html.Raw("<ul class=\"alpha-group\">")
+                }
+                
+                <li>@Html.ActionLink(topic.Name, "Index", "Search", null, null, Model.AlphaQuery.ToSearchFragment(), new { q = topic.Name }, null)</li>
+
+                i++;
+            }
+        </div>
+    </div>
+}

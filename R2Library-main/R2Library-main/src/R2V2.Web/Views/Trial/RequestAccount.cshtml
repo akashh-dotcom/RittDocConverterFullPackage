@@ -1,0 +1,162 @@
+﻿@model R2V2.Web.Models.Trial.RequestAccountModel
+@{
+	ViewBag.Title = "Account Request Form";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="onecol contentcontainer">
+	<div id="content" class="content" role="main">
+		<h1>Account Request Form</h1>
+		
+		<div class="clearfix navbar" style="margin-bottom: 3px; max-width: 800px;">
+			<nav id="nav-main" role="navigation">
+				<ul class="clearfix">
+					@foreach (var tab in Model.Sections)
+					{
+						<li@(StyleHelpers.AddSelectedState(tab.Selected)) style="background: none;">
+							<a href="@tab.Href" style="text-decoration: none;" class="resource-test-click" id="select-@tab.Href"><span>@tab.Text</span></a></li>
+					}
+				</ul>
+			</nav>
+			@using (Html.BeginForm("RequestAccount", "Trial"))
+			{
+				@Html.Partial("_RequestAccount")
+				@Html.Partial("_RequestAccountReview")
+			
+				<div class="group-actions-wrapper">
+					<div class="clearfix group-actions" data-implement="fixed">
+						<ul class="actions">
+							<li><button type="submit" class="btn btn-medium" id="submitButtom"><span>Submit</span></button></li>
+						</ul>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>
+
+@section JsDocumentReady
+{
+	$(document).ready(function(){
+	
+		var currentSection = "@Model.CurrentSection";
+		if(!currentSection){
+			currentSection = "1";
+		}
+		$("[id^=Section]").each(function(){
+			if($(this).attr('id').indexOf(currentSection) @Html.Raw("<") 0){
+				$(this).hide();
+			}
+		});
+
+		$('.resource-test-click').click(function(){
+			var selectedLink = $(this).attr('href').substring(1);
+			$("[id^=Section]").each(function(){
+				if($(this).attr('id').indexOf(selectedLink) @Html.Raw("<") 0){
+					$(this).hide();
+				}
+				else{
+					$(this).show();
+				}
+			});
+
+			$('.resource-test-click').parent().removeClass('selected');
+			$(this).parent().addClass('selected');
+
+			if($('#Section-5').is(":visible")){
+				CopyText();
+			}
+		});
+		if($('#Section-5').is(":visible")){
+		CopyText();
+		$('.resource-test-click').parent().removeClass('selected');
+		$('[id$=5]').parent().addClass('selected');
+	}
+	});
+	function CopyText(){
+		SetField('#CompanyInformation-ContactAddress-Name', '#CompanyInformation_ContactAddress_Name');
+		SetField('#CompanyInformation-Type', '#CompanyInformation_Type option:selected');
+		SetField('#CompanyInformation-OfficerName', '#CompanyInformation_OfficerName');
+		SetField('#CompanyInformation-OfficerTitle', '#CompanyInformation_OfficerTitle');
+		SetField('#CompanyInformation-ContactAddress-Address1', '#CompanyInformation_ContactAddress_Address1',);
+		SetField('#CompanyInformation-ContactAddress-Address2', '#CompanyInformation_ContactAddress_Address2');
+		SetField('#CompanyInformation-ContactAddress-City', '#CompanyInformation_ContactAddress_City');
+		SetField('#CompanyInformation-ContactAddress-State', '#CompanyInformation_ContactAddress_State');
+		SetField('#CompanyInformation-ContactAddress-Zip', '#CompanyInformation_ContactAddress_Zip',);
+		SetField('#CompanyInformation-ContactAddress-Country', '#CompanyInformation_ContactAddress_Country');
+		SetField('#CompanyInformation-Email', '#CompanyInformation_Email');
+		SetField('#CompanyInformation-ContactAddress-Phone', '#CompanyInformation_ContactAddress_Phone');
+		SetField('#CompanyInformation-ContactAddress-Fax', '#CompanyInformation_ContactAddress_Fax');
+		SetField('#CompanyInformation-Website', '#CompanyInformation_Website');
+		SetField('#CompanyInformation-SanNumber', '#CompanyInformation_SanNumber');
+		SetField('#CompanyInformation-Ein', '#CompanyInformation_Ein');
+		SetField('#CompanyInformation-DunsNumber', '#CompanyInformation_DunsNumber');
+		SetField('#CompanyInformation-Consortium', '#CompanyInformation_Consortium');
+		SetField('#CompanyInformation-CustomerId', '#CompanyInformation_CustomerId');
+		SetField('#CompanyInformation-AffiliatedInstitution', '#CompanyInformation_AffiliatedInstitution');
+		SetField('#CompanyInformation-AccountExpiration', '#CompanyInformation_AccountExpiration');
+		SetField('#CompanyInformation-MaxBillingLimit', '#CompanyInformation_MaxBillingLimit');
+		SetField('#CompanyInformation-SalesTaxExemptionNumber', '#CompanyInformation_SalesTaxExemptionNumber');
+		SetField('#CompanyAddresses-BillingInformation-ContactAddress-Name', '#CompanyAddresses_BillingInformation_ContactAddress_Name');
+		SetField('#CompanyAddresses-BillingInformation-OfficerName', '#CompanyAddresses_BillingInformation_OfficerName');
+		SetField('#CompanyAddresses-BillingInformation-ContactAddress-Address1', '#CompanyAddresses_BillingInformation_ContactAddress_Address1');
+		SetField('#CompanyAddresses-BillingInformation-ContactAddress-Address2', '#CompanyAddresses_BillingInformation_ContactAddress_Address2');
+		SetField('#CompanyAddresses-BillingInformation-ContactAddress-City', '#CompanyAddresses_BillingInformation_ContactAddress_City');
+		SetField('#CompanyAddresses-BillingInformation-ContactAddress-State', '#CompanyAddresses_BillingInformation_ContactAddress_State');
+		SetField('#CompanyAddresses-BillingInformation-ContactAddress-Zip', '#CompanyAddresses_BillingInformation_ContactAddress_Zip');
+		SetField('#CompanyAddresses-BillingInformation-ContactAddress-Country', '#CompanyAddresses_BillingInformation_ContactAddress_Country');
+		SetField('#CompanyAddresses-BillingInformation-ContactAddress-Phone', '#CompanyAddresses_BillingInformation_ContactAddress_Phone');
+		SetField('#CompanyAddresses-BillingInformation-ContactAddress-Fax', '#CompanyAddresses_BillingInformation_ContactAddress_Fax');
+		SetField('#CompanyAddresses-ShippingInformation-ContactAddress-Name', '#CompanyAddresses_ShippingInformation_ContactAddress_Name');
+		SetField('#CompanyAddresses-ShippingInformation-OfficerName', '#CompanyAddresses_ShippingInformation_OfficerName');
+		SetField('#CompanyAddresses-ShippingInformation-ContactAddress-Address1', '#CompanyAddresses_ShippingInformation_ContactAddress_Address1');
+		SetField('#CompanyAddresses-ShippingInformation-ContactAddress-Address2', '#CompanyAddresses_ShippingInformation_ContactAddress_Address2');
+		SetField('#CompanyAddresses-ShippingInformation-ContactAddress-City', '#CompanyAddresses_ShippingInformation_ContactAddress_City');
+		SetField('#CompanyAddresses-ShippingInformation-ContactAddress-State', '#CompanyAddresses_ShippingInformation_ContactAddress_State');
+		SetField('#CompanyAddresses-ShippingInformation-ContactAddress-Zip', '#CompanyAddresses_ShippingInformation_ContactAddress_Zip');
+		SetField('#CompanyAddresses-ShippingInformation-ContactAddress-Country', '#CompanyAddresses_ShippingInformation_ContactAddress_Country');
+		SetField('#CompanyAddresses-ShippingInformation-ContactAddress-Phone', '#CompanyAddresses_ShippingInformation_ContactAddress_Phone');
+		SetField('#CompanyAddresses-ShippingInformation-ContactAddress-Fax', '#CompanyAddresses_ShippingInformation_ContactAddress_Fax');
+		SetField('#PayableInformation-AccountsPayableInformation-ContactName', '#PayableInformation_AccountsPayableInformation_ContactName');
+		SetField('#PayableInformation-AccountsPayableInformation-Email', '#PayableInformation_AccountsPayableInformation_Email');
+		SetField('#PayableInformation-AccountsPayableInformation-Phone', '#PayableInformation_AccountsPayableInformation_Phone');
+		SetField('#PayableInformation-AccountsPayableInformation-Fax', '#PayableInformation_AccountsPayableInformation_Fax');
+		SetField('#PayableInformation-PurchasingInformation-ContactName', '#PayableInformation_PurchasingInformation_ContactName');
+		SetField('#PayableInformation-PurchasingInformation-Email', '#PayableInformation_PurchasingInformation_Email');
+		SetField('#PayableInformation-PurchasingInformation-Phone', '#PayableInformation_PurchasingInformation_Phone');
+		SetField('#PayableInformation-PurchasingInformation-Fax', '#PayableInformation_PurchasingInformation_Fax');
+		SetField('#PayableInformation-BankingInformation-Name', '#PayableInformation_BankingInformation_Name');
+		SetField('#PayableInformation-BankingInformation-AccountNumber', '#PayableInformation_BankingInformation_AccountNumber');
+		SetField('#PayableInformation-BankingInformation-ContactName', '#PayableInformation_BankingInformation_ContactName');
+		SetField('#PayableInformation-BankingInformation-Phone', '#PayableInformation_BankingInformation_Phone');
+		SetField('#TradeReferences-Reference1-Name', '#TradeReferences_Reference1_Name');
+		SetField('#TradeReferences-Reference1-Address1', '#TradeReferences_Reference1_Address1');
+		SetField('#TradeReferences-Reference1-Address2', '#TradeReferences_Reference1_Address2');
+		SetField('#TradeReferences-Reference1-City', '#TradeReferences_Reference1_City');
+		SetField('#TradeReferences-Reference1-State', '#TradeReferences_Reference1_State');
+		SetField('#TradeReferences-Reference1-Zip', '#TradeReferences_Reference1_Zip');
+		SetField('#TradeReferences-Reference1-Phone', '#TradeReferences_Reference1_Phone');
+		SetField('#TradeReferences-Reference1-AccountNumber', '#TradeReferences_Reference1_AccountNumber');
+		SetField('#TradeReferences-Reference2-Name', '#TradeReferences_Reference2_Name');
+		SetField('#TradeReferences-Reference2-Address1', '#TradeReferences_Reference2_Address1');
+		SetField('#TradeReferences-Reference2-Address2', '#TradeReferences_Reference2_Address2');
+		SetField('#TradeReferences-Reference2-City', '#TradeReferences_Reference2_City');
+		SetField('#TradeReferences-Reference2-State', '#TradeReferences_Reference2_State');
+		SetField('#TradeReferences-Reference2-Zip', '#TradeReferences_Reference2_Zip');
+		SetField('#TradeReferences-Reference2-Phone', '#TradeReferences_Reference2_Phone');
+		SetField('#TradeReferences-Reference2-AccountNumber', '#TradeReferences_Reference2_AccountNumber');
+		SetField('#TradeReferences-Reference3-Name', '#TradeReferences_Reference3_Name');
+		SetField('#TradeReferences-Reference3-Address1', '#TradeReferences_Reference3_Address1');
+		SetField('#TradeReferences-Reference3-Address2', '#TradeReferences_Reference3_Address2');
+		SetField('#TradeReferences-Reference3-City', '#TradeReferences_Reference3_City');
+		SetField('#TradeReferences-Reference3-State', '#TradeReferences_Reference3_State');
+		SetField('#TradeReferences-Reference3-Zip', '#TradeReferences_Reference3_Zip');
+		SetField('#TradeReferences-Reference3-Phone', '#TradeReferences_Reference3_Phone');
+		SetField('#TradeReferences-Reference3-AccountNumber', '#TradeReferences_Reference3_AccountNumber');
+
+	};
+
+	function SetField(displayField, inputField){
+		$(displayField).text($(inputField).val());
+	};
+}

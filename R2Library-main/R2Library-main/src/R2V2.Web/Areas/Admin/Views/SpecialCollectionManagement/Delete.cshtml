@@ -1,0 +1,58 @@
+﻿@model R2V2.Web.Areas.Admin.Models.SpecialCollectionManagement.DeleteModel
+
+@{
+    ViewBag.Title = "Special Collection Add Resources ";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="content collection-manage ">
+    <div class="modal-header">
+        <h1>Delete Special Collection List</h1>
+        <a class="close" data-dismiss="navigation" href="@Url.Action("List")">Close</a>
+    </div>
+    @if (Model.CollectionId != 0)
+    {
+        <div class="modal-body">
+            <div id="bulk-add-area">
+                <h3>Are you sure want to Delete the following Special Collection List?</h3>
+                <ul>
+                    <li>@Model.Name</li>
+                    <li>@Model.ResourceCount<span> Resources</span></li>
+                </ul>
+            </div>
+            @using (Html.BeginForm("Delete", "SpecialCollectionManagement"))
+            {
+                @Html.HiddenFor(x => x.CollectionId)
+                <div class="actions">
+                    <a class="close" data-dismiss="navigation" href="@Url.Action("List")">Close</a>
+                    <button class="btn-medium" type="submit"><span>Delete</span></button>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="modal-body">
+            <div id="bulk-add-area">
+                <h3>The following Special Colleciton List has been deleted.</h3>
+                <ul>
+                    <li>@Model.Name</li>
+                </ul>
+            </div>
+            <div class="actions">
+                <a class="close" data-dismiss="navigation" href="@Url.Action("List")">Close</a>
+            </div>
+        </div>
+    }
+    
+    
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.IFrameModal({
+    parent: window.parent,
+    $dismiss: $('a[data-dismiss="navigation"]')
+    });
+}

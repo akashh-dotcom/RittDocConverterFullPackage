@@ -1,0 +1,222 @@
+﻿@model R2V2.Web.Areas.Admin.Models.IpAddressRange.InstitutionIpRanges
+@{
+    ViewBag.Title = "Institution IP Ranges";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Institution IP Ranges</h1>
+
+        @Html.Partial("_InstitutionInfo")
+
+        <div>
+            <p>
+                Current IP Address: @Html.DisplayFor(x => Model.CurrentIpAddress)
+            </p>
+        </div>
+        @if (Model.ConflictedIpRangesDisplayed())
+        {
+        <div class="institution-info">
+            <p>
+                The following table contains IP Address Ranges that are overlapping or conflicting with other institutions.
+                Please fix this by deleting IP Address Ranges that are overlapping or delete the conflicting address.
+                If you have questions please contact Customer Support for assistance.
+            </p>
+            @if (Model.IsIpPlusEnabled)
+            {
+                <p>You currently have IP Plus authentication enabled. IP Plus allows access to your R2 collection under a shared IP range with another institution. All resource persistent urls and chapter, section, and image links, as well as MaRC records exported from the R2 Library will automatically contain this authentication information when you select IP Plus.
+                <br />PLEASE NOTE THAT ANY DIRECT LINKS TO THE R2 LIBRARY (WWW.R2LIBRARY.COM) MUST BE UPDATED TO: WWW.R2LIBRARY.COM/?accountNumber=@Model.Institution.AccountNumber in order for authentication to be successful. Questions, please contact <a href="/Contact">customerservice@R2library.com</a>.</p>
+            }
+        </div>
+
+            if (Model.DisplayFixIpRanes())
+            {
+                <div class="group-actions-wrapper">
+                    <div class="clearfix group-actions" data-implement="fixed">
+                        <ul class="actions">
+
+                            <li><a href="@Url.Action("Consolidate", new {institutionId = Model.InstitutionId, getConflicts = true})" class="btn btn-medium"><span>Fix IP Ranges</span></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            }
+            <div class="tablecontent">
+
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th>IP Range</th>
+                            <th>IP Range</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ConflictingIpRanges)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(x => item.IpAddressRange1.OctetA).@Html.DisplayFor(x => item.IpAddressRange1.OctetB).@Html.DisplayFor(x => item.IpAddressRange1.OctetCStart).@Html.DisplayFor(x => item.IpAddressRange1.OctetDStart)
+                                    &nbsp;-&nbsp;
+                                    @Html.DisplayFor(x => item.IpAddressRange1.OctetA).@Html.DisplayFor(x => item.IpAddressRange1.OctetB).@Html.DisplayFor(x => item.IpAddressRange1.OctetCEnd).@Html.DisplayFor(x => item.IpAddressRange1.OctetDEnd)
+                                    <span>(</span>
+                                    @if (Model.IsRittenhouseAdmin || Model.IsSalesAssociate)
+                                    {
+                                        if (Model.DisplayConflictIpRangeLink(item.IpAddressRange1))
+                                        {
+                                            <a href="@Url.Action("List", new {institutionId = item.IpAddressRange1.InstitutionId})" class="btn-mini btn-link"><span>@Html.Raw(Model.GetIpRangeDescription(item.IpAddressRange1))</span></a>
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(Model.GetIpRangeDescription(item.IpAddressRange1))
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(Model.GetIpRangeDescription(item.IpAddressRange1))
+                                    }
+                                    <span>)</span>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => item.IpAddressRange2.OctetA).@Html.DisplayFor(x => item.IpAddressRange2.OctetB).@Html.DisplayFor(x => item.IpAddressRange2.OctetCStart).@Html.DisplayFor(x => item.IpAddressRange2.OctetDStart)
+                                    &nbsp;-&nbsp;
+                                    @Html.DisplayFor(x => item.IpAddressRange2.OctetA).@Html.DisplayFor(x => item.IpAddressRange2.OctetB).@Html.DisplayFor(x => item.IpAddressRange2.OctetCEnd).@Html.DisplayFor(x => item.IpAddressRange2.OctetDEnd)
+                                    <span>(</span>
+                                    @if (Model.IsRittenhouseAdmin || Model.IsSalesAssociate)
+                                    {
+                                        if (Model.DisplayConflictIpRangeLink(item.IpAddressRange2))
+                                        {
+                                            <a href="@Url.Action("List", new {institutionId = item.IpAddressRange2.InstitutionId})" class="btn-mini btn-link"><span>@Html.Raw(Model.GetIpRangeDescription(item.IpAddressRange2))</span></a>
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(Model.GetIpRangeDescription(item.IpAddressRange2))
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(Model.GetIpRangeDescription(item.IpAddressRange2))
+                                    }
+                                    <span>)</span>
+                                </td>
+                                @*<td>@Html.DisplayFor(x => item.MergedIpAddressRange.OctetA).@Html.DisplayFor(x => item.MergedIpAddressRange.OctetB).@Html.DisplayFor(x => item.MergedIpAddressRange.OctetCStart).@Html.DisplayFor(x => item.MergedIpAddressRange.OctetDStart) - @Html.DisplayFor(x => item.MergedIpAddressRange.OctetA).@Html.DisplayFor(x => item.MergedIpAddressRange.OctetB).@Html.DisplayFor(x => item.MergedIpAddressRange.OctetCEnd).@Html.DisplayFor(x => item.MergedIpAddressRange.OctetDEnd)</td>*@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        }
+        else
+        {
+            if (Model.IsIpPlusEnabled)
+            {
+                <div class="institution-info" style="padding-top: 5px;">
+                    <p>You currently have IP Plus authentication enabled. IP Plus allows access to your R2 collection under a shared IP range with another institution. All resource persistent urls and chapter, section, and image links, as well as MaRC records exported from the R2 Library will automatically contain this authentication information when you select IP Plus.</p>
+                    <p style="margin-top: 10px;">PLEASE NOTE THAT ANY DIRECT LINKS TO THE R2 LIBRARY (WWW.R2LIBRARY.COM) MUST BE UPDATED TO: www.R2Library.com/?accountNumber=@Model.Institution.AccountNumber in order for authentication to be successful. Questions, please contact <a href="/Contact">customerservice@R2library.com</a>.</p>
+                </div>
+
+             }
+        }
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    @if (Model.DisplayFixIpRanes())
+                    {
+                        <li><a href="@Url.Action("Consolidate", new {institutionId = Model.InstitutionId, getConflicts = true})" class="btn btn-medium"><span>Fix IP Ranges</span></a></li>
+
+                    }
+                    @if (!Model.ConflictedIpRangesDisplayed())
+                    {
+                        if (Model.CanMergeRanges)
+                        {
+                            <li><a href="@Url.Action("Consolidate", new {institutionId = Model.InstitutionId, getConflicts = false})" class="btn btn-medium"><span>Consolidate IP Ranges</span></a></li>
+                        }
+                        <li><a href="@Url.Action("Add", new {institutionId = Model.InstitutionId})" class="btn btn-medium"><span>Add New</span></a></li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+
+
+
+        @if (Model.IpAddressRanges != null && Model.IpAddressRanges.Any())
+        {
+            <div class="tablecontent">
+                <table class="list" id="ipRanges">
+                    <thead>
+                        <tr>
+                            <th>
+                                @if (Model.ActionsMenu != null && !Model.ConflictedIpRangesDisplayed())
+                                {
+                                    <input type="checkbox" name="item-select-all" id="item-select-all" class="item-select" />
+                                }
+                                else
+                                {
+                                    <span>&nbsp;</span>
+                                }
+                            </th>
+                            <th>Start IP Address</th>
+                            <th>End IP Address</th>
+                            <th>Description</th>
+                            <th>
+                                <div id="select-actions" style="float: right; padding-right: 24px;">
+                                    <a href="@Url.Action("BulkDelete", "IpAddressRange", new {institutionId = Model.InstitutionId, ipRangeIdsToDelete = Model.IpRangeIdsToDelete})" class="btn-mini btn-link btn-addSelected disabled" data-implement="modal">Bulk Delete IP Ranges</a>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.IpAddressRanges)
+                        {
+                            <tr>
+                                <td>
+                                    @if (Model.ActionsMenu != null && !Model.ConflictedIpRangesDisplayed())
+                                    {
+                                        <input type="checkbox" class="item-select" name="@item.Id" id="@item.Id" />
+                                    }
+                                    else
+                                    {
+                                        <span>&nbsp;</span>
+                                    }
+
+                                </td>
+                                <td>@Html.DisplayFor(x => item.OctetA).@Html.DisplayFor(x => item.OctetB).@Html.DisplayFor(x => item.OctetCStart).@Html.DisplayFor(x => item.OctetDStart)</td>
+                                <td>@Html.DisplayFor(x => item.OctetA).@Html.DisplayFor(x => item.OctetB).@Html.DisplayFor(x => item.OctetCEnd).@Html.DisplayFor(x => item.OctetDEnd)</td>
+                                <td>@Html.DisplayFor(x => item.Description)</td>
+                                <td class="actions">
+                                    @if (Model.AllowEditDelete())
+                                    {
+                                        <a href="@Url.Action("Edit", new {institutionId = Model.InstitutionId, item.Id})" class="btn btn-medium"><span>Edit</span></a>
+                                        <a href="@Url.Action("Delete", new {institutionId = Model.InstitutionId, item.Id})" class="btn btn-medium"><span>Delete</span></a>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p><strong>No IP Ranges Available.</strong></p>
+        }
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.SelectedItems({ $container: $('#ipRanges'), trigger: '.item-select' });
+    new R2V2.Admin.ConcatSelectedItems({ $parent: $('#container'), trigger: '.btn-addSelected', $objectToPopulate : 'ipRangeIdsToDelete' });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

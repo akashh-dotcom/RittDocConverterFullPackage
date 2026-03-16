@@ -1,0 +1,110 @@
+﻿@model R2V2.Web.Areas.Admin.Models.SubscriptionManagement.SubscriptionUser
+@{
+    ViewBag.Title = "Subscription User Edit";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@*@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)*@
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Subscription Edit</h1>
+        @using (Html.BeginForm())
+        {
+            <div class="tablecontent">
+                <table class="edit">
+                    <tbody>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.StatusList)</td>
+                        <td class="field">
+                            @Html.DropDownListFor(model => model.RecordStatus, Model.StatusList, new { disabled = true })
+                            @Html.ValidationMessageFor(model => model.StatusList)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ExpirationDate)</td>
+                        <td class="field">
+                            @Html.EditorFor(model => model.ExpirationDate, new { disabled = true })
+
+                            @Html.ValidationMessageFor(model => model.ExpirationDate)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.FirstName)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.FirstName, new { @class = "input-medium", disabled = true })
+                            @Html.ValidationMessageFor(model => model.FirstName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.LastName)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.LastName, new { @class = "input-medium", disabled = true })
+                            @Html.ValidationMessageFor(model => model.LastName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.Email)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.Email, new { @class = "input-full", disabled = true })
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.UserName)</td>
+                        <td class="field">Your User Name will be your Email Address</td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.NewPassword)</td>
+                        <td class="field">
+                            @Html.PasswordFor(model => model.NewPassword, new { @class = "input-medium", disabled = true })
+                            @Html.ValidationMessageFor(model => model.NewPassword)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ConfirmPassword)</td>
+                        <td class="field">
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "input-medium", disabled = true })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                
+                <table class="edit">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Trial End Date</th>
+                            <th>Activation Date</th>
+                            <th>Expiration Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.UserSubscriptions)
+                    {
+                        <tr>
+                            <td>@Html.Raw(item.Name)</td>
+                            <td>@Html.EditorFor(x => item.TrialExpirationDate, new { disabled = true })</td>
+                            <td>@Html.EditorFor(x => item.ActivationDate, new { disabled = true })</td>
+                            <td>@Html.EditorFor(x => item.ExpirationDate, new { disabled = true })</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                <div class="group-actions-wrapper">
+                    <div class="clearfix group-actions" data-implement="fixed">
+                        <ul class="actions">
+                            <li><a class="btn btn-medium" href="@Url.Action("Users", "SubscriptionManagement")"><span>Cancel</span></a></li>
+                            <li><button class="btn-medium" type="submit"><span>submit</span></button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    @Html.Partial("_LeftNav", Model)
+</div>

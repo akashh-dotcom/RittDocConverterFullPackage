@@ -1,0 +1,79 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Promotion.Promotions
+
+@{
+    ViewBag.Title = "Promotions";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+
+
+@*<div class="clearfix fullcol contentcontainer">*@
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Promotions</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+        
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><a href="@Url.Action("Add")" class="btn btn-medium"><span>Add New Promotion</span></a></li>
+                </ul>                              
+            </div>
+        </div>
+        
+        @if (Model.List != null && Model.List.Any())
+        {
+            <div class="tablecontent">
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th style="width: 140px;">Promotion Name</th>
+                            <th>Promotion Code</th>
+                            <th>Cart Alert</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th class="btn btn-medium"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var promotion in Model.List)
+                        {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => promotion.Status)</td>
+                            <td>@Html.DisplayFor(modelItem => promotion.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => promotion.Code)</td>
+                            <td>@Html.DisplayFor(modelItem => promotion.EnableCartAlert)</td>
+                            <td>@Html.DisplayFor(modelItem => promotion.StartDate)</td>
+                            <td>@Html.DisplayFor(modelItem => promotion.EndDate)</td>
+                            <td class="actions">
+                                <a href="@Url.Action("Edit", new {promotion.PromotionId})" class="btn btn-medium"><span>Edit</span></a>
+                                <a href="@Url.Action("Delete", new {promotion.PromotionId})" class="btn btn-medium"><span>Delete</span></a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            
+        }
+        else
+        {
+            <p><strong>No Promotion Defined.</strong></p>
+        }
+    </div>
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section InlineModal
+{
+}
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

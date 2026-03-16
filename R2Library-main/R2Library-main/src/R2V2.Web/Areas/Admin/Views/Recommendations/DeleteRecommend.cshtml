@@ -1,0 +1,98 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Recommendations.RecommendationEdit
+@{
+	ViewBag.Title = "Delete Recommend";
+	ViewBag.BodyCssClass = "admin";
+	Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="content collection-manage recommend">
+    <div class="modal-header">
+        <h1>Delete Recommended Resource</h1>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+            
+    <div class="modal-body" style="overflow: inherit;">
+        <h2>@Model.InstitutionResource.Title</h2>
+        <ul>
+            <li>@Html.LabelFor(modelItem => Model.InstitutionResource.Isbn10) @Model.InstitutionResource.Isbn</li>
+            <li>@Html.LabelFor(modelItem => Model.InstitutionResource.Authors) @Model.InstitutionResource.Authors</li>
+            <li>@Html.LabelFor(modelItem => Model.InstitutionResource.PublisherName) @Model.InstitutionResource.PublisherName</li>
+        </ul>
+        
+        @foreach (var recommended in Model.RecommendedList)
+        {
+            using (Html.BeginForm("DeleteRecommend", "Recommendations"))
+            {
+                <table>
+                    <tbody>
+                        <tr>
+                            <th><strong>@Html.LabelFor(model => recommended.CreationDate)</strong></th>
+                            <td>@Html.DisplayFor(model => recommended.CreationDate) by @Html.DisplayFor(model => recommended.ExpertReviewerUser.FirstName) @Html.DisplayFor(model => recommended.ExpertReviewerUser.LastName)</td>
+                        </tr>
+
+                        @if (Model.Recommended.AddedToCartDate != null && Model.Recommended.PurchaseDate == null)
+                        {
+                            <tr>
+                                <th><strong>@Html.LabelFor(model => recommended.AddedToCartDate)</strong></th>
+                                <td>@Html.DisplayFor(model => recommended.AddedToCartDate) by @Html.DisplayFor(model => recommended.AddedToCartByUser.FirstName) @Html.DisplayFor(model => recommended.AddedToCartByUser.LastName)</td>
+                            </tr>
+                        }
+                        @if (recommended.PurchaseDate != null)
+                        {
+                            <tr>
+                                <th><strong>@Html.LabelFor(model => recommended.PurchaseDate)</strong></th>
+                                <td>@Html.DisplayFor(model => recommended.PurchaseDate) by @Html.DisplayFor(model => recommended.PurchasedByUser.FirstName) @Html.DisplayFor(model => recommended.PurchasedByUser.LastName)</td>
+                            </tr>
+                        }
+                        @if (recommended.AddedToCartDate != null || recommended.PurchaseDate != null)
+                        {
+                            <tr>
+                                <th><strong>@Html.LabelFor(model => recommended.Notes)</strong></th>
+                                <td class="field">@Html.DisplayTextFor(model => recommended.Notes)</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <th><strong>@Html.LabelFor(model => recommended.Notes)</strong></th>
+                                <td class="field">@Html.DisplayTextFor(model => recommended.Notes)</td>
+                            </tr>
+                            <tr>
+                                <th><strong>@Html.LabelFor(model => recommended.DeletedNotes)</strong></th>
+                                <td class="field">@Html.TextAreaFor(model => recommended.DeletedNotes)</td>
+                            </tr>
+                        }
+                        <tr>
+                            <th></th>
+                            <td>@Html.ValidationMessageFor(model => recommended.DeletedNotes)</td>
+                        </tr>
+                        
+                        <tr>
+                            <td colspan="2">
+                                <br />
+                                @Html.Hidden("RecommendForPurchase", "no")
+                                @Html.HiddenFor(x => recommended.Id)
+                                
+                                <div class="actions">
+                                    <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+                                    <button class="btn-medium" type="submit" value="Delete" name="action"><span>Delete Recommendation</span></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                @Html.Partial("../CollectionManagement/_HiddenQueryFields", Model.ResourceQuery)
+            }
+        }
+
+        
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.IFrameModal({ 
+        $dismiss: $('a[data-dismiss="modal"]'),
+        parent: window.parent
+    });
+}

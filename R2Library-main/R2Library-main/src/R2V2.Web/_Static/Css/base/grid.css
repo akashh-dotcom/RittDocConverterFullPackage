@@ -1,0 +1,148 @@
+﻿/* ==========================================================================
+	Grid
+   ========================================================================== */
+   
+/*
+ * Page Layouts
+ */
+
+/* full column (used in admin) */
+.fullcol .content {
+    position: relative;
+    padding: 20px 19px 39px; border: 1px solid #BABABA;
+    background-color: #F5F5F5;
+}
+
+/* one column */
+.onecol .content {
+	padding: 15px 69px 39px; border: 1px solid #BABABA;
+	background-color: #F5F5F5;
+    }
+
+/* two column with subnav (subnav at left) */
+.twocol-with-subnav {
+	position: relative;
+	border: 1px solid #BABABA; width: 958px;
+	background: url(../images/layout/bg-twocol-with-subnav.gif) repeat-y 0 0;
+	}
+	.twocol-with-subnav .content {
+		float: right;
+		padding: 20px 40px 69px 0; width: 690px;
+		}
+	.twocol-with-subnav .nav-sub {
+		float: left;
+		padding: 10px 20px 40px 14px; width: 154px;
+		}
+
+/* two column with sidebar (sidebar at right) */
+.twocol-with-sidebar.contentcontainer {
+	border: 1px solid #BABABA; width: 958px;
+	background: #F5F5F5;
+    }
+	.twocol-with-sidebar.contentcontainer .sidebar,
+	.twocol-with-sidebar.contentcontainer .content {
+	 	padding-bottom: 39px;
+	    }
+	.twocol-with-sidebar.contentcontainer .sidebar {
+	 	margin-right: 50px;
+	    }
+    .twocol-with-sidebar.contentcontainer .content {
+	 	margin-left: 50px;
+	    }
+	.twocol-with-sidebar .subcontent,
+	.twocol-with-sidebar .sidebar {
+		padding-top: 30px;
+	    }
+	.twocol-with-sidebar .content,
+	.twocol-with-sidebar .subcontent {
+		float: left;
+	    }
+	.twocol-with-sidebar .content {
+		width: 580px;
+	    }
+	.twocol-with-sidebar .subcontent {
+		margin-left: 30px; width: 465px;
+		}
+	.twocol-with-sidebar .sidebar {
+		float: right;
+		width: 250px;
+	    }
+	.twocol-with-sidebar .subcontent + .sidebar {
+		width: 229px;
+		}
+
+/* OVERRIDES */
+.marketing.home .twocol-with-sidebar .content {
+	width: 551px;
+	}
+.marketing.home .sidebar {
+	width: 259px;
+    }
+
+.admin .twocol-with-subnav .content {
+	padding-right: 20px; width: 730px;
+	}
+	    
+
+/*
+ * General Column layouts
+ */
+.columns .column {
+	float: left;
+	margin-top: 16px;
+    }
+
+.one-column .column {
+    width: 100%;
+    }
+
+.two-columns .column {
+	margin-left: 9%; width: 45%;
+	}
+
+.two-columns-50-40 .column {
+	margin-left: 9%; width: 40%;
+	}
+.two-columns-50-40 .column:first-child {
+	width: 50%;
+	}
+
+.two-columns-20-80 .column {
+    margin-left: 2%; width: 78%;
+    }
+.two-columns-20-80 .column:first-child {
+    width: 18%;
+    }
+
+.three-columns .column {
+	margin-left: 5%; width: 30%;
+	}
+
+.four-columns .column {
+    margin-left: 3%; width: 24%;
+    }
+    
+.five-columns .column {
+    margin-left: 2%; width: 18%;
+    }
+
+.columns .column:first-child {
+	margin-left: 0;
+	}
+	
+/* SHIMS */
+.ie7 .three-columns .column,
+.ie7 .four-columns .column {
+    margin-left: 4.9%;
+    }
+.ie7 .five-columns .column {
+    margin-left: 1.9%;
+    }
+.ie7 .three-columns .column:first-child,
+.ie7 .four-columns .column:first-child,
+.ie7 .five-columns .column:first-child {
+    margin-left: 0;
+    }
+.ie7 .four-columns .column {
+    margin-left: 2%; width: 23.5%;
+    }

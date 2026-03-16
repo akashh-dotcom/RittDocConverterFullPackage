@@ -1,0 +1,162 @@
+﻿@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.ReserveShelfManagement.ReserveShelfManagement
+@{
+    ViewBag.Title = "Reserve Shelf Management";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+       
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Reserve Shelf Resources</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+        
+        @using (Html.BeginForm())
+        {
+            <div class="display-per-page">
+                <p class="screenreader">Choose the number of titles to display per page.</p>
+                @Html.DropDownListFor(x => x.ReserveShelfQuery.PageSize, Model.PageSizeSelectList, new {onchange = "this.form.submit();"})
+                @Html.LabelFor(x => x.PageSizeSelectList)
+            </div>
+
+            @Html.HiddenFor(x => x.ReserveShelfQuery.Query)
+            @Html.HiddenFor(x => x.ReserveShelfQuery.ResourceStatus)
+            @Html.HiddenFor(x => x.ReserveShelfQuery.ResourceFilterType)
+            @Html.HiddenFor(x => x.ReserveShelfQuery.SortBy)
+            @Html.HiddenFor(x => x.ReserveShelfQuery.SortDirection)
+            @Html.Hidden("page", "1")
+            @Html.HiddenFor(x => x.ReserveShelfQuery.PurchasedOnly)
+            @Html.HiddenFor(x => x.ReserveShelfQuery.PracticeAreaFilter)
+            @Html.HiddenFor(x => x.ReserveShelfQuery.SpecialtyFilter)
+            @Html.HiddenFor(x => x.ReserveShelfQuery.ReserveShelfId)
+        }
+        
+        <div class="group-actions-wrapper"><div class="clearfix group-actions">
+            <ul class="actions">
+                <li><a href="@Url.Action("List", new { Model.InstitutionId })" class="btn btn-medium"><span>Back To List</span></a></li>
+                <li><a href="@Url.Action("Detail", new { Model.InstitutionId, reserveShelfId = Model.ReserveShelf.Id })" class="btn btn-medium"><span>Cancel</span></a></li>
+            </ul>
+        </div></div>
+        
+        <div class="tablecontent">
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th class="reserve-shelf-title">Title</th>
+                        <th class="reserve-shelf-description">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="selected">
+                        <td class="reserve-shelf-title">@Model.ReserveShelf.Name</td>
+                        <td class="reserve-shelf-description">@Model.ReserveShelf.Description</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        @if (Model.PageLinks.Count() > 1)
+        {
+            <div class="nav-section-wrapper"><div class="clearfix nav-section" data-implement="fixed">
+                <div class="previous">
+                    @if (Model.PreviousLink.Active)
+                    {
+                        <a href="@Model.FirstLink.Href">&lt; @Model.FirstLink.Text</a>
+                        <a href="@Model.PreviousLink.Href">&lt;&lt; @Model.PreviousLink.Text</a>
+                    }
+                </div>
+
+                <div class="next">
+                    @if (Model.NextLink.Active)
+                    {
+                        <a href="@Model.NextLink.Href">@Model.NextLink.Text &gt;&gt;</a>
+                        <a href="@Model.LastLink.Href">@Model.LastLink.Text &gt;</a>
+                    }
+                </div>
+                
+                <ul class="nav-number nav-content">
+                    <li><strong>Jump to page:</strong></li>
+                    @foreach (var link in Model.PageLinks)
+                    {
+                        if (link.Active)
+                        {
+                            <li@(StyleHelpers.AddSelectedState(link.Selected))><a href="@Url.Action("ManageResources", Model.ReserveShelfQuery.ToRouteValues(link.Text))"><span>@link.Text</span></a></li>
+                        }
+                        else
+                        {
+                            <li><span>@link.Text</span></li>
+                        }
+                    }
+                </ul>
+            </div></div>
+        }
+
+        <div class="alertbox">
+            <h3>Displaying results <strong>@string.Format("{0:#,##0} - {1:#,##0}", Model.ResultsFirstItem, Model.ResultsLastItem)</strong> out of <strong>@string.Format("{0:#,##0}", Model.TotalCount)</strong>.</h3>
+            @if (!string.IsNullOrWhiteSpace(Model.SelectedFilters) || (!Model.ReserveShelfQuery.DefaultQuery && Model.ActionsMenu != null))
+            {
+                <div class="criteria clearfix">
+                    <p>Search criteria:</p>
+                    @if (!string.IsNullOrWhiteSpace(Model.SelectedFilters))
+                    {
+                        <ul>
+                            @Html.Raw(Model.SelectedFilters)
+                        </ul>
+                    }
+                    @if (!Model.ReserveShelfQuery.DefaultQuery && Model.ActionsMenu != null)
+                    {
+                        <p><a href="@Url.Action("ManageResources", new { Model.InstitutionId, Model.ReserveShelfQuery.ReserveShelfId })">Clear Results</a> or <a href="#sort-and-filter" data-toggle="link">Add More Criteria</a>.</p>
+                    }    
+                </div>
+            }
+        </div>
+        
+        <div class="tablecontent">
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Details</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ReserveShelfResources)
+                    {
+                        <tr>
+                            <td>
+                                <span class="resource-status">@ResourceHelpers.ResourceStatus(item.Status)</span>
+                                @ResourceHelpers.ShowListedStatus(item, Model.SpecialIconBaseUrl, Model.ActionsMenu == null)
+                            </td>
+                            <td>@Html.Partial("_ResourceListItem", item, new ViewDataDictionary { { "EmailVersion", Model.ActionsMenu == null ? "true" : "false" } })</td>
+                            <td>
+                                @if (item.IsSelected)
+                                {
+                                    <span>Included</span>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("AddDeleteResources", Model.ReserveShelfQuery.ToRouteValues(item.Id, true))" class="btn btn-medium"><span>Add</span></a>
+                                }
+                                
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+        
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

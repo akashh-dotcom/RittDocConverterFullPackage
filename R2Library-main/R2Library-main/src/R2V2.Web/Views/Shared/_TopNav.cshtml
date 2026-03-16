@@ -1,0 +1,149 @@
+﻿@using R2V2.Core.Resource
+@model R2V2.Web.Models.IR2V2Model
+
+<div class="clearfix navbar" style="margin-bottom: 3px;">
+    <nav id="nav-main" role="navigation">
+        <ul class="clearfix">
+            @foreach (var tab in Model.Tabs.Select(kvp => kvp.Value))
+            {
+                <li@(StyleHelpers.AddSelectedState(tab.IsSelected))><a href="@tab.Url"><span>@tab.DisplayText</span></a></li>
+            }
+        </ul>
+    </nav>
+    
+    @if (Model.DisplaySearch)
+    {
+        <div id="search" data-toggle="menu" data-trigger=".searchinner a">
+            <form action="@Model.SearchUrl" method="GET">
+                @if (Model.PurchasedOnly)
+                {
+                    <input type="hidden" name="PurchasedOnly" value="@Model.PurchasedOnly" />
+                }
+                @if (Model.CollectionListFilter > 0)
+                {
+                    <input type="hidden" name="CollectionListFilter" value="@Model.CollectionListFilter" />
+                }
+                @if (Model.IncludeFreeResources)
+                {
+                    <input type="hidden" name="IncludeFreeResources" value="@Model.IncludeFreeResources" />
+                }                
+                @if (Model.IncludePdaResources)
+                {
+                    <input type="hidden" name="IncludePdaResources" value="@Model.IncludePdaResources" />
+                }
+                @if (Model.IncludePdaHistory)
+                {
+                    <input type="hidden" name="IncludePdaHistory" value="@Model.IncludePdaHistory" />
+                }
+                @if (Model.IncludeSpecialDiscounts)
+                {
+                    <input type="hidden" name="IncludeSpecialDiscounts" value="@Model.IncludeSpecialDiscounts" />
+                }
+                @if (Model.RecommendationsOnly)
+                {
+                    <input type="hidden" name="RecommendationsOnly" value="@Model.RecommendationsOnly" />
+                }
+                @if (Model.ResourceListType > 0)
+                {
+                    <input type="hidden" name="ResourceListType" value="@Model.ResourceListType" />
+                }
+                @if (Model.ReviewId > 0)
+                {
+                    <input type="hidden" name="ReviewId" value="@Model.ReviewId" />
+                }
+                @if (Model.DateRangeStart != DateTime.MinValue)
+                {
+                    <input type="hidden" name="DateRangeStart" value="@Model.DateRangeStart.ToString("d")" />
+                }
+                @if (Model.DateRangeEnd != DateTime.MinValue)
+                {
+                    <input type="hidden" name="DateRangeEnd" value="@Model.DateRangeEnd.ToString("d")" />
+                }
+                @if (Model.ReserveShelfId > 0)
+                {
+                    <input type="hidden" name="ReserveShelfId" value="@Model.ReserveShelfId" />
+                }
+
+                <div class="clearfix searchinner">
+                    @if (Model.DisplayAdvancedSearch)
+                    {
+                        <div class="searchwrap"><div class="searchwrapinner">
+                            <input name="q" type="text" class="text" value="@Model.Q" placeholder="@Model.SearchHintPlaceHolderText" />
+                        </div></div>
+                    }
+                    else
+                    {
+                        <div class="searchwrap">
+                            <div class="searchwrapinner">
+                                <input name="query" type="text" class="text" value="@Model.Q" placeholder="@Model.SearchHintPlaceHolderText" />
+                            </div>
+                        </div>
+                    }               
+                    <button type="submit"><span>Search</span></button>
+                    @if (Model.DisplayAdvancedSearch)
+                    {
+                        <a href="#search-options" class="action" role="button" aria-expanded="false" aria-controls="search-options">Advanced Options</a>
+                    }
+                </div>
+        
+                @if (Model.DisplayAdvancedSearch)
+                {
+                    <div id="search-options">
+                        <h3>Target your search to include:</h3>
+
+                        <label for="author">Author Name</label> <div class="textfield"><div class="textfieldinner"><input id="author" name="author" type="text" class="text" value="@Model.AdvancedSearch.Author" /></div></div>
+                        <label for="title">Book Title</label> <div class="textfield"><div class="textfieldinner"><input id="title" name="title" type="text" class="text" value="@Model.AdvancedSearch.Title" /></div></div>
+                        <label for="publisher">Publisher</label> <div class="textfield"><div class="textfieldinner"><input id="publisher" name="publisher" type="text" class="text" value="@Model.AdvancedSearch.Publisher" /></div></div>
+                        <label for="editor">Editor</label> <div class="textfield"><div class="textfieldinner"><input id="editor" name="editor" type="text" class="text" value="@Model.AdvancedSearch.Editor" /></div></div>
+                        <label for="isbn">ISBN</label> <div class="textfield"><div class="textfieldinner"><input id="isbn" name="isbn" type="text" class="text" value="@Model.AdvancedSearch.Isbn" /></div></div>
+                
+                        <ul class="clearfix checkboxes">
+                            <li><input composite-checkbox-group="include" id="search-active" type="checkbox" value="@((int) Include.Active)" class="checkbox" /> <label for="search-active">Active</label></li>
+                            <li><input composite-checkbox-group="include" id="search-archive" type="checkbox" value="@((int) Include.Archive)" class="checkbox" checked="checked" /> <label for="search-archive">Archive</label></li>
+                            @if (Model.AdvancedSearch.DisplayTocAvailable)
+                            {
+                                <li><input id="search-toc-available" name="toc-available" type="checkbox" class="checkbox" value="true" /><label for="search-toc-available">Table of Contents Available</label></li>
+                            }
+                        </ul>
+
+                        <p id="pubDate"><strong>Publication Date</strong></p>
+                        <ul class="clearfix">
+                            <li>
+                                <label for="year-start">Start Year</label>
+                                @if (Model.AdvancedSearch.PublicationYears != null && Model.AdvancedSearch.PublicationYears.Any())
+                                {
+                                    <select id="year-start" name="year-start" data-default="@Model.AdvancedSearch.PublicationYears.Last()" aria-describedby="pubDate">
+                                        <option></option>
+                                        @foreach (var year in Model.AdvancedSearch.PublicationYears)
+                                        {
+                                            <option value="@year"@(Model.AdvancedSearch.YearMin == year ? " selected='selected'" : "")>@year</option>
+                                        }
+                                    </select>
+                                }
+                            </li>
+                            <li>
+                                <label for="year-end">End Year</label>
+                                @if (Model.AdvancedSearch.PublicationYears != null && Model.AdvancedSearch.PublicationYears.Any())
+                                {
+                                    <select id="year-end" name="year-end" data-default="@Model.AdvancedSearch.PublicationYears.First()" aria-describedby="pubDate">
+                                        <option></option>
+                                        @foreach (var year in Model.AdvancedSearch.PublicationYears)
+                                        {
+                                            <option value="@year"@(Model.AdvancedSearch.YearMax == year ? " selected='selected'" : "")>@year</option>
+                                        }
+                                    </select>
+                                }
+                            </li>
+                        </ul>
+                
+                        <ul class="clearfix actions">
+                            <li class="button"><button type="submit"><span>Search</span></button></li>
+                            <li class="options"><a href="#clear" class="action">Clear Advanced Search</a></li>
+                        </ul>
+                        <a class="close" data-dismiss="menu">Close</a>
+                    </div>
+                }
+            </form>
+        </div>
+    }
+</div>

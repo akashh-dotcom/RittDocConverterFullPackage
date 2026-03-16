@@ -1,0 +1,171 @@
+﻿@using R2V2.Core.Resource
+@model R2V2.Web.Areas.Admin.Models.SpecialCollectionManagement.EditModel
+
+@{
+    ViewBag.Title = "Special Collection Edit";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+
+@using (Html.BeginForm())
+{
+    <div class="clearfix fullcol contentcontainer">
+        <div id="content" class="content" role="main">
+            <h1>Special Collection Edit</h1>
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><a href="@Url.Action("List")" class="btn btn-medium"><span>Cancel</span></a></li>
+                        <li><button class="btn btn-medium" type="submit"><span>Save</span></button></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tablecontent">
+                <table class="edit">
+                    <tbody>
+                        <tr>
+                            <td class="label">@Html.LabelFor(x => x.Name)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(x => x.Name, new { @class = "input-large", placeholder = "Will be displayed in the left hand navigation" })
+                                @Html.ValidationMessageFor(x => x.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(x => x.Description)</td>
+                            <td class="field">
+                                @RichTextHelper.TextArea_Editor(Html, "Description", Model.Description)
+                                @*<div id="editor">
+                                    @Html.Raw(Model.Description)
+                                </div>
+                                <textarea id="Description" name="Description" style="display:none;"></textarea>*@
+                            </td>
+                        </tr>
+                        @if (Model.IsPublic || Model.CanBeMadePublic)
+                        {
+                            <tr>
+                                <td class="label">@Html.LabelFor(x => x.IsPublic)</td>
+                                <td class="field">
+                                    @Html.EditorFor(x => x.IsPublic)
+                                    @Html.ValidationMessageFor(x => x.IsPublic)
+                                </td>
+                            </tr>
+                        }
+                        
+                    </tbody>
+                </table>
+
+                <div class="group-actions-wrapper">
+                    <div class="clearfix group-actions" data-implement="fixed">
+                        <ul class="actions">
+                            <li><a href="@Url.Action("BulkAddResources", new{collectionId = Model.CollectionId})" class="btn btn-medium btn-add" data-implement="modal"><span>Bulk Add Resources</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tablecontent">
+                    <table class="list">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Details</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.ResourceModels != null && Model.ResourceModels.Any())
+                            {
+                                foreach (var item in Model.ResourceModels)
+                                {
+                                    <tr>
+                                        <td>
+                                            <span class="resource-status">@ResourceHelpers.ResourceStatus(item.Status)</span>
+                                            @ResourceHelpers.ShowListedStatus(item, Model.SpecialBaseIconUrl, Model.ActionsMenu == null)
+                                        </td>
+                                        <td>
+
+                                            <div class="titleitem">
+
+                                                <h2><a href="@Url.Action("Title", "Resource", new {Area = "", item.Isbn})" data-toggle="collapse" data-target="#item-@item.Isbn">@Html.DisplayFor(modelItem => item.Title)</a></h2>
+                                                <ul>
+                                                    <li>@item.Authors</li>
+                                                    <li>@Html.LabelFor(modelItem => item.PublisherName) @Html.DisplayFor(modelItem => item.PublisherName)</li>
+                                                    <li>@Html.LabelFor(modelItem => item.PublicationDate) @Html.DisplayFor(modelItem => item.PublicationDate)</li>
+                                                    <li>@Html.LabelFor(modelItem => item.ReleaseDate) @Html.DisplayFor(modelItem => item.ReleaseDate)</li>
+                                                    <li class="license-cart">@Html.DisplayFor(x => item.SpecialText)</li>
+                                                </ul>
+                                                <div id="item-@item.Isbn" class="collapse title-detail">
+                                                    <div class="title-container">
+                                                        <div class="title-meta">
+                                                            <ul>
+                                                                <li><strong>Affiliation: </strong>@Html.Raw(item.Affiliation)</li>
+                                                                @if (item.StatusId == (int)ResourceStatus.Forthcoming)
+                                                                {
+                                                                    <li>@Html.LabelFor(modelItem => item.DueDate)@Html.DisplayFor(modelItem => item.DueDate)</li>
+                                                                }
+                                                                @if (item.PracticeAreas != null && item.PracticeAreas.Any())
+                                                                {
+                                                                    var firstPracticeArea = true;
+                                                                    <li>
+                                                                        @Html.LabelFor(modelItem => item.PracticeAreas)
+                                                                        @foreach (var practiceArea in item.PracticeAreas)
+                                                                        {
+                                                                            @(firstPracticeArea ? "" : ", ")@practiceArea.Name
+                                                                            firstPracticeArea = false;
+                                                                        }
+                                                                    </li>
+                                                                }
+                                                                @if (item.Specialties != null && item.Specialties.Any())
+                                                                {
+                                                                    var firstSpecialty = true;
+                                                                    <li>
+                                                                        @Html.LabelFor(modelItem => item.Specialties)
+                                                                        @foreach (var specialty in item.Specialties)
+                                                                        {
+                                                                            @(firstSpecialty ? "" : ", ")@specialty.Name
+
+                                                                            firstSpecialty = false;
+                                                                        }
+                                                                    </li>
+                                                                }
+                                                                <li>@Html.LabelFor(modelItem => item.Isbn10) @Html.DisplayFor(modelItem => item.Isbn10)</li>
+                                                                <li>@Html.LabelFor(modelItem => item.Isbn13) @Html.DisplayFor(modelItem => item.Isbn13)</li>
+                                                                @if (item.EIsbn != null)
+                                                                {
+                                                                    <li>@Html.LabelFor(modelItem => item.EIsbn) @Html.DisplayFor(modelItem => item.EIsbn)</li>
+                                                                }
+                                                                <li>@Html.LabelFor(modelItem => item.Edition) @Html.DisplayFor(modelItem => item.Edition)</li>
+                                                            </ul>
+                                                        </div>
+
+                                                        <div class="title-image"><img alt="@item.Title" src="@item.ImageUrl" /></div>
+                                                    </div>
+
+                                                    <p>@item.ResourceDescription</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("RemoveResource", new { collectionId = Model.CollectionId, resourceId = item.Id })" class="btn btn-medium"><span>Remove</span></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.PdaCollection({ $parent: $('#container'), triggers: ['.btn-add'] });
+
+}

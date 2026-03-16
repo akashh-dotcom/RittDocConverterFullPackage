@@ -1,0 +1,286 @@
+# Wiley Publisher Configuration
+# ==============================
+# Wiley-specific CSS class mappings and post-processing rules.
+# Extends the default configuration with Wiley conventions.
+
+publisher_name: "Wiley"
+publisher_patterns:
+  - "Wiley"
+  - "John Wiley"
+  - "John Wiley & Sons"
+  - "John Wiley and Sons"
+  - "Wiley-Blackwell"
+  - "Wiley-VCH"
+  - "Jossey-Bass"  # Wiley imprint
+
+# Wiley-specific CSS class mappings
+# These override or extend the defaults
+css_class_mappings:
+  # Wiley chapter structure
+  chapterTitle:
+    element: title
+    role: chapter-title
+  chapterSubtitle:
+    element: subtitle
+  chapterNumber:
+    skip: true
+
+  # Wiley section hierarchy
+  head1:
+    element: bridgehead
+    role: sect1-title
+  head2:
+    element: bridgehead
+    role: sect2-title
+  head3:
+    element: bridgehead
+    role: sect3-title
+  headBox:
+    element: bridgehead
+    role: box-title
+
+  # Wiley paragraph styles
+  para:
+    element: para
+  paraNoIndent:
+    element: para
+    role: noindent
+  paraIndent:
+    element: para
+    role: indent
+  paraContinue:
+    element: para
+    role: continue
+  extract:
+    element: blockquote
+    role: extract
+
+  # Wiley bibliography
+  references:
+    element: bibliography
+  refEntry:
+    element: bibliomixed
+  refNumber:
+    skip: true  # Auto-generated
+  refText:
+    element: bibliomixed
+    role: ref-text
+
+  # Wiley figures
+  figure:
+    element: figure
+  figCaption:
+    element: title
+    context: figure
+  figNumber:
+    skip: true
+  figSource:
+    element: para
+    role: source
+
+  # Wiley tables
+  table:
+    element: table
+  tableTitle:
+    element: title
+    context: table
+  tableNumber:
+    skip: true
+  tableNote:
+    element: footnote
+    role: table-note
+  tableSource:
+    element: para
+    role: source
+
+  # Wiley boxes/sidebars
+  box:
+    element: sidebar
+  boxTitle:
+    element: title
+    context: sidebar
+  boxText:
+    element: para
+  caseStudy:
+    element: sidebar
+    role: case-study
+  exampleBox:
+    element: example
+  keyTerms:
+    element: sidebar
+    role: key-terms
+  learningObjectives:
+    element: sidebar
+    role: learning-objectives
+  summaryBox:
+    element: sidebar
+    role: summary
+
+  # Wiley equations
+  equation:
+    element: equation
+  equationNumber:
+    skip: true
+  inlineEquation:
+    element: inlineequation
+
+  # Wiley lists
+  bulletList:
+    element: itemizedlist
+  numList:
+    element: orderedlist
+  defList:
+    element: variablelist
+  glossList:
+    element: glosslist
+
+  # Wiley footnotes/endnotes
+  footnote:
+    element: footnote
+  fnNumber:
+    skip: true
+  fnText:
+    element: para
+  endnote:
+    element: footnote
+    role: endnote
+  enNumber:
+    skip: true
+
+  # Wiley index
+  indexMain:
+    element: index
+  indexEntry:
+    element: indexentry
+  indexTerm:
+    element: indexterm
+  indexSee:
+    element: indexterm
+    role: see
+  indexSeeAlso:
+    element: indexterm
+    role: seealso
+
+  # Wiley front matter
+  copyright:
+    element: legalnotice
+  dedication:
+    element: dedication
+  aboutAuthor:
+    element: preface
+    role: about-author
+  acknowledgments:
+    element: preface
+    role: acknowledgments
+  preface:
+    element: preface
+
+  # Wiley special elements
+  eula:
+    skip: true  # End User License Agreement - removed
+  eulaTitle:
+    skip: true
+  eulaText:
+    skip: true
+
+# Wiley epub:type extensions
+epub_type_mappings:
+  doc-abstract: abstract
+  doc-acknowledgments: preface
+  doc-appendix: appendix
+  doc-bibliography: bibliography
+  doc-chapter: chapter
+  doc-conclusion: appendix
+  doc-dedication: dedication
+  doc-epilogue: appendix
+  doc-foreword: preface
+  doc-glossary: glossary
+  doc-index: index
+  doc-introduction: preface
+  doc-part: part
+  doc-preface: preface
+
+# Elements to skip in Wiley EPUBs
+skip_elements:
+  - chapterNumber
+  - figNumber
+  - tableNumber
+  - equationNumber
+  - fnNumber
+  - enNumber
+  - refNumber
+  - pageNumber
+  - runningHead
+  - runningFoot
+  - eula
+  - eulaTitle
+  - eulaText
+
+# ============================================================================
+# POST-PROCESSING RULES (Wiley-specific)
+# ============================================================================
+# These rules are applied during the post-processing phase after XML generation.
+
+post_processing:
+  # Chapters to remove entirely from the package
+  # These are identified by matching patterns in the chapter title
+  remove_chapters:
+    # EULA/License Agreement chapters
+    - pattern: "Wiley End User License Agreement"
+      match_type: contains
+      case_sensitive: false
+      reason: "Wiley EULA is not part of book content"
+
+    - pattern: "End User License Agreement"
+      match_type: contains
+      case_sensitive: false
+      reason: "EULA is not part of book content"
+
+    - pattern: "EULA"
+      match_type: exact
+      case_sensitive: false
+      reason: "EULA chapter should be removed"
+
+    - pattern: "End-User License Agreement"
+      match_type: contains
+      case_sensitive: false
+      reason: "EULA is not part of book content"
+
+    - pattern: "License Agreement"
+      match_type: contains
+      case_sensitive: false
+      reason: "License agreement is not part of book content"
+
+    # Index chapters (index is typically not useful in digital format)
+    - pattern: "^Index$"
+      match_type: regex
+      case_sensitive: false
+      reason: "Index chapter removed - not useful in digital format"
+
+    - pattern: "^Subject Index$"
+      match_type: regex
+      case_sensitive: false
+      reason: "Subject index removed"
+
+    - pattern: "^Author Index$"
+      match_type: regex
+      case_sensitive: false
+      reason: "Author index removed"
+
+    - pattern: "^Name Index$"
+      match_type: regex
+      case_sensitive: false
+      reason: "Name index removed"
+
+  # Elements to remove by XPath
+  remove_elements:
+    # Remove any remaining EULA-related elements
+    - xpath: "//*[contains(@role, 'eula')]"
+      reason: "EULA elements removed"
+
+    # Remove index-related elements if they weren't caught as chapters
+    - xpath: "//index"
+      reason: "Index element removed per Wiley rules"
+
+  # Content transformations (none by default for Wiley)
+  transform_content: []

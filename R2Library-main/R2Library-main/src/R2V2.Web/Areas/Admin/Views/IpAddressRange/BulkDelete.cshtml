@@ -1,0 +1,63 @@
+﻿@model R2V2.Web.Areas.Admin.Models.IpAddressRange.BulkRemoveIpRanges
+
+@{
+    ViewBag.Title = "Bulk Delete IP Ranges";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+<div class="content collection-manage">
+    <div class="modal-header">
+        <h1>Bulk Delete IP Ranges</h1>
+        @*<a class="close" data-dismiss="modal" href="#">Close</a>*@
+        <a class="close" data-dismiss="navigation" href="@Url.Action("List", new {Model.InstitutionId})">Close</a>
+    </div>
+    <div class="modal-body">
+        @if (!string.IsNullOrWhiteSpace(Model.IpRangeIdsToDelete))
+        {
+            <div id="bulk-add-area">
+                <h3>Are you sure you want to delete the following IP Ranges?</h3>
+                <ul>
+                    @foreach (var address in Model.FormattedIpAddress)
+                    {
+                        <li>@address</li>
+                    }
+                </ul>
+            </div>
+            using (Html.BeginForm("BulkDelete", "IpAddressRange"))
+             {
+                 @Html.HiddenFor(x => x.InstitutionId)
+                 @Html.HiddenFor(x => x.IpRangeIdsToDelete)
+
+                 <div class="actions">
+                     <a class="cancel" data-dismiss="navigation" href="@Url.Action("List", new {Model.InstitutionId})">Cancel</a>
+                     <button class="btn-medium" type="submit" data-dismiss="navigate"><span>Delete Ip Ranges</span></button>
+                 </div>
+             }
+        }
+        else
+        {
+            <div id="bulk-add-area">
+                <h3>The following IP Ranges have been deleted:</h3>
+                <ul>
+                    @foreach (var address in Model.FormattedIpAddress)
+                    {
+                        <li>@address</li>
+                    }
+                </ul>
+            </div>
+            <div class="actions">
+                <a class="close" data-dismiss="navigation" href="@Url.Action("List", new {Model.InstitutionId})">Close</a>
+            </div>
+        }
+    </div>
+    
+
+
+</div>
+@section JsDocumentReady
+{
+    new R2V2.Admin.IFrameModal({
+    $dismiss: $('a[data-dismiss="navigation"]'),
+    parent: window.parent
+    });
+}

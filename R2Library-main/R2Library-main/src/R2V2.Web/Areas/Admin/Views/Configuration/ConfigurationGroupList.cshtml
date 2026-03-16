@@ -1,0 +1,30 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Configuration.ConfiguarationGroupListModel
+@{
+    ViewBag.Title = "Configuration List";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Configuration.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="fullcol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Configuration Group Settings List</h1>
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><a href="@Url.Action("AddConfigurationSetting", new {Model.BackUrl})" class="btn btn-medium"><span>Add New Setting</span></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div>
+            @foreach (var item in Model.ConfiguarationGroupList)
+            {
+                <div>
+                    <a href="@Url.Action("ConfigurationGroupSettings", new {configurationName = @item.ConfigurationName})"><span>@item.ConfigurationName&nbsp;(@item.NumberOfSettings)</span></a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

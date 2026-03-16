@@ -1,0 +1,74 @@
+﻿@model R2V2.Web.Areas.Admin.Models.ReserveShelfManagement.ReserveShelfListManagement
+@{
+    ViewBag.Title = "Reserve Shelf Management";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    
+    <div id="content" class="content" role="main">
+        <h1>Reserve Shelf Management</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+        
+        @using (Html.BeginForm())
+        {
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions">
+                    <ul class="actions">
+                        <li><button class="btn-medium" type="submit"><span>Save</span></button></li>
+                        <li><a data-history="back" class="btn btn-medium"><span>Cancel</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tablecontent">
+                @Html.HiddenFor(model => model.EditReserveShelf.Id)
+                
+                <table class="edit">
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.EditReserveShelf.Name)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(x => x.EditReserveShelf.Name, new { @class = "input-full" })
+                            @Html.ValidationMessageFor(model => model.EditReserveShelf.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.EditReserveShelf.Description)</td>
+                        <td class="field">
+                            @Html.TextAreaFor(x => x.EditReserveShelf.Description, new { @class = "input-full" })
+                            @Html.ValidationMessageFor(model => model.EditReserveShelf.Description)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => x.EditReserveShelf.SortbySelectList)</td>
+                        <td class="field">
+                            @Html.DropDownListFor(x => x.EditReserveShelf.SelectedSortBy, Model.EditReserveShelf.SortbySelectList)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => x.EditReserveShelf.IsAscending)</td>
+                        <td class="field">
+                            <ul>
+                                <li>@Html.RadioButtonFor(x => x.EditReserveShelf.IsAscending, true) Ascending</li>
+                                <li>@Html.RadioButtonFor(x => x.EditReserveShelf.IsAscending, false) Descending</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

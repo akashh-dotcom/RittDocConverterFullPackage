@@ -1,0 +1,26 @@
+﻿@model R2V2.Web.Areas.Admin.Models.User.InstitutionUsers
+@{
+    ViewBag.Title = "Institution Users";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu, new ViewDataDictionary
+        {{"dropDown", "All|Name|Email"}})
+
+<div class="@(!Model.UserQuery.LoadAllUsers ? "clearfix twocol-with-subnav" : "fullcol") contentcontainer">
+    @Html.Partial("_List", Model)
+
+    @if (!Model.UserQuery.LoadAllUsers)
+    {
+        @Html.Partial("_LeftNav", Model)
+    }
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

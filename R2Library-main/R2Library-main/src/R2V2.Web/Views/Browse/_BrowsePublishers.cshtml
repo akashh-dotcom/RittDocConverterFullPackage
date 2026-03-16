@@ -1,0 +1,8 @@
+﻿@model R2V2.Web.Models.PublisherSummaries
+           
+@if (Model != null && Model.Publishers != null && Model.Publishers.Any())
+{
+    <h1>Browse by Publisher</h1>
+
+    @Html.Partial("_Publishers", Model)
+}

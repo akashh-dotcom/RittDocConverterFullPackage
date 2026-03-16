@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sect1 id="ch0014s0003" role="bibliography">
+         <title>Bibliography</title>
+         <para/>
+         <bibliography id="ch0014s0003bib0001">
+            <bibliomixed id="ch0014s0003bib01">CIA (2024) The World factbook: Germany. <bibliomisc>
+                  <ulink url="https://www.cia.gov/the-world-factbook/countries/germany/">
+                     <emphasis role="RefSource">https://www.cia.gov/the-world-factbook/countries/germany/</emphasis>
+                  </ulink>
+               </bibliomisc>
+            </bibliomixed>
+            <bibliomixed id="ch0014s0003bib02">FKulig JC, Fan H (2013) Understanding death and dying among the low-German-speaking Mennonites. <bibliomisc>
+                  <ulink url="https://www.researchgate.net/publication/271954003_Understanding_Death_and_Dying_Among_the_Low-German-Speaking_Mennonites">
+                     <emphasis role="RefSource">https://www.researchgate.net/publication/271954003_Understanding_Death_and_Dying_Among_the_Low-German-Speaking_Mennonites</emphasis>
+                  </ulink>
+               </bibliomisc>
+            </bibliomixed>
+            <bibliomixed id="ch0014s0003bib03">Jain A, Al Khalili Y (2023) Congenital myotonic dystrophy. In: Stat Pearls [internet]. Stat Pearls Publishing, Treasure Island, FL</bibliomixed>
+            <bibliomixed id="ch0014s0003bib04">Lehmann-Willenbrock N, Allen JA, Meinecke AL (2013) Observing culture: differences in U. S.-American and German team meeting behaviors. Psychology faculty. <bibliomisc>
+                  <ulink url="http://digitalcommons.unomaha.edu/cgi/viewcontent.cgi?article=1102&amp;context=psychfacpub">
+                     <emphasis role="RefSource">http://digitalcommons.unomaha.edu/cgi/viewcontent.cgi? article=1102&amp;context=psychfacpub</emphasis>
+                  </ulink>
+               </bibliomisc>
+            </bibliomixed>
+            <bibliomixed id="ch0014s0003bib05">Steckler J (2013) People of German heritage. In: Purnell L (ed) Transcultural health care: a culturally competent approach, 4th edn. F. A. Davis Company, Philadelphia</bibliomixed>
+         </bibliography>
+      </sect1>
+   

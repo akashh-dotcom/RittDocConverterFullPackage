@@ -1,0 +1,43 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.ReportModel
+@if (Model.NavLinkSections != null && Model.NavLinkSections.Any())
+{
+    <tr>
+        <td class="label">@Html.LabelFor(model => model.FilterByIpRanges)</td>
+        <td class="field">
+            @Html.CheckBoxFor(x => x.ReportQuery.FilterByIpRanges)								
+			<div id="filter-ip-ranges" class="collapse">
+                <p><strong>IP Address Range</strong></p>
+                <div class="filter-ip-range">
+                    @Html.TextBoxFor(x => x.ReportQuery.EditableIpAddressRange.OctetA, new { maxlength = 3, onkeyup = "R2V2.Admin.Utilities.Transfer('#ip-octect-a', this.value)", @class = "input-xxsmall", data_val = false }).
+                    @Html.TextBoxFor(x => x.ReportQuery.EditableIpAddressRange.OctetB, new { maxlength = 3, onkeyup = "R2V2.Admin.Utilities.Transfer('#ip-octect-b', this.value)", @class = "input-xxsmall", data_val = false }).
+                    @Html.TextBoxFor(x => x.ReportQuery.EditableIpAddressRange.OctetCStart, new { maxlength = 3, @class = "input-xxsmall", data_val = false }).
+                    @Html.TextBoxFor(x => x.ReportQuery.EditableIpAddressRange.OctetDStart, new { maxlength = 3, @class = "input-xxsmall", data_val = false }) to 
+                    @Html.TextBoxFor(x => x.ReportQuery.EditableIpAddressRange.OctetA, new { maxlength = 3, disabled = "disabled", id = "ip-octect-a", @class = "input-xxsmall", data_val = false }).
+                    @Html.TextBoxFor(x => x.ReportQuery.EditableIpAddressRange.OctetB, new { maxlength = 3, disabled = "disabled", id = "ip-octect-b", @class = "input-xxsmall", data_val = false }).
+                    @Html.TextBoxFor(x => x.ReportQuery.EditableIpAddressRange.OctetCEnd, new { maxlength = 3, @class = "input-xxsmall", data_val = false }).
+                    @Html.TextBoxFor(x => x.ReportQuery.EditableIpAddressRange.OctetDEnd, new { maxlength = 3, @class = "input-xxsmall", data_val = false })
+                </div>
+                                
+                @if (Model.IpAddressRanges != null && Model.IpAddressRanges.Any())
+				{
+                    <p><strong>Filter By</strong> <label for="select-all" class="checkbox"><input type="checkbox" id="select-all" data-toggle="selections" data-target=".filter-ip-addresses" /> Select All</label></p>
+                    <div class="filter-ip-addresses">
+                        <ul>
+                            @foreach (var ip in Model.IpAddressRanges)
+							{
+								if (ip.Selected)
+								{
+									<li><label for="ip-@ip.Id" class="checkbox"><input type="checkbox" id="ip-@ip.Id" name="ReportQuery.SelectedIpAddressRangeIds" value="@ip.Id" checked="checked" /> @ip.GetIpAddressStart() to @ip.GetIpAddressEnd()</label></li>
+								}
+								else
+								{
+									<li><label for="ip-@ip.Id" class="checkbox"><input type="checkbox" id="ip-@ip.Id" name="ReportQuery.SelectedIpAddressRangeIds" value="@ip.Id"  /> @ip.GetIpAddressStart() to @ip.GetIpAddressEnd()</label></li>
+								}
+							}
+                        </ul>
+                    </div>
+				}
+            </div>
+        </td>
+    </tr>
+}

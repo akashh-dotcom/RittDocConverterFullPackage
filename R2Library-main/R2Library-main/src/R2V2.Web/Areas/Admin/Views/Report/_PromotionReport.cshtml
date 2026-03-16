@@ -1,0 +1,69 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.PromotionReportDetail
+<div id="content" class="content" role="main">
+    <h1>Promotions Report</h1>
+    
+    	@if (Model.ActionsMenu != null)
+	    {
+	        using (Html.BeginForm("PromotionReport", "Report", null, FormMethod.Post))
+	        {
+	            <div id="report-filters" class="tablecontent">
+	                <table class="edit">
+	                    <tr>
+	                        <td class="label">@Html.LabelFor(model => model.PromotionList)</td>
+	                        <td class="field">
+	                            @Html.DropDownListFor(model => model.SelectPromotionId, Model.PromotionList)
+	                            @Html.ValidationMessageFor(model => model.PromotionList)
+	                        </td>
+	                    </tr>
+
+	                    <tr>
+	                        <td></td>
+	                        <td class="actions">
+	                            <button class="btn-medium" type="submit"><span>Run Report</span></button>
+	                        </td>
+	                    </tr>
+	                </table>
+	            </div>
+	        }
+	    }
+    @if (Model.DiscountResources != null)
+    {
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions">
+                <p class="header"> @Model.PromotionName for 
+                    @Html.DisplayFor(model => model.StartDate)
+                    <span> to </span>
+                    @Html.DisplayFor(model => model.EndDate)
+                                                    
+                    <span> (Total Sale : @Html.DisplayFor(model => model.TotalSale))</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="tablecontent">
+            <table class="detail">
+                @if (Model.DiscountResources != null && Model.DiscountResources.Any())
+                {
+                    <thead>
+                        <tr>
+                            <th>Account</th>
+                            <th style="width:500px;">Detail</th>
+                            <th style="width:75px; text-align: right">License</th>
+                            <th style="width:50px; text-align: right">Total</th>
+                        </tr>
+                    </thead>
+                    @Html.Partial("_DiscountReources", Model)
+                }
+            </table>
+        </div>
+    }
+    else
+    {
+        if (Model.SelectPromotionId != 0)
+         {
+             <span>No Sales</span>
+         }
+       
+    }
+</div>
+

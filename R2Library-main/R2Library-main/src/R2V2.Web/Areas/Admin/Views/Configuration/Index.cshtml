@@ -1,0 +1,24 @@
+﻿@model R2V2.Web.Areas.Admin.Models.BackEnd.AdminIndexModel
+
+@{
+    ViewBag.Title = "Administrator Controller";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Configuration.cshtml";
+}
+@Html.Partial("_Tabs")
+
+
+<div class="fullcol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Back End Configuration Area</h1>
+        <div>
+            Access to this is AREA is limited to the following:
+            <ul>
+                @foreach (var item in Model.AuthorizedUsers)
+                {
+                    <li>@item</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

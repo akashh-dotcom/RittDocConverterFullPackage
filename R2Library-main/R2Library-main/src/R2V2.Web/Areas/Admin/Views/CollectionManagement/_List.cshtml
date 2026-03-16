@@ -1,0 +1,122 @@
+﻿@using R2V2.Core.Institution
+@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.CollectionManagement.InstitutionResources
+           
+@if (Model.InstitutionResourcesList != null && Model.InstitutionResourcesList.Any())
+{
+    <div class="tablecontent">
+        <table class="list" id="ebooks">
+            <thead>
+                <tr>
+                    <th>
+                        @if (Model.ActionsMenu != null)
+                        {
+                            <input type="checkbox" name="item-select-all" id="item-select-all" class="item-select" />
+                        }
+                        else
+                        {
+                            <span>&nbsp;</span>
+                        }
+                    </th>
+                    <th>&nbsp;</th>
+                    <th>Details</th>
+                    <th class="collection-management-price">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.InstitutionResourcesList)
+                {
+                    <tr>
+                        <td>
+                            @if (Model.ActionsMenu != null)
+                            {
+                                <input type="checkbox" class="item-select" name="@item.Id" id="@item.Id" />
+                            }
+                            else
+                            {
+                                <span>&nbsp;</span>
+                            }
+	                        
+                        </td>
+                        <td class="resource-status">
+                            <a name="book-@item.Id"></a>
+                            @ResourceHelpers.ResourceStatus(item.Status)
+                            @*<strong class="@item.Status.ToLower().Replace(" ", "-")">@item.Status</strong>*@
+                            @ResourceHelpers.ShowListedStatus(item, Model.SpecialIconBaseUrl)
+                            @if (item.NotSaleable && item.NotSaleableDate.HasValue)
+                            {
+                                <br/>
+                                <strong>@Html.LabelFor(x => item.NotSaleable)@Html.DisplayFor(x => item.NotSaleableDate)</strong>
+                            }
+                        </td>
+                        <td>@Html.Partial("_ResourceListItem", item, new ViewDataDictionary {{"EmailVersion", Model.ActionsMenu == null ? "true" : "false"}, {"DoodyReviewUrl", Model.DoodyReviewUrl}})</td>
+                        <td class="collection-management-price" style="width: 225px;">
+                            @PurchaseHelper.GetPriceDisplay(item)
+	                        @if (item.BundlePrice3 != null)
+	                        {
+	                            <div class="bundle-wrapper" style="font-size: 12px">
+                                    <img alt="3 User License" title="3 User License" src="@Html.Raw(Model.SpecialIconBaseUrl)/sale-icon.png"><b>3 User Licenses: @Html.DisplayFor(model => item.BundlePrice3)</b>
+                                </div>
+	                        }
+                            @if (Model.ActionsMenu != null)
+                            {
+                                if (item.IsForSale)
+                                {
+                                    if (Model.IsExpertReviewer)
+                                    {
+                                        if (item.LicenseCount == 0 || item.LicenseType == LicenseType.Pda)
+	                                    {
+	                                        if (item.Recommendeds.Count == 0)
+	                                        {
+	                                            <a class="btn btn-medium btn-recommend" href="@Url.Action("Recommend", "Recommendations", Model.CollectionManagementQuery.ToRouteValues(item.Id))" data-implement="modal"><span>Recommend for Purchase</span></a>
+	                                        }
+	                                        else if (item.CanRecommendBeAltered(Model.IsExpertReviewer) && item.CurrentUserReviewId > 0)
+	                                        {
+	                                            <a class="btn btn-medium btn-recommend" href="@Url.Action("Recommend", "Recommendations", Model.CollectionManagementQuery.ToRouteValues(item.Id, item.CurrentUserReviewId))" data-implement="modal"><span>Edit Purchase Recommendation</span></a>
+	                                        }
+	                                    }
+	                                }
+	                                else
+	                                {
+	                                    if (item.CartLicenseCount > 0)
+	                                    {
+	                                        <a class="btn btn-medium btn-add" href="@Url.Action("Add", "Cart", new { Model.CollectionManagementQuery.InstitutionId, resourceId = item.Id, Model.ActionsMenu.CartId, parentPageTitle = Model.PageTitle, NumberOfLicenses = 1 })" data-implement="modal"><span>Edit Cart Quantity</span></a>
+	                                    }
+	                                    else if (!item.FreeLicenseInCart)
+	                                    {
+	                                        <a class="btn btn-medium btn-add" href="@Url.Action("Add", "Cart", new { Model.CollectionManagementQuery.InstitutionId, resourceId = item.Id, Model.ActionsMenu.CartId, parentPageTitle = Model.PageTitle, NumberOfLicenses = 1 })" data-implement="modal"><span>Add To Cart</span></a>
+	                                    }
+
+                                        if (Model.IsPdaEnabled)
+                                        {
+                                            if (item.IsPdaEligible && !item.IsActivePdaResource)
+                                            {
+                                                <a class="btn btn-medium btn-addPda" href="@Url.Action("PdaAdd", "Pda", Model.CollectionManagementQuery.ToRouteValues(item.Id))" data-implement="modal"><span>Add to My PDA Collection</span></a>
+                                            }
+                                            else if (item.IsActivePdaResource)
+                                            {
+                                                <a class="btn btn-medium btn-deletePda" href="@Url.Action("PdaRemove", "Pda", Model.CollectionManagementQuery.ToRouteValues(item.Id))" data-implement="modal"><span>Delete from PDA Collection</span></a>
+                                            }
+                                        }
+                                    }
+                                }
+                                if (item.CanRecommendBeAltered(Model.IsExpertReviewer) && !Model.IsExpertReviewer)
+                                {
+                                    <a class="btn btn-medium btn-recommend" href="@Url.Action("DeleteRecommend", "Recommendations", Model.CollectionManagementQuery.ToRouteValues(item.Id))" data-implement="modal"><span>Delete Recommendation</span></a>
+                                }
+                            }
+                            @if (Model.IsRittenhouseAdmin && item.LicenseCount > 0 && !item.IsFreeResource)
+                            {
+                                <a class="btn btn-medium btn-edit" href="@Url.Action("Edit", "CollectionManagement", new {Model.CollectionManagementQuery.InstitutionId, resourceId = item.Id, Model.ActionsMenu.CartId})" data-implement="modal"><span>Edit License Count</span></a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p><strong>@Model.NoTitlesAvailableMessage</strong></p>
+}

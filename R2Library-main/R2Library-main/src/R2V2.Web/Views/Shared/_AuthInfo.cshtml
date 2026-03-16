@@ -1,0 +1,10 @@
+﻿@model R2V2.Web.Models.AuthenticationInfo
+
+@if (Model.UserId > 0 && Model.IsNotGuest)
+{
+    <p>Welcome back, <a href="@Url.Action("Index", "Profile", new { Area = "" })" title="My User Profile">@Model.DisplayName</a>! <a href="@Url.Action("LogOut", "Authentication", new { Area = "" })" class="logout">Log Out</a></p>
+}
+else
+{
+    <p>Welcome back, @Model.DisplayName! <a href="@Url.Action("LogOut", "Authentication", new { Area = "" })" class="logout">Log Out</a></p>
+}

@@ -1,0 +1,46 @@
+﻿@model R2V2.Web.Areas.Admin.Models.PdaPromotion.PdaPromotionModel
+
+<div class="tablecontent">
+    @Html.HiddenFor(x => x.PdaPromotionId)
+    
+    <table class="edit">
+        <tbody>
+            <tr>
+                <td class="label">@Html.LabelFor(x => Model.Name)</td>
+                <td class="field">
+                    @Html.TextBoxFor(x => Model.Name)
+                    @Html.ValidationMessageFor(x => Model.Name)
+                </td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(x => Model.Description)</td>
+                <td class="field">
+                    @Html.TextBoxFor(x => Model.Description, new { @class = "input-large" })
+                    @Html.ValidationMessageFor(x => Model.Description)
+                </td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(x => Model.Discount)</td>
+                <td class="field">
+                    @Html.TextBoxFor(x => Model.Discount)
+                    @Html.ValidationMessageFor(x => Model.Discount)
+                </td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(x => Model.StartDate)</td>
+                <td class="field">
+                    @Html.TextBoxFor(x => Model.StartDate, new { Value = Model.StartDate.ToString("MM/dd/yyyy") })
+                    @Html.ValidationMessageFor(x => Model.StartDate)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label">@Html.LabelFor(x => Model.EndDate)</td>
+                <td class="field">
+                    @Html.TextBoxFor(x => Model.EndDate, new { Value = Model.EndDate.ToString("MM/dd/yyyy") })
+                    @Html.ValidationMessageFor(x => Model.EndDate)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

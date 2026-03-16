@@ -1,0 +1,627 @@
+# Default Publisher Configuration
+# ================================
+# This configuration provides common CSS class and epub:type mappings
+# that work across most EPUB publishers. Publisher-specific configs
+# can override these defaults.
+#
+# To create a publisher-specific config:
+# 1. Copy this file to {publisher_name}.yaml
+# 2. Modify the patterns as needed
+# 3. The loader will merge publisher config with defaults
+
+publisher_name: "Default"
+publisher_patterns: []  # Matches all publishers not explicitly configured
+
+# ============================================================================
+# CSS CLASS TO DOCBOOK ELEMENT MAPPINGS
+# ============================================================================
+# Maps CSS class names to DocBook elements and optional roles.
+# Case-insensitive matching. Patterns support wildcards (* and ?).
+
+css_class_mappings:
+  # --- STRUCTURAL ELEMENTS ---
+  # Chapters and sections
+  chapter:
+    element: chapter
+  section:
+    element: sect1
+  subsection:
+    element: sect2
+  subsubsection:
+    element: sect3
+
+  # Parts and divisions
+  part:
+    element: part
+  division:
+    element: part
+  unit:
+    element: part
+
+  # --- TITLE PATTERNS ---
+  # Various title class patterns
+  chaptertitle:
+    element: title
+    role: chapter-title
+  chapter-title:
+    element: title
+    role: chapter-title
+  chaptitle:
+    element: title
+    role: chapter-title
+  sectiontitle:
+    element: title
+    role: section-title
+  section-title:
+    element: title
+    role: section-title
+  sectitle:
+    element: title
+    role: section-title
+  booktitle:
+    element: title
+    role: book-title
+  subtitle:
+    element: subtitle
+  heading:
+    element: bridgehead
+
+  # --- PARAGRAPH PATTERNS ---
+  para:
+    element: para
+  paragraph:
+    element: para
+  bodytext:
+    element: para
+  body-text:
+    element: para
+  text:
+    element: para
+  content:
+    element: para
+  normal:
+    element: para
+
+  # --- LIST PATTERNS ---
+  list:
+    element: itemizedlist
+  bulletlist:
+    element: itemizedlist
+  bullet-list:
+    element: itemizedlist
+  unordered-list:
+    element: itemizedlist
+  numberedlist:
+    element: orderedlist
+  numbered-list:
+    element: orderedlist
+  ordered-list:
+    element: orderedlist
+  definitionlist:
+    element: variablelist
+  definition-list:
+    element: variablelist
+  glosslist:
+    element: glosslist
+
+  # --- FIGURE PATTERNS ---
+  figure:
+    element: figure
+  fig:
+    element: figure
+  image:
+    element: figure
+  illustration:
+    element: figure
+  photo:
+    element: figure
+  photograph:
+    element: figure
+  figurecaption:
+    element: title
+    context: figure
+  figcaption:
+    element: title
+    context: figure
+  caption:
+    element: title
+    context: figure
+  figuretitle:
+    element: title
+    context: figure
+  figurelabel:
+    element: title
+    context: figure
+  figlabel:
+    element: title
+    context: figure
+
+  # --- TABLE PATTERNS ---
+  table:
+    element: table
+  tablecaption:
+    element: title
+    context: table
+  table-caption:
+    element: title
+    context: table
+  tabletitle:
+    element: title
+    context: table
+  table-title:
+    element: title
+    context: table
+  tablelabel:
+    element: title
+    context: table
+
+  # --- FOOTNOTE PATTERNS ---
+  footnote:
+    element: footnote
+  fn:
+    element: footnote
+  endnote:
+    element: footnote
+    role: endnote
+  note:
+    element: note
+
+  # --- BIBLIOGRAPHY PATTERNS ---
+  bibliography:
+    element: bibliography
+  references:
+    element: bibliography
+  works-cited:
+    element: bibliography
+  workscited:
+    element: bibliography
+  reference-list:
+    element: bibliography
+  referencelist:
+    element: bibliography
+  citation:
+    element: bibliomixed
+  biblioentry:
+    element: bibliomixed
+  bibliographyentry:
+    element: bibliomixed
+  bibliography-entry:
+    element: bibliomixed
+  reference:
+    element: bibliomixed
+  citationcontent:
+    element: bibliomixed
+    role: citation-content
+  citationnumber:
+    skip: true  # Auto-numbered by renderer
+
+  # --- INDEX PATTERNS ---
+  index:
+    element: index
+  indexterm:
+    element: indexterm
+  indexentry:
+    element: indexentry
+  indexdiv:
+    element: indexdiv
+
+  # --- GLOSSARY PATTERNS ---
+  glossary:
+    element: glossary
+  glossterm:
+    element: glossterm
+  glossdef:
+    element: glossdef
+  glossentry:
+    element: glossentry
+  glossdiv:
+    element: glossdiv
+  definition:
+    element: glossdef
+
+  # --- SIDEBAR/BOX PATTERNS ---
+  sidebar:
+    element: sidebar
+  box:
+    element: sidebar
+  infobox:
+    element: sidebar
+  textbox:
+    element: sidebar
+  callout:
+    element: sidebar
+    role: callout
+  casestudy:
+    element: sidebar
+    role: case-study
+  case-study:
+    element: sidebar
+    role: case-study
+  example:
+    element: example
+  tip:
+    element: tip
+  warning:
+    element: warning
+  caution:
+    element: caution
+  important:
+    element: important
+
+  # --- EMPHASIS/INLINE PATTERNS ---
+  emphasis:
+    element: emphasis
+  bold:
+    element: emphasis
+    role: bold
+  strong:
+    element: emphasis
+    role: strong
+  italic:
+    element: emphasis
+    role: italic
+  italics:
+    element: emphasis
+    role: italic
+  underline:
+    element: emphasis
+    role: underline
+  strikethrough:
+    element: emphasis
+    role: strikethrough
+  smallcaps:
+    element: emphasis
+    role: smallcaps
+  small-caps:
+    element: emphasis
+    role: smallcaps
+  superscript:
+    element: superscript
+  subscript:
+    element: subscript
+  code:
+    element: literal
+  monospace:
+    element: literal
+  programlisting:
+    element: programlisting
+
+  # --- QUOTE PATTERNS ---
+  blockquote:
+    element: blockquote
+  quote:
+    element: blockquote
+  pullquote:
+    element: blockquote
+    role: pull-quote
+  pull-quote:
+    element: blockquote
+    role: pull-quote
+  epigraph:
+    element: epigraph
+  extract:
+    element: blockquote
+    role: extract
+
+  # --- FRONT/BACK MATTER ---
+  frontmatter:
+    element: preface
+    role: frontmatter
+  front-matter:
+    element: preface
+    role: frontmatter
+  backmatter:
+    element: appendix
+    role: backmatter
+  back-matter:
+    element: appendix
+    role: backmatter
+  preface:
+    element: preface
+  foreword:
+    element: preface
+    role: foreword
+  introduction:
+    element: preface
+    role: introduction
+  acknowledgments:
+    element: preface
+    role: acknowledgments
+  acknowledgements:
+    element: preface
+    role: acknowledgments
+  dedication:
+    element: dedication
+  colophon:
+    element: colophon
+  copyright:
+    element: legalnotice
+  copyright-page:
+    element: legalnotice
+  titlepage:
+    element: titlepage
+  halftitle:
+    element: titlepage
+    role: halftitle
+  appendix:
+    element: appendix
+  afterword:
+    element: appendix
+    role: afterword
+
+  # --- EQUATION PATTERNS ---
+  equation:
+    element: equation
+  inlineequation:
+    element: inlineequation
+  inline-equation:
+    element: inlineequation
+  formula:
+    element: equation
+  math:
+    element: equation
+
+  # --- MEDIA PATTERNS ---
+  video:
+    element: mediaobject
+    role: video
+  audio:
+    element: mediaobject
+    role: audio
+  media:
+    element: mediaobject
+
+  # --- AUTHOR/ATTRIBUTION ---
+  author:
+    element: author
+  byline:
+    element: author
+  attribution:
+    element: attribution
+  contributor:
+    element: author
+    role: contributor
+
+  # --- MISC PATTERNS ---
+  abstract:
+    element: abstract
+  summary:
+    element: abstract
+    role: summary
+  keywords:
+    element: keywordset
+  keyword:
+    element: keyword
+  toc:
+    element: toc
+  tableofcontents:
+    element: toc
+  lof:
+    element: lot
+    role: figures
+  lot:
+    element: lot
+    role: tables
+  pagebreak:
+    skip: true  # Not needed in XML
+  linebreak:
+    element: sbr
+
+# ============================================================================
+# EPUB:TYPE TO DOCBOOK ELEMENT MAPPINGS
+# ============================================================================
+# Maps epub:type attribute values to DocBook elements.
+# See https://www.w3.org/TR/epub-ssv-11/ for standard values.
+
+epub_type_mappings:
+  # Document divisions
+  bodymatter: chapter
+  frontmatter: preface
+  backmatter: appendix
+  part: part
+  chapter: chapter
+  division: part
+  volume: part
+  subchapter: sect1
+
+  # Sections
+  abstract: abstract
+  foreword: preface
+  preface: preface
+  prologue: preface
+  introduction: preface
+  preamble: preface
+  epigraph: epigraph
+  dedication: dedication
+  acknowledgments: preface
+  afterword: appendix
+  epilogue: appendix
+  conclusion: appendix
+  colophon: colophon
+  appendix: appendix
+
+  # Titles
+  title: title
+  subtitle: subtitle
+  halftitle: titlepage
+  fulltitle: title
+  covertitle: title
+
+  # Navigation
+  toc: toc
+  landmarks: toc
+  lot: lot
+  loi: lot
+  loa: lot
+  lov: lot
+
+  # Reference sections
+  bibliography: bibliography
+  doc-bibliography: bibliography
+  glossary: glossary
+  doc-glossary: glossary
+  index: index
+  doc-index: index
+
+  # Notes
+  footnote: footnote
+  doc-footnote: footnote
+  endnote: footnote
+  doc-endnote: footnote
+  footnotes: bibliodiv
+  endnotes: bibliodiv
+  rearnote: footnote
+  rearnotes: bibliodiv
+
+  # Bibliographic entries
+  biblioentry: bibliomixed
+  doc-biblioentry: bibliomixed
+  biblioref: xref
+
+  # Content elements
+  sidebar: sidebar
+  doc-sidebar: sidebar
+  tip: tip
+  warning: warning
+  caution: caution
+  important: important
+  note: note
+  doc-notice: note
+  example: example
+
+  # Media
+  figure: figure
+  table: table
+  img: mediaobject
+
+  # Navigation within documents
+  pagebreak: anchor
+  doc-pagebreak: anchor
+  page-list: toc
+  pagelist: toc
+
+  # Quotes
+  blockquote: blockquote
+  epigraph: epigraph
+  pullquote: blockquote
+
+  # Index terms
+  indexterm: indexterm
+  doc-indexterm: indexterm
+
+  # Credits
+  contributors: authorgroup
+  credits: authorgroup
+  imprint: legalnotice
+  copyright-page: legalnotice
+
+  # Learning content
+  qna: qandaset
+  question: question
+  answer: answer
+  learning-assessment: qandaset
+  learning-objective: itemizedlist
+  learning-objectives: itemizedlist
+  learning-outcome: itemizedlist
+  learning-outcomes: itemizedlist
+  learning-resource: itemizedlist
+  learning-resources: itemizedlist
+  learning-standard: para
+  learning-standards: itemizedlist
+
+# ============================================================================
+# ID PREFIX PATTERNS
+# ============================================================================
+# Patterns for generating element IDs based on element type.
+
+id_patterns:
+  figure: "fg"
+  table: "ta"
+  footnote: "fn"
+  bibliography: "bib"
+  equation: "eq"
+  example: "ex"
+  sidebar: "sb"
+  note: "nt"
+  section: "s"
+  chapter: "ch"
+  para: "p"
+  anchor: "a"
+
+# ============================================================================
+# CONTENT NORMALIZATION RULES
+# ============================================================================
+# Rules for normalizing content during conversion.
+
+normalization:
+  # Collapse multiple whitespace to single space
+  collapse_whitespace: true
+
+  # Remove soft hyphens (U+00AD)
+  remove_soft_hyphens: true
+
+  # Normalize quotes to standard ASCII
+  normalize_quotes: true
+
+  # Remove zero-width characters
+  remove_zero_width: true
+
+  # Strip leading/trailing whitespace from elements
+  strip_element_whitespace: true
+
+# ============================================================================
+# ELEMENT SKIP LIST
+# ============================================================================
+# Elements/classes to skip during conversion (not converted to DocBook).
+
+skip_elements:
+  - pagebreak
+  - page-break
+  - citationnumber
+  - citation-number
+  - linenumber
+  - line-number
+  - runnninghead
+  - running-head
+  - runningfoot
+  - running-foot
+  - header
+  - footer
+  - nav
+  - navigation
+  - breadcrumb
+  - breadcrumbs
+  - toolbar
+  - pagination
+
+# ============================================================================
+# POST-PROCESSING RULES
+# ============================================================================
+# Rules applied during post-processing phase after XML generation.
+# Publisher-specific configs can override these with their own rules.
+#
+# Available rule types:
+#
+# 1. remove_chapters: Remove entire chapter files matching patterns
+#    - pattern: Text to match in chapter title (case-insensitive by default)
+#    - case_sensitive: false (default) or true
+#    - match_type: "contains" (default), "exact", "startswith", "endswith", "regex"
+#
+# 2. remove_elements: Remove elements matching XPath patterns
+#    - xpath: XPath expression to match elements
+#    - reason: Description of why this is removed
+#
+# 3. transform_content: Transform content matching patterns
+#    - pattern: Regex pattern to match
+#    - replacement: Replacement string (supports \1, \2 backreferences)
+#    - elements: List of element types to apply to (empty = all)
+
+post_processing:
+  # Default: no chapters to remove
+  remove_chapters: []
+
+  # Default: no elements to remove
+  remove_elements: []
+
+  # Default: no content transforms
+  transform_content: []

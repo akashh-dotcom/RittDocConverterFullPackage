@@ -1,0 +1,26 @@
+﻿@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.Dashboard.DashboardResource
+
+<article class="dashboard-resourceItem">
+
+    <h4>@Html.DisplayFor(x => Model.InstitutionResource.Title)</h4>
+
+    <img alt="@Model.InstitutionResource.Title" src="@Model.InstitutionResource.ImageUrl" />
+
+    <ul class="resourceDetails">
+        <li>@Html.DisplayFor(x => x.FirstAuthor)</li>
+        <li>@Html.LabelFor(modelModel => Model.InstitutionResource.Isbn) @Html.DisplayFor(x => Model.InstitutionResource.Isbn)</li>
+
+        @PurchaseHelper.GetLicenseDisplay(Model)
+        
+        <li>@Html.LabelFor(modelModel => Model.InstitutionResource.PublisherName) @Html.DisplayFor(modelModel => Model.InstitutionResource.PublisherName)</li>
+        <li>@Html.LabelFor(modelModel => Model.InstitutionResource.PublicationDate) @Html.DisplayFor(modelModel => Model.InstitutionResource.PublicationDate)</li>
+        <li class="license-cart">@Html.DisplayFor(x => Model.InstitutionResource.SpecialText)</li>
+        
+        @PurchaseHelper.GetCartLicenseCountDisplay(Model.InstitutionResource)
+        @PurchaseHelper.GetDashboardPriceDisplay(Model.InstitutionResource)
+
+        <li class="detailsLink"><a href="@Url.Action("List", "CollectionManagement", Model.ToRouteValues(Model.Type, Model.InstitutionResource.Isbn))">More Details</a></li>
+    </ul>
+
+</article>

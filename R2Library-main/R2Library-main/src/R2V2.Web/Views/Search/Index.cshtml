@@ -1,0 +1,173 @@
+﻿@using R2V2.Core.Resource
+@using R2V2.Core.Search
+@model R2V2.Web.Models.Search.SearchIndex
+@{
+    ViewBag.Title = "Search Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var hasFieldFilterGroup = Model.FieldFilterGroup.Filters.Any();
+    var hasPracticeAreaFilterGroup = Model.PracticeAreaFilterGroup.Filters.Any();
+    var hasPublicationDateFilterGroup = Model.PublicationDateFilterGroup.Filters.Any();
+    var hasDisciplineFilterGroup = Model.DisciplineFilterGroup.Filters.Any();
+}
+
+<div class="actions-page-wrapper"><div class="clearfix actions-page" data-implement="fixed">
+    <ul class="clearfix actions-menu" data-toggle="menu">
+        <li>
+            <a href="#tools" class="tools" role="button" aria-expanded="false" aria-controls="tools">Tools</a>
+            <div id="tools" class="megamenu">
+                <ul class="clearfix toolbar" data-toggle="menu">
+                    <li>
+                        <a class="print" data-toggle="print" href="#">Print page</a>
+                    </li>
+                    <li>
+                        <a href="#email" class="email" role="button" aria-expanded="false" aria-controls="email">Email this page</a>
+                        <div id="email" class="panel" data-panel="email">
+                            @*@using (Html.BeginForm("Email", "Search", Model.SearchQuery.ToRouteValues()))*@
+                            @using (Html.BeginForm("Email", "Search"))
+                            {
+                                @Html.Partial("_EmailUserContentPanel", Model.EmailPage)
+                            }
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#save-query" class="save-query" role="button" aria-expanded="false" aria-controls="save-query">Save search query</a>
+                        @Html.Partial("_SaveSearchQueryUserContentPanel", Model)
+                    </li>
+                    @if(Model.DisplaySavedSearchResultLink)
+                    {
+                        <li>
+                            <a href="#save-query" class="save-query" role="button" aria-expanded="false" aria-controls="save-query">Save search results</a>
+                            @Html.Partial("_SaveSearchResultUserContentPanel", Model)
+                        </li>
+                    }
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div></div>
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Search Results</h1>        
+        
+        @if (Model.PageSizes.Any())
+        {
+            <div class="display-per-page no-inst">
+                <p class="screenreader">Choose the number of titles to display per page.</p>
+                <select id="results-per-page" name="results-per-page" data-history="bookmark">
+                    @foreach (var pageSize in @Model.PageSizes)
+                    {
+                        <option value="@pageSize">@pageSize</option>
+                    }
+                </select>
+                <label for="results-per-page">results per page</label>
+            </div>
+        }
+        
+        <div id="copy"></div>
+    </div>
+    
+    <div class="nav-sub">
+        <div class="facet-history" id="search-history"></div>
+
+        <h2>Include:</h2>
+        <ul class="clearfix checkboxes">
+            <li><input data-history="bookmark" data-bookmark-group="include" data-has-counts="true" id="active" name="active" value="@((int)Include.Active)" type="checkbox" /> <label for="active">Active <strong class="result-count"></strong></label></li>
+            <li><input data-history="bookmark" data-bookmark-group="include" data-has-counts="true" id="archive" name="archive" value="@((int)Include.Archive)" type="checkbox" /> <label for="archive">Archive <strong class="result-count"></strong></label></li>
+        </ul>
+
+		@if (Model.DisplayTocAvailable)
+		{
+			<ul class="clearfix checkboxes">
+				<li><input data-history="bookmark" id="toc-available" name="toc-available" value="true" type="checkbox" @Html.Raw(Model.TocOnlyTitlesChecked) /> <label for="toc-available">Table of Contents Available</label></li>
+			</ul>
+		}
+        
+        @if (hasFieldFilterGroup)
+        {
+	        <h2>Show results from:</h2>
+	        <ul id="field" data-history="bookmark" data-has-counts="true">
+		        @foreach (var filter in @Model.FieldFilterGroup.Filters)
+		        {
+			        <li><a href="#@filter.Key">@filter.Value.Name <strong class="result-count"></strong></a></li>
+		        }
+	        </ul>
+        }
+        
+        @if (hasPracticeAreaFilterGroup || hasPublicationDateFilterGroup || hasDisciplineFilterGroup)
+        {
+            <h2>Filter by:</h2>
+            /*if (hasFilterByFilterGroup)
+			{
+                <ul id="filter-by" data-history="bookmark" data-has-counts="true">
+                    @*<li><a href="#most-popular">Most popular <strong class="result-count"></strong></a></li>
+                    <li><a href="#recently-viewed">Recently viewed <strong class="result-count"></strong></a></li>*@
+                    @foreach (KeyValuePair<string, R2V2.Web.Models.Shared.Filter> filter in @Model.FilterByFilterGroup.Filters)
+				    {
+	                    <li><a href="#@filter.Key">@filter.Value.Name <strong class="result-count"></strong></a></li>
+				    }
+                </ul>
+			}*/
+            if (hasPracticeAreaFilterGroup || hasPublicationDateFilterGroup || hasDisciplineFilterGroup)
+            {
+                <ul>
+                    @if (hasPracticeAreaFilterGroup)
+                    {
+                        <li class="subgroup">
+                            <h3>Practice Area:</h3>
+                            <ul id="practice-area" data-history="bookmark" data-has-counts="true">
+                                @foreach (var filter in @Model.PracticeAreaFilterGroup.Filters)
+                                {
+                                    <li><a href="#@filter.Key">@filter.Value.Name <strong class="result-count"></strong></a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (hasPublicationDateFilterGroup)
+                    {
+                        <li class="subgroup">
+                            <h3>Publication Date:</h3>
+                            <ul id="year" data-history="bookmark" data-toggle="moreless" data-has-counts="true">
+                                @foreach (var filter in @Model.PublicationDateFilterGroup.Filters)
+                                {
+                                    <li><a href="#@filter.Key">@filter.Value.Name <strong class="result-count"></strong></a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (hasDisciplineFilterGroup)
+                    {
+                        <li class="subgroup">
+                            <h3>Discipline:</h3>
+                            <ul id="disciplines" data-history="bookmark" data-toggle="moreless" data-has-counts="true">
+                                @foreach (var filter in Model.DisciplineFilterGroup.Filters)
+                                {
+                                    <li><a href="#@filter.Key">@filter.Value.Name <strong class="result-count"></strong></a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            }
+        }
+        
+        <h2>Search elsewhere:</h2>
+        <ul>          
+            <li><a id="pubmed" class="external" target="_blank" data-toggle="window" href="https://www.ncbi.nlm.nih.gov/pubmed?term=@Model.Q"  data-log="@Url.Action("LogExternalSearch", new { SearchType = SearchType.PubMed })">PubMed <strong class="result-count"></strong></a></li>
+            <li><a id="mesh" class="external" target="_blank" data-toggle="window" href="https://www.ncbi.nlm.nih.gov/mesh?term=@Model.Q" data-log="@Url.Action("LogExternalSearch", new { SearchType = SearchType.Mesh })">MeSH <strong class="result-count"></strong></a></li>
+        </ul>
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Search.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Search.History({ $container: $('#search-history') });
+    new R2V2.Search.Filters();
+    new R2V2.Search.Results({ $container: $('#copy') });
+    new R2V2.Search.Disable({ $container: $('#search') });
+    new R2V2.Search({ dataUrl: '@Url.Action("JsonResults", "Search")', hasTocAccess: @(Model.DisplayTocAvailable ? "true" : "false"), include: @Model.Include });
+    new R2V2.Search.ExternalSearch({ dataUrl: '@Model.PubMedSearchUrl', $selector: $('#pubmed .result-count') });
+    new R2V2.Search.ExternalSearch({ dataUrl: '@Model.MeshSearchUrl', $selector: $('#mesh .result-count') });
+}

@@ -1,0 +1,74 @@
+﻿@using R2V2.Web
+@model R2V2.Web.Models.Resource.ResourceDetail
+
+<div id="content" class="content" role="main">
+	<h1 style="padding: 0;">
+		@Model.Title
+		<span>@Model.SubTitle</span>
+		@if (Model.IsArchive)
+		{
+			<a href="" class="access-info resource-archived" rel="tooltip" title="@Resources.TitleArchivedTooltip">@Resources.TitleArchived</a>
+		}
+	</h1>
+	<div id="resource-content">
+        <div class="clearfix">
+            <div class="resource-public-cover">
+                <img src="@Model.ImageUrl" alt="Image of the book cover for '@Model.Title'" />
+            </div>
+
+            <div class="resource-info resource-info-public">
+                <div class="clearfix columns two-columns-50-40">
+                    <div class="column">
+                        <strong>Author:</strong> @Model.Authors<br />
+                        <strong>Affiliation:</strong> @Model.Affiliation<br />
+                        <strong>Publisher:</strong> @Model.Publisher<br />
+                        @if (Model.PublicationDate != null)
+                        {
+                            <strong>Publication Date:</strong>
+                            @Model.PublicationDate.Value.Year<br />
+                        }
+                        <strong>ISBN 10:</strong> @Model.Isbn10<br />
+                        <strong>ISBN 13:</strong> @Model.Isbn13<br />
+                        @if (Model.EIsbn != null)
+                        {
+                            <strong>eISBN:</strong>
+                            @Model.EIsbn<br />
+                        }
+
+                        <strong>Edition:</strong> @Model.Edition<br />
+                    </div>
+
+                    <div class="column resource-public-right-column">
+                        <nav id="nav-main" style="text-align: center">
+                            @if (!Model.IsArchive)
+                            {
+                                <a href="@Url.Action("List", "CollectionManagement", new {institutionId = 0, query = Model.Isbn})" class="resource-public-button"><span>Purchase this eBook</span></a>
+                                <br />
+                            }
+                            <a href="/cms/?title=Trial_Form" class="resource-public-button"><span>Start a Trial</span></a>
+                            @*<a href="https://www.rittenhouse.com/Rbd/web/ContentPage.aspx?Config=R2Library" class="resource-public-button"><span>Start a Trial</span></a>*@
+                            <br />
+                            <a href="@Url.Action("Index", "Contact")" class="resource-public-button"><span>Contact Us</span></a>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+            <div class="resource-public-header" style="margin-top: 10px;">Description:</div>
+
+            @*<div class="resource-public-description"><span class="more">@Model.Description</span></div>*@
+            <div class="resource-public-description"><div class="richText">@Html.Raw(Model.Description)</div></div>
+            <div class="resource-public-header" style="margin-top: 10px">Related Titles</div>
+            <div class="resource-public-container">
+                <ul>
+                    @foreach (var recentlyReleasedResource in Model.RecentlyReleasedResources)
+                    {
+                        <li class="resource-public-title-link">
+                            <a href="@Url.Action("Title", "Resource", new {recentlyReleasedResource.Isbn})">@recentlyReleasedResource.Title</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+	</div>
+</div>

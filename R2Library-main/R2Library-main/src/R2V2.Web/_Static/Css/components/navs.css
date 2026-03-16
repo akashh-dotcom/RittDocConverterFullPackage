@@ -1,0 +1,317 @@
+﻿/* ==========================================================================
+	Navs
+   ========================================================================== */
+   
+/*
+ * Main
+ */
+#nav-main {
+	float: left; display: inline;
+	padding-top: 2px;
+    }
+	#nav-main li {
+		float: left; display: inline;
+		margin-left: 7px;
+		text-align: center;
+		}
+	#nav-main li:first-child {
+		margin-left: 0;
+	    }
+	    
+	    #nav-main a,
+	    #nav-main a span {
+		    display: block;
+		    line-height: 41px;
+	        }
+	        
+	    #nav-main a {
+		    padding: 0 0 0 5px;
+		    background: url(../images/layout/sprite-mnav-left.png) no-repeat 0 0;
+		    color: #FFF;
+	        }
+		#nav-main .selected a,
+		#nav-main a:hover {
+			background-position: 0 -100px;
+			color: #003375; text-decoration: none;
+		    }
+		    
+		    #nav-main a span {
+			    padding: 0 9px 4px 4px;
+			    background: url(../images/layout/sprite-mnav-right.png) no-repeat 100% 0;
+			    }
+		    #nav-main .selected a span,
+		    #nav-main a:hover span {
+			    background-position: 100% -100px;
+			    color: #003375;
+		        }
+
+#turnaway .modal-body #nav-main {
+    text-align: center;
+    width: 24%;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    display: block
+}
+
+
+
+
+/*
+ * Breadcrumb
+ */
+.nav-breadcrumb {
+	min-height: 21px;
+}
+    
+	.nav-breadcrumb ul {
+		font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 0.6875em; /* 11px / 16px */ font-style: italic; color: #494949;
+		}
+		.nav-breadcrumb ul li {
+		    display: inline;
+		    padding-left: 0;
+			background: none;
+			}
+		
+		.nav-breadcrumb ul li:before {
+			display: inline-block;
+			margin: 0 5px;
+			content: ">";
+		    }
+		.nav-breadcrumb ul li:first-child:before {
+			display: none;
+			margin: 0;
+			content: "";
+		    }
+		    
+/* SHIMS */
+.ie7 .nav-breadcrumb li {
+	margin-right: 10px;
+	}
+
+
+/*
+ * Sub/Filters
+ */
+.nav-sub {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 0.75em; /* 12px / 16px */ line-height: 1.2;
+    }
+	
+	.nav-sub h2 {
+		margin: 30px 0 0 0; padding: 0 0 2px 0; border-bottom: 1px dashed #b4b4b4;
+		font-weight: bold; font-size: 1.0833em; /* 13px / 12px */
+	    }
+	.nav-sub h3 {
+		font-weight: normal; font-size: 1em; font-style: italic;
+	    }
+	.nav-sub a {
+		text-decoration: underline;
+	    }
+		.nav-sub .selected a {
+			color: #000; text-decoration: none;
+		    }
+
+    /* list styles for subnav */
+    .nav-sub ul {
+	    list-style: none;
+	    margin: 4px 0 0;
+        }
+    ul.checkboxes + ul.checkboxes { /* adjacent checkbox groups */
+        margin: 0;
+        }
+        
+	    .nav-sub ul li {
+		    margin-top: 4px; padding-left: 13px;
+		    background: url(../images/icons/subnav-bullet.gif) no-repeat 0 .35em;
+	        }
+   
+		ul.checkboxes li {
+			padding-left: 0;
+			background: none;
+		    }
+		    
+		    ul.checkboxes label {
+		        display: block;
+		        float: right;
+		        margin: -1px 0 0; width: 134px;
+		        }
+		
+		    .nav-sub ul li.subgroup {
+			    padding-left: 15px; padding-top: 10px;
+			    background: none;
+			    }
+			    .nav-sub ul li.subgroup ul {
+				    margin-left: 3px;
+			        }
+		
+		    .nav-sub ul li.selected {
+			    background: url(../images/icons/subnav-bullet.selected.gif) no-repeat 0 .35em;
+		        }
+        
+/* OVERRIDES */
+.admin .nav-sub ul li.subgroup {
+	padding-top: 2px; padding-bottom: 8px;
+	}
+    .admin .nav-sub ul li.subgroup.nested {
+        padding-top: 0;
+        padding-bottom: 0;
+        }
+	        
+/* SHIMS */
+.ie7 ul.checkboxes label {
+	margin: -14px 0 0;
+	}
+	
+	
+/*
+ * Section navigation (Previous/Next)
+ */
+.nav-section-wrapper  {
+    margin: 2px 0 0; height: 36px;
+    }
+
+.fullcol .nav-section-wrapper {
+    width: 920px;
+    }
+.onecol .nav-section-wrapper  {
+    width: 820px;
+    }
+    
+    .nav-section {
+        padding: 11px 30px; border: 1px solid #BEBEBE; border-width: 1px 0; min-height: 12px;
+	    background: url(../images/layout/bg-sectionnav.gif) repeat-x 0 0;
+	    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 0.75em; /* 12px / 16px */ line-height: 1; text-align: center;
+	    }
+	    
+	.nav-section.fixed {
+        position: fixed; z-index: 9990;
+	    background: rgb(255, 255, 255);
+	    background: rgba(255, 255, 255, .85);
+        }
+        
+    .fullcol .nav-section.fixed {
+        top: 37px;
+        margin-left: -20px; padding-left: 50px; padding-right: 50px; border-width: 1px; width: 858px;
+        }
+    .onecol .nav-section.fixed {
+        top: 37px;
+	    margin-left: -70px; padding-right: 99px; padding-left: 99px; border-width: 1px; width: 760px;
+        }
+    .twocol-with-subnav .nav-section.fixed {
+        top: 0;
+	    margin-left: -40px; padding-left: 70px; padding-right: 70px; border: 0; border-bottom: 1px solid #EDEDED; width: 630px;
+        }
+	    
+	    /* content */
+	    .nav-section .previous {
+		    float: left;
+		    width: 125px; min-height: 10px;
+		    text-align: left;
+	        }
+	    .nav-section .next {
+		    float: right;
+	        width: 125px; min-height: 10px;
+		    text-align: right;
+	        }
+	        .nav-section .previous a,
+	        .nav-section .next a {
+	            margin: 0 0 0 10px;
+	            }
+	        .nav-section .previous a:first-child,
+	        .nav-section .next a:first-child {
+	            margin: 0;
+	            }
+	            
+	        .nav-section a {
+			    font-weight: bold; text-decoration: underline;
+		        }
+
+
+/* OVERRIDES */
+.admin .twocol-with-subnav .nav-section-wrapper {
+    width: 730px;
+    }
+    
+.admin .twocol-with-subnav .nav-section {
+    padding-right: 15px; padding-left: 15px;
+    }
+
+.admin .twocol-with-subnav .nav-section.fixed {
+    top: 37px;
+    margin-left: -20px; padding-left: 35px; padding-right: 35px; width: 700px;
+    }
+
+/* SHIMS */
+.ie7 .nav-section {
+    height: 12px;
+    }
+
+.ie8 .nav-section.fixed,
+.ie7 .nav-section.fixed {
+    background: transparent;
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D8FFFFFF,endColorstr=#D8FFFFFF)";
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#D8FFFFFF,endColorstr=#D8FFFFFF);
+    zoom: 1;
+    }
+
+
+/*
+ * Content Nav (Number, Alpha)
+ */
+.content ul.nav-content {
+	display: inline-block;
+    margin: -5px 0;
+	font-size: 1.083em; /* 13px / 12px */
+    }
+	.content ul.nav-content li {
+	    float: left;
+	    margin: 0 0 0 1px; padding: 0;
+		background: none;
+	    }
+	
+	.content ul.nav-content li:first-child {
+		margin: 4px 5px 0 0;
+		font-size: 0.9285em; /* 13px / 14px */
+		}
+		
+		.nav-content a {
+			display: inline-block;
+			padding-left: 4px;
+			background: url(../images/layout/sprite-alphanav-left.png) no-repeat 0 0;
+			text-decoration: none;
+		    }
+		.nav-content .selected a,
+		.nav-content a:hover {
+			background-position: 0 -100px;
+			color: #FFF; text-decoration: none;
+			}
+			
+		/* non-actionable items (no corresponding data) */
+		.nav-content span {
+		    display: block;
+		    padding: 4px;
+		    }
+		
+		    /* actionable items */
+			.nav-content a span  {
+				display: block;
+				padding: 0 4px 0 0;
+				background: url(../images/layout/sprite-alphanav-right.png) no-repeat 100% 0;
+			    line-height: 21px;
+			    }
+			.nav-content .selected a span,
+			.nav-content a:hover span {
+				background-position: 100% -100px;
+				}
+
+	    /* number nav variation */
+	    .nav-number a span {
+	        padding: 0 7px 0 3px;
+	        }
+
+.nav-page-link a {}
+	            
+/* SHIMS */
+.ie7 .content ul.nav-content {
+    display: inline; zoom: 1;
+    }

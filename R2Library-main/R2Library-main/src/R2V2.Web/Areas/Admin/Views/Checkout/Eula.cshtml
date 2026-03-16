@@ -1,0 +1,44 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Order.Order         
+@{
+    ViewBag.Title = "EULA";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+	    <h1>R2 LIBRARY Institutional License Agreement</h1>
+		
+		@Html.Partial("_Eula")
+
+	    @using (Html.BeginForm("Eula", "Checkout"))
+        {   
+            @Html.HiddenFor(x => x.OrderId)
+            @Html.HiddenFor(x => x.InstitutionId)
+            @Html.HiddenFor(x => x.PurchaseOrderNumber)
+            @Html.HiddenFor(x => x.BillingMethod)
+            @Html.HiddenFor(x => x.PurchaseOrderComment)
+            @Html.HiddenFor(x => x.ForthcomingTitlesInvoicingMethod)
+            
+            <div class="group-actions-wrapper"><div class="clearfix group-actions">
+                <ul class="actions">
+                    <li><a data-toggle="print" href="#"><span>Print</span></a></li>
+                    <li><a href="/_Static/Downloads/r2-library-institutional-license-agreement.pdf" target="_blank" data-toggle="window"><span>Save</span></a></li>
+                    <li><button class="btn-medium" type="submit"><span>I Agree</span></button></li>
+                    <li><a href="@Url.Action("Checkout", "Checkout", new { institutionId = Model.InstitutionId })" class="btn btn-medium"><span>I Do Not Agree</span></a></li>
+                </ul>
+            </div></div>
+        }
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

@@ -1,0 +1,87 @@
+﻿@model R2V2.Web.Areas.Admin.Models.PublisherConsolidation.Publisher
+
+@{
+    ViewBag.Title = "Publisher Edit";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="fullcol contentcontainer">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(x=>x.Id)
+        <div id="content" class="content" role="main">
+            <h1>Edit Publisher</h1>
+
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><button class="btn-medium" type="submit"><span>Save</span></button></li>
+                        <li><a href="@Url.Action("Detail", new { publisherId = Model.Id })" class="btn btn-medium"><span>Cancel</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            @Html.Partial("_PublisherMin", Model)
+
+            
+            <div class="group-actions-wrapper"><div class="clearfix group-actions">
+                <p class="header">Featured Publisher</p>
+                <p class="message">Only one publisher can be featured at once. If the another Publisher is already Featured please uncheck the checkbox for them.</p>
+            </div></div>
+                
+            <div class="tablecontent">
+                <table class="edit">
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => x.IsFeaturedPublisher)</td>
+                        <td class="field">@Html.CheckBoxFor(model => model.IsFeaturedPublisher)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => x.DisplayName)</td>
+                        <td class="field">@Html.TextBoxFor(model => model.DisplayName, new { @class = "input-full" })</td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => x.Description)</td>
+                        <td class="field">
+                            @RichTextHelper.TextArea_Editor(Html, "Description", Model.Description)
+                            @*@Html.TextAreaFor(model => model.Description)
+                            @Html.ValidationMessageFor(model => model.Description)*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Publisher Logo:</td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td><div class="publisher-image"><img src="@Model.ImageUrl" alt="Image of the Publisher '@Model.Name'" /></div></td>
+                                    <td>
+                                        <div class="title-image-upload">
+                                            @Html.ValidationMessageFor(model => model.ImageUrl)
+                                            <h3>Required image specifications:</h3>
+                                            <ul class="clearfix">
+                                                <li><strong>Format:</strong> Transparent PNG</li>
+                                                <li><strong>Maximum width:</strong> 210px</li>
+                                                <li><strong>Maximum height:</strong> 100px</li>
+                                            </ul>
+                                            <input type="file" name="file" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => x.ProductStatement)</td>
+                        <td class="field">
+                            @Html.TextAreaFor(model => model.ProductStatement)
+                            @Html.ValidationMessageFor(model => model.ProductStatement)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+

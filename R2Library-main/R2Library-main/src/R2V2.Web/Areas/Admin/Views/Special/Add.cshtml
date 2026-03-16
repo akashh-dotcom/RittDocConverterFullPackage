@@ -1,0 +1,69 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Special.SpecialView
+
+@{
+    ViewBag.Title = "Special Detail";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+@using (Html.BeginForm())
+{
+    
+
+<div class="clearfix fullcol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Special Add</h1>
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><a href="@Url.Action("List")" class="btn btn-medium"><span>Cancel</span></a></li>
+                    <li><button class="btn btn-medium" type="submit" value="save" name="action"><span>Save</span></button></li>
+                </ul>                              
+            </div>
+        </div>
+
+        @Html.Partial("_EditSpecial")
+        
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><button class="btn btn-medium" value="discount" name="action" type="submit"><span>Add Discount</span></button></li>
+                    <li><button class="btn btn-medium" value="icons" name="action" type="submit"><span>Add Icons</span></button></li>
+                </ul>                              
+            </div>
+        </div>
+        <div class="tablecontent">    
+            <table class="edit">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tablecontent">
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Details</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td colspan="3"> No Resources are associated with this discount. Please go to Resources Tab to add Resources.</td>
+                    </tr>                                            
+                </tbody>
+            </table>
+        </div>
+        
+
+    </div>
+</div>
+
+}
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+}

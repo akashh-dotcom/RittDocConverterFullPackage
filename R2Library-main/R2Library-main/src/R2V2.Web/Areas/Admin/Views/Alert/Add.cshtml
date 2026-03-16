@@ -1,0 +1,34 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Alerts.AdministratorAlert
+
+@{
+    ViewBag.Title = "Administrator Alert";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="clearfix fullcol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Administrator Alert</h1>
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><button type="submit" class="btn btn-medium"><span>Save</span></button></li>
+                        <li><a href="@Url.Action("List")" class="btn btn-medium"><span>Cancel</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            @Html.Partial("_AlertDetail")
+        }
+    </div>
+</div>
+
+@section JsDocumentReady{
+    
+    new R2V2.Admin.ResourceSelect({ $textLayout: $('#TextLayout'), $resourceLayout: $('#ResourceLayout'), $resourceLayoutRadio: $('input:radio[name="AlertLayout"]').filter('[value="ResourceAndText"]'), $resourceLayoutButtons: $('#ResourceButtons'), $resourceId: $('#ResourceId'), $resourceText: $("#ResourceFilter"), $searchUrl: "@Url.Action("ResourceFilter")"  });
+    new R2V2.Admin.DatePicker({$dateTextBox: $("input[id$=Date]"), $endDatePlusYears: 10});
+}

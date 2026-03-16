@@ -1,0 +1,39 @@
+        <tr>
+            <td class="status"><strong class="{Resource_StatusLower}">{Resource_Status}</strong></td>
+            <td class="details">
+                <div class="title-item">
+                    <h2><a href="{Resource_Url}" style="color:#072F62; text-decoration:none;" target="_blank">{Resource_Title}</a></h2>
+                    <p class="title-author">{Resource_Author}</p>
+                    <table>
+                        <tr>
+                            <td rowspan="6" class="title-image"><a href="{Resource_Url}" target="_blank"><img alt="{Resource_Title}" src="{Resource_ImageUrl}" width="54" /></a></td>
+                            <td class="title-info-col-1">{Resource_Publisher}</td>
+                            <td class="title-info-col-2">{Resource_PracticeArea}</td>
+                        </tr>
+                        <tr>
+                            <td class="title-info-col-1">{Resource_PublicationYear}</td>
+                            <td class="title-info-col-2">{Resource_Specialties}</td>
+                        </tr>
+                        <tr>
+                            <td class="title-info-col-1">{Resource_ReleaseDate}</td>
+                            <td class="title-info-col-2">{Resource_ISBN10}</td>
+                        </tr>
+                        <tr>
+                            <td class="title-info-col-1">{Resource_Edition}</td>
+                            <td class="title-info-col-2">{Resource_ISBN13}</td>
+                        </tr>
+                        <tr>
+                            <td class="title-info-col-1">{Resource_PdaAdded}</td>
+                            <td class="title-info-col-2">{Resource_EISBN}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="title-info-col-1"><strong class="active">{Resource_Special_Text}</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td class="price">
+                <div class="fullprice">Retail Price: {Resource_RetailPrice}</div>
+                <div class="saleprice">Discount Price: {Resource_DiscountPrice}</div>
+            </td>
+        </tr>

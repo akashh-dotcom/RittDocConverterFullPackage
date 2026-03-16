@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://www.medinfonow.com/PrecisionSearchWebServices/PSWebServices.asmx?wsdl" docRef="http://www.medinfonow.com/PrecisionSearchWebServices/PSWebServices.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://www.medinfonow.com/PrecisionSearchWebServices/PSWebServices.asmx" xmlns:q1="http://www.medinfonow.com/PrecisionSearchWebServices" binding="q1:PSWebServicesSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://www.medinfonow.com/PrecisionSearchWebServices/PSWebServices.asmx" xmlns:q2="http://www.medinfonow.com/PrecisionSearchWebServices" binding="q2:PSWebServicesSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

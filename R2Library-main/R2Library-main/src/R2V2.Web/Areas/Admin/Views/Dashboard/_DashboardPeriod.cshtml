@@ -1,0 +1,56 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Dashboard.DashboardModel
+
+<section id="dashboard-header">
+    @Html.Partial("_InstitutionInfo")
+
+    <div class="field">
+        @Html.DropDownListFor(model => model.Period, Model.PeriodList, new { onchange = "this.form.submit();" })
+
+        @Html.ValidationMessageFor(model => model.PeriodList)
+        @Html.ValidationMessageFor(x => x.DateRangeStart)
+        @Html.ValidationMessageFor(x => x.DateRangeEnd)
+        
+        @*<input type="hidden" id="DateRangeStart" value="@DateTime.MinValue" />
+        <input type="hidden" id="DateRangeEnd" value="@DateTime.MinValue" />*@
+        
+        @if (Model.ShowOpen())
+        {
+            <div id="filter-date-range" class="in collapse" style="height: 64px;">
+                <div class="input-daterange" id="datepicker">
+                    <input type="text" class="input-small" name="DateRangeStart" id="DateRangeStart" value="@string.Format("{0:MM/yyyy}", Model.DateRangeStart)" readonly="readonly" />
+                    <label for="DateRangeEnd">To:</label>
+                    <input type="text" class="input-small" name="DateRangeEnd" id="DateRangeEnd" value="@string.Format("{0:MM/yyyy}", Model.DateRangeEnd)" readonly="readonly" />
+                </div>
+                <button type="submit">Run</button>
+            </div>
+        }
+        else
+        {
+            <div id="filter-date-range" class="collapse">
+                <div class="input-daterange" id="datepicker">
+                    <input type="text" class="input-small" name="DateRangeStart" id="DateRangeStart" value="@string.Format("{0:MM/yyyy}", Model.DateRangeStart)" readonly="readonly" />
+                    <label for="DateRangeEnd">To:</label>
+                    <input type="text" class="input-small" name="DateRangeEnd" id="DateRangeEnd" value="@string.Format("{0:MM/yyyy}", Model.DateRangeEnd)" readonly="readonly" />
+                </div>
+                <button type="submit">Run</button>
+            </div>
+        }
+
+        
+            
+            
+        
+
+            </div>
+
+
+    <nav>
+        <ul>
+            <li@(StyleHelpers.AddSelectedState(Model.HighLightLink.Selected))><a href="@Model.HighLightLink.Href">@Model.HighLightLink.Text</a></li>
+            <li@(StyleHelpers.AddSelectedState(Model.EbookCollectionLink.Selected))><a href="@Model.EbookCollectionLink.Href">@Model.EbookCollectionLink.Text</a></li>
+            <li@(StyleHelpers.AddSelectedState(Model.PdaCollectionLink.Selected))><a href="@Model.PdaCollectionLink.Href">@Model.PdaCollectionLink.Text</a></li>
+        </ul>
+        <div class="clearfix group"></div>
+    </nav>
+    <div class="clearfix group"></div>
+</section>

@@ -1,0 +1,16 @@
+﻿@model R2V2.Web.Models.Resource.ResourceEmail
+
+<div id="content" class="content" role="main">
+    <h1>
+        @Model.Title
+    </h1>
+    <div class="content-provider">
+        @Html.Raw(Model.ContentProviderDisplay())
+    </div>
+    
+    @Html.Raw(Model.ContentItem.Html)
+    
+    <div class="citation">
+        <p>@Html.Raw(Model.Citation)</p>
+    </div>
+</div>

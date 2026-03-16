@@ -1,0 +1,43 @@
+﻿@model R2V2.Web.Areas.Admin.Models.PdaRules.PdaProfileModel
+<div id="content" class="content" role="main">
+    <h1>PDA Wizard</h1>
+    @Html.Partial("_InstitutionInfo")
+    <div class="group-actions-wrapper">
+        <div class="clearfix group-actions">
+            <ul class="actions" id="select-actions">
+                <li><a href="@Url.Action("AddRule", "Pda", new { Model.InstitutionId })" class="btn-link btn-addSelected"><span>Add New Task</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="tablecontent">
+        <table class="list" id="rules">
+            <thead>
+                <tr>
+                    <th class="pdaProfile-name">Name</th>
+                    <th class="pdaProfile-description">Description</th>
+                    <th class="pdaProfile-updated">Updated</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rule in Model.Rules)
+                {
+                    <tr>
+                        <td class="pdaProfile-name">@Html.ActionLink(rule.Name, "EditRule", new { Model.InstitutionId, rule.RuleId })</td>
+                        <td class="pdaProfile-description">
+                            @Html.Raw(rule.Description)
+                            <div class="pdaProfile__count">@Html.DisplayFor(x => rule.ResourcesAdded) @(StyleHelpers.MakePlural("Resource", rule.ResourcesAdded)) added based on this task</div>
+                            @if (rule.ResourcesToAdd > 0)
+                            {
+                                <div class="pdaProfile__count" title="Run Task Now to add these resources" >@Html.DisplayFor(x => rule.ResourcesToAdd) @(StyleHelpers.MakePlural("Resource", rule.ResourcesToAdd)) not added</div>
+                            }
+                        </td>
+                        <td class="pdaProfile-updated">@Html.DisplayFor(x => rule.LastUpdated)</td>
+                        <td class="pdaProfile-action hide-onclick">@Html.ActionLink("Delete", "DeleteRule", new { Model.InstitutionId, rule.RuleId })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

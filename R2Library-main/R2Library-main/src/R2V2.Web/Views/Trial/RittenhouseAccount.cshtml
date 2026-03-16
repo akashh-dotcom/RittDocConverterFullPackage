@@ -1,0 +1,51 @@
+﻿@model R2V2.Web.Models.Trial.AccountVerifyModel
+@{
+	ViewBag.Title = "Rittenhouse Account";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="onecol contentcontainer">
+	<div id="content" class="content" role="main">
+		<h1>Rittenhouse Account</h1>
+		<div class="athens-container">
+            
+			<div class="athens-option" style="margin-left: 10%;min-height: 270px;">
+				<div class="athens-title">Login</div>
+				<div class="athens-sub-title">Have a Rittenhouse user name and password?</div>
+				<div class="athens-description">Log into your Rittenhouse account to start a R2 Library trial.</div>
+
+				@using (Html.BeginForm("RittenhouseAccount", "Trial", FormMethod.Post))
+				{
+					
+					<div class="athens-login-wrapper" style="margin-top: 0px;">
+						@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+						{
+						<div class="athens-error" style="font-size: .85em">@Html.DisplayFor(x => x.ErrorMessage)</div>
+						}
+						<div class="textfield" style="margin-top: 8px;">
+							<div class="textfieldinner">
+								@Html.TextBoxFor(x => x.UserName, new {id = "login-user", @class = "text", placeholder = "Enter username", maxlength = 50})
+								@Html.ValidationMessageFor(x => x.UserName)
+							</div>
+						</div>
+						<div class="textfield" style="margin-top: 8px;">
+							<div class="textfieldinner">
+								@Html.PasswordFor(x => x.Password, new {id = "login-password", @class = "text", placeholder = "Enter password", maxlength = 20})
+								@Html.ValidationMessageFor(x => x.Password)
+							</div>
+						</div>
+					</div>
+					<div class="athens-submit-wrapper" style="margin-left: 90px; padding-top: 5px;">
+						<button type="submit" class="btn-medium"><span style="font-size: 13px;">Log in</span></button>
+					</div>
+				}
+			</div>
+			<div class="athens-option" style="margin-left: 15%;min-height: 270px;">
+				<div class="athens-title">Request</div>
+				<div class="athens-sub-title">Interested in R2 Library?</div>
+				<div class="athens-description">Complete a request form to gain access to R2library. After completeing the request form Customer Service will be in contact about your account.</div>
+				<div class="athens-link"><a href="@Url.Action("RequestAccount")">Request</a></div>
+			</div>
+		</div>
+	</div>
+</div>

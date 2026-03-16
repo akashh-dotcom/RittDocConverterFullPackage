@@ -1,0 +1,2009 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AC8CFFA4-F245-40C2-B7D9-D6E42F6D9E9C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>R2V2.Web</RootNamespace>
+    <AssemblyName>R2V2.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <UseGlobalApplicationHostFile>false</UseGlobalApplicationHostFile>
+    <ProjectTypeGuids>{349C5851-65DF-11DA-9384-00065B846F21};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">16.0</VisualStudioVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <PlatformTarget>x64</PlatformTarget>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>Current</OldToolsVersion>
+    <Use64BitIISExpress />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <WebGreaseLibPath>..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=8.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Autofac.8.4.0\lib\netstandard2.0\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Extras.CommonServiceLocator, Version=4.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Autofac.Extras.CommonServiceLocator.4.1.0\lib\net45\Autofac.Extras.CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="BotDetect, Version=4.4.2.0, Culture=neutral, PublicKeyToken=74616036388b765f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Captcha.4.4.2\lib\net35\BotDetect.dll</HintPath>
+    </Reference>
+    <Reference Include="BotDetect.Web.Mvc, Version=4.4.2.0, Culture=neutral, PublicKeyToken=74616036388b765f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Captcha.4.4.2\lib\net35\BotDetect.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CommonServiceLocator.2.0.7\lib\net48\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=3.4.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentNHibernate.3.4.1\lib\net461\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.62.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HtmlAgilityPack.1.11.62\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.1.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Iesi.Collections.4.1.1\lib\net462\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=3.2.0.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.3.2.0\lib\net462\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.TimeProvider, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.TimeProvider.8.0.1\lib\net462\Microsoft.Bcl.TimeProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Logging.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Abstractions.8.14.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.JsonWebTokens.8.14.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Logging.8.14.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Protocols.8.14.0\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.8.14.0\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Tokens.8.14.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.4.2.3\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.4.2.3\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.4.2.3\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.4.2.3\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OpenIdConnect, Version=4.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.OpenIdConnect.4.2.3\lib\net45\Microsoft.Owin.Security.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=59d6d24383174ac4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CommonServiceLocation.1.0.0\lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=5.6.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NHibernate.5.6.0\lib\net48\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq.EagerFetching, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Remotion.Linq.EagerFetching.2.2.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.8.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=8.14.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.8.14.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=8.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Text.Json.8.0.5\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <!-- Add other references as needed -->
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\R2V2\R2V2.csproj" />
+    <ProjectReference Include="..\Sushi.Core\Sushi.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\ASPNETDB.MDF" />
+    <Content Include="App_Data\aspnetdb_log.ldf">
+      <DependentUpon>ASPNETDB.MDF</DependentUpon>
+    </Content>
+    <Content Include="App_Data\DebugLogLocal.txt" />
+    <Content Include="bin\Autofac.dll" />
+    <Content Include="bin\Autofac.Extras.CommonServiceLocator.dll" />
+    <Content Include="bin\ClosedXML.dll" />
+    <Content Include="bin\Common.Logging.dll" />
+    <Content Include="bin\DocumentFormat.OpenXml.dll" />
+    <Content Include="bin\dtSearchNetApi4.dll" />
+    <Content Include="bin\EasyNetQ.dll" />
+    <Content Include="bin\FluentNHibernate.dll" />
+    <Content Include="bin\Ionic.Zip.dll" />
+    <Content Include="bin\log4net.dll" />
+    <Content Include="bin\Microsoft.Diagnostics.Tracing.EventSource.dll" />
+    <Content Include="bin\Microsoft.Practices.ServiceLocation.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\NHibernate.dll" />
+    <Content Include="bin\R2V2.dll" />
+    <Content Include="bin\R2V2.pdb" />
+    <Content Include="bin\R2V2.Web.dll" />
+    <Content Include="bin\R2V2.Web.pdb" />
+    <Content Include="bin\RabbitMQ.Client.dll" />
+    <Content Include="bin\RestSharp.dll" />
+    <Content Include="bin\Sushi.Core.dll" />
+    <Content Include="bin\Sushi.Core.pdb" />
+    <Content Include="bin\Sushi.Core.xml" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Counter\SushiService.asmx" />
+    <Content Include="debug.htm" />
+    <Content Include="DoodyTestPage.htm" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="obj\Debug\R2V2.Web.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\R2V2.Web.dll" />
+    <Content Include="obj\Debug\R2V2.Web.pdb" />
+    <Content Include="README.jQuery.vsdoc.txt" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="packages.config" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="site-down.htm" />
+    <Content Include="upload\logo_springer[1].jpg" />
+    <Content Include="upload\logo_springer[1]_cube.jpg" />
+    <Content Include="upload\logo_springer[1]_half.jpg" />
+    <Content Include="upload\logo_springer[1]_icon.jpg" />
+    <Content Include="upload\logo_springer[1]_original.jpg" />
+    <Content Include="upload\logo_springer[1]_third.jpg" />
+    <Content Include="upload\logo_springer[1]_thumb.jpg" />
+    <Content Include="upload\logo_springer[1]_wide.jpg" />
+    <Content Include="Web.config" />
+    <Content Include="_configs\CountryCodesBlackList.txt" />
+    <Content Include="_configs\IpAddressBlackList.txt" />
+    <Content Include="_configs\IpAddressWhiteList.txt" />
+    <Content Include="_orig_favicon.ico" />
+    <Content Include="_Static\Css\base\content.css" />
+    <Content Include="_Static\Css\base\forms.css" />
+    <Content Include="_Static\Css\base\grid.css" />
+    <Content Include="_Static\Css\base\tables.css" />
+    <Content Include="_Static\Css\base\typography.css" />
+    <Content Include="_Static\Css\components\accordion.css" />
+    <Content Include="_Static\Css\components\actions.css" />
+    <Content Include="_Static\Css\components\alertbox.css" />
+    <Content Include="_Static\Css\components\buttons.css" />
+    <Content Include="_Static\Css\components\datepicker.css" />
+    <Content Include="_Static\Css\components\featurebox.css" />
+    <Content Include="_Static\Css\components\figures.css" />
+    <Content Include="_Static\Css\components\hero.css" />
+    <Content Include="_Static\Css\components\icons.css" />
+    <Content Include="_Static\Css\components\intro.css" />
+    <Content Include="_Static\Css\components\loading.css" />
+    <Content Include="_Static\Css\components\modal.css" />
+    <Content Include="_Static\Css\components\navs.css" />
+    <Content Include="_Static\Css\components\newsletter-signup.css" />
+    <Content Include="_Static\Css\components\page-actions.css" />
+    <Content Include="_Static\Css\components\panel.css" />
+    <Content Include="_Static\Css\components\section-header.css" />
+    <Content Include="_Static\Css\components\tabs.css" />
+    <Content Include="_Static\Css\components\tooltip.css" />
+    <Content Include="_Static\Css\core\layout.css" />
+    <Content Include="_Static\Css\core\layout.email.css" />
+    <Content Include="_Static\Css\core\media-queries.css" />
+    <Content Include="_Static\Css\core\print-enabled.css" />
+    <Content Include="_Static\Css\core\print.css" />
+    <Content Include="_Static\Css\core\utilities.css" />
+    <Content Include="_Static\Css\error\app-error.css" />
+    <Content Include="_Static\Css\functional-areas\admin.css" />
+    <Content Include="_Static\Css\functional-areas\Dashboard.css" />
+    <Content Include="_Static\Css\functional-areas\error-inline.css" />
+    <Content Include="_Static\Css\functional-areas\error-page.css" />
+    <Content Include="_Static\Css\functional-areas\faceting.css" />
+    <Content Include="_Static\Css\functional-areas\marketing.css" />
+    <Content Include="_Static\Css\functional-areas\myr2.css" />
+    <Content Include="_Static\Css\functional-areas\resources.css" />
+    <Content Include="_Static\Css\functional-areas\search.css" />
+    <Content Include="_Static\Css\libraries\jquery-ui.css" />
+    <Content Include="_Static\Css\libraries\jquery-ui.min.css" />
+    <Content Include="_Static\Css\libraries\jquery-ui.structure.css" />
+    <Content Include="_Static\Css\libraries\jquery-ui.structure.min.css" />
+    <Content Include="_Static\Css\libraries\jquery-ui.theme.css" />
+    <Content Include="_Static\Css\libraries\jquery-ui.theme.min.css" />
+    <Content Include="_Static\Css\packages\flowplayer-5.4.3\minimalist.css" />
+    <Content Include="_Static\Css\packages\font-awesome-4.7.0\font-awesome.css" />
+    <Content Include="_Static\Css\packages\font-awesome-4.7.0\font-awesome.min.css" />
+    <Content Include="_Static\Css\packages\h5bp\helper-classes.css" />
+    <Content Include="_Static\Css\packages\h5bp\reset.css" />
+    <Content Include="_Static\Css\packages\selectize\selectize.bootstrap2.css" />
+    <Content Include="_Static\Css\packages\selectize\selectize.bootstrap3.css" />
+    <Content Include="_Static\Css\packages\selectize\selectize.css" />
+    <Content Include="_Static\Css\packages\selectize\selectize.default.css" />
+    <Content Include="_Static\Css\packages\selectize\selectize.legacy.css" />
+    <Content Include="_Static\Css\packages\slick\slick.css" />
+    <Content Include="_Static\Css\packages\twitter\component-animations.css" />
+    <Content Include="_Static\Css\packages\twitter\datepicker.css" />
+    <Content Include="_Static\Css\packages\twitter\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="_Static\Css\packages\twitter\glyphicon.css" />
+    <Content Include="_Static\Css\packages\twitter\modal.css" />
+    <Content Include="_Static\Css\packages\twitter\tooltip.css" />
+    <Content Include="_Static\Css\readme.txt" />
+    <Content Include="_Static\Font\packages\font-awesome-4.7.0\fontawesome-webfont.svg" />
+    <Content Include="_Static\Images\accordion\sprite-folders.png" />
+    <Content Include="_Static\Images\accordion\sprite-tree.png" />
+    <Content Include="_Static\Images\buttons\sprite-black-left.med.png" />
+    <Content Include="_Static\Images\buttons\sprite-black-left.png" />
+    <Content Include="_Static\Images\buttons\sprite-black-left.sm.png" />
+    <Content Include="_Static\Images\buttons\sprite-black-right.med.png" />
+    <Content Include="_Static\Images\buttons\sprite-black-right.png" />
+    <Content Include="_Static\Images\buttons\sprite-black-right.sm.png" />
+    <Content Include="_Static\Images\buttons\sprite-clearsearch.png" />
+    <Content Include="_Static\Images\buttons\sprite-close.png" />
+    <Content Include="_Static\Images\buttons\sprite-delete.sm.png" />
+    <Content Include="_Static\Images\buttons\sprite-enlargeimage.png" />
+    <Content Include="_Static\Images\buttons\sprite-green-left.med.png" />
+    <Content Include="_Static\Images\buttons\sprite-green-right.med.png" />
+    <Content Include="_Static\Images\buttons\sprite-hideanswer.png" />
+    <Content Include="_Static\Images\buttons\sprite-hidetable.png" />
+    <Content Include="_Static\Images\buttons\sprite-introblue-left.png" />
+    <Content Include="_Static\Images\buttons\sprite-introblue-right.png" />
+    <Content Include="_Static\Images\buttons\sprite-red-left.sm.png" />
+    <Content Include="_Static\Images\buttons\sprite-red-right.sm.png" />
+    <Content Include="_Static\Images\buttons\sprite-reduceimage.png" />
+    <Content Include="_Static\Images\buttons\sprite-saveimage.png" />
+    <Content Include="_Static\Images\buttons\sprite-search.png" />
+    <Content Include="_Static\Images\buttons\sprite-search.sm.png" />
+    <Content Include="_Static\Images\buttons\sprite-showanswer.png" />
+    <Content Include="_Static\Images\buttons\sprite-viewfullsizeimage.png" />
+    <Content Include="_Static\Images\buttons\sprite-viewtable.png" />
+    <Content Include="_Static\Images\buttons\sprite_btn_directlink.png" />
+    <Content Include="_Static\Images\buttons\sprite_btn_directlinkimage.png" />
+    <Content Include="_Static\Images\hero\generic.jpg" />
+    <Content Include="_Static\Images\hero\marketing.jpg" />
+    <Content Include="_Static\Images\icons\add.png" />
+    <Content Include="_Static\Images\icons\ajax-loader.gif" />
+    <Content Include="_Static\Images\icons\divide.png" />
+    <Content Include="_Static\Images\icons\doublearrow.blue.png" />
+    <Content Include="_Static\Images\icons\doublearrow.png" />
+    <Content Include="_Static\Images\icons\email.png" />
+    <Content Include="_Static\Images\icons\export.png" />
+    <Content Include="_Static\Images\icons\export_delete.png" />
+    <Content Include="_Static\Images\icons\external-link.png" />
+    <Content Include="_Static\Images\icons\left_arrow.png" />
+    <Content Include="_Static\Images\icons\left_over_arrow.png" />
+    <Content Include="_Static\Images\icons\pdficon-large.png" />
+    <Content Include="_Static\Images\icons\pdficon-small.png" />
+    <Content Include="_Static\Images\icons\ppticon-small.png" />
+    <Content Include="_Static\Images\icons\print.png" />
+    <Content Include="_Static\Images\icons\reviewer-notes.png" />
+    <Content Include="_Static\Images\icons\right_arrow.png" />
+    <Content Include="_Static\Images\icons\right_over_arrow.png" />
+    <Content Include="_Static\Images\icons\save-courselink.png" />
+    <Content Include="_Static\Images\icons\save-query.png" />
+    <Content Include="_Static\Images\icons\save.png" />
+    <Content Include="_Static\Images\icons\subnav-bullet.gif" />
+    <Content Include="_Static\Images\icons\subnav-bullet.selected.gif" />
+    <Content Include="_Static\Images\icons\ul-bullet-level1.gif" />
+    <Content Include="_Static\Images\icons\ul-bullet-level1.marketing.gif" />
+    <Content Include="_Static\Images\icons\ul-bullet-level2.gif" />
+    <Content Include="_Static\Images\icons\ul-circle-level1.gif" />
+    <Content Include="_Static\Images\icons\ul-circle-level2.gif" />
+    <Content Include="_Static\Images\institution-logos\AORN SMALL.jpg" />
+    <Content Include="_Static\Images\institution-logos\AornLogo.jpg" />
+    <Content Include="_Static\Images\institution-logos\not-available.gif" />
+    <Content Include="_Static\Images\intro\bg.jpg" />
+    <Content Include="_Static\Images\layout\bg-archived.png" />
+    <Content Include="_Static\Images\layout\bg-body-admin.jpg" />
+    <Content Include="_Static\Images\layout\bg-body.jpg" />
+    <Content Include="_Static\Images\layout\bg-bodytop-admin.png" />
+    <Content Include="_Static\Images\layout\bg-bodytop.jpg" />
+    <Content Include="_Static\Images\layout\bg-masthead-shadow-admin.jpg" />
+    <Content Include="_Static\Images\layout\bg-masthead-shadow.jpg" />
+    <Content Include="_Static\Images\layout\bg-masthead.jpg" />
+    <Content Include="_Static\Images\layout\bg-page-actions.jpg" />
+    <Content Include="_Static\Images\layout\bg-promobox.jpg" />
+    <Content Include="_Static\Images\layout\bg-search-left-admin.png" />
+    <Content Include="_Static\Images\layout\bg-search-left.png" />
+    <Content Include="_Static\Images\layout\bg-search-right-admin.png" />
+    <Content Include="_Static\Images\layout\bg-search-right.png" />
+    <Content Include="_Static\Images\layout\bg-searchfield-left.png" />
+    <Content Include="_Static\Images\layout\bg-searchfield-right.png" />
+    <Content Include="_Static\Images\layout\bg-sectionnav.gif" />
+    <Content Include="_Static\Images\layout\bg-textfield-left.png" />
+    <Content Include="_Static\Images\layout\bg-textfield-right.png" />
+    <Content Include="_Static\Images\layout\bg-twocol-with-subnav.gif" />
+    <Content Include="_Static\Images\layout\sprite-alphanav-left.png" />
+    <Content Include="_Static\Images\layout\sprite-alphanav-right.png" />
+    <Content Include="_Static\Images\layout\sprite-mnav-left-admin.png" />
+    <Content Include="_Static\Images\layout\sprite-mnav-left.png" />
+    <Content Include="_Static\Images\layout\sprite-mnav-right-admin.png" />
+    <Content Include="_Static\Images\layout\sprite-mnav-right.png" />
+    <Content Include="_Static\Images\libraries\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="_Static\Images\libraries\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="_Static\Images\libraries\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="_Static\Images\libraries\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="_Static\Images\libraries\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="_Static\Images\libraries\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="_Static\Images\libraries\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="_Static\Images\libraries\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="_Static\Images\libraries\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="_Static\Images\libraries\ui-icons_222222_256x240.png" />
+    <Content Include="_Static\Images\libraries\ui-icons_228ef1_256x240.png" />
+    <Content Include="_Static\Images\libraries\ui-icons_ef8c08_256x240.png" />
+    <Content Include="_Static\Images\libraries\ui-icons_ffd27a_256x240.png" />
+    <Content Include="_Static\Images\libraries\ui-icons_ffffff_256x240.png" />
+    <Content Include="_Static\Images\logging.png" />
+    <Content Include="_Static\Images\logos\BH.jpg" />
+    <Content Include="_Static\Images\logos\Doody.jpg" />
+    <Content Include="_Static\Images\logos\EssentialDoody.jpg" />
+    <Content Include="_Static\Images\logos\get-adobe-reader.gif" />
+    <Content Include="_Static\Images\logos\get-adobe-reader.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\black%40x2.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\black.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\black_rtl%40x2.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\black_rtl.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\playful_black%40x2.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\playful_black.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\playful_black_rtl%40x2.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\playful_black_rtl.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\playful_white%40x2.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\playful_white.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\playful_white_rtl%40x2.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\playful_white_rtl.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\play_black%40x2.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\play_black.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\play_black_rtl%40x2.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\play_black_rtl.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\play_white%40x2.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\play_white.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\play_white_rtl%40x2.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\play_white_rtl.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\white%40x2.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\white.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\white_rtl%40x2.png" />
+    <Content Include="_Static\Images\packages\flowplayer-5.4.3\white_rtl.png" />
+    <Content Include="_Static\Images\page-actions\sprite-browse.gif" />
+    <Content Include="_Static\Images\page-actions\sprite-dictionary.gif" />
+    <Content Include="_Static\Images\page-actions\sprite-dropdown-arrow.png" />
+    <Content Include="_Static\Images\page-actions\sprite-dropdown-arrow.selected.png" />
+    <Content Include="_Static\Images\page-actions\sprite-index.gif" />
+    <Content Include="_Static\Images\page-actions\sprite-related.gif" />
+    <Content Include="_Static\Images\page-actions\sprite-tools.gif" />
+    <Content Include="_Static\Images\r2-digital-library.gif" />
+    <Content Include="_Static\Images\r2-digital-library.png" />
+    <Content Include="_Static\Images\r2-digital-library.sub.gif" />
+    <Content Include="_Static\Images\rittenhouse_digital_logo.png" />
+    <Content Include="_Static\Images\screenshots\demo.jpg" />
+    <Content Include="_Static\Images\tabs\bg-left-admin.png" />
+    <Content Include="_Static\Images\tabs\bg-left.png" />
+    <Content Include="_Static\Images\tabs\bg-left.selected.png" />
+    <Content Include="_Static\Images\tabs\bg-right-admin.png" />
+    <Content Include="_Static\Images\tabs\bg-right.png" />
+    <Content Include="_Static\Images\tabs\bg-right.selected.png" />
+    <Content Include="_Static\Scripts\components\accordion.js" />
+    <Content Include="_Static\Scripts\components\fixed.js" />
+    <Content Include="_Static\Scripts\components\force-numeric.js" />
+    <Content Include="_Static\Scripts\components\history-back.js" />
+    <Content Include="_Static\Scripts\components\iframe-modal.js" />
+    <Content Include="_Static\Scripts\components\logging.js" />
+    <Content Include="_Static\Scripts\components\moreless.js" />
+    <Content Include="_Static\Scripts\components\new-window.js" />
+    <Content Include="_Static\Scripts\components\print.js" />
+    <Content Include="_Static\Scripts\components\selections.js" />
+    <Content Include="_Static\Scripts\components\tips.js" />
+    <Content Include="_Static\Scripts\components\toggle-links.js" />
+    <Content Include="_Static\Scripts\components\toggle-menu.js" />
+    <Content Include="_Static\Scripts\components\view-resource.js" />
+    <Content Include="_Static\Scripts\core\actions-menu.js" />
+    <Content Include="_Static\Scripts\core\faceting.js" />
+    <Content Include="_Static\Scripts\core\help.js" />
+    <Content Include="_Static\Scripts\core\history.js" />
+    <Content Include="_Static\Scripts\core\links.js" />
+    <Content Include="_Static\Scripts\core\panel.js" />
+    <Content Include="_Static\Scripts\core\polyfills.js" />
+    <Content Include="_Static\Scripts\core\pubsub.js" />
+    <Content Include="_Static\Scripts\core\security.js" />
+    <Content Include="_Static\Scripts\core\service.js" />
+    <Content Include="_Static\Scripts\core\tagging.js" />
+    <Content Include="_Static\Scripts\core\utilities.js" />
+    <Content Include="_Static\Scripts\functional-areas\admin.js" />
+    <Content Include="_Static\Scripts\functional-areas\alpha.js" />
+    <Content Include="_Static\Scripts\functional-areas\authentication.js" />
+    <Content Include="_Static\Scripts\functional-areas\browse.js" />
+    <Content Include="_Static\Scripts\functional-areas\myr2.js" />
+    <Content Include="_Static\Scripts\functional-areas\resource.js" />
+    <Content Include="_Static\Scripts\functional-areas\search.js" />
+    <None Include="_Static\Scripts\libraries\jquery-1.7.1-vsdoc.js" />
+    <Content Include="_Static\Scripts\libraries\jquery-1.7.1.js" />
+    <Content Include="_Static\Scripts\libraries\jquery-1.7.1.min.js" />
+    <Content Include="_Static\Scripts\libraries\jquery-ui.js" />
+    <Content Include="_Static\Scripts\libraries\jquery-ui.min.js" />
+    <Content Include="_Static\Scripts\libraries\jquery.ba-bbq.js" />
+    <Content Include="_Static\Scripts\libraries\jquery.ba-bbq.min.js" />
+    <Content Include="_Static\Scripts\libraries\jquery.unobtrusive-ajax.js" />
+    <Content Include="_Static\Scripts\libraries\jquery.unobtrusive-ajax.min.js" />
+    <None Include="_Static\Scripts\libraries\jquery.validate-vsdoc.js" />
+    <Content Include="_Static\Scripts\libraries\jquery.validate.js" />
+    <Content Include="_Static\Scripts\libraries\jquery.validate.min.js" />
+    <Content Include="_Static\Scripts\libraries\jquery.validate.unobtrusive.js" />
+    <Content Include="_Static\Scripts\libraries\jquery.validate.unobtrusive.min.js" />
+    <Content Include="_Static\Scripts\libraries\modernizr.custom.js" />
+    <Content Include="_Static\Scripts\libraries\simple-inheritance.js" />
+    <Content Include="_Static\Scripts\libraries\underscore-min.js" />
+    <Content Include="_Static\Scripts\libraries\underscore.js" />
+    <Content Include="_Static\Scripts\lookups\elements.js" />
+    <Content Include="_Static\Scripts\lookups\keyboard-shortcuts.js" />
+    <Content Include="_Static\Scripts\lookups\messages.js" />
+    <Content Include="_Static\Scripts\lookups\pubsub.js" />
+    <Content Include="_Static\Scripts\lookups\service.js" />
+    <Content Include="_Static\Scripts\packages\flowplayer-5.4.3\flowplayer.js" />
+    <Content Include="_Static\Scripts\packages\jquery.column.js" />
+    <Content Include="_Static\Scripts\packages\jquery.hotkeys.js" />
+    <Content Include="_Static\Scripts\packages\jquery.placeholder.js" />
+    <Content Include="_Static\Scripts\packages\selectize\selectize.js" />
+    <Content Include="_Static\Scripts\packages\selectize\selectize.min.js" />
+    <Content Include="_Static\Scripts\packages\slick\slick.js" />
+    <Content Include="_Static\Scripts\packages\slick\slick.min.js" />
+    <Content Include="_Static\Scripts\packages\twitter\bootstrap-collapse.js" />
+    <Content Include="_Static\Scripts\packages\twitter\bootstrap-datepicker.js" />
+    <Content Include="_Static\Scripts\packages\twitter\bootstrap-modal.js" />
+    <Content Include="_Static\Scripts\packages\twitter\bootstrap-tooltip.js" />
+    <Content Include="_Static\Templates\AccountRequest_Body.html" />
+    <Content Include="_Static\Templates\AccountRequest_Item.html" />
+    <Content Include="_Static\Templates\AnnualFee_Body.html" />
+    <Content Include="_Static\Templates\AnnualFee_Item.html" />
+    <Content Include="_Static\Templates\ApplicationUsage_Body.html" />
+    <Content Include="_Static\Templates\ApplicationUsage_Pda.html" />
+    <Content Include="_Static\Templates\ArchivedResource_Body.html" />
+    <Content Include="_Static\Templates\ArchivedResource_Item.html" />
+    <Content Include="_Static\Templates\AutomatedCartSummary_Body.html" />
+    <Content Include="_Static\Templates\AutomatedCartSummary_Institution.html" />
+    <Content Include="_Static\Templates\AutomatedCartSummary_Item.html" />
+    <Content Include="_Static\Templates\AutomatedCart_Body.html" />
+    <Content Include="_Static\Templates\CartProduct_Item.html" />
+    <Content Include="_Static\Templates\CartResource_Body.html" />
+    <Content Include="_Static\Templates\CartResource_Item.html" />
+    <Content Include="_Static\Templates\Dashboard\Body.html" />
+    <Content Include="_Static\Templates\Dashboard\Header-Footer.html" />
+    <Content Include="_Static\Templates\Dashboard\Highlights.html" />
+    <Content Include="_Static\Templates\Dashboard\Highlights_No_Resource.html" />
+    <Content Include="_Static\Templates\Dashboard\Highlights_Resource.html" />
+    <Content Include="_Static\Templates\Dashboard\Notes.html" />
+    <Content Include="_Static\Templates\Dashboard\Notes_Item.html" />
+    <Content Include="_Static\Templates\Dashboard\Notes_Item_Static.html" />
+    <Content Include="_Static\Templates\Dashboard\ResourceList_Wrapper_Dark.html" />
+    <Content Include="_Static\Templates\Dashboard\ResourceList_Wrapper_First.html" />
+    <Content Include="_Static\Templates\Dashboard\ResourceList_Wrapper_Light.html" />
+    <Content Include="_Static\Templates\Dashboard\Resource_Even_Dark.html" />
+    <Content Include="_Static\Templates\Dashboard\Resource_Even_Light.html" />
+    <Content Include="_Static\Templates\Dashboard\Resource_Even_PriceList_Dark.html" />
+    <Content Include="_Static\Templates\Dashboard\Resource_Even_PriceList_Light.html" />
+    <Content Include="_Static\Templates\Dashboard\Resource_Odd_Dark.html" />
+    <Content Include="_Static\Templates\Dashboard\Resource_Odd_Light.html" />
+    <Content Include="_Static\Templates\Dashboard\Resource_Odd_PriceList_Dark.html" />
+    <Content Include="_Static\Templates\Dashboard\Resource_Odd_PriceList_Light.html" />
+    <Content Include="_Static\Templates\Dashboard\Resource_Section_Header_Dark.html" />
+    <Content Include="_Static\Templates\Dashboard\Resource_Section_Header_Light.html" />
+    <Content Include="_Static\Templates\Dashboard_Example_Template.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Body.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Header-Footer.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Highlights.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Highlights_No_Resource.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Highlights_Resource.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Notes.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Notes_Item.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Notes_Item_Static.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\ResourceList_Wrapper_Dark.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\ResourceList_Wrapper_First.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\ResourceList_Wrapper_Light.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Resource_Even_Dark.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Resource_Even_Light.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Resource_Even_PriceList_Dark.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Resource_Even_PriceList_Light.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Resource_Odd_Dark.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Resource_Odd_Light.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Resource_Odd_PriceList_Dark.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Resource_Odd_PriceList_Light.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Resource_Section_Header_Dark.html" />
+    <Content Include="_Static\Templates\Dashboard_Min\Resource_Section_Header_Light.html" />
+    <Content Include="_Static\Templates\EditionResource_Body.html" />
+    <Content Include="_Static\Templates\EditionResource_Item.html" />
+    <Content Include="_Static\Templates\FacultyRequest_Body.html" />
+    <Content Include="_Static\Templates\FindEBook_Body.html" />
+    <Content Include="_Static\Templates\FindEBook_Publisher.html" />
+    <Content Include="_Static\Templates\FindEBook_Publisher_Item.html" />
+    <Content Include="_Static\Templates\Icon_Brandon_Hill.html" />
+    <Content Include="_Static\Templates\Icon_Doody.html" />
+    <Content Include="_Static\Templates\Icon_Doody_Essential.html" />
+    <Content Include="_Static\Templates\Icon_Special_Resource.html" />
+    <Content Include="_Static\Templates\InternalUseOnly_Header_Footer.html" />
+    <Content Include="_Static\Templates\LogEventsReport_Body.html" />
+    <Content Include="_Static\Templates\LogEventsReport_Body_Item.html" />
+    <Content Include="_Static\Templates\LogEventsReport_Item.html" />
+    <Content Include="_Static\Templates\LogEventsReport_Item_Step.html" />
+    <Content Include="_Static\Templates\Main_Header_Footer.html" />
+    <Content Include="_Static\Templates\NewResource_Body.html" />
+    <Content Include="_Static\Templates\NewResource_Item.html" />
+    <Content Include="_Static\Templates\OngoingPdaAdded_Body.html" />
+    <Content Include="_Static\Templates\OngoingPdaAdded_Item.html" />
+    <Content Include="_Static\Templates\OngoingPdaAdded_Rule.html" />
+    <Content Include="_Static\Templates\OrderSummary_Body.html" />
+    <Content Include="_Static\Templates\OrderSummary_Item.html" />
+    <Content Include="_Static\Templates\PdaAddedToCart_Body.html" />
+    <Content Include="_Static\Templates\PdaEditionResource_Body.html" />
+    <Content Include="_Static\Templates\PdaHistory_Body.html" />
+    <Content Include="_Static\Templates\PdaRemovedFromCart_Body.html" />
+    <Content Include="_Static\Templates\PdaResource_Item.html" />
+    <Content Include="_Static\Templates\PrecisionSearch_Body.html" />
+    <Content Include="_Static\Templates\PurchasedResource_Body.html" />
+    <Content Include="_Static\Templates\QaApproval_BodyAndItem.html" />
+    <Content Include="_Static\Templates\RabbitMqReport_Body.html" />
+    <Content Include="_Static\Templates\RabbitMqReport_Host.html" />
+    <Content Include="_Static\Templates\RabbitMqReport_Host_Queue.html" />
+    <Content Include="_Static\Templates\RecommendedResource_Item.html" />
+    <Content Include="_Static\Templates\ResourceEmailLock_Body.html" />
+    <Content Include="_Static\Templates\ResourceEmailLock_Item.html" />
+    <Content Include="_Static\Templates\ResourcePrintLock_Body.html" />
+    <Content Include="_Static\Templates\ResourcePrintLock_Item.html" />
+    <Content Include="_Static\Templates\ResourceUsage_Body.html" />
+    <Content Include="_Static\Templates\Resource_Specialty.html" />
+    <Content Include="_Static\Templates\ReviewResource_Body.html" />
+    <Content Include="_Static\Templates\ReviewResource_Item.html" />
+    <Content Include="_Static\Templates\Search_Body.html" />
+    <Content Include="_Static\Templates\Search_Item.html" />
+    <Content Include="_Static\Templates\TrialEndedPdaCreated.html" />
+    <Content Include="_Static\Templates\TrialNotice_3Day_Body.html" />
+    <Content Include="_Static\Templates\TrialNotice_9Day_Body.html" />
+    <Content Include="_Static\Templates\TrialNotice_Extension_Body.html" />
+    <Content Include="_Static\Templates\TrialNotice_Final_Body.html" />
+    <Content Include="_Static\Templates\TurnawayResource_Body.html" />
+    <Content Include="_Static\Templates\TurnawayResource_Item.html" />
+    <Content Include="_Static\Templates\Unsubscribe.html" />
+    <Content Include="_Static\Templates\UtilityReport_Body.html" />
+    <Content Include="_Static\Templates\UtilityReport_Item.html" />
+    <Content Include="_Static\Templates\UtilityReport_Item_Step.html" />
+    <Content Include="_Static\Templates\WebActivityReport_Body.html" />
+    <Content Include="_Static\Templates\WebActivityReport_Item.html" />
+    <Content Include="_Static\Templates\WebActivityReport_Item_Result.html" />
+    <Content Include="_Static\Xsl\admon.ritt.xsl" />
+    <Content Include="_Static\Xsl\bibliomixed.ritt.xsl" />
+    <Content Include="_Static\Xsl\common.ritt.xsl" />
+    <Content Include="_Static\Xsl\common\af.xml" />
+    <Content Include="_Static\Xsl\common\bg.xml" />
+    <Content Include="_Static\Xsl\common\bn.xml" />
+    <Content Include="_Static\Xsl\common\ca.xml" />
+    <Content Include="_Static\Xsl\common\common.xsl" />
+    <Content Include="_Static\Xsl\common\cs.xml" />
+    <Content Include="_Static\Xsl\common\da.xml" />
+    <Content Include="_Static\Xsl\common\de.xml" />
+    <Content Include="_Static\Xsl\common\el.xml" />
+    <Content Include="_Static\Xsl\common\en.xml" />
+    <Content Include="_Static\Xsl\common\es.xml" />
+    <Content Include="_Static\Xsl\common\et.xml" />
+    <Content Include="_Static\Xsl\common\eu.xml" />
+    <Content Include="_Static\Xsl\common\fi.xml" />
+    <Content Include="_Static\Xsl\common\fr.xml" />
+    <Content Include="_Static\Xsl\common\gentext.xsl" />
+    <Content Include="_Static\Xsl\common\he.xml" />
+    <Content Include="_Static\Xsl\common\hu.xml" />
+    <Content Include="_Static\Xsl\common\id.xml" />
+    <Content Include="_Static\Xsl\common\it.xml" />
+    <Content Include="_Static\Xsl\common\ja.xml" />
+    <Content Include="_Static\Xsl\common\ko.xml" />
+    <Content Include="_Static\Xsl\common\l10n.xml" />
+    <Content Include="_Static\Xsl\common\l10n.xsl" />
+    <Content Include="_Static\Xsl\common\la.xml" />
+    <Content Include="_Static\Xsl\common\labels.xsl" />
+    <Content Include="_Static\Xsl\common\lt.xml" />
+    <Content Include="_Static\Xsl\common\nl.xml" />
+    <Content Include="_Static\Xsl\common\nn.xml" />
+    <Content Include="_Static\Xsl\common\no.xml" />
+    <Content Include="_Static\Xsl\common\pi.xsl" />
+    <Content Include="_Static\Xsl\common\pl.xml" />
+    <Content Include="_Static\Xsl\common\pt.xml" />
+    <Content Include="_Static\Xsl\common\pt_br.xml" />
+    <Content Include="_Static\Xsl\common\ro.xml" />
+    <Content Include="_Static\Xsl\common\ru.xml" />
+    <Content Include="_Static\Xsl\common\sk.xml" />
+    <Content Include="_Static\Xsl\common\sl.xml" />
+    <Content Include="_Static\Xsl\common\sr.xml" />
+    <Content Include="_Static\Xsl\common\sr_Latn.xml" />
+    <Content Include="_Static\Xsl\common\subtitles.xsl" />
+    <Content Include="_Static\Xsl\common\sv.xml" />
+    <Content Include="_Static\Xsl\common\table.xsl" />
+    <Content Include="_Static\Xsl\common\targets.xsl" />
+    <Content Include="_Static\Xsl\common\th.xml" />
+    <Content Include="_Static\Xsl\common\titles.xsl" />
+    <Content Include="_Static\Xsl\common\tr.xml" />
+    <Content Include="_Static\Xsl\common\uk.xml" />
+    <Content Include="_Static\Xsl\common\vi.xml" />
+    <Content Include="_Static\Xsl\common\xh.xml" />
+    <Content Include="_Static\Xsl\common\zh_cn.xml" />
+    <Content Include="_Static\Xsl\common\zh_tw.xml" />
+    <Content Include="_Static\Xsl\dtd\v1.1\catalog.xml" />
+    <Content Include="_Static\Xsl\dtd\v1.1\dbcentx.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\dbgenent.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\dbhierx.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\dbnotnx.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\dbpoolx.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\demo.xml" />
+    <Content Include="_Static\Xsl\dtd\v1.1\demo2.xml" />
+    <Content Include="_Static\Xsl\dtd\v1.1\htmltblx.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\NoEntity.xml" />
+    <Content Include="_Static\Xsl\dtd\v1.1\rittcustomtags.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\rittexclusions.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ritthier.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ritthier2.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\rittintermod.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\rittredecl.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\rittredecl2.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\rittredeclmeta.mod" />
+    <Content Include="_Static\Xsl\dtd\v1.1\rittredef.mod" />
+    <Content Include="_Static\Xsl\footnote.ritt.xsl" />
+    <Content Include="_Static\Xsl\graphics.ritt.xsl" />
+    <Content Include="_Static\Xsl\html\admon.xsl" />
+    <Content Include="_Static\Xsl\html\autoidx.xsl" />
+    <Content Include="_Static\Xsl\html\autotoc.xsl" />
+    <Content Include="_Static\Xsl\html\biblio.xsl" />
+    <Content Include="_Static\Xsl\html\block.xsl" />
+    <Content Include="_Static\Xsl\html\callout.xsl" />
+    <Content Include="_Static\Xsl\html\chunker.xsl" />
+    <Content Include="_Static\Xsl\html\component.xsl" />
+    <Content Include="_Static\Xsl\html\division.xsl" />
+    <Content Include="_Static\Xsl\html\docbook.xsl" />
+    <Content Include="_Static\Xsl\html\docbookng.xsl" />
+    <Content Include="_Static\Xsl\html\ebnf.xsl" />
+    <Content Include="_Static\Xsl\html\footnote.xsl" />
+    <Content Include="_Static\Xsl\html\formal.xsl" />
+    <Content Include="_Static\Xsl\html\glossary.xsl" />
+    <Content Include="_Static\Xsl\html\graphics.xsl" />
+    <Content Include="_Static\Xsl\html\html-rtf.xsl" />
+    <Content Include="_Static\Xsl\html\html.xsl" />
+    <Content Include="_Static\Xsl\html\htmltbl.xsl" />
+    <Content Include="_Static\Xsl\html\index.xsl" />
+    <Content Include="_Static\Xsl\html\info.xsl" />
+    <Content Include="_Static\Xsl\html\inline.xsl" />
+    <Content Include="_Static\Xsl\html\keywords.xsl" />
+    <Content Include="_Static\Xsl\html\lists.xsl" />
+    <Content Include="_Static\Xsl\html\math.xsl" />
+    <Content Include="_Static\Xsl\html\param.xsl" />
+    <Content Include="_Static\Xsl\html\pi.xsl" />
+    <Content Include="_Static\Xsl\html\qandaset.xsl" />
+    <Content Include="_Static\Xsl\html\refentry.xsl" />
+    <Content Include="_Static\Xsl\html\sections.xsl" />
+    <Content Include="_Static\Xsl\html\synop.xsl" />
+    <Content Include="_Static\Xsl\html\table.xsl" />
+    <Content Include="_Static\Xsl\html\task.xsl" />
+    <Content Include="_Static\Xsl\html\titlepage.templates.xsl" />
+    <Content Include="_Static\Xsl\html\titlepage.xsl" />
+    <Content Include="_Static\Xsl\html\toc.xsl" />
+    <Content Include="_Static\Xsl\html\verbatim.xsl" />
+    <Content Include="_Static\Xsl\html\xref.xsl" />
+    <Content Include="_Static\Xsl\lib\lib.xsl" />
+    <Content Include="_Static\Xsl\link.ritt.xsl" />
+    <Content Include="_Static\Xsl\para.ritt.xsl" />
+    <Content Include="_Static\Xsl\RittBook.xsl" />
+    <Content Include="_Static\Xsl\rittnav.xsl" />
+    <Content Include="_Static\Xsl\ritttoc.xsl" />
+    <Content Include="_Static\Xsl\sections.ritt.xsl" />
+    <Content Include="_Static\Xsl\subpart.ritt.xsl" />
+    <Content Include="_Static\Xsl\table.ritt.xsl" />
+    <Content Include="_Static\Xsl\titlepage.ritt.xsl" />
+    <Content Include="_Static\Xsl\titlepage.templates.ritt.xsl" />
+    <Content Include="_Static\Xsl\ulink.ritt.xsl" />
+    <Content Include="_Static\_Design\index.html" />
+    <Content Include="_Static\_Design\new.html" />
+    <Content Include="_Static\_Design\r2-digital-library.gif" />
+    <Content Include="_Static\_Design\squish.html" />
+    <Content Include="_Static\_Design\static\rightjs\right-olds-src.js" />
+    <Content Include="_Static\_Design\static\rightjs\right-olds.js" />
+    <Content Include="_Static\_Design\static\rightjs\right-safe-src.js" />
+    <Content Include="_Static\_Design\static\rightjs\right-safe.js" />
+    <Content Include="_Static\_Design\static\rightjs\right-selectable-src.js" />
+    <Content Include="_Static\_Design\static\rightjs\right-selectable.js" />
+    <Content Include="_Static\_Design\static\rightjs\right-src.js" />
+    <Content Include="_Static\_Design\static\rightjs\right.js" />
+    <Content Include="_Static\_Design\static\selectize\.gitignore" />
+    <Content Include="_Static\_Design\static\selectize\dist\css\selectize.bootstrap2.css" />
+    <Content Include="_Static\_Design\static\selectize\dist\css\selectize.bootstrap3.css" />
+    <Content Include="_Static\_Design\static\selectize\dist\css\selectize.css" />
+    <Content Include="_Static\_Design\static\selectize\dist\css\selectize.default.css" />
+    <Content Include="_Static\_Design\static\selectize\dist\css\selectize.legacy.css" />
+    <Content Include="_Static\_Design\static\selectize\dist\js\selectize.js" />
+    <Content Include="_Static\_Design\static\selectize\dist\js\selectize.min.js" />
+    <Content Include="_Static\_Design\static\selectize\dist\js\standalone\selectize.js" />
+    <Content Include="_Static\_Design\static\selectize\dist\js\standalone\selectize.min.js" />
+    <Content Include="_Static\_Design\static\selectize\examples\api.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\basic.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\cities.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\confirm.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\contacts.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\create-filter.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\css\normalize.css" />
+    <Content Include="_Static\_Design\static\selectize\examples\css\stylesheet.css" />
+    <Content Include="_Static\_Design\static\selectize\examples\customization.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\dynamic.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\events.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\github.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\images\bg.png" />
+    <Content Include="_Static\_Design\static\selectize\examples\images\check%402x.png" />
+    <Content Include="_Static\_Design\static\selectize\examples\images\repo-forked.png" />
+    <Content Include="_Static\_Design\static\selectize\examples\images\repo-source.png" />
+    <Content Include="_Static\_Design\static\selectize\examples\images\spinner.gif" />
+    <Content Include="_Static\_Design\static\selectize\examples\js\es5.js" />
+    <Content Include="_Static\_Design\static\selectize\examples\js\index.js" />
+    <Content Include="_Static\_Design\static\selectize\examples\js\jquery.js" />
+    <Content Include="_Static\_Design\static\selectize\examples\js\jqueryui.js" />
+    <Content Include="_Static\_Design\static\selectize\examples\lock.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\movies.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\optgroups.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\performance.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\plugins.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\required.html" />
+    <Content Include="_Static\_Design\static\selectize\examples\rtl.html" />
+    <Content Include="_Static\_Design\static\selectize\Gruntfile.js" />
+    <Content Include="_Static\_Design\static\selectize\karma.conf.js" />
+    <Content Include="_Static\_Design\static\selectize\src\.wrapper.js" />
+    <Content Include="_Static\_Design\static\selectize\src\constants.js" />
+    <Content Include="_Static\_Design\static\selectize\src\contrib\highlight.js" />
+    <Content Include="_Static\_Design\static\selectize\src\contrib\microevent.js" />
+    <Content Include="_Static\_Design\static\selectize\src\defaults.js" />
+    <Content Include="_Static\_Design\static\selectize\src\less\.wrapper.css" />
+    <Content Include="_Static\_Design\static\selectize\src\plugins\drag_drop\plugin.js" />
+    <Content Include="_Static\_Design\static\selectize\src\plugins\dropdown_header\plugin.js" />
+    <Content Include="_Static\_Design\static\selectize\src\plugins\optgroup_columns\plugin.js" />
+    <Content Include="_Static\_Design\static\selectize\src\plugins\remove_button\plugin.js" />
+    <Content Include="_Static\_Design\static\selectize\src\plugins\restore_on_backspace\plugin.js" />
+    <Content Include="_Static\_Design\static\selectize\src\selectize.jquery.js" />
+    <Content Include="_Static\_Design\static\selectize\src\selectize.js" />
+    <Content Include="_Static\_Design\static\selectize\src\utils.js" />
+    <Content Include="_Static\_Design\static\selectize\test\api.js" />
+    <Content Include="_Static\_Design\static\selectize\test\events.js" />
+    <Content Include="_Static\_Design\static\selectize\test\events_dom.js" />
+    <Content Include="_Static\_Design\static\selectize\test\interaction.js" />
+    <Content Include="_Static\_Design\static\selectize\test\setup.js" />
+    <Content Include="_Static\_Design\static\selectize\test\support\base.js" />
+    <Content Include="_Static\_Design\static\selectize\test\support\syn.js" />
+    <Content Include="_Static\_Design\static\selectize\test\xss.js" />
+    <Content Include="App_Code\PurchaseHelper.cshtml" />
+    <Content Include="App_Code\ResourceHelpers.cshtml" />
+    <Content Include="App_Code\RichTextHelper.cshtml" />
+    <Content Include="App_Code\StyleHelpers.cshtml" />
+    <Content Include="App_Data\n2_host.config" />
+    <Content Include="App_Data\SearchIndex\Pages\segments.gen" />
+    <Content Include="App_Data\SearchIndex\Pages\segments_9l" />
+    <Content Include="App_Data\SearchIndex\Pages\_9q.cfs" />
+    <Content Include="App_Data\SearchIndex\Pages\_9q_2.del" />
+    <Content Include="App_Data\SearchIndex\Pages\_9r.cfs" />
+    <Content Include="App_Data\SearchIndex\Pages\_9r_1.del" />
+    <Content Include="App_Data\SearchIndex\Pages\_9s.cfs" />
+    <Content Include="App_Data\SearchIndex\Pages\_9s_1.del" />
+    <Content Include="App_Data\SearchIndex\Pages\_9t.cfs" />
+    <Content Include="App_Data\SearchIndex\Pages\_9t_1.del" />
+    <Content Include="App_Data\SearchIndex\Pages\_9u.cfs" />
+    <Content Include="App_Data\SearchIndex\Pages\_9u_1.del" />
+    <Content Include="App_Data\SearchIndex\Pages\_9v.cfs" />
+    <Content Include="App_Data\SearchIndex\Pages\_9v_1.del" />
+    <Content Include="App_Data\SearchIndex\Pages\_9w.cfs" />
+    <Content Include="App_Data\SearchIndex\Pages\_9w_1.del" />
+    <Content Include="App_Data\SearchIndex\Pages\_9x.cfs" />
+    <Content Include="App_Data\SearchIndex\Pages\_9y.cfs" />
+    <Content Include="Areas\Admin\Views\AccessAndDiscoverability\Access.cshtml" />
+    <Content Include="Areas\Admin\Views\AccessAndDiscoverability\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AccessAndDiscoverability\Integration.cshtml" />
+    <Content Include="Areas\Admin\Views\Alert\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Alert\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Alert\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Alert\_AlertDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart\BulkAddToCart.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart\BulkAddToCartConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart\ShoppingCart.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart\_Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart\_AddToSavedCart.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart\_Add_orig.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart\_CalculateResourceCost.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart\_Cart.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart\_ShoppingCartModels.cshtml" />
+    <Content Include="Areas\Admin\Views\Checkout\Checkout.cshtml" />
+    <Content Include="Areas\Admin\Views\Checkout\Eula.cshtml" />
+    <Content Include="Areas\Admin\Views\Checkout\EulaModal.cshtml" />
+    <Content Include="Areas\Admin\Views\Checkout\OrderConfirmation.cshtml" />
+    <Content Include="Areas\Admin\Views\Checkout\PdaEulaModal.cshtml" />
+    <Content Include="Areas\Admin\Views\Checkout\_Eula.cshtml" />
+    <Content Include="Areas\Admin\Views\CollectionManagement\List.cshtml" />
+    <Content Include="Areas\Admin\Views\CollectionManagement\Publishers.cshtml" />
+    <Content Include="Areas\Admin\Views\CollectionManagement\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CollectionManagement\_HiddenQueryFields.cshtml" />
+    <Content Include="Areas\Admin\Views\CollectionManagement\_List.cshtml" />
+    <Content Include="Areas\Admin\Views\CollectionManagement\_Publisher.cshtml" />
+    <Content Include="Areas\Admin\Views\Configuration\Cache.cshtml" />
+    <Content Include="Areas\Admin\Views\Configuration\ConfigurationGroupList.cshtml" />
+    <Content Include="Areas\Admin\Views\Configuration\ConfigurationGroupSettings.cshtml" />
+    <Content Include="Areas\Admin\Views\Configuration\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Configuration\EditConfigurationSetting.cshtml" />
+    <Content Include="Areas\Admin\Views\Configuration\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Configuration\LiveConfigurationSettings.cshtml" />
+    <Content Include="Areas\Admin\Views\Configuration\SettingGroupList.cshtml" />
+    <Content Include="Areas\Admin\Views\Configuration\_ConfigurationSettings.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\BookAccessDeniedRequests.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\BookRequests.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\DeniedRequests.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\PlatformRequests.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\SearchRequests.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\SectionRequests.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\_BookAccessDeniedRequests.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\_BookRequests.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\_DeniedRequests.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\_PlatformRequests.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\_SearchRequests.cshtml" />
+    <Content Include="Areas\Admin\Views\CounterReport\_SectionRequests.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\EbookCollection.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\PdaCollection.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\_DashboardPeriod.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\_DashboardResource.cshtml" />
+    <Content Include="Areas\Admin\Views\ExpressCheckout\BulkAddPdaConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\ExpressCheckout\BulkAddPdaVerify.cshtml" />
+    <Content Include="Areas\Admin\Views\ExpressCheckout\BulkAddToCartConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\ExpressCheckout\BulkAddToCartVerify.cshtml" />
+    <Content Include="Areas\Admin\Views\ExpressCheckout\EulaModal.cshtml" />
+    <Content Include="Areas\Admin\Views\ExpressCheckout\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ExpressCheckout\PdaEulaModal.cshtml" />
+    <Content Include="Areas\Admin\Views\ExpressCheckout\PdaTrialConvertModal.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionBranding\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionBranding\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionCrawlerBypass\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionCrawlerBypass\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionCrawlerBypass\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionCrawlerBypass\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionReferrer\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionReferrer\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionReferrer\List.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionReferrer\_UrlReferrerInstructions.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionTrial\AddTrial.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionTrial\ProcessTrial.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionTrial\_ProcessTrial.cshtml" />
+    <Content Include="Areas\Admin\Views\InstitutionTrial\_Welcome.cshtml" />
+    <Content Include="Areas\Admin\Views\Institution\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Institution\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Institution\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Institution\_List.cshtml" />
+    <Content Include="Areas\Admin\Views\IpAddressRange\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\IpAddressRange\BulkDelete.cshtml" />
+    <Content Include="Areas\Admin\Views\IpAddressRange\Consolidate.cshtml" />
+    <Content Include="Areas\Admin\Views\IpAddressRange\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\IpAddressRange\List.cshtml" />
+    <Content Include="Areas\Admin\Views\IpAddressRange\_EditIpRange.cshtml" />
+    <Content Include="Areas\Admin\Views\MarcExport\CollectionManagement.cshtml" />
+    <Content Include="Areas\Admin\Views\MarcExport\MarcExport.cshtml" />
+    <Content Include="Areas\Admin\Views\Marketing\AutomatedCartFilter.cshtml" />
+    <Content Include="Areas\Admin\Views\Marketing\AutomatedCartHistoryList.cshtml" />
+    <Content Include="Areas\Admin\Views\Marketing\AutomatedCartSelected.cshtml" />
+    <Content Include="Areas\Admin\Views\Marketing\AutomatedCartsFinalize.cshtml" />
+    <Content Include="Areas\Admin\Views\Marketing\Cache.cshtml" />
+    <Content Include="Areas\Admin\Views\Marketing\RequestAccess.cshtml" />
+    <Content Include="Areas\Admin\Views\Notes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Notes\List.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderHistory\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderHistory\List.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderHistory\_Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderHistory\_List.cshtml" />
+    <Content Include="Areas\Admin\Views\PdaPromotion\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\PdaPromotion\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PdaPromotion\List.cshtml" />
+    <Content Include="Areas\Admin\Views\PdaPromotion\_PdaPromotionDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\BulkAddPda.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\BulkAddPdaConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\BulkDeletePda.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\BulkDeletePdaConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\PdaAdd.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\PdaAdded.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\PdaProfile.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\PdaRemove.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\PdaRemoved.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\PdaTrialConvertModal.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\Rule.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\VerifyRule.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\_PdaProfile.cshtml" />
+    <Content Include="Areas\Admin\Views\Pda\_Rule.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductSubscription\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductSubscription\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductSubscription\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Promotion\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Promotion\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Promotion\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Promotion\_PromotionDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Publisher\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Publisher\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Publisher\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Publisher\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Publisher\NotSaleable.cshtml" />
+    <Content Include="Areas\Admin\Views\Publisher\_EditPublisherUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Publisher\_PublisherMin.cshtml" />
+    <Content Include="Areas\Admin\Views\Recommendations\BulkRecommend.cshtml" />
+    <Content Include="Areas\Admin\Views\Recommendations\BulkRecommendConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\Recommendations\DeleteRecommend.cshtml" />
+    <Content Include="Areas\Admin\Views\Recommendations\DeleteRecommended.cshtml" />
+    <Content Include="Areas\Admin\Views\Recommendations\Recommend.cshtml" />
+    <Content Include="Areas\Admin\Views\Recommendations\Recommended.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\AnnualFeeReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\ApplicationUsage.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\PdaCountsReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\PdaPromotionReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\PromotionReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\PublisherUsage.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\ResourceUsage.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\SalesReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\SavedReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\SavedReports.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\SpecialReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_AnnualFeeReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_ApplicationUsage.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_DiscountReources.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_IpRangeOptions.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_PdaCountsReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_PdaPromotionReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_PromotionReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_PublisherFilter.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_PublisherUsage.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_PurchasedTitlesOnly.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_ResourceUsage.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_ResourceUsageOptions.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_SalesReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_SortBy.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\_SpecialReport.cshtml" />
+    <Content Include="Areas\Admin\Views\ReserveShelfManagement\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\ReserveShelfManagement\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ReserveShelfManagement\List.cshtml" />
+    <Content Include="Areas\Admin\Views\ReserveShelfManagement\ManageResources.cshtml" />
+    <Content Include="Areas\Admin\Views\ResourcePromotion\History.cshtml" />
+    <Content Include="Areas\Admin\Views\ResourcePromotion\Queue.cshtml" />
+    <Content Include="Areas\Admin\Views\Resource\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Resource\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Resource\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Resource\OngoingPdaEvent.cshtml" />
+    <Content Include="Areas\Admin\Views\Resource\Promote.cshtml" />
+    <Content Include="Areas\Admin\Views\Resource\_List.cshtml" />
+    <Content Include="Areas\Admin\Views\Review\BulkAddResources.cshtml" />
+    <Content Include="Areas\Admin\Views\Review\BulkAddResourcesConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\Review\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Review\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Review\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Review\Resources.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\ActionsMenus\_ActionsMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\ActionsMenus\_SavedCartMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\ActionsMenus\_SearchMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\ActionsMenus\_ShoppingCartMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\ActionsMenus\_SortAndFilterMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\ActionsMenus\_ToolsMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LeftNav.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LicenseTypeFilter.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_MarcExportPanel.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_MarketingPeriod.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_OrderSummary.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Period.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_PublisherPeriod.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ResourceListItem.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ResourceRecommendNote.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Tabs.cshtml" />
+    <Content Include="Areas\Admin\Views\SpecialCollectionManagement\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\SpecialCollectionManagement\BulkAddResources.cshtml" />
+    <Content Include="Areas\Admin\Views\SpecialCollectionManagement\BulkAddResourcesVerify.cshtml" />
+    <Content Include="Areas\Admin\Views\SpecialCollectionManagement\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\SpecialCollectionManagement\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SpecialCollectionManagement\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Special\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Special\AddIcon.cshtml" />
+    <Content Include="Areas\Admin\Views\Special\BulkAddResources.cshtml" />
+    <Content Include="Areas\Admin\Views\Special\BulkAddResourcesVerify.cshtml" />
+    <Content Include="Areas\Admin\Views\Special\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Special\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Special\_EditDiscounts.cshtml" />
+    <Content Include="Areas\Admin\Views\Special\_EditResources.cshtml" />
+    <Content Include="Areas\Admin\Views\Special\_EditSpecial.cshtml" />
+    <Content Include="Areas\Admin\Views\Special\_List.cshtml" />
+    <Content Include="Areas\Admin\Views\SubscriptionManagement\DetailUser.cshtml" />
+    <Content Include="Areas\Admin\Views\SubscriptionManagement\EditUser.cshtml" />
+    <Content Include="Areas\Admin\Views\SubscriptionManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SubscriptionManagement\Users.cshtml" />
+    <Content Include="Areas\Admin\Views\SubscriptionManagement\UserSubscription.cshtml" />
+    <Content Include="Areas\Admin\Views\SubscriptionManagement\_UserSubscription.cshtml" />
+    <Content Include="Areas\Admin\Views\SystemInformation\Documentation.cshtml" />
+    <Content Include="Areas\Admin\Views\SystemInformation\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SystemInformation\NewsletterSignup.cshtml" />
+    <Content Include="Areas\Admin\Views\SystemInformation\Outreach.cshtml" />
+    <Content Include="Areas\Admin\Views\Testing\Email.cshtml" />
+    <Content Include="Areas\Admin\Views\Testing\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Email.cshtml" />
+    <Content Include="Areas\Admin\Views\User\List.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_List.cshtml" />
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\WebServiceAuthentication\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\WebServiceAuthentication\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\WebServiceAuthentication\List.cshtml" />
+    <Content Include="Areas\Admin\Views\WebServiceAuthentication\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="bin\R2V2.dll.config" />
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="client.ncconf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="hibernate.config" />
+    <Content Include="log4net.config" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\R2V2.Web.csproj.AssemblyReference.cache" />
+    <Content Include="obj\Debug\R2V2.Web.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\R2V2.Web.csproj.Up2Date" />
+    <Content Include="Properties\launchSettings.json" />
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="User.config" />
+    <Content Include="Views\AlphaIndex\Index.cshtml" />
+    <Content Include="Views\AlphaIndex\_Topics.cshtml" />
+    <Content Include="Views\Authentication\Athens.cshtml" />
+    <Content Include="Views\Authentication\Login.cshtml" />
+    <Content Include="Views\Authentication\NoAccess.cshtml" />
+    <Content Include="Views\Authentication\Title.cshtml" />
+    <Content Include="Views\Browse\Index.cshtml" />
+    <Content Include="Views\Browse\_Author.cshtml" />
+    <Content Include="Views\Browse\_BrowseAuthors.cshtml" />
+    <Content Include="Views\Browse\_BrowseDisciplines.cshtml" />
+    <Content Include="Views\Browse\_BrowsePublishers.cshtml" />
+    <Content Include="Views\Browse\_Collection.cshtml" />
+    <Content Include="Views\Browse\_Discipline.cshtml" />
+    <Content Include="Views\Browse\_Publications.cshtml" />
+    <Content Include="Views\Browse\_Publisher.cshtml" />
+    <Content Include="Views\Cloak\Dagger.cshtml" />
+    <Content Include="Views\Cloak\Index.cshtml" />
+    <Content Include="Views\Cms\Cache.cshtml" />
+    <Content Include="Views\Cms\Index.cshtml" />
+    <Content Include="Views\Cms\_ContactForm.cshtml" />
+    <Content Include="Views\Collections\Index.cshtml" />
+    <Content Include="Views\Contact\AskYourLibrarian.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Contact\MyAdministrators.cshtml" />
+    <Content Include="Views\Contact\Submitted.cshtml" />
+    <Content Include="Views\Contact\SubmittedTitleAccessRequest.cshtml" />
+    <Content Include="Views\Contact\SubmittedToAdministrators.cshtml" />
+    <Content Include="Views\Contact\SubmittedToLibrarian.cshtml" />
+    <Content Include="Views\Contact\UnlockAccount.cshtml" />
+    <Content Include="Views\Contact\_Index.cshtml" />
+    <Content Include="Views\Contact\_UnlockAccount.cshtml" />
+    <Content Include="Views\Error\ExpectedError.cshtml" />
+    <Content Include="Views\Error\InternalServer.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Eula\Index.cshtml" />
+    <Content Include="Views\Guest\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\CopyrightPolicy.cshtml" />
+    <Content Include="Views\Home\Faqs.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Info.cshtml" />
+    <Content Include="Views\Home\PrivacyPolicy.cshtml" />
+    <Content Include="Views\MyR2\Index.cshtml" />
+    <Content Include="Views\MyR2\_SearchSidebar.cshtml" />
+    <Content Include="Views\MyR2\_UserContentItem.cshtml" />
+    <Content Include="Views\Ping\Index.cshtml" />
+    <Content Include="Views\Ping\IndexStatus.cshtml" />
+    <Content Include="Views\Profile\Add.cshtml" />
+    <Content Include="Views\Profile\Email.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\ReserveShelf\Index.cshtml" />
+    <Content Include="Views\Resource\Detail.cshtml" />
+    <Content Include="Views\Resource\ReviewedTitle.cshtml" />
+    <Content Include="Views\Resource\Title.cshtml" />
+    <Content Include="Views\Resource\_ActionsMenu.cshtml" />
+    <Content Include="Views\Resource\_Detail.cshtml" />
+    <Content Include="Views\Resource\_ExternalReviews.cshtml" />
+    <Content Include="Views\Resource\_Public.cshtml" />
+    <Content Include="Views\Resource\_Title.cshtml" />
+    <Content Include="Views\Resource\_TitleRequest.cshtml" />
+    <Content Include="Views\Resource\_TurnawayModal.cshtml" />
+    <Content Include="Views\Resource\_VideoModal.cshtml" />
+    <Content Include="Views\Search\Federated.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Search\SavedSearchResultList.cshtml" />
+    <Content Include="Views\Search\_Paging.cshtml" />
+    <Content Include="Views\Search\_SaveSearchQueryUserContentPanel.cshtml" />
+    <Content Include="Views\Search\_SaveSearchResultUserContentPanel.cshtml" />
+    <Content Include="Views\Search\_TitleList.cshtml" />
+    <Content Include="Views\Search\_Totals.cshtml" />
+    <Content Include="Views\Shared\Email.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Alert.cshtml" />
+    <Content Include="Views\Shared\_AlphaPager.cshtml" />
+    <Content Include="Views\Shared\_AuthInfo.cshtml" />
+    <Content Include="Views\Shared\_Authors.cshtml" />
+    <Content Include="Views\Shared\_Configuration.cshtml" />
+    <Content Include="Views\Shared\_Disciplines.cshtml" />
+    <Content Include="Views\Shared\_Email.cshtml" />
+    <Content Include="Views\Shared\_EmailUserContentPanel.cshtml" />
+    <Content Include="Views\Shared\_Eula.cshtml" />
+    <Content Include="Views\Shared\_ExportCitationContentPanel.cshtml" />
+    <Content Include="Views\Shared\_ExportUserContentPanel.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_ForgotPasswordForm.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Help.cshtml" />
+    <Content Include="Views\Shared\_InstitutionInfo.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout.Email.cshtml" />
+    <Content Include="Views\Shared\_Layout.Mobile.cshtml" />
+    <Content Include="Views\Shared\_LayoutModal.cshtml" />
+    <Content Include="Views\Shared\_LoginForm.cshtml" />
+    <Content Include="Views\Shared\_MoveUserContentPanel.cshtml" />
+    <Content Include="Views\Shared\_Publishers.cshtml" />
+    <Content Include="Views\Shared\_ResourceSummary.cshtml" />
+    <Content Include="Views\Shared\_SaveUserContentPanel.cshtml" />
+    <Content Include="Views\Shared\_Tooltips.cshtml" />
+    <Content Include="Views\Shared\_TopNav.cshtml" />
+    <Content Include="Views\Shared\_TurnawayAlert.cshtml" />
+    <Content Include="Views\Shared\_WelcomeIntro.cshtml" />
+    <Content Include="Views\Subscriptions\Checkout.cshtml" />
+    <Content Include="Views\Subscriptions\CreateUser.cshtml" />
+    <Content Include="Views\Subscriptions\Index.cshtml" />
+    <Content Include="Views\Subscriptions\OrderConfirmation.cshtml" />
+    <Content Include="Views\Subscriptions\_Add.cshtml" />
+    <Content Include="Views\Subscriptions\_Authenticate.cshtml" />
+    <Content Include="Views\Subscriptions\_OrderSummary.cshtml" />
+    <Content Include="Views\TestError\LogTester.cshtml" />
+    <Content Include="Views\Test\Read.cshtml" />
+    <Content Include="Views\Test\Write.cshtml" />
+    <Content Include="Views\Trial\Index.cshtml" />
+    <Content Include="Views\Trial\RequestAccount.cshtml" />
+    <Content Include="Views\Trial\RequestFormConfirmation.cshtml" />
+    <Content Include="Views\Trial\RittenhouseAccount.cshtml" />
+    <Content Include="Views\Trial\_RequestAccount.cshtml" />
+    <Content Include="Views\Trial\_RequestAccountReview.cshtml" />
+    <Content Include="Views\Trial\_Trial.cshtml" />
+    <Content Include="Views\Trial\_WelcomeEmail.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="_configs\DomainVerify.json" />
+    <Content Include="_Static\Css\packages\twitter\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="_Static\Css\packages\twitter\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="_Static\Css\packages\twitter\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="_Static\Css\packages\twitter\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="_Static\Documentation\R2LibraryFederatedSearchIntegration.docx" />
+    <Content Include="_Static\Downloads\r2-library-admin-user-guide.pdf" />
+    <Content Include="_Static\Downloads\r2-library-consortia-sheet.pdf" />
+    <Content Include="_Static\Downloads\r2-library-demo-admin.pptx" />
+    <Content Include="_Static\Downloads\r2-library-demo-end-user.pptx" />
+    <Content Include="_Static\Downloads\r2-library-expert-review-guide.pdf" />
+    <Content Include="_Static\Downloads\r2-library-expert-review-quick-guide.pdf" />
+    <Content Include="_Static\Downloads\r2-library-ez-proxy-config.pdf" />
+    <Content Include="_Static\Downloads\r2-library-federated-search.pdf" />
+    <Content Include="_Static\Downloads\r2-library-information sheet.pdf" />
+    <Content Include="_Static\Downloads\r2-library-institutional-license-agreement.pdf" />
+    <Content Include="_Static\Downloads\r2-library-pda-guide.pdf" />
+    <Content Include="_Static\Downloads\r2-library-pda-wizard-guide.pdf" />
+    <Content Include="_Static\Downloads\r2-library-promo-sheet.pdf" />
+    <Content Include="_Static\Downloads\r2-library-quickstart.pdf" />
+    <Content Include="_Static\Downloads\r2-library-trial-announcement.pdf" />
+    <Content Include="_Static\Downloads\r2-library-trusted-url-config.pdf" />
+    <Content Include="_Static\Downloads\r2-library-user-guide.pdf" />
+    <Content Include="_Static\Downloads\r2-library-VPATv2.3-10.19.pdf" />
+    <Content Include="_Static\Downloads\_old_r2-library-VPATv2.3-10.19.pdf" />
+    <Content Include="_Static\Font\packages\font-awesome-4.7.0\fontawesome-webfont.eot" />
+    <Content Include="_Static\Font\packages\font-awesome-4.7.0\fontawesome-webfont.ttf" />
+    <Content Include="_Static\Font\packages\font-awesome-4.7.0\fontawesome-webfont.woff" />
+    <Content Include="_Static\Font\packages\font-awesome-4.7.0\fontawesome-webfont.woff2" />
+    <Content Include="_Static\Font\packages\font-awesome-4.7.0\FontAwesome.otf" />
+    <Content Include="_Static\Scripts\packages\ooyala-4.12.6\skin-plugin\skin.json" />
+    <Content Include="_Static\Templates\CounterBookAccessDeniedReport.xlsx" />
+    <Content Include="_Static\Templates\CounterBookReport2.xlsx" />
+    <Content Include="_Static\Templates\CounterBookReport3.xlsx" />
+    <Content Include="_Static\Templates\CounterBookReport5.xlsx" />
+    <Content Include="_Static\Templates\CounterBookRequestsReport.xlsx" />
+    <Content Include="_Static\Templates\CounterPlatformReport1.xlsx" />
+    <Content Include="_Static\Templates\CounterPlatformUsageReport.xlsx" />
+    <Content Include="_Static\Xsl\common\l10n.dtd" />
+    <Content Include="_Static\Xsl\compileXsl.cmd" />
+    <Content Include="_Static\Xsl\dtd\v1.1\calstblx.dtd" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ChangeLog" />
+    <Content Include="_Static\Xsl\dtd\v1.1\check.bat" />
+    <Content Include="_Static\Xsl\dtd\v1.1\docbook.cat" />
+    <Content Include="_Static\Xsl\dtd\v1.1\docbookx.dtd" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-amsa.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-amsb.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-amsc.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-amsn.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-amso.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-amsr.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-box.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-cyr1.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-cyr2.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-dia.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-grk1.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-grk2.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-grk3.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-grk4.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-lat1.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-lat2.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-num.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-pub.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ent\iso-tech.ent" />
+    <Content Include="_Static\Xsl\dtd\v1.1\Notes on Modifying DocBook.doc" />
+    <Content Include="_Static\Xsl\dtd\v1.1\README" />
+    <Content Include="_Static\Xsl\dtd\v1.1\ris_rules.dtd" />
+    <Content Include="_Static\Xsl\dtd\v1.1\RIT DTD.doc" />
+    <Content Include="_Static\Xsl\dtd\v1.1\RittDocBook.dec" />
+    <Content Include="_Static\Xsl\dtd\v1.1\RittDocBook.dtd" />
+    <Content Include="_Static\Xsl\dtd\v1.1\soextblx.dtd" />
+    <Content Include="_Static\Xsl\VERSION" />
+    <Content Include="_Static\_Design\static\selectize\.travis.yml" />
+    <Content Include="_Static\_Design\static\selectize\bower.json" />
+    <Content Include="_Static\_Design\static\selectize\dist\less\plugins\drag_drop.less" />
+    <Content Include="_Static\_Design\static\selectize\dist\less\plugins\dropdown_header.less" />
+    <Content Include="_Static\_Design\static\selectize\dist\less\plugins\optgroup_columns.less" />
+    <Content Include="_Static\_Design\static\selectize\dist\less\plugins\remove_button.less" />
+    <Content Include="_Static\_Design\static\selectize\dist\less\selectize.bootstrap2.less" />
+    <Content Include="_Static\_Design\static\selectize\dist\less\selectize.bootstrap3.less" />
+    <Content Include="_Static\_Design\static\selectize\dist\less\selectize.default.less" />
+    <Content Include="_Static\_Design\static\selectize\dist\less\selectize.legacy.less" />
+    <Content Include="_Static\_Design\static\selectize\dist\less\selectize.less" />
+    <Content Include="_Static\_Design\static\selectize\docs\api.md" />
+    <Content Include="_Static\_Design\static\selectize\docs\events.md" />
+    <Content Include="_Static\_Design\static\selectize\docs\plugins.md" />
+    <Content Include="_Static\_Design\static\selectize\docs\usage.md" />
+    <Content Include="_Static\_Design\static\selectize\LICENSE" />
+    <Content Include="_Static\_Design\static\selectize\Makefile" />
+    <Content Include="_Static\_Design\static\selectize\package.json" />
+    <Content Include="_Static\_Design\static\selectize\README.md" />
+    <Content Include="_Static\_Design\static\selectize\selectize.jquery.json" />
+    <Content Include="_Static\_Design\static\selectize\src\less\selectize.bootstrap2.less" />
+    <Content Include="_Static\_Design\static\selectize\src\less\selectize.bootstrap3.less" />
+    <Content Include="_Static\_Design\static\selectize\src\less\selectize.default.less" />
+    <Content Include="_Static\_Design\static\selectize\src\less\selectize.legacy.less" />
+    <Content Include="_Static\_Design\static\selectize\src\less\selectize.less" />
+    <Content Include="_Static\_Design\static\selectize\src\plugins\drag_drop\plugin.less" />
+    <Content Include="_Static\_Design\static\selectize\src\plugins\dropdown_header\plugin.less" />
+    <Content Include="_Static\_Design\static\selectize\src\plugins\optgroup_columns\plugin.less" />
+    <Content Include="_Static\_Design\static\selectize\src\plugins\remove_button\plugin.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\MobileViewEnginesBootstrapper.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccessAndDiscoverabilityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AlertController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CollectionManagement\CartController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CollectionManagement\CheckoutController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CollectionManagement\CollectionManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CollectionManagement\ExpressCheckoutController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CollectionManagement\OrderHistoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CollectionManagement\PdaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CollectionManagement\ProductSubscriptionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ConfigurationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CounterReportController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InstitutionBrandingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InstitutionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InstitutionCrawlerBypassController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InstitutionReferrerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InstitutionTrialController.cs" />
+    <Compile Include="Areas\Admin\Controllers\IpAddressRangeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MarcExportController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MarketingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NotesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PdaPromotionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PromotionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PublisherController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RecommendationsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReserveShelfManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ResourceController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ResourcePromotionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReviewController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SpecialCollectionManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SpecialController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SubscriptionManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SuperTypes\IR2AdminBaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SuperTypes\R2AdminBaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SystemInformationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TestingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\WebServiceAuthenticationController.cs" />
+    <Compile Include="Areas\Admin\JsonMarcRecordRequest.cs" />
+    <Compile Include="Areas\Admin\Models\AccessAndDiscoverability\Access.cs" />
+    <Compile Include="Areas\Admin\Models\AccessAndDiscoverability\Integration.cs" />
+    <Compile Include="Areas\Admin\Models\AdminBaseModel.cs" />
+    <Compile Include="Areas\Admin\Models\Alerts\AdministratorAlert.cs" />
+    <Compile Include="Areas\Admin\Models\Alerts\AdministratorAlerts.cs" />
+    <Compile Include="Areas\Admin\Models\Alerts\TurnawayAlert.cs" />
+    <Compile Include="Areas\Admin\Models\BaseActionsMenuBuilder.cs" />
+    <Compile Include="Areas\Admin\Models\Cache.cs" />
+    <Compile Include="Areas\Admin\Models\Cart\BulkAddToCart.cs" />
+    <Compile Include="Areas\Admin\Models\Cart\CollectionAdd.cs" />
+    <Compile Include="Areas\Admin\Models\Cart\CollectionEdit.cs" />
+    <Compile Include="Areas\Admin\Models\Cart\SavedCarts.cs" />
+    <Compile Include="Areas\Admin\Models\Checkout\BillingMethod.cs" />
+    <Compile Include="Areas\Admin\Models\CollectionManagement\ActivePublisherList.cs" />
+    <Compile Include="Areas\Admin\Models\CollectionManagement\BulkDeletePda.cs" />
+    <Compile Include="Areas\Admin\Models\CollectionManagement\CollectionManagementActionsMenuBuilder.cs" />
+    <Compile Include="Areas\Admin\Models\CollectionManagement\ForthcomingTitlesInvoicingMethod.cs" />
+    <Compile Include="Areas\Admin\Models\CollectionManagement\ForthcomingTitlesInvoicingMethodExtensions.cs" />
+    <Compile Include="Areas\Admin\Models\CollectionManagement\IInstitutionResource.cs" />
+    <Compile Include="Areas\Admin\Models\CollectionManagement\InstitutionResource.cs" />
+    <Compile Include="Areas\Admin\Models\CollectionManagement\InstitutionResourceExtensions.cs" />
+    <Compile Include="Areas\Admin\Models\CollectionManagement\InstitutionResources.cs" />
+    <Compile Include="Areas\Admin\Models\Configuration\AdminIndexModel.cs" />
+    <Compile Include="Areas\Admin\Models\Configuration\Cache.cs" />
+    <Compile Include="Areas\Admin\Models\Configuration\ConfiguarationGroupListModel.cs" />
+    <Compile Include="Areas\Admin\Models\Configuration\ConfigurationGroupSettingsList.cs" />
+    <Compile Include="Areas\Admin\Models\Configuration\ConfigurationGroupSettingsModel.cs" />
+    <Compile Include="Areas\Admin\Models\Configuration\ConfigurationSettingModel.cs" />
+    <Compile Include="Areas\Admin\Models\Dashboard\DashboardModel.cs" />
+    <Compile Include="Areas\Admin\Models\Dashboard\DashboardResource.cs" />
+    <Compile Include="Areas\Admin\Models\ExpressCheckout\ExpressCheckout.cs" />
+    <Compile Include="Areas\Admin\Models\InstitutionBranding\InstitutionBranding.cs" />
+    <Compile Include="Areas\Admin\Models\InstitutionBranding\InstitutionBrandingExtensions.cs" />
+    <Compile Include="Areas\Admin\Models\InstitutionCrawlerBypass\InstitutionCrawlerBypassDetail.cs" />
+    <Compile Include="Areas\Admin\Models\InstitutionCrawlerBypass\InstitutionCrawlerBypassList.cs" />
+    <Compile Include="Areas\Admin\Models\InstitutionCrawlerBypass\InstitutionCrawlerBypassModel.cs" />
+    <Compile Include="Areas\Admin\Models\InstitutionExtensions.cs" />
+    <Compile Include="Areas\Admin\Models\InstitutionReferrer\InstitutionReferrer.cs" />
+    <Compile Include="Areas\Admin\Models\InstitutionReferrer\InstitutionReferrerExtensions.cs" />
+    <Compile Include="Areas\Admin\Models\InstitutionReferrer\InstitutionReferrerList.cs" />
+    <Compile Include="Areas\Admin\Models\Institution\Address.cs" />
+    <Compile Include="Areas\Admin\Models\Institution\GenericInstitutionActionsMenuBuilder.cs" />
+    <Compile Include="Areas\Admin\Models\Institution\Institution.cs" />
+    <Compile Include="Areas\Admin\Models\Institution\InstitutionActionsMenuBuilder.cs" />
+    <Compile Include="Areas\Admin\Models\Institution\InstitutionEditViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Institution\InstitutionForAudit.cs" />
+    <Compile Include="Areas\Admin\Models\Institution\InstitutionList.cs" />
+    <Compile Include="Areas\Admin\Models\Institution\InstitutionListItem.cs" />
+    <Compile Include="Areas\Admin\Models\Institution\InstitutionTerritory.cs" />
+    <Compile Include="Areas\Admin\Models\IpAddressRange\BulkRemoveIpRanges.cs" />
+    <Compile Include="Areas\Admin\Models\IpAddressRange\ConflictingIpRange.cs" />
+    <Compile Include="Areas\Admin\Models\IpAddressRange\ConsolidatedIpRange.cs" />
+    <Compile Include="Areas\Admin\Models\IpAddressRange\InstitutionIpRange.cs" />
+    <Compile Include="Areas\Admin\Models\IpAddressRange\InstitutionIpRanges.cs" />
+    <Compile Include="Areas\Admin\Models\IpAddressRange\InstitutionIpRangesConsolidated.cs" />
+    <Compile Include="Areas\Admin\Models\IpAddressRange\IpAddressRangeExtensions.cs" />
+    <Compile Include="Areas\Admin\Models\IpAddressRange\WebIpRange.cs" />
+    <Compile Include="Areas\Admin\Models\MarcRecordExport.cs" />
+    <Compile Include="Areas\Admin\Models\Marketing\AutomatedCartBaseModel.cs" />
+    <Compile Include="Areas\Admin\Models\Marketing\AutomatedCartHistoryModel.cs" />
+    <Compile Include="Areas\Admin\Models\Marketing\AutomatedCartInstitution.cs" />
+    <Compile Include="Areas\Admin\Models\Marketing\AutomatedCartInstitutionPriced.cs" />
+    <Compile Include="Areas\Admin\Models\Marketing\AutomatedCartModel.cs" />
+    <Compile Include="Areas\Admin\Models\Marketing\AutomatedCartPricingModel.cs" />
+    <Compile Include="Areas\Admin\Models\Marketing\IWebReportPeriodSelect.cs" />
+    <Compile Include="Areas\Admin\Models\Marketing\MarketingInstitutionBase.cs" />
+    <Compile Include="Areas\Admin\Models\Marketing\RequestedResourcesInstitution.cs" />
+    <Compile Include="Areas\Admin\Models\Marketing\RequestedResourcesModel.cs" />
+    <Compile Include="Areas\Admin\Models\Marketing\RequestedResourcesQuery.cs" />
+    <Compile Include="Areas\Admin\Models\Marketing\WebAutomatedCartReportQuery.cs" />
+    <Compile Include="Areas\Admin\Models\Menus\ActionMenuBuilderBase.cs" />
+    <Compile Include="Areas\Admin\Models\Menus\ActionsMenu.cs" />
+    <Compile Include="Areas\Admin\Models\Menus\ActionsMenuFactory.cs" />
+    <Compile Include="Areas\Admin\Models\Menus\IActionsMenuBuilder.cs" />
+    <Compile Include="Areas\Admin\Models\Menus\SearchMenu.cs" />
+    <Compile Include="Areas\Admin\Models\Notes\Note.cs" />
+    <Compile Include="Areas\Admin\Models\Notes\NotesEdit.cs" />
+    <Compile Include="Areas\Admin\Models\Notes\NotesList.cs" />
+    <Compile Include="Areas\Admin\Models\OrderHistory\OrderHistoryDetail.cs" />
+    <Compile Include="Areas\Admin\Models\OrderHistory\OrderHistoryList.cs" />
+    <Compile Include="Areas\Admin\Models\OrderHistory\WebOrderHistory.cs" />
+    <Compile Include="Areas\Admin\Models\Order\Order.cs" />
+    <Compile Include="Areas\Admin\Models\Order\OrderItemSummary.cs" />
+    <Compile Include="Areas\Admin\Models\Order\OrderSummary.cs" />
+    <Compile Include="Areas\Admin\Models\Order\ProductOrderItem.cs" />
+    <Compile Include="Areas\Admin\Models\Order\ResourceOrderItem.cs" />
+    <Compile Include="Areas\Admin\Models\PdaPromotion\PdaPromotionModel.cs" />
+    <Compile Include="Areas\Admin\Models\PdaPromotion\PdaPromotions.cs" />
+    <Compile Include="Areas\Admin\Models\PdaPromotion\PdaPromotionsService.cs" />
+    <Compile Include="Areas\Admin\Models\PdaRules\PdaProfileModel.cs" />
+    <Compile Include="Areas\Admin\Models\PdaRules\PdaProfileService.cs" />
+    <Compile Include="Areas\Admin\Models\PdaRules\PdaRuleGist.cs" />
+    <Compile Include="Areas\Admin\Models\PdaRules\PdaRuleModel.cs" />
+    <Compile Include="Areas\Admin\Models\PdaRules\PdaRuleResourcesModal.cs" />
+    <Compile Include="Areas\Admin\Models\ProductSubscription\ProductSubscriptions.cs" />
+    <Compile Include="Areas\Admin\Models\Promotion\PromotionModel.cs" />
+    <Compile Include="Areas\Admin\Models\Promotion\Promotions.cs" />
+    <Compile Include="Areas\Admin\Models\Promotion\PromotionsService.cs" />
+    <Compile Include="Areas\Admin\Models\PublisherConsolidation\Publisher.cs" />
+    <Compile Include="Areas\Admin\Models\PublisherConsolidation\PublisherDetail.cs" />
+    <Compile Include="Areas\Admin\Models\PublisherConsolidation\PublisherNotSaleable.cs" />
+    <Compile Include="Areas\Admin\Models\PublisherConsolidation\PublishersList.cs" />
+    <Compile Include="Areas\Admin\Models\PublisherConsolidation\PublisherUser.cs" />
+    <Compile Include="Areas\Admin\Models\PublisherUser\PublisherUser.cs" />
+    <Compile Include="Areas\Admin\Models\PublisherUser\PublisherUserEdit.cs" />
+    <Compile Include="Areas\Admin\Models\PublisherUser\PublisherUserList.cs" />
+    <Compile Include="Areas\Admin\Models\QueryExtensions.cs" />
+    <Compile Include="Areas\Admin\Models\Recommendations\RecommendationEdit.cs" />
+    <Compile Include="Areas\Admin\Models\Recommendations\Recommended.cs" />
+    <Compile Include="Areas\Admin\Models\Recommendations\RecommendedUser.cs" />
+    <Compile Include="Areas\Admin\Models\Report\AnnualFeeReportDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\AnnualFeeReportItem.cs" />
+    <Compile Include="Areas\Admin\Models\Report\AnnualFeeReportService.cs" />
+    <Compile Include="Areas\Admin\Models\Report\ApplicationUsageDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\ApplicationUsageReportService.cs" />
+    <Compile Include="Areas\Admin\Models\Report\CounterBookAccessDeniedDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\CounterBookRequestsDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\CounterDeniedDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\CounterIndexDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\CounterPlatformDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\CounterReportDefaultQueries.cs" />
+    <Compile Include="Areas\Admin\Models\Report\CounterReportModel.cs" />
+    <Compile Include="Areas\Admin\Models\Report\CounterReportService.cs" />
+    <Compile Include="Areas\Admin\Models\Report\CounterSearchDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\CounterSectionDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\CounterServiceBase.cs" />
+    <Compile Include="Areas\Admin\Models\Report\DiscountResourceDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\IDiscountReportDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\PdaCountReportItem.cs" />
+    <Compile Include="Areas\Admin\Models\Report\PdaCountsReportDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\PdaPromotionReportDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\PdaReportService.cs" />
+    <Compile Include="Areas\Admin\Models\Report\PromotionReportDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\PublisherReportQuery.cs" />
+    <Compile Include="Areas\Admin\Models\Report\PublisherUsageDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\PublisherUsageReportService.cs" />
+    <Compile Include="Areas\Admin\Models\Report\ReportIpAddressRange.cs" />
+    <Compile Include="Areas\Admin\Models\Report\ReportModel.cs" />
+    <Compile Include="Areas\Admin\Models\Report\ReportModelService.cs" />
+    <Compile Include="Areas\Admin\Models\Report\ReportQuery.cs" />
+    <Compile Include="Areas\Admin\Models\Report\ReportResource.cs" />
+    <Compile Include="Areas\Admin\Models\Report\ResourceCostDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\ResourceUsageReportService.cs" />
+    <Compile Include="Areas\Admin\Models\Report\SalesReportDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\SalesReportService.cs" />
+    <Compile Include="Areas\Admin\Models\Report\SavedReportDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\SavedReportListItem.cs" />
+    <Compile Include="Areas\Admin\Models\Report\SavedReports.cs" />
+    <Compile Include="Areas\Admin\Models\Report\SpecialReportDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Report\WebReportServiceBase.cs" />
+    <Compile Include="Areas\Admin\Models\ReserveShelfManagement\ReserverShelfManagementActionsMenuBuilder.cs" />
+    <Compile Include="Areas\Admin\Models\ReserveShelfManagement\ReserveShelfExtensions.cs" />
+    <Compile Include="Areas\Admin\Models\ReserveShelfManagement\ReserveShelfList.cs" />
+    <Compile Include="Areas\Admin\Models\ReserveShelfManagement\ReserveShelfListManagement.cs" />
+    <Compile Include="Areas\Admin\Models\ReserveShelfManagement\ReserveShelfManagement.cs" />
+    <Compile Include="Areas\Admin\Models\ReserveShelfManagement\ReserveShelfResource.cs" />
+    <Compile Include="Areas\Admin\Models\ReserveShelfManagement\ReserveShelfUrl.cs" />
+    <Compile Include="Areas\Admin\Models\ReserveShelfManagement\ReserveShelfUrlManagement.cs" />
+    <Compile Include="Areas\Admin\Models\ResourcePromotion\PromoteQueueResource.cs" />
+    <Compile Include="Areas\Admin\Models\ResourcePromotion\ResourcePromotionViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ResourcePurchaseModel.cs" />
+    <Compile Include="Areas\Admin\Models\Resource\IAdminResource.cs" />
+    <Compile Include="Areas\Admin\Models\Resource\Resource.cs" />
+    <Compile Include="Areas\Admin\Models\Resource\ResourceActionsMenuBuilder.cs" />
+    <Compile Include="Areas\Admin\Models\Resource\ResourceAdminService.cs" />
+    <Compile Include="Areas\Admin\Models\Resource\ResourceDetail.cs" />
+    <Compile Include="Areas\Admin\Models\Resource\ResourceEdit.cs" />
+    <Compile Include="Areas\Admin\Models\Resource\ResourceExtensions.cs" />
+    <Compile Include="Areas\Admin\Models\Resource\ResourcesList.cs" />
+    <Compile Include="Areas\Admin\Models\Review\BulkAddToReview.cs" />
+    <Compile Include="Areas\Admin\Models\Review\ReviewActionsMenuBuilder.cs" />
+    <Compile Include="Areas\Admin\Models\Review\ReviewEdit.cs" />
+    <Compile Include="Areas\Admin\Models\Review\ReviewExtensions.cs" />
+    <Compile Include="Areas\Admin\Models\Review\ReviewList.cs" />
+    <Compile Include="Areas\Admin\Models\Review\ReviewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Review\ReviewModelService.cs" />
+    <Compile Include="Areas\Admin\Models\Review\ReviewResource.cs" />
+    <Compile Include="Areas\Admin\Models\Review\ReviewResources.cs" />
+    <Compile Include="Areas\Admin\Models\Review\ReviewResourceSummary.cs" />
+    <Compile Include="Areas\Admin\Models\Review\ReviewUser.cs" />
+    <Compile Include="Areas\Admin\Models\SpecialCollectionManagement\DeleteModel.cs" />
+    <Compile Include="Areas\Admin\Models\SpecialCollectionManagement\EditModel.cs" />
+    <Compile Include="Areas\Admin\Models\SpecialCollectionManagement\ListModel.cs" />
+    <Compile Include="Areas\Admin\Models\Special\BulkAddResources.cs" />
+    <Compile Include="Areas\Admin\Models\Special\SpecialAdminModel.cs" />
+    <Compile Include="Areas\Admin\Models\Special\SpecialDiscountModel.cs" />
+    <Compile Include="Areas\Admin\Models\Special\SpecialDiscountResourceModel.cs" />
+    <Compile Include="Areas\Admin\Models\Special\SpecialIcon.cs" />
+    <Compile Include="Areas\Admin\Models\Special\SpecialList.cs" />
+    <Compile Include="Areas\Admin\Models\Special\SpecialModel.cs" />
+    <Compile Include="Areas\Admin\Models\Special\SpecialResourceModel.cs" />
+    <Compile Include="Areas\Admin\Models\Special\SpecialView.cs" />
+    <Compile Include="Areas\Admin\Models\SubscriptionManagement\AdminUserSubscriptionModel.cs" />
+    <Compile Include="Areas\Admin\Models\SubscriptionManagement\SubscriptionUser.cs" />
+    <Compile Include="Areas\Admin\Models\SubscriptionManagement\SubscriptionUsers.cs" />
+    <Compile Include="Areas\Admin\Models\SystemInformation\Documentation.cs" />
+    <Compile Include="Areas\Admin\Models\SystemInformation\NewsletterSignup.cs" />
+    <Compile Include="Areas\Admin\Models\SystemInformation\Outreach.cs" />
+    <Compile Include="Areas\Admin\Models\Testing\EmailViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Testing\IndexViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\TrialInstitution\NewTrial.cs" />
+    <Compile Include="Areas\Admin\Models\TrialInstitution\TrialInstitution.cs" />
+    <Compile Include="Areas\Admin\Models\UrlExtensions.cs" />
+    <Compile Include="Areas\Admin\Models\User\AdminUserEmailOptions.cs" />
+    <Compile Include="Areas\Admin\Models\User\InstitutionUserEdit.cs" />
+    <Compile Include="Areas\Admin\Models\User\InstitutionUsers.cs" />
+    <Compile Include="Areas\Admin\Models\User\User.cs" />
+    <Compile Include="Areas\Admin\Models\User\UserActionsMenuBuilder.cs" />
+    <Compile Include="Areas\Admin\Models\User\UserEdit.cs" />
+    <Compile Include="Areas\Admin\Models\User\UserExtensions.cs" />
+    <Compile Include="Areas\Admin\Models\User\UserStatus.cs" />
+    <Compile Include="Areas\Admin\Models\WebServiceAuthentication\InstitutionWebServiceAuthentication.cs" />
+    <Compile Include="Areas\Admin\Models\WebServiceAuthentication\InstitutionWebServiceAuthenticationDetail.cs" />
+    <Compile Include="Areas\Admin\Models\WebServiceAuthentication\InstitutionWebServiceAuthenticationList.cs" />
+    <Compile Include="Areas\Admin\Services\AutomatedCartService.cs" />
+    <Compile Include="Areas\Admin\Services\ConfigurationService.cs" />
+    <Compile Include="Areas\Admin\Services\IOrderHistoryService.cs" />
+    <Compile Include="Areas\Admin\Services\IOrderService.cs" />
+    <Compile Include="Areas\Admin\Services\IpAddressRangeService.cs" />
+    <Compile Include="Areas\Admin\Services\OrderService.cs" />
+    <Compile Include="Areas\Admin\Services\PdaAdminRuleSerivce.cs" />
+    <Compile Include="Areas\Admin\Services\PdaService.cs" />
+    <Compile Include="Areas\Admin\Services\RecentCookieService.cs" />
+    <Compile Include="Areas\Admin\Services\RecommendedService.cs" />
+    <Compile Include="Areas\Admin\Services\RequestResourceService.cs" />
+    <Compile Include="Areas\Admin\Services\SpecialDiscountResourceService.cs" />
+    <Compile Include="Areas\Admin\Services\WebDashboardService.cs" />
+    <Compile Include="Areas\Admin\Services\WebOrderHistoryService.cs" />
+    <Compile Include="Controllers\AlphaIndexController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\BrowseController.cs" />
+    <Compile Include="Controllers\CitationController.cs" />
+    <Compile Include="Controllers\CloakController.cs" />
+    <Compile Include="Controllers\CmsController.cs" />
+    <Compile Include="Controllers\CollectionsController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ExternalSearchController.cs" />
+    <Compile Include="Controllers\GuestController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MyR2\MyR2Controller.cs" />
+    <Compile Include="Controllers\MyR2\UserContentController.cs" />
+    <Compile Include="Controllers\MyR2\UserContentFolderController.cs" />
+    <Compile Include="Controllers\MyR2\UserContentTypeExtensions.cs" />
+    <Compile Include="Controllers\OasisController.cs" />
+    <Compile Include="Controllers\PingController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RedirectController.cs" />
+    <Compile Include="Controllers\ReserveShelfController.cs" />
+    <Compile Include="Controllers\ResourceController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SubscriptionsController.cs" />
+    <Compile Include="Controllers\SuperTypes\BaseApiController.cs" />
+    <Compile Include="Controllers\SuperTypes\IR2BaseController.cs" />
+    <Compile Include="Controllers\SuperTypes\R2BaseController.cs" />
+    <Compile Include="Controllers\TabersDictionaryController.cs" />
+    <Compile Include="Controllers\TestErrorController.cs" />
+    <Compile Include="Controllers\TrialController.cs" />
+    <Compile Include="Controllers\TrustedAuthenticationController.cs" />
+    <Compile Include="Controllers\YBPController.cs" />
+    <Compile Include="Counter\AuthorizationAuthority.cs" />
+    <Compile Include="Counter\CounterService.cs" />
+    <Compile Include="Counter\SushiCounterService.cs" />
+    <Compile Include="Counter\SushiService.asmx.cs">
+      <DependentUpon>SushiService.asmx</DependentUpon>
+    </Compile>
+    <Compile Include="Counter\UsageReportRepository.cs" />
+    <Compile Include="Entities\ResourceLockStatus.cs" />
+    <Compile Include="Entities\ResourcePrintLockStatus.cs" />
+    <Compile Include="Exceptions\HttpForbiddenException.cs" />
+    <Compile Include="Exceptions\IExpectedException.cs" />
+    <Compile Include="Exceptions\NotFoundHttpException.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CustomAttributes.cs" />
+    <Compile Include="Helpers\DateTenYearsAttribute.cs" />
+    <Compile Include="Helpers\DepartmentValidationAttribute.cs" />
+    <Compile Include="Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\HttpContextExtensions.cs" />
+    <Compile Include="Helpers\HttpRequestExtensions.cs" />
+    <Compile Include="Helpers\NonGoogleCaptchaValidation.cs" />
+    <Compile Include="Helpers\PaginationHelper.cs" />
+    <Compile Include="Helpers\PasswordCompareAttribute.cs" />
+    <Compile Include="Helpers\PasswordValidationAttribute.cs" />
+    <Compile Include="Helpers\TempDataExtensions.cs" />
+    <Compile Include="Helpers\UrlHelperExtensions.cs" />
+    <Compile Include="Helpers\UserSessionStorageExtensions.cs" />
+    <Compile Include="Infrastructure\Authentication\AthensAuthenticationCookie.cs" />
+    <Compile Include="Infrastructure\Authentication\AthensAuthenticationService.cs" />
+    <Compile Include="Infrastructure\Authentication\AuthenticationService.cs" />
+    <Compile Include="Infrastructure\Authentication\FormsAuthenticationService.cs" />
+    <Compile Include="Infrastructure\Authentication\PassiveAuthenticationCookie.cs" />
+    <Compile Include="Infrastructure\Authentication\PassiveAuthenticationCookieService.cs" />
+    <Compile Include="Infrastructure\Authentication\PassiveAuthenticationStatus.cs" />
+    <Compile Include="Infrastructure\Authentication\TrialService.cs" />
+    <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Infrastructure\BundleInitializer.cs" />
+    <Compile Include="Infrastructure\Contexts\ActionContext.cs" />
+    <Compile Include="Infrastructure\Contexts\AdminContext.cs" />
+    <Compile Include="Infrastructure\Contexts\AuthenticationContext.cs" />
+    <Compile Include="Infrastructure\DebugInformation.cs" />
+    <Compile Include="Infrastructure\Domains.cs" />
+    <Compile Include="Infrastructure\Email\EmailBuilders\AccountRequestEmailBuildService.cs" />
+    <Compile Include="Infrastructure\Email\EmailBuilders\SearchResultsEmailBuildService.cs" />
+    <Compile Include="Infrastructure\Email\EmailSiteService.cs" />
+    <Compile Include="Infrastructure\HttpModules\AllowedCountryCodes.cs" />
+    <Compile Include="Infrastructure\HttpModules\CountryCodeService.cs" />
+    <Compile Include="Infrastructure\HttpModules\ImageFileModule.cs" />
+    <Compile Include="Infrastructure\HttpModules\IpSecurityFileData.cs" />
+    <Compile Include="Infrastructure\HttpModules\IpSecurityModule.cs" />
+    <Compile Include="Infrastructure\HttpModules\RequestLoggerData.cs" />
+    <Compile Include="Infrastructure\HttpModules\RequestLoggerModule.cs" />
+    <Compile Include="Infrastructure\HttpModules\SessionDebugInfo.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\Admin\AdminActionsMenuBuildFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\Admin\AdminAuthenticationFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\Admin\AdminAuthorizationFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\Admin\AdminInstitutionAuthorizationFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\Admin\AdminNavBuildFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\Admin\AdminTabBuildFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\AdvancedSearchBuildFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\AlertBuildFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\AuthenticationInfoBuildFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\DefaultExceptionFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\DomainVerifyFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\ExceptionResultFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\FilterProvider.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\FooterBuildFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\HeaderBuildFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\IR2V2Filter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\JsonResponseFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\LayoutBuildFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\NoCacheAttribute.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\PassiveAuthorizationFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\R2V2ResultFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\RequestLoggerFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\RequireSslFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\ResourceAccessFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\TabBuildFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Filters\TurnawayAlertBuildFilter.cs" />
+    <Compile Include="Infrastructure\MvcFramework\MobileCapableRazorViewEngine.cs" />
+    <Compile Include="Infrastructure\MvcFramework\R2V2DependencyResolver.cs" />
+    <Compile Include="Infrastructure\MvcFramework\RouteTableInitializer.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Routing\IOnExecuteOnProcessRequest.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Routing\R2V2RouteHandler.cs" />
+    <Compile Include="Infrastructure\MvcFramework\Routing\RouteTableExtensions.cs" />
+    <Compile Include="Infrastructure\RequestInformation.cs" />
+    <Compile Include="Infrastructure\RequestLogger\IgnoreRequestAttribute.cs" />
+    <Compile Include="Infrastructure\SessionCleanupService.cs" />
+    <Compile Include="Infrastructure\Settings\AdminSettings.cs" />
+    <Compile Include="Infrastructure\Settings\CacheSettings.cs" />
+    <Compile Include="Infrastructure\Settings\ClientSettings.cs" />
+    <Compile Include="Infrastructure\Settings\IAdminSettings.cs" />
+    <Compile Include="Infrastructure\Settings\ICacheSettings.cs" />
+    <Compile Include="Infrastructure\Settings\IClientSettings.cs" />
+    <Compile Include="Infrastructure\Settings\IInstitutionSettings.cs" />
+    <Compile Include="Infrastructure\Settings\InstitutionSettings.cs" />
+    <Compile Include="Infrastructure\Settings\IOidcSettings.cs" />
+    <Compile Include="Infrastructure\Settings\IWebImageSettings.cs" />
+    <Compile Include="Infrastructure\Settings\IWebSettings.cs" />
+    <Compile Include="Infrastructure\Settings\OidcSettings.cs" />
+    <Compile Include="Infrastructure\Settings\SettingsInitializer.cs" />
+    <Compile Include="Infrastructure\Settings\WebImageSettings.cs" />
+    <Compile Include="Infrastructure\Settings\WebSettings.cs" />
+    <Compile Include="Infrastructure\Storages\ApplicationStorageItem.cs" />
+    <Compile Include="Infrastructure\Storages\ApplicationWideStorageService.cs" />
+    <Compile Include="Infrastructure\Storages\LocalStorageService.cs" />
+    <Compile Include="Infrastructure\Storages\RequestStorageService.cs" />
+    <Compile Include="Infrastructure\Storages\UserSessionStorageService.cs" />
+    <Compile Include="Infrastructure\SystemInformation.cs" />
+    <Compile Include="Infrastructure\WebCustomPatternLayout.cs" />
+    <Compile Include="Models\AlphaIndex\AlphaIndex.cs" />
+    <Compile Include="Models\AlphaIndex\AlphaIndexService.cs" />
+    <Compile Include="Models\AlphaIndex\AlphaQuery.cs" />
+    <Compile Include="Models\AlphaIndex\DisplayType.cs" />
+    <Compile Include="Models\AlphaIndex\Topic.cs" />
+    <Compile Include="Models\AlphaIndex\Topics.cs" />
+    <Compile Include="Models\AthensModel.cs" />
+    <Compile Include="Models\AuthenticationInfo.cs" />
+    <Compile Include="Models\Authentication\AccessCode.cs" />
+    <Compile Include="Models\Authentication\AuthenticationJson.cs" />
+    <Compile Include="Models\Authentication\TitleAuthenticate.cs" />
+    <Compile Include="Models\BaseCmsModel.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Browse\AuthorDetail.cs" />
+    <Compile Include="Models\Browse\AuthorExtensions.cs" />
+    <Compile Include="Models\Browse\AuthorSummary.cs" />
+    <Compile Include="Models\Browse\Browse.cs" />
+    <Compile Include="Models\Browse\BrowseQuery.cs" />
+    <Compile Include="Models\Browse\BrowseType.cs" />
+    <Compile Include="Models\Browse\PublisherDetail.cs" />
+    <Compile Include="Models\Browse\PublisherExtensions.cs" />
+    <Compile Include="Models\Browse\PublisherSummary.cs" />
+    <Compile Include="Models\Cloak\CloakIndex.cs" />
+    <Compile Include="Models\Cms\CmsHtml.cs" />
+    <Compile Include="Models\Collections\CollectionDetail.cs" />
+    <Compile Include="Models\Collections\CollectionListModel.cs" />
+    <Compile Include="Models\Contact\ContactUs.cs" />
+    <Compile Include="Models\EmailPage.cs" />
+    <Compile Include="Models\Error\ErrorViewModel.cs" />
+    <Compile Include="Models\Error\ExpectedErrorViewModel.cs" />
+    <Compile Include="Models\Error\InternalServerViewModel.cs" />
+    <Compile Include="Models\Error\NoAccess.cs" />
+    <Compile Include="Models\Error\NotFoundViewModel.cs" />
+    <Compile Include="Models\Eula\Eula.cs" />
+    <Compile Include="Models\FacetedResultsJson.cs" />
+    <Compile Include="Models\Footer.cs" />
+    <Compile Include="Models\ForgotPasswordParam.cs" />
+    <Compile Include="Models\GuestUser.cs" />
+    <Compile Include="Models\Header.cs" />
+    <Compile Include="Models\HeaderTab.cs" />
+    <Compile Include="Models\Home\Home.cs" />
+    <Compile Include="Models\Home\Info.cs" />
+    <Compile Include="Models\Home\MarketingHome.cs" />
+    <Compile Include="Models\HtmlSnippet.cs" />
+    <Compile Include="Models\IPageable.cs" />
+    <Compile Include="Models\IR2V2Model.cs" />
+    <Compile Include="Models\IResourceSummary.cs" />
+    <Compile Include="Models\JsonResponse.cs" />
+    <Compile Include="Models\Layout.cs" />
+    <Compile Include="Models\LoginParam.cs" />
+    <Compile Include="Models\LogTesterViewModel.cs" />
+    <Compile Include="Models\MyR2\SavedSearch.cs" />
+    <Compile Include="Models\MyR2\SavedSearchResult.cs" />
+    <Compile Include="Models\MyR2\SearchItem.cs" />
+    <Compile Include="Models\MyR2\UserContent.cs" />
+    <Compile Include="Models\MyR2\UserContentExtensions.cs" />
+    <Compile Include="Models\MyR2\UserContentFolder.cs" />
+    <Compile Include="Models\MyR2\UserContentFolderExtensions.cs" />
+    <Compile Include="Models\MyR2\UserContentItem.cs" />
+    <Compile Include="Models\PageLink.cs" />
+    <Compile Include="Models\PageLinkSection.cs" />
+    <Compile Include="Models\Ping\PingData.cs" />
+    <Compile Include="Models\Ping\PingIndexStatus.cs" />
+    <Compile Include="Models\Profile\ProfileAdd.cs" />
+    <Compile Include="Models\Profile\ProfileEdit.cs" />
+    <Compile Include="Models\Profile\UserEdit.cs" />
+    <Compile Include="Models\Profile\UserEmailOptions.cs" />
+    <Compile Include="Models\Profile\UserExtensions.cs" />
+    <Compile Include="Models\ReserveShelf\ReserveShelf.cs" />
+    <Compile Include="Models\ReserveShelf\ReserveShelfIndex.cs" />
+    <Compile Include="Models\ResourceSummaryBase.cs" />
+    <Compile Include="Models\Resource\DictionaryTerms.cs" />
+    <Compile Include="Models\Resource\IAccessInfo.cs" />
+    <Compile Include="Models\Resource\IsbnType.cs" />
+    <Compile Include="Models\Resource\ResourceDetail.cs" />
+    <Compile Include="Models\Resource\ResourceEmail.cs" />
+    <Compile Include="Models\Resource\ResourceExtensions.cs" />
+    <Compile Include="Models\Resource\ResourceIsbn.cs" />
+    <Compile Include="Models\Resource\ResourceMinPriceAttribute.cs" />
+    <Compile Include="Models\Resource\ResourceSummaries.cs" />
+    <Compile Include="Models\Resource\ResourceSummary.cs" />
+    <Compile Include="Models\Resource\ReviewedTitleModel.cs" />
+    <Compile Include="Models\Search\AdvancedSearchModel.cs" />
+    <Compile Include="Models\Search\AlternateTerm.cs" />
+    <Compile Include="Models\Search\ExternalSearch.cs" />
+    <Compile Include="Models\Search\Fields\AllFields.cs" />
+    <Compile Include="Models\Search\Fields\BookTitleField.cs" />
+    <Compile Include="Models\Search\Fields\ChapterTitleField.cs" />
+    <Compile Include="Models\Search\Fields\FullTextField.cs" />
+    <Compile Include="Models\Search\Fields\ImageTitleField.cs" />
+    <Compile Include="Models\Search\Fields\IndexTermField.cs" />
+    <Compile Include="Models\Search\Fields\ISearchField.cs" />
+    <Compile Include="Models\Search\Fields\SearchFieldBase.cs" />
+    <Compile Include="Models\Search\Fields\SearchFieldsFactory.cs" />
+    <Compile Include="Models\Search\Fields\SectionTitleField.cs" />
+    <Compile Include="Models\Search\Fields\VideoSectionField.cs" />
+    <Compile Include="Models\Search\JumpToLink.cs" />
+    <Compile Include="Models\Search\SavedSearchResultSet.cs" />
+    <Compile Include="Models\Search\SearchFilterBuilder.cs" />
+    <Compile Include="Models\Search\SearchIndex.cs" />
+    <Compile Include="Models\Search\SearchQuery.cs" />
+    <Compile Include="Models\Search\SearchQueryBuilder.cs" />
+    <Compile Include="Models\Search\SearchResult.cs" />
+    <Compile Include="Models\Search\SearchResultOption.cs" />
+    <Compile Include="Models\Search\SearchResultSet.cs" />
+    <Compile Include="Models\Search\SearchResultsJson.cs" />
+    <Compile Include="Models\Shared\Filter.cs" />
+    <Compile Include="Models\Shared\FilterGroup.cs" />
+    <Compile Include="Models\Shared\OptionGroup.cs" />
+    <Compile Include="Models\Shared\SortGroup.cs" />
+    <Compile Include="Models\SpecialtyDetail.cs" />
+    <Compile Include="Models\SpecialtyExtensions.cs" />
+    <Compile Include="Models\SpecialtySummaries.cs" />
+    <Compile Include="Models\SpecialtySummary.cs" />
+    <Compile Include="Models\Subscriptions\CheckoutModel.cs" />
+    <Compile Include="Models\Subscriptions\SubscriptionListModel.cs" />
+    <Compile Include="Models\Subscriptions\SubscriptionUserModel.cs" />
+    <Compile Include="Models\ToolLinks.cs" />
+    <Compile Include="Models\Trial\AccountStatus.cs" />
+    <Compile Include="Models\Trial\AccountVerifyModel.cs" />
+    <Compile Include="Models\Trial\RequestAccountModel.cs" />
+    <Compile Include="Models\Trial\Trial.cs" />
+    <Compile Include="Models\Trial\WelcomeEmail.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs" />
+    <Compile Include="Services\GoogleService.cs" />
+    <Compile Include="Services\ISearchService.cs" />
+    <Compile Include="Services\MyR2CookieService.cs" />
+    <Compile Include="Services\MyR2Service.cs" />
+    <Compile Include="Services\ResourceListService.cs" />
+    <Compile Include="Services\ResourceLockService.cs" />
+    <Compile Include="Services\SearchService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <!-- Add your NuGet package references and other custom references here as needed -->
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349C5851-65DF-11DA-9384-00065B846F21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52611</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53172/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+</Project>

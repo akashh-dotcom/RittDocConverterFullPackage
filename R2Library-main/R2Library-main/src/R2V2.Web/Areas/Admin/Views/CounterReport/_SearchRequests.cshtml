@@ -1,0 +1,56 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.CounterSearchDetail
+<div class="group-actions-wrapper">
+    <div class="clearfix group-actions">
+        <p class="header">
+            Search Requests for @Html.Raw(Model.CounterSearchRequest.ReportRequest.DateRangeStart.ToShortDateString())
+            to @Html.Raw(Model.CounterSearchRequest.ReportRequest.DateRangeEnd.ToShortDateString())</p>
+    </div>
+</div>
+<div class="tablecontent counter-scroll">
+    <table class="list" >
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th class="counter-total">Total</th>
+                @foreach (var item in Model.CounterSearchRequest.CounterSearchRequests[0].ResourcePeriods)
+                {
+                    <th>@Html.Raw(item.ShortMonth())-@Html.Raw(item.Year.ToString())</th>
+                }
+            </tr>
+        </thead>
+        <tr>
+            <td>All</td>
+            <td><b>@Html.Raw(Model.ResourceTotal())</b></td>
+            @foreach (var hit in Model.ResourceTotalList)
+            {
+                <td><b>@Html.DisplayFor(x => hit)</b></td>
+            }
+        </tr>
+        @foreach (var item in Model.CounterSearchRequest.CounterSearchRequests)
+        {
+            <tr>
+                <td id="hover-wrapper">
+                    @Html.DisplayFor(x => item.Isbn13)
+                    @if (!Model.IsEmailMode)
+                    {
+                        <div class="hover-parent" >
+                            <div class="hover-child titleitem">
+                                <ul>
+                                    <li>@Html.LabelFor(x => item.Title)@Html.DisplayFor(x => item.Title)</li>
+                                    <li>@Html.LabelFor(x => item.Isbn10) @Html.DisplayFor(x => item.Isbn10)</li>
+                                    <li>@Html.LabelFor(x => item.Publisher) @Html.DisplayFor(x => item.Publisher)</li>
+                                </ul>
+                             
+                            </div>
+                        </div>
+                    }                    
+                </td>
+                <td><b>@Html.Raw(item.ResourcePeriods.Sum(x => x.HitCount).ToString())</b></td>
+                @foreach (var hit in item.ResourcePeriods)
+                {
+                    <td>@Html.DisplayFor(x => hit.HitCount)</td>
+                }
+            </tr>
+        }
+    </table>
+</div>

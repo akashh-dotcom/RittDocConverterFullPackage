@@ -1,0 +1,11 @@
+﻿@model R2V2.Web.Models.Home.MarketingHome
+@{
+    ViewBag.Title = "R2 Library Copyright Policy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        <div>@Html.Raw(Model.HtmlContent)</div>
+    </div>
+</div>

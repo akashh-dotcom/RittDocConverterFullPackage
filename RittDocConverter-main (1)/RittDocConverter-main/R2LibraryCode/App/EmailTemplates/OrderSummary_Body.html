@@ -1,0 +1,46 @@
+<p>
+	<table>
+		<thead>
+			<tr>
+				<td align="right">Order for:&nbsp;</td>
+				<td align="left"><b>{Order_Date}</b></td>
+			</tr>
+			<tr>
+				<td align="right">Total Orders:&nbsp;</td>
+				<td align="left"><b>{Order_Count}</b></td>
+			</tr>
+			<tr>
+				<td align="right">Total Estimated Sales:&nbsp;</td>
+				<td align="left"><b>{Order_Sales}</b></td>
+			</tr>
+			<tr>
+				<td align="right">Total Titles Order:&nbsp;</td>
+				<td align="left"><b>{Order_Titles_Count}</b></td>
+			</tr>
+			<tr>
+				<td align="right">Total Licenses Order:&nbsp;</td>
+				<td align="left"><b>{Order_Licenses_Count}</b></td>
+			</tr>			
+			<tr>
+				<td align="right">Total Maintenance Fees:&nbsp;</td>
+				<td align="left"><b>{Total_Maintenance_Fees}</b></td>
+			</tr>
+		</thead>
+	</table>
+</p>
+		
+<div class="tablecontent">
+	<table>
+		<thead>
+			<tr>
+				<th class="institution-info">Institution Info</th>
+				<th class="details">Order Details</th>
+				<th class="purchased-items">Purchased Items</th>
+				<th class="price">Price</th>
+			</tr>
+		</thead>
+		<tbody>
+			{Order_Items}
+		<tbody>
+	</table>
+</div>

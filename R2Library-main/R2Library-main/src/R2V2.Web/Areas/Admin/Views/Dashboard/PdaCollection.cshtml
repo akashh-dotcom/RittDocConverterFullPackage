@@ -1,0 +1,110 @@
+﻿@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.Dashboard.DashboardModel
+
+@{
+    ViewBag.Title = "Dashboard";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="dashboard" class="content" role="main">
+
+        @using (Html.BeginForm("PdaCollection", "Dashboard", null, FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.InstitutionId)
+            @Html.Partial("_DashboardPeriod")
+        }
+
+
+
+        <section id="dashboard-quickNotes">
+            <ul>
+                @foreach (var item in Model.QuickNotes)
+                {
+                    <li>@Html.Raw(item)</li>
+                }
+            </ul>
+        </section>
+
+
+
+
+        <section id="dashboard-booklist">
+            @if (Model.PdaAddedList != null && Model.PdaAddedList.Any())
+            {
+                <div class="spotlightGroup">
+                    <h3>PDA Titles Added</h3>
+                    <h5>@Model.GetDateSelectorString(Model.Period)</h5>
+
+                    @foreach (var item in Model.PdaAddedList)
+                    {
+                        @Html.Partial("_DashboardResource", item)
+                    }
+                    <a class="viewMore" href="@Url.Action("List", "CollectionManagement", Model.PdaAddedList.FirstOrDefault().ToRouteValues("PdaAdded"))">View More</a>
+                </div>
+            }
+
+            @if (Model.PdaAddedToCartList != null && Model.PdaAddedToCartList.Any())
+{
+                <div class="spotlightGroup">
+                    <h3>PDA Titles Triggered</h3>
+                    <h5>@Model.GetDateSelectorString(Model.Period)</h5>
+
+                    @foreach (var item in Model.PdaAddedToCartList)
+                    {
+                        @Html.Partial("_DashboardResource", item)
+                    }
+                    <a class="viewMore" href="@Url.Action("List", "CollectionManagement", Model.PdaAddedToCartList.FirstOrDefault().ToRouteValues("PdaAddedToCart"))">View More</a>
+                </div>
+            }
+
+            @if (Model.PdaNewEditionList != null && Model.PdaNewEditionList.Any())
+{
+                <div class="spotlightGroup">
+                    <h3>New Editions of PDA Titles</h3>
+                    <h5>@Model.GetDateSelectorString(Model.Period)</h5>
+
+                    @foreach (var item in Model.PdaNewEditionList)
+                    {
+                        @Html.Partial("_DashboardResource", item)
+                    }
+                    <a class="viewMore" href="@Url.Action("List", "CollectionManagement", Model.PdaNewEditionList.FirstOrDefault().ToRouteValues("PdaNewEdition"))">View More</a>
+                </div>
+            }
+            @if (Model.PdaShowNoResourceText())
+            {
+                if (Model.ShowNoPdaCollectionText)
+                {
+                    <p>Patron Driven Acquisition on the R2 Digital Library enables you to expand your collection while leveraging patron usage as a collection development tool. With no automatic or required purchase, PDA on the R2 Digital Library can be seamlessly integrated into your current collection. Please contact us to learn more about PDA on the R2 Digital Library. </p>
+                }
+                else
+                {
+                    <p>No activity with your PDA collection has been found for the selected time period.</p>
+                }
+            }
+
+        </section>
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.ToggleOptionalFields({ $container: $('#filter-date-range'), $trigger: $('#Period'), action: 'change', triggerValue: 'UserSpecified' });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+
+    $('#filter-date-range .input-daterange').datepicker({
+        format: "mm/yyyy",
+        startDate: "@Model.DateRangeMin()",
+        endDate: "@Model.DateRangeMax()",
+        minViewMode: 1,
+        autoclose: true,
+        hideIfNoPrevNext: true,
+    });
+}

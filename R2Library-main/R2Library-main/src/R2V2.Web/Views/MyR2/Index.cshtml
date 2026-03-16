@@ -1,0 +1,135 @@
+﻿@using R2V2.Core.MyR2
+@model R2V2.Web.Models.MyR2.UserContent
+@{
+    ViewBag.Title = "My R2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="tabs">
+    <ul class="clearfix">
+        <li@(StyleHelpers.AddSelectedState(Model.UserContentType == UserContentType.Bookmark))><a href="@Url.Action("Index", "MyR2", new { type = "bookmarks" })"><span>Bookmarks</span></a></li>
+        <li@(StyleHelpers.AddSelectedState(Model.UserContentType == UserContentType.CourseLink))><a href="@Url.Action("Index", "MyR2", new { type = "course-links" })"><span>Course Links</span></a></li>
+        <li@(StyleHelpers.AddSelectedState(Model.UserContentType == UserContentType.Image))><a href="@Url.Action("Index", "MyR2", new { type = "images" })"><span>Images</span></a></li>
+        <li@(StyleHelpers.AddSelectedState(Model.UserContentType == UserContentType.Reference))><a href="@Url.Action("Index", "MyR2", new { type = "references" })"><span>References</span></a></li>
+        @if (Model.AuthenticationInfo.UserId > 0 && Model.AuthenticationInfo.IsNotGuest)
+        {
+            <li><a href="@Url.Action("Index", "Profile")">My User Profile</a></li>
+            <li><a href="@Url.Action("Email", "Profile")"><span>My Email Preferences</span></a></li>
+            
+        }
+    </ul>
+</div>
+    
+<div class="clearfix twocol-with-sidebar contentcontainer">
+    <div id="content" class="content" role="main">
+        @if (Model != null)
+        {
+            <h1>@Model.Title</h1>
+
+            <div class="folders" data-implement="accordion">
+                @if (Model.DefaultFolder != null)
+                {
+                    <div class="default-group" data-user-content-folder='{"Id":@Model.DefaultFolder.Id}'>
+                        <div class="titlelist">
+                            @foreach (var userContentItem in Model.DefaultFolder.UserContentItems)
+                            {
+                                Html.RenderPartial("_UserContentItem", userContentItem);
+                            }
+                        </div>
+                    </div>
+                }
+                
+                @if (Model.UserContentFolders != null && Model.UserContentFolders.Any(x => !x.DefaultFolder))
+                {
+                    foreach (var userContentFolder in Model.UserContentFolders.Where(x => !x.DefaultFolder))
+                    {
+                        <div class="accordion-group" data-user-content-folder='{"Id":@userContentFolder.Id}'>
+                            <div class="clearfix accordion-heading@(Html.Raw(userContentFolder.UserContentItems != null && userContentFolder.UserContentItems.Any() ? " closed" : ""))">
+                                <input type="text" value="@userContentFolder.FolderName">
+                                <ul class="actions-folder clearfix">
+                                    <li class="save"><a href="#save">Save</a></li>
+                                    <li class="cancel"><a href="#cancel">Cancel</a></li>
+                                    <li class="rename"><a href="#rename">Rename Folder</a></li>
+                                    <li class="delete"><a href="#remove">Delete</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="titlelist">
+                                @if (userContentFolder.UserContentItems != null && userContentFolder.UserContentItems.Any())
+                                {
+                                    foreach (var userContentItem in userContentFolder.UserContentItems)
+                                    {
+                                        Html.RenderPartial("_UserContentItem", userContentItem);
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            if (Model.AuthenticationInfo.IsAuthenticated)
+            {
+	            <div id="add-folder"><a href="#add-folder" class="btn"><span>Add a New Folder</span></a></div>
+            }
+        }
+    </div>
+
+    @Html.Partial("_SearchSidebar")
+</div>
+
+@section InlineModal
+{
+    <div class="content modal move">
+        <div class="modal-header">
+            <h1>Move @Model.UserContentType</h1>
+            <a class="close" data-dismiss="modal" href="#">Close</a>
+        </div>
+            
+        <div class="modal-body">
+            @Html.Partial("_MoveUserContentPanel", Model.UserContentFolders, new ViewDataDictionary {{"type", Model.UserContentType}})
+        </div>
+    </div>
+    
+    @if (Model.UserContentType != UserContentType.Bookmark)
+    {
+        foreach (var userContentItem in Model.UserContentItems)
+        {
+            <div id="export-@userContentItem.Id" class="content modal export">
+                <div class="modal-header">
+                    <h1>Export @Model.UserContentType</h1>
+                    <a class="close" data-dismiss="modal" href="#">Close</a>
+                </div>
+            
+                <div class="modal-body">
+                    @Html.Partial("_ExportUserContentPanel", userContentItem)
+                </div>
+            </div>
+        }
+    }
+}
+
+@section JsDocumentReady
+{  
+    new R2V2.MyR2.SavedSearches({ $triggers: $('.savedsearches .btn-delete') });
+    new R2V2.MyR2.UserContentItem.ExportPanel({ $container: $('.modal.export') });
+    new R2V2.MyR2.UserContentItem.MovePanel({
+        $container: $('.modal.move'),
+        dataUrl: '@Url.Action("List", "UserContentFolder", new { type = Model.UserContentType })'
+    });
+    new R2V2.MyR2({
+        $container: $('#content'),
+        $addFolderTrigger: $('#add-folder a'),
+        folderConfig: {
+            $container: $('.folders'),
+            template: _.template('<div class="accordion-group"><div class="clearfix accordion-heading"><input type="text" value="Folder Name" /><ul class="actions-folder clearfix"><li class="save"><a href="#save">Save</a></li><li class="cancel"><a href="#cancel">Cancel</a></li><li class="rename"><a href="#rename">Rename Folder</a></li><li class="delete"><a href="#remove">Delete</a></li></ul></div><div class="titlelist"></div></div>'),
+            dataName: 'user-content-folder',
+            actionsSelector: '.actions-folder',
+            dataUrls: { save: '@Url.Action("Create", "UserContentFolder", new { type = Model.UserContentType })', rename: '@Url.Action("Rename", "UserContentFolder", new { type = Model.UserContentType })', remove: '@Url.Action("Delete", "UserContentFolder", new { type = Model.UserContentType })' }
+        },
+        itemConfig: {
+            dataName: 'user-content-item',
+            actionsSelector: '.actions-title',
+            dataUrls: { remove: '@Url.Action("Delete", "UserContent", new { type = Model.UserContentType })' }
+        }
+    });
+}

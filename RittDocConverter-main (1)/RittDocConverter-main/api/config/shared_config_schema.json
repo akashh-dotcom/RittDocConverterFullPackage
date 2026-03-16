@@ -1,0 +1,502 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RittDoc Converter Shared Configuration",
+  "description": "Configuration schema for EPUB processing pipeline",
+  "version": "1.0.0",
+  "type": "object",
+  "properties": {
+    "storage": {
+      "type": "object",
+      "title": "Storage Configuration",
+      "description": "S3/SFTP storage settings shared across all pipelines",
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "Storage Type",
+          "enum": ["s3", "local", "sftp"],
+          "default": "s3",
+          "ui": {
+            "widget": "dropdown",
+            "options": [
+              {"value": "s3", "label": "Amazon S3"},
+              {"value": "local", "label": "Local Storage"},
+              {"value": "sftp", "label": "SFTP Server"}
+            ]
+          }
+        },
+        "s3": {
+          "type": "object",
+          "title": "S3 Settings",
+          "dependsOn": {"field": "storage.type", "value": "s3"},
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Enable S3",
+              "default": true,
+              "ui": {"widget": "toggle"}
+            },
+            "bucket_name": {
+              "type": "string",
+              "title": "Bucket Name",
+              "ui": {"widget": "text", "placeholder": "your-bucket-name"}
+            },
+            "region": {
+              "type": "string",
+              "title": "AWS Region",
+              "default": "us-east-1",
+              "ui": {
+                "widget": "dropdown",
+                "options": [
+                  {"value": "us-east-1", "label": "US East (N. Virginia)"},
+                  {"value": "us-east-2", "label": "US East (Ohio)"},
+                  {"value": "us-west-1", "label": "US West (N. California)"},
+                  {"value": "us-west-2", "label": "US West (Oregon)"},
+                  {"value": "eu-west-1", "label": "Europe (Ireland)"},
+                  {"value": "eu-west-2", "label": "Europe (London)"},
+                  {"value": "eu-central-1", "label": "Europe (Frankfurt)"},
+                  {"value": "ap-south-1", "label": "Asia Pacific (Mumbai)"},
+                  {"value": "ap-southeast-1", "label": "Asia Pacific (Singapore)"},
+                  {"value": "ap-southeast-2", "label": "Asia Pacific (Sydney)"},
+                  {"value": "ap-northeast-1", "label": "Asia Pacific (Tokyo)"}
+                ]
+              }
+            },
+            "endpoint_url": {
+              "type": "string",
+              "title": "Custom Endpoint URL",
+              "description": "For MinIO or custom S3-compatible services",
+              "ui": {"widget": "text", "placeholder": "https://minio.example.com"}
+            },
+            "input_prefix": {
+              "type": "string",
+              "title": "Input Folder Prefix",
+              "default": "uploads",
+              "ui": {"widget": "text", "placeholder": "uploads"}
+            },
+            "use_sftp": {
+              "type": "boolean",
+              "title": "Use SFTP Gateway",
+              "default": false,
+              "ui": {"widget": "toggle"}
+            }
+          },
+          "required": ["bucket_name", "region"]
+        },
+        "local": {
+          "type": "object",
+          "title": "Local Storage Settings",
+          "dependsOn": {"field": "storage.type", "value": "local"},
+          "properties": {
+            "input_dir": {
+              "type": "string",
+              "title": "Input Directory",
+              "ui": {"widget": "directory_picker"}
+            },
+            "output_dir": {
+              "type": "string",
+              "title": "Output Directory",
+              "default": "Output",
+              "ui": {"widget": "directory_picker"}
+            }
+          }
+        }
+      }
+    },
+    "database": {
+      "type": "object",
+      "title": "Database Configuration",
+      "properties": {
+        "mongodb": {
+          "type": "object",
+          "title": "MongoDB Settings",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Enable MongoDB",
+              "default": true,
+              "ui": {"widget": "toggle"}
+            },
+            "uri": {
+              "type": "string",
+              "title": "Connection URI",
+              "default": "mongodb://localhost:27017",
+              "ui": {
+                "widget": "text",
+                "placeholder": "mongodb://localhost:27017",
+                "sensitive": true
+              }
+            },
+            "database": {
+              "type": "string",
+              "title": "Database Name",
+              "default": "rittdoc_converter",
+              "ui": {"widget": "text"}
+            },
+            "collections": {
+              "type": "object",
+              "title": "Collections",
+              "properties": {
+                "conversions": {
+                  "type": "string",
+                  "title": "Conversions Collection",
+                  "default": "conversions"
+                },
+                "publishers": {
+                  "type": "string",
+                  "title": "Publishers Collection",
+                  "default": "publishers"
+                },
+                "config": {
+                  "type": "string",
+                  "title": "Config Collection",
+                  "default": "config"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "processing": {
+      "type": "object",
+      "title": "Processing Configuration",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "title": "Processing Mode",
+          "enum": ["cli", "automated"],
+          "default": "automated",
+          "ui": {
+            "widget": "dropdown",
+            "options": [
+              {"value": "cli", "label": "CLI Mode (Manual)"},
+              {"value": "automated", "label": "Automated (Scheduled)"}
+            ]
+          }
+        },
+        "supported_formats": {
+          "type": "array",
+          "title": "Supported File Formats",
+          "items": {"type": "string"},
+          "ui": {
+            "widget": "multi_select",
+            "options": [
+              {"value": ".epub", "label": "EPUB"},
+              {"value": ".epub3", "label": "EPUB3"}
+            ]
+          }
+        },
+        "max_concurrent_jobs": {
+          "type": "integer",
+          "title": "Max Concurrent Jobs",
+          "default": 4,
+          "minimum": 1,
+          "maximum": 32,
+          "ui": {
+            "widget": "dropdown",
+            "options": [
+              {"value": 1, "label": "1 (Low)"},
+              {"value": 2, "label": "2"},
+              {"value": 4, "label": "4 (Default)"},
+              {"value": 8, "label": "8"},
+              {"value": 16, "label": "16 (High)"},
+              {"value": 32, "label": "32 (Maximum)"}
+            ]
+          }
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "title": "Job Timeout",
+          "default": 3600,
+          "ui": {
+            "widget": "dropdown",
+            "options": [
+              {"value": 900, "label": "15 minutes"},
+              {"value": 1800, "label": "30 minutes"},
+              {"value": 3600, "label": "1 hour (Default)"},
+              {"value": 7200, "label": "2 hours"},
+              {"value": 14400, "label": "4 hours"},
+              {"value": 28800, "label": "8 hours"}
+            ]
+          }
+        },
+        "retry": {
+          "type": "object",
+          "title": "Retry Settings",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Enable Retry",
+              "default": true,
+              "ui": {"widget": "toggle"}
+            },
+            "max_attempts": {
+              "type": "integer",
+              "title": "Max Retry Attempts",
+              "default": 3,
+              "ui": {
+                "widget": "dropdown",
+                "options": [
+                  {"value": 1, "label": "1"},
+                  {"value": 2, "label": "2"},
+                  {"value": 3, "label": "3 (Default)"},
+                  {"value": 5, "label": "5"},
+                  {"value": 10, "label": "10"}
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "scheduler": {
+      "type": "object",
+      "title": "Scheduler Configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enable Scheduler",
+          "default": true,
+          "ui": {"widget": "toggle"}
+        },
+        "interval_minutes": {
+          "type": "integer",
+          "title": "Check Interval",
+          "default": 60,
+          "ui": {
+            "widget": "dropdown",
+            "options": [
+              {"value": 5, "label": "Every 5 minutes"},
+              {"value": 15, "label": "Every 15 minutes"},
+              {"value": 30, "label": "Every 30 minutes"},
+              {"value": 60, "label": "Every 1 hour (Default)"},
+              {"value": 120, "label": "Every 2 hours"},
+              {"value": 360, "label": "Every 6 hours"},
+              {"value": 720, "label": "Every 12 hours"},
+              {"value": 1440, "label": "Every 24 hours"}
+            ]
+          }
+        },
+        "run_on_startup": {
+          "type": "boolean",
+          "title": "Run on Startup",
+          "default": false,
+          "ui": {"widget": "toggle"}
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "title": "Quality Thresholds",
+      "description": "Confidence score thresholds for automatic approval/review",
+      "properties": {
+        "auto_approve_threshold": {
+          "type": "integer",
+          "title": "Auto-Approve Threshold",
+          "description": "Score >= this value: No review needed",
+          "default": 80,
+          "minimum": 0,
+          "maximum": 100,
+          "ui": {
+            "widget": "slider",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "color": "green"
+          }
+        },
+        "notify_threshold": {
+          "type": "integer",
+          "title": "Notify Threshold",
+          "description": "Score >= this value: Notify but proceed",
+          "default": 50,
+          "minimum": 0,
+          "maximum": 100,
+          "ui": {
+            "widget": "slider",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "color": "yellow"
+          }
+        },
+        "manual_review_threshold": {
+          "type": "integer",
+          "title": "Manual Review Threshold",
+          "description": "Score < this value: Requires manual review",
+          "default": 50,
+          "minimum": 0,
+          "maximum": 100,
+          "ui": {
+            "widget": "slider",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "color": "red"
+          }
+        }
+      }
+    },
+    "notifications": {
+      "type": "object",
+      "title": "Notification Settings",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enable Notifications",
+          "default": false,
+          "ui": {"widget": "toggle"}
+        },
+        "channels": {
+          "type": "object",
+          "title": "Notification Channels",
+          "properties": {
+            "email": {
+              "type": "object",
+              "title": "Email Notifications",
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "title": "Enable Email",
+                  "default": false,
+                  "ui": {"widget": "toggle"}
+                },
+                "recipients": {
+                  "type": "array",
+                  "title": "Recipients",
+                  "items": {"type": "string", "format": "email"},
+                  "ui": {"widget": "tag_input", "placeholder": "Add email..."}
+                },
+                "smtp": {
+                  "type": "object",
+                  "title": "SMTP Settings",
+                  "properties": {
+                    "host": {
+                      "type": "string",
+                      "title": "SMTP Host",
+                      "default": "smtp.gmail.com",
+                      "ui": {"widget": "text"}
+                    },
+                    "port": {
+                      "type": "integer",
+                      "title": "SMTP Port",
+                      "default": 587,
+                      "ui": {
+                        "widget": "dropdown",
+                        "options": [
+                          {"value": 25, "label": "25 (SMTP)"},
+                          {"value": 465, "label": "465 (SMTPS)"},
+                          {"value": 587, "label": "587 (Submission)"},
+                          {"value": 2525, "label": "2525 (Alternative)"}
+                        ]
+                      }
+                    },
+                    "use_tls": {
+                      "type": "boolean",
+                      "title": "Use TLS",
+                      "default": true,
+                      "ui": {"widget": "toggle"}
+                    }
+                  }
+                }
+              }
+            },
+            "webhook": {
+              "type": "object",
+              "title": "Webhook Notifications",
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "title": "Enable Webhook",
+                  "default": false,
+                  "ui": {"widget": "toggle"}
+                },
+                "url": {
+                  "type": "string",
+                  "title": "Webhook URL",
+                  "format": "uri",
+                  "ui": {"widget": "text", "placeholder": "https://..."}
+                },
+                "events": {
+                  "type": "array",
+                  "title": "Events to Send",
+                  "ui": {
+                    "widget": "multi_select",
+                    "options": [
+                      {"value": "job.started", "label": "Job Started"},
+                      {"value": "job.completed", "label": "Job Completed"},
+                      {"value": "job.failed", "label": "Job Failed"},
+                      {"value": "review.required", "label": "Review Required"}
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "logging": {
+      "type": "object",
+      "title": "Logging Configuration",
+      "properties": {
+        "level": {
+          "type": "string",
+          "title": "Log Level",
+          "default": "INFO",
+          "ui": {
+            "widget": "dropdown",
+            "options": [
+              {"value": "DEBUG", "label": "DEBUG (Verbose)"},
+              {"value": "INFO", "label": "INFO (Default)"},
+              {"value": "WARNING", "label": "WARNING"},
+              {"value": "ERROR", "label": "ERROR (Minimal)"}
+            ]
+          }
+        },
+        "retention_days": {
+          "type": "integer",
+          "title": "Log Retention",
+          "default": 30,
+          "ui": {
+            "widget": "dropdown",
+            "options": [
+              {"value": 7, "label": "7 days"},
+              {"value": 14, "label": "14 days"},
+              {"value": 30, "label": "30 days (Default)"},
+              {"value": 60, "label": "60 days"},
+              {"value": 90, "label": "90 days"},
+              {"value": 180, "label": "180 days"},
+              {"value": 365, "label": "1 year"}
+            ]
+          }
+        }
+      }
+    },
+    "pipelines": {
+      "type": "object",
+      "title": "Pipeline Configuration",
+      "description": "Settings for EPUB processing pipeline",
+      "properties": {
+        "epub": {
+          "type": "object",
+          "title": "EPUB Pipeline",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Enable EPUB Processing",
+              "default": true,
+              "ui": {"widget": "toggle"}
+            },
+            "api_url": {
+              "type": "string",
+              "title": "EPUB API URL",
+              "default": "http://localhost:5001",
+              "ui": {"widget": "text"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

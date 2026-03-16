@@ -1,0 +1,47 @@
+﻿<div id="videoContainer" class="content modal videoContainer" tabindex="-1" role="dialog">
+    <div class="modal-header">
+        <h1 class="video-caption">Video Player</h1>
+        <a class="close" data-dismiss="modal" tabindex="0" href="#">Close</a>
+    </div>
+            
+	<div id="flowplayerContainer" class="is-splash modal-body play-button fixed-controls flowplayer-container"></div>
+    
+    <div id="ooyalaContainer" class="modal-body ooyala-container">
+        <div id="ooyalaplayer" class="ooyala-player"></div>
+        <noscript><div>Please enable Javascript to watch this video</div></noscript>   
+    </div>
+</div>
+
+<div id="videoDirectLinkContainer" class="content modal direct-link" tabindex="-1" role="dialog">
+    <div class="modal-header">
+        <h1 id="videoDirectLinkTitle" class="video-caption">Video Direct Link</h1>
+        <a class="close" data-dismiss="modal" tabindex="0" href="#">Close</a>
+    </div>
+
+    <div class="modal-body center">
+        <div class="video-direct-link-label">Direct Link:</div>
+        <a id="videoDirectLink" tabindex="0" href="#"></a>
+
+        <div class="actions center">
+            <button id="btnCopyLinkToClipboard" type="button" class="btn btn-medium" data-dismiss="modal"><span>Copy Link to Clipboard</span></button>
+            <button id="btnCancel" type="reset" class="btn btn-medium" data-dismiss="modal"><span>Cancel</span></button>
+        </div>
+    </div>
+</div>
+
+<div id="imageDirectLinkContainer" class="content modal direct-link" tabindex="-1" role="dialog">
+    <div class="modal-header">
+        <h1 id="imageDirectLinkTitle" class="image-caption">Direct Link Image</h1>
+        <a class="close" data-dismiss="modal" tabindex="0" href="#">Close</a>
+    </div>
+
+    <div class="modal-body center">
+        <div class="image-direct-link-label">Direct Link:</div>
+        <a id="imageDirectLink" tabindex="0" href="#"></a>
+
+        <div class="actions center">
+            <button id="btnCopyLinkToClipboard" type="button" class="btn btn-medium" data-dismiss="modal"><span>Copy Link to Clipboard</span></button>
+            <button id="btnCancel" type="reset" class="btn btn-medium" data-dismiss="modal"><span>Cancel</span></button>
+        </div>
+    </div>
+</div>

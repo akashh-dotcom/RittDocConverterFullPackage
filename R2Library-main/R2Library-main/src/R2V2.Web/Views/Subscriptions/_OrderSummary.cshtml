@@ -1,0 +1,94 @@
+﻿@using R2V2.Core.Authentication
+@model R2V2.Web.Models.Subscriptions.SubscriptionOrderHistoryModel
+
+<div id="content" class="content" role="main">
+    <h1>R2 LIBRARY ORDER SUMMARY</h1>
+    <div>Subscription is available for use immediately!</div>
+
+    @if (Model != null && Model.OrderHistory != null)
+    {
+        <div id="order-summary">
+            <ul>
+                <li><strong>Date/Time:</strong> @Model.OrderHistory.CreationDate</li>
+                <li><strong>User:</strong> @Model.CurrentUser.LastName, @Model.CurrentUser.FirstName / (@Model.CurrentUser.UserName)</li>
+                @if (!string.IsNullOrWhiteSpace(Model.OrderHistory.OrderNumber))
+                {
+                    <li><strong>R2Library Order Number:</strong> @Model.OrderHistory.OrderNumber</li>
+                }
+                <li><strong>Order Notes:</strong> @Model.OrderHistory.PurchaseOrderComment</li>
+                <li><strong>Total Charge:</strong> @Html.DisplayFor(x => Model.OrderHistory.Price)</li>
+            </ul>
+        </div>
+
+        <div class="tablecontent">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Details</th>
+                        <th>Subscription Type</th>
+                        <th class="cart-price" style="width: 50px; text-align: right">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            <p>@Html.Raw(Model.Subscription.Name)</p>
+                            <p>@Html.Raw(Model.Subscription.Description)</p>
+                        </td>
+                        <td>@Html.Raw(Model.OrderHistory.Type)</td>
+                        <td style="text-align: right">
+                            @if (Model.OrderHistory.Type == SubscriptionType.Annual)
+                            {
+                                <span class="saleprice">@string.Format("{0:C}", Model.Subscription.AnnualPrice)</span>
+                            }
+                            @if (Model.OrderHistory.Type == SubscriptionType.Monthly)
+                            {
+                                <span class="saleprice">@string.Format("{0:C}", Model.Subscription.MonthlyPrice)</span>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2">&nbsp;</th>
+                        <th>Subtotal</th>
+                        <td>
+                            @if (Model.OrderHistory.Type == SubscriptionType.Annual)
+                            {
+                                @Html.Raw(string.Format("{0:C}", Model.Subscription.AnnualPrice))
+                            }
+                            @if (Model.OrderHistory.Type == SubscriptionType.Monthly)
+                            {
+                                @Html.Raw(string.Format("{0:C}", Model.Subscription.MonthlyPrice))
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">&nbsp;</th>
+                        <th>Total</th>
+                        <td>
+                            @if (Model.OrderHistory.Type == SubscriptionType.Annual)
+                            {
+                                @Html.Raw(string.Format("{0:C}", Model.Subscription.AnnualPrice))
+                            }
+                            @if (Model.OrderHistory.Type == SubscriptionType.Monthly)
+                            {
+                                @Html.Raw(string.Format("{0:C}", Model.Subscription.MonthlyPrice))
+                            }
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            @if (Model.IsWebVersion)
+            {
+                <div class="group-actions-wrapper" style="max-width: 680px;">
+                    <div class="clearfix group-actions">
+                        <ul class="actions">
+                            <li><a class="btn btn-medium" href="@Url.Action("Index", new {id = Model.Subscription.Id})"><span>View Subscription</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

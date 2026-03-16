@@ -1,0 +1,20 @@
+﻿@model R2V2.Web.Models.MarcLinks
+           
+@if (Model != null)
+{
+    <ol data-toggle="menu"  class="clearfix toolbar">
+        @foreach (var marcLink in Model.Links)
+        {
+            <li>
+                @if (marcLink.IsDeleteLink)
+                {
+                    <a href="@marcLink.Href" class="export-delete" target="_blank" data-toggle="window" data-target="review" data-specs="location=1,status=1,scrollbars=1,height=300,width=475">@marcLink.Text</a>
+                }
+                else
+                {
+                    <a href="@marcLink.Href" class="export" target="_blank" data-toggle="window" data-target="review" data-specs="location=1,status=1,scrollbars=1,height=300,width=475">@marcLink.Text</a>
+                }
+            </li>
+        }
+    </ol>
+}

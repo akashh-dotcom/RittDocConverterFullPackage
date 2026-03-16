@@ -1,0 +1,8 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.PublisherUsageDetail
+
+    <tr>
+        <td class="label">@Html.LabelFor(model => model.PublisherList)</td>
+        <td class="field">
+            @Html.DropDownListFor(model => model.PublisherId, Model.PublisherList, new { style = "width:500px" })
+        </td>
+    </tr>

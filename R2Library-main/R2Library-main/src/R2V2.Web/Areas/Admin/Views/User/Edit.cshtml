@@ -1,0 +1,212 @@
+﻿@using R2V2.Core.Authentication
+@model R2V2.Web.Areas.Admin.Models.User.InstitutionUserEdit
+@{
+    ViewBag.Title = "Institution User Edit";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>User Edit</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+
+        @using (Html.BeginForm())
+        {
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><button id="save" class="btn-medium" type="submit"><span>Save</span></button></li>
+                        <li><a class="btn btn-medium" data-history="back"><span>Cancel</span></a></li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="tablecontent">
+                @Html.HiddenFor(x => x.User.InstitutionId)
+                @Html.HiddenFor(x => x.UserQuery.IsUserIa)
+                @Html.HiddenFor(x => x.User.Id)
+                @Html.HiddenFor(x => x.UrlReferrer)
+                <table class="edit">
+                    <tbody>
+                        <tr>                                
+                            <td class="label">@Html.LabelFor(model => model.User.StatusList)</td>
+                            <td class="field">
+                                @if (Model.User.UserName == Model.Institution.AccountNumber || Model.IsSelf)
+                                {
+                                    @Html.DropDownListFor(model => model.User.RecordStatus, Model.User.StatusList, new {disabled = "disabled"})
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.User.RecordStatus, Model.User.StatusList)
+                                }
+                                @Html.ValidationMessageFor(model => model.User.StatusList)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.ExpirationDate)</td>
+                            <td class="field">
+                                @(!Model.IsSelf ? Html.EditorFor(model => model.User.ExpirationDate) : Html.TextBoxFor(model => model.User.ExpirationDate, new { disabled = "disabled" }))
+                        
+                                @Html.ValidationMessageFor(model => model.User.ExpirationDate)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.FirstName)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(model => model.User.FirstName, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.User.FirstName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.LastName)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(model => model.User.LastName, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.User.LastName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.Email)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(model => model.User.Email, new { @class = "input-full" })
+                                @Html.ValidationMessageFor(model => model.User.Email)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.DepartmentSelectList)</td>
+                            <td class="field">
+                                @Html.DropDownListFor(model => model.User.Department.Id, Model.User.DepartmentSelectList)
+                                @Html.EditorFor(model => model.User.CustomDepartment) @Html.HiddenFor(model => model.User.CustomDepartmentId)
+                                @Html.ValidationMessageFor(model => model.User.DepartmentSelectList)
+                            </td>
+                        </tr>
+                        <tr>                            
+                            <td class="label">@Html.LabelFor(model => model.User.RoleSelectList)</td>
+                            <td class="field">
+                                @(Model.User.UserName == Model.Institution.AccountNumber || Model.IsSelf ?
+                                                                                  Html.DropDownListFor(model => model.User.Role.Code, Model.User.RoleSelectList, new { disabled = "disabled" }) :
+                                                                                                                                                                                                    Html.DropDownListFor(model => model.User.Role.Code, Model.User.RoleSelectList))
+                            
+                                @Html.ValidationMessageFor(model => model.User.RoleSelectList)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.UserName)</td>
+                            <td class="field">
+                                @if (Model.User.UserName == Model.Institution.AccountNumber || Model.IsSelf)
+                                {
+                                    @Html.TextBoxFor(model => model.User.UserName, new { disabled = "disabled", @class = "input-medium" })
+                                    @Html.HiddenFor(x => x.User.UserName)
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => model.User.UserName, new { @class = "input-medium" })
+                                }
+                                
+                                @Html.ValidationMessageFor(model => model.User.UserName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.NewPassword)</td>
+                            <td class="field">
+                                @Html.PasswordFor(model => model.User.NewPassword, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.User.NewPassword)                            
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.ConfirmPassword)</td>
+                            <td class="field">
+                                @Html.PasswordFor(model => model.User.ConfirmPassword, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.User.ConfirmPassword)                            
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.AthensTargetedId)</td>
+                            <td class="field">
+                                @if (!string.IsNullOrWhiteSpace(Model.User.AthensTargetedId))
+                                {
+                                    @Html.ActionLink("Remove Athens Link", "RemoveAthensLink", new { Model.User.InstitutionId, Model.User.Id })
+                                }
+                                else
+                                {
+                                    <span>User can link this account using "Athens log in" located in upper right corner.</span>
+                                }
+                            </td>
+                        </tr>
+                        
+                        @if (Model.User.TerritoriesSelectListItems != null && Model.User.TerritoriesSelectListItems.Any())
+                        {
+                            <tr>
+                                <td class="label">@Html.LabelFor(x => x.User.CurrentTerritoryIds)</td>
+                                <td class="field">
+                                    <table>
+                                        <tr>
+                                            <td rowspan="2">@Html.ListBoxFor(x => x.User.TerritoriesSelectListItems, Model.User.TerritoriesSelectListItems, new { @class = "field-assignable2" })</td>
+                                            <td><a class="btn btn-medium" id="add-specialties"><span>Assign &gt;&gt;</span></a></td>
+                                            <td rowspan="2">@Html.ListBoxFor(x => x.User.CurrentTerritoryIds, Model.User.SelectedTerritoriesSelectListItems, new { @class = "field-assignable2" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td><a class="btn btn-medium" id="remove-specialties"><span>&lt;&lt; Remove</span></a></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.User.Role != null && Model.User.Role.Code == RoleCode.USERS && Model.IsExpertReviewerEnabled && Model.User.Id > 0)
+                        {
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.User.ExpertReviewerRequestDate)</td>
+                                <td class="field">
+                                    @if (Model.User.ExpertReviewerRequestDate != null)
+                                    {
+                                        @Html.DisplayFor(model => model.User.ExpertReviewerRequestDate)
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td class="label">Email Preferences:</td>
+                            @if (Model.User.Id > 0)
+                            {
+                                <td class="field">@Html.ActionLink("Edit", "Email", new {Model.User.InstitutionId, Model.User.Id}) </td>
+                            }
+                            else
+                            {
+                                <td class="field">Will be set to default values. Can edit after creation.</td>
+
+                            }
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+
+    $('#add-specialties').click(function() {
+        return !$('#User_TerritoriesSelectListItems option:selected').appendTo('#User_CurrentTerritoryIds');
+    });
+    $('#remove-specialties').click(function() {
+        return !$('#User_CurrentTerritoryIds option:selected').appendTo('#User_TerritoriesSelectListItems');
+    });    
+
+    $("#save").click(function() {
+        $("#User_CurrentTerritoryIds option").each(function() {
+            $(this).attr("selected", "selected");
+        });
+    });
+}

@@ -1,0 +1,8 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.ReportModel
+<tr>
+	<td class="label">@Html.LabelFor(model => model.SortByList)</td>
+	<td class="field">
+		@Html.DropDownListFor(model => model.ReportQuery.SortBy, Model.SortByList)
+		@Html.ValidationMessageFor(model => model.SortByList)
+	</td>
+</tr>

@@ -1,0 +1,83 @@
+﻿@model TrustedAuthWebExample.Controllers.IndexModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <style type="text/css">
+/* DivTable.com */
+        .divTable{
+            display: table;
+        }
+        .divTableRow {
+            display: table-row;
+        }
+        .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+        }
+        .divTableCell, .divTableHead {
+            border: 0px solid #999999;
+            display: table-cell;
+            padding: 3px 10px;
+        }
+        .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+            font-weight: bold;
+        }
+        .divTableFoot {
+            background-color: #EEE;
+            display: table-footer-group;
+            font-weight: bold;
+        }
+        .divTableBody {
+            display: table-row-group;
+        }
+        .inputUrl {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+@using (Html.BeginForm("SamplePage", "Home", FormMethod.Post))
+{
+    <h1>R2Library.com - Trusted Authentication Testing</h1>
+    <div class="divTable">
+        <div class="divTableBody">
+            <div class="divTableRow">
+                <div class="divTableCell"><label>Institution: </label></div>
+                <div class="divTableCell">@Html.DropDownListFor(m => m.AccountNumber, Model.Institutions, "Select one")</div>
+            </div>
+            <!--
+            <div class="divTableRow">
+                <div class="divTableCell"><label>Account Number: </label></div>
+                <div class="divTableCell"><input type="text" id="accountNumber" value=""/></div>
+            </div>
+            <div class="divTableRow">
+                <div class="divTableCell"><label>Trusted Security Key: </label></div>
+                <div class="divTableCell"><input type="text" id="securityKey" value=""/></div>
+            </div>
+            -->
+            <div class="divTableRow">
+                <div class="divTableCell"><label>Go To URL: </label></div>
+                <div class="divTableCell">@Html.TextBoxFor(m => m.R2Url)</div>
+            </div>
+            <div class="divTableRow">
+                <div class="divTableCell">
+                    <input type="submit"/>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br />
+<br />
+<a href="/Home/ReferrerAuthTest">Referrer Authentication Testing</a>
+</body>
+</html>

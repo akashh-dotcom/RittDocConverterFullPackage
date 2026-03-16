@@ -1,0 +1,9 @@
+﻿@using R2V2.Web.Areas.Admin.Models.Report
+@model ReportModel
+@if ((Model.NavLinkSections != null) && (Model.NavLinkSections.Any()))
+{
+    <tr>
+        <td class="label">@Html.LabelFor(model => model.IncludePurchasedTitlesOnly)</td>
+        <td class="field">@Html.CheckBoxFor(model => model.IncludePurchasedTitlesOnly)</td>
+    </tr>
+}

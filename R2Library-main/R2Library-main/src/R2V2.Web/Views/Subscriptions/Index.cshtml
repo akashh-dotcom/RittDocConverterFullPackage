@@ -1,0 +1,140 @@
+﻿@using R2V2.Web.Models.Subscriptions
+@model R2V2.Web.Models.Subscriptions.SubscriptionListModel
+@{
+    ViewBag.Title = "Subscriptions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <div style="display: flex;padding: 0 0 7px;border-bottom: 4px solid #BEBEBE;font-size: 1.875em;">
+            @if (Model.SelectedSubscriptionDetail.IsSubscribed)
+            {
+                <div style="width: 50%;">@Model.SelectedSubscriptionDetail.Subscription.Name</div>
+                <div style="width: 50%; font-size: .4em; text-align: right;">
+                    <div>
+                        <div>Currently Subscribed</div>
+                        @if (Model.SelectedSubscriptionDetail.IsActive)
+                        {
+                            <div>Renewal Date: @string.Format("{0:MM/dd/yyyy}", Model.SelectedSubscriptionDetail.RenewalDate)</div>
+                        }
+                        else
+                        {
+                            <div>Trial End Date: @string.Format("{0:MM/dd/yyyy}", Model.SelectedSubscriptionDetail.RenewalDate)</div>
+                        }
+
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div style="width: 70%; margin-top: 20px;">@Model.SelectedSubscriptionDetail.Subscription.Name</div>
+                <div style="width: 30%; font-size: .4em; text-align: right;">
+                    @*@if (Model.DisplayPricing)*@
+                    @if (Model.SelectedSubscriptionDetail.CanPurchase)
+                    {
+                        <div class="collection-management-price" style="">
+                            <span class="saleprice">Monthly Price: @string.Format("{0:C}", Model.SelectedSubscriptionDetail.Subscription.MonthlyPrice)</span>
+                            <span class="saleprice">Annual Price: @string.Format("{0:C}", Model.SelectedSubscriptionDetail.Subscription.AnnualPrice)</span>
+                            <div><a class="btn btn-medium btn-add" href="#" id="subscribe_button" data-implement="modal"><span>Purchase Subscription</span></a></div>
+                        </div>
+                    }
+                    else if (Model.DisplayPricing)
+                    {
+                        <div class="collection-management-price" style="">
+                            Subscription will be available when payment is received.
+                        </div>
+                    }
+                </div>
+            }
+
+        </div>
+
+
+        <div class="alertbox">
+            <p>@Html.Raw(Model.SelectedSubscriptionDetail.Subscription.Description)</p>
+        </div>
+
+        <div class="titlelist">
+            @foreach (var reserveShelfResource in Model.SelectedSubscriptionDetail.Resources)
+            {
+                @Html.Partial("_ResourceSummary", reserveShelfResource)
+            }
+        </div>
+
+    </div>
+    <div class="nav-sub">
+        @if (Model.SubscriptionDetailsList != null && Model.SubscriptionDetailsList.Any())
+        {
+            <h2>Available Subscriptions</h2>
+            <ul>
+                @foreach (var subscriptionDetail in Model.SubscriptionDetailsList)
+                {
+                    if (Model.SelectedSubscriptionDetail != null && subscriptionDetail.Subscription.Id == Model.SelectedSubscriptionDetail.Subscription.Id)
+                    {
+                        if (Model.SelectedSubscriptionDetail.IsSubscribed)
+                        {
+                            <li>
+
+                                <a href="" style="text-decoration: none; color: inherit" rel="tooltip" title="Currently Subscribed">
+                                    @subscriptionDetail.Subscription.Name
+                                <div class="subscription-highlight"> *</div>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>@subscriptionDetail.Subscription.Name</li>
+                    }
+                }
+                else
+                {
+                    if (subscriptionDetail.IsSubscribed)
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", new {subscriptionDetail.Subscription.Id})" rel="tooltip" onclick="event.stopPropagation();window.location.href = this.href;" title="Currently Subscribed">@subscriptionDetail.Subscription.Name</a>
+                            <div class="subscription-highlight"> *</div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink(subscriptionDetail.Subscription.Name, "Index", "Subscriptions", new { subscriptionDetail.Subscription.Id }, null)</li>
+                    }
+
+                }
+            }
+            </ul>
+        }
+    </div>
+</div>
+
+@section InlineModal
+{
+    @if (Model.AuthenticationInfo.IsAuthenticated)
+    {
+        @Html.Partial("_Add", new SubscriptionPurchaseModel(Model.SelectedSubscriptionDetail, Model.AuthenticationInfo))
+    }
+    else
+    {
+        @Html.Partial("_Authenticate", new SubscriptionPurchaseModel(Model.SelectedSubscriptionDetail, Model.AuthenticationInfo))
+    }
+
+}
+
+@section JsDocumentReady
+{
+    $('.content').tips();
+    $('.nav-sub').tips();
+
+    $(document).ready(function () {
+    $("#subscribe_button").on("click", function(){
+    $('#subscriptionModel').modal('show');
+    });
+    //
+    $("#create_user_button").on("click", function(){
+    $('#subscriptionModel').modal('hide');
+    window.location.href = '/Subscriptions/CreateUser';
+    })
+    })
+}
+

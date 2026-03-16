@@ -1,0 +1,60 @@
+﻿@using R2V2.Core.Authentication
+@model R2V2.Web.Models.Subscriptions.SubscriptionPurchaseModel
+
+<div class="content modal alert" id="subscriptionModel">
+    <div class="modal-header">
+        <h1>Purchase Subscription</h1>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+
+    <div class="modal-body" style="font-size: .85em;">
+        <h2>@Model.Subscription.Name</h2>
+        <div class="alertbox">
+            <p>@Html.Raw(Model.Subscription.Description)</p>
+        </div>
+        <div style="margin: 15px 30px 0;">
+            <ul>
+                <li>Number of Titles: @Model.Subscription.SubResources.Count</li>
+                <li>Monthly Price: @string.Format("{0:C}", Model.Subscription.MonthlyPrice)</li>
+                <li>Annual Price: @string.Format("{0:C}", Model.Subscription.AnnualPrice)</li>
+                @if (!Model.CanTrial)
+                {
+                    <li>Subscription has been trialed before. Access will be granted once payment has been received.</li>
+                }
+                else
+                {
+                    <li>Access: A limited trial will be granted immediately after the Order is placed. Once payment is received it will be fully unlocked.</li>
+                }
+
+            </ul>
+        </div>
+
+        @using (Html.BeginForm("PurchaseSubscription", "Subscriptions"))
+        {
+            //new { subscriptionId = model.Subscription.Id, subscriptionType = model.Type}
+            @Html.HiddenFor(x => x.CanTrial)
+            @Html.HiddenFor(x => x.Subscription.Id)
+            <div style="display: flex; margin-top:2%">
+                <div style="width: 50%">Please choose a Subscription Type:</div>
+                <div style="width: 50%">
+                    <ul class="checkboxes">
+                        <li style="display: inline;padding-left: 15px;">Monthly @Html.RadioButtonFor(x => x.Type, SubscriptionType.Monthly)</li>
+                        <li style="display: inline;padding-left: 15px;">Annual @Html.RadioButtonFor(x => x.Type, SubscriptionType.Annual)</li>
+                    </ul>
+                </div>
+            </div>
+            @*<div style="margin-bottom: 2%;margin-top: 2%; text-align: right;">
+                <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+                <button class="btn-medium" type="submit"><span>Add to Cart</span></button>
+            </div>*@
+            <div class="group-actions-wrapper" style="margin-top: 25px;">
+                <div class="clearfix group-actions">
+                    <ul class="actions">
+                        <li><a class="btn btn-medium" href="#" data-dismiss="modal"><span>Cancel</span></a></li>
+                        <li><button class="btn-medium" type="submit"><span>Add to Cart</span></button></li>
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+</div>

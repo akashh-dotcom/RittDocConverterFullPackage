@@ -1,0 +1,63 @@
+﻿@model R2V2.Web.Areas.Admin.Models.PublisherConsolidation.PublisherDetail
+
+@{
+    ViewBag.Title = "Publisher Not Saleable";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="content collection-manage ">
+    <div class="modal-header">
+        <h1>Publisher Not Saleable</h1>
+        <a class="close" data-dismiss="navigation" href="@Url.Action("Detail", new { publisherId = Model.EditPublisher.Id })">Close</a>
+    </div>
+    <div class="modal-body">
+
+        @if (Model.EditPublisher.NotSaleableDate != null)
+        {
+            <div id="bulk-add-area">
+                <h3>All Resources this publisher and publishers consolidated under it will no longer be available for sale.</h3>
+                <ul>
+                    <li>Id: @Html.DisplayFor(x => Model.EditPublisher.Id) || Name: @Html.DisplayFor(x => Model.EditPublisher.DisplayName) || ResourceCount: @Html.DisplayFor(x => Model.EditPublisher.ResourceCount)</li>
+                    @foreach (var childPublisher in Model.ChildPublishers)
+                    {
+                        <li>Id: @Html.DisplayFor(x => childPublisher.Id) || Name: @Html.DisplayFor(x => childPublisher.DisplayName) || ResourceCount: @Html.DisplayFor(x => childPublisher.ResourceCount)</li>
+                    }
+                </ul>
+                <div class="actions">
+                    <a class="close" data-dismiss="navigation" href="@Url.Action("Detail", new {publisherId = Model.EditPublisher.Id})">Close</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div id="bulk-add-area">
+                <h3>Are you sure you want to make this publisher as Not Saleable?</h3>
+                <h3>All Resources this publisher and publishers consolidated under it will no longer be available for sale.</h3>
+                <ul>
+                    <li>Id: @Html.DisplayFor(x => Model.EditPublisher.Id) || Name: @Html.DisplayFor(x => Model.EditPublisher.DisplayName) || ResourceCount: @Html.DisplayFor(x => Model.EditPublisher.ResourceCount)</li>
+                    @foreach (var childPublisher in Model.ChildPublishers)
+                    {
+                        <li>Id: @Html.DisplayFor(x => childPublisher.Id) || Name: @Html.DisplayFor(x => childPublisher.DisplayName) || ResourceCount: @Html.DisplayFor(x => childPublisher.ResourceCount)</li>
+                    }
+                </ul>
+            </div>
+            using (Html.BeginForm("NotSaleableConfirm", "Publisher"))
+            {
+                @Html.Hidden("publisherId", Model.EditPublisher.Id)
+                <div class="actions">
+                    <a class="close" data-dismiss="navigation" href="@Url.Action("Detail", new {publisherId = Model.EditPublisher.Id})">Cancel</a>
+                    <button class="btn-medium" type="submit"><span>Mark Publisher Not Saleable</span></button>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.IFrameModal({
+        parent: window.parent,
+        $dismiss: $('a[data-dismiss="navigation"]')
+    });
+}

@@ -1,0 +1,325 @@
+﻿/* ==========================================================================
+	Figures with figcaptions
+   ========================================================================== */
+   
+/*
+ * Default view
+ */
+.figure {
+    margin: 24px 0 45px; padding: 3px 0; border: 1px dashed #BEBDBA; border-width: 1px 0;
+	}
+    
+    .figtable {
+        display: none;
+        }
+        
+	.figimage {
+		float: left;
+		margin: 0 4px 0 0; width: 200px;
+		}
+		    
+	    .figimage img {
+		    border: 4px solid #B8B5A5;
+		    max-width: 192px; height: auto;
+		    }
+		.figure table img {
+		    border: 0;
+			max-width: 100%;
+		    }
+		    
+	.figcaption {
+		float: left;
+		padding: 10px 40px 5px 18px; width: 498px;
+		background: #EAEAEA;
+		font-size: 0.875em; font-size: 0.85rem; /* 14px / 16px */ line-height: 1.4285; /* 20px / 14px */
+		}
+		
+	.blockquote .figcaption {
+		width: 520px;
+	}
+
+	.blockquote .figtable + .figcaption {
+		width: inherit;
+	    }
+
+	.figtable + .figcaption {
+	    float: none;
+	    padding-right: 18px; width: 724px;
+	    }
+		
+		.figure .actions-figure {
+			list-style: none;
+			margin: 10px 0 10px;
+		    }
+			.figure .actions-figure li {
+			    float: left;
+				margin: 0 0 0 6px; padding: 0;
+				background-image: none;
+				}
+			.figure .actions-figure li:first-child {
+				margin-left: 0;
+				}
+
+                .figtable .entrytbl .figure .figimage {
+                    float: none;
+                    }
+
+                .figtable .entrytbl .figure .figcaption {
+                    max-width: 250px;
+                    padding-right: 10px;
+                    margin-top: 5px;
+                    }
+
+	.qandaset .figtable + .figcaption {
+		width: auto;
+	}
+
+	.qandaset .figure .figtable {
+		font-size: 1.2em;
+	}
+
+/* OVERRIDES */
+.featurebox .figure {
+	background: #FFF;
+	}
+	    
+	.featurebox .figimage {
+	    margin: 0 1px 0 3px;
+	    }
+	    
+	.featurebox .figcaption {
+	    background: #FFF;
+	    }
+	    
+.featurebox .figcaption,
+.itemizedlist .figcaption,
+.orderedlist .figcaption {
+    font-size: 0.875em; font-size: 0.8rem;
+    }
+        
+/* nested (498px max) */
+.itemizedlist .figcaption { /* first level 15px (for li) */
+    width: 483px;
+    }
+    .itemizedlist .itemizedlist .figcaption { /* subs. levels 38px (25px for ul and 13px for li) */ 
+        width: 445px;
+        }
+		.itemizedlist .itemizedlist .figtable + .figcaption { /* Unsure about the validity of 4XXpx widths in related styles - DRJ */ 
+			width: 685px;
+			}
+        .itemizedlist .itemizedlist .itemizedlist .figcaption {
+            width: 407px;
+            }
+
+.qandaset .itemizedlist .figcaption {
+	width: auto;
+}
+
+.orderedlist .figcaption { /* 20px (for ol) */
+    width: 478px;
+    }
+    .orderedlist .orderedlist .figcaption {
+        width: 458px;
+        }
+        .orderedlist .orderedlist .orderedlist .figcaption {
+            width: 438px;
+            }
+
+.featurebox .figcaption { /* 40px (8px for border, 32px for padding) */
+    width: 458px;
+    }
+    .featurebox .featurebox .figcaption {
+        width: 418px;
+        }
+        .featurebox .featurebox .featurebox .figcaption {
+            width: 378px;
+            }
+
+    .featurebox .itemizedlist .figcaption {
+        width: 443px;
+        }
+        .featurebox .itemizedlist .itemizedlist .figcaption {
+            width: 405px;
+            }
+
+    .featurebox .orderedlist .figcaption {
+        width: 438px;
+        }
+        .featurebox .orderedlist .orderedlist .figcaption {
+            width: 418px;
+            }
+
+.featurebox .featureboxinner .table .figcaption {
+	width: auto;
+}
+
+.featurebox .featureboxinner .table .figcaption .actions-figure {
+	min-width: 246px;
+}
+
+/* email */
+.email .figcaption,
+.email .figimage {
+    background: transparent;
+    }
+    
+.email .figure table {
+    margin: 0;
+    }
+
+/* SHIMS */
+.ie7 .figcaption p {
+    margin-top: 0;
+    }
+
+
+/*
+ * Inline view
+ */
+.figure.inline .figtable {
+    display: block;
+    padding: 0;
+    overflow: auto;
+    }
+        
+    .figure.inline table {
+        margin: 0;
+        }
+        
+.figure.inline>.figimage {
+	float: none;
+	margin: 0; padding: 0 0 4px; width: auto;
+	background: #EAEAEA;
+	text-align: center;
+	}
+	    
+	.figure.inline>.figimage img {
+	    margin: 0 auto; max-width: 752px;
+		}
+		
+.blockquote .figure.inline>.figcaption {
+	width: inherit;
+}
+
+.figure.inline>.figcaption {
+	float: none;
+	padding-right: 18px; width: 724px;
+	}
+	    
+	.figure.inline>.figcaption .actions-figure {
+		margin: 14px auto 10px; width: 248px;
+		}
+		    
+	.figure.inline .figtable .figure.inline>.figcaption {
+        padding-right: auto; width: auto;
+        }
+
+	.figure.inline .figtable + .figcaption p {
+        display: none;
+        }
+	.figure.inline .figtable + .figcaption .actions-figure {
+		margin: 14px 0 10px;
+		}
+
+/* OVERRIDES */
+.qandaset .figure.inline>.figcaption {
+	width: auto;
+}
+
+.featurebox .figure.inline .figtable {
+    padding: 0 2px;
+    }
+.featurebox .figure.inline .figimage {
+    background: #FFF;
+	}   
+
+.figure .topscrollwrapper {
+  display: none;
+}
+
+.figure .topscroll {
+  display: none;
+} 
+
+.figure.inline .scrollable {
+  display: block;
+  height: 15px;
+}
+	
+.figure.inline .topscrollwrapper.scrollable {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+
+/* nested */
+.featurebox .figure.inline .figcaption,
+.itemizedlist .figure.inline .figcaption,
+.orderedlist .figure.inline .figcaption {
+    padding-right: 3%; padding-left: 3%; max-width: 94%;
+    }
+
+/* 752px max (8px for left/right border) */
+.itemizedlist .figure.inline img {
+    max-width: 737px;
+    }
+    .itemizedlist .itemizedlist .figure.inline img {
+        max-width: 699px;
+        }
+        .itemizedlist .itemizedlist .itemizedlist .figure.inline img {
+            max-width: 661px;
+            }
+
+.orderedlist .figure.inline img {
+    max-width: 732px;
+    }
+    .orderedlist .orderedlist .figure.inline img {
+        max-width: 712px;
+        }
+        .orderedlist .orderedlist .orderedlist .figure.inline img {
+            max-width: 692px;
+            }
+    
+.featurebox .figure.inline img {
+    max-width: 712px;
+    }
+    .featurebox .featurebox .figure.inline img {
+        max-width: 672px;
+        }
+        .featurebox .featurebox .featurebox .figure.inline img {
+            max-width: 632px;
+            }
+
+    .featurebox .itemizedlist .figure.inline img {
+        max-width: 697px;
+        }
+        .featurebox .itemizedlist .itemizedlist .figure.inline img {
+            max-width: 659px;
+            }
+
+    .featurebox .orderedlist .figure.inline img {
+        max-width: 692px;
+        }
+        .featurebox .orderedlist .orderedlist .figure.inline img {
+            max-width: 672px;
+            }
+
+
+/* qandaset */
+.qandaset tr.hiddenanswer {
+	display: none;
+    }
+div.qandaset-view-answer {
+	padding-left: 10px; padding-top: 10px;
+    }
+
+
+/*
+ * Backdrop (optional: set via JS)
+ */
+.view-backdrop {
+    position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 999;
+    background: #000;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    }

@@ -1,0 +1,38 @@
+﻿@model R2V2.Web.Areas.Admin.Models.SubscriptionManagement.AdminUserSubscriptionModel
+
+<div class="content modal alert" id="userSubscriptionModel">
+    <div class="modal-header">
+        <h1>Edit Subscription</h1>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+
+    <div class="modal-body" style="font-size: .85em;">
+        <h2>@Model.Name</h2>
+        @using (Html.BeginForm("UserSubscription", "SubscriptionManagement"))
+        {
+            <table>
+                <tbody>
+                <tr>
+                    <td><strong>@Html.LabelFor(model => model.TrialExpirationDate)</strong></td>
+                    <td class="field">@Html.TextBoxFor(model => model.TrialExpirationDate, "{0:MM/dd/yyyy}")</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.LabelFor(model => model.ActivationDate)</strong></td>
+                    <td class="field">@Html.TextBoxFor(model => model.ActivationDate, "{0:MM/dd/yyyy}")</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.LabelFor(model => model.ExpirationDate)</strong></td>
+                    <td class="field">@Html.TextBoxFor(model => model.ExpirationDate, "{0:MM/dd/yyyy}")</td>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <div class="actions">
+                <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+                <button class="btn-medium" type="submit"><span>Save</span></button>
+            </div>
+        }
+    </div>
+</div>
+

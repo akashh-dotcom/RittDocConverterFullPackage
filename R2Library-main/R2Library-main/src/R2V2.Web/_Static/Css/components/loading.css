@@ -1,0 +1,12 @@
+﻿/* ==========================================================================
+	Loading
+   ========================================================================== */
+.loading-backdrop {
+    position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 999;
+    }
+    
+.loading {
+    position: absolute; top: 200px; right: 0; bottom: 0; left: 188px; z-index: 9999; /* change "left" to 0 to center over entire page */
+    background: transparent url(../images/icons/ajax-loader.gif) 50% 24px no-repeat;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-weight: bold; color: #000; text-align: center;
+    }

@@ -1,0 +1,65 @@
+﻿@using R2V2.Web.Helpers
+@model R2V2.Web.Areas.Admin.Models.Configuration.ConfigurationSettingModel
+@{
+    ViewBag.Title = "Edit Configuration Setting";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Configuration.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="fullcol contentcontainer">
+    <div id="content" class="content" role="main">
+        @if (Model.Setting.Id == 0)
+        {
+            <h1>Add Configuration Setting</h1>
+        }
+        else
+        {
+            <h1>Edit Configuration Setting</h1>
+        }
+        <div>Adding/Editing a setting does not affect cached settings for the web. You need to reload to take affect.</div>
+        @using (Html.BeginForm(null, null, FormMethod.Post, new {enctype = "multipart/form-data"}))
+        {
+            @Html.HiddenFor(x => x.Setting.Id)
+            @Html.HiddenFor(x => x.LiveSettings)
+            @Html.HiddenFor(x => x.BackLinkUrl)
+
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><button type="submit" class="btn btn-medium"><span>Save</span></button></li>
+                        <li><a href="@Model.BackLinkUrl" class="btn btn-medium"><span>Cancel</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="resource-content">
+                <div class="clearfix resource-detail">
+                    <table>
+                        <tr>
+                            <td>@Html.LabelFor(x => x.Setting.Configuration)</td>
+                            <td>@Html.TextBoxCustom(x => x.Setting.Configuration, "input-full")</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.LabelFor(x => x.Setting.Setting)</td>
+                            <td>@Html.TextBoxCustom(x => x.Setting.Setting, "input-full")</td>
+                        </tr>
+
+                        <tr>
+                            <td>@Html.LabelFor(x => x.Setting.Key)</td>
+                            <td>@Html.TextBoxCustom(x => x.Setting.Key, "input-full")</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.LabelFor(x => x.Setting.Value)</td>
+                            <td>@Html.TextBoxCustom(x => x.Setting.Value, "input-full")</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.LabelFor(x => x.Setting.Description)</td>
+                            <td>@Html.TextBoxCustom(x => x.Setting.Description, "input-full")</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>

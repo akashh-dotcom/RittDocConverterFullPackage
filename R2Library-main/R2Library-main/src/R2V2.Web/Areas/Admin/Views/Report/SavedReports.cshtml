@@ -1,0 +1,164 @@
+﻿@using R2V2.Core.Reports
+@model R2V2.Web.Areas.Admin.Models.Report.SavedReports
+           
+@{
+    ViewBag.Title = "My Reports";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>My Reports</h1>
+        
+        @if (Model.InstitutionId > 0)
+        {
+            @Html.Partial("_InstitutionInfo")
+        }
+        
+        @if (Model.SavedReportItems != null && Model.SavedReportItems.Any())
+        {
+            <div class="tablecontent">
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th class="my-reports-saved">Saved Report</th>
+                            <th class="my-reports-details">Details</th>
+                            <th class="my-reports-actions"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SavedReportItems)
+                        {                            
+                            <tr>
+                                <td class="my-reports-saved">@Html.DisplayFor(modelItem => item.Name)</td>
+                                <td class="my-reports-details">
+                                    <ul>
+                                        <li>@Html.LabelFor(modelItem => item.Email) @Html.DisplayFor(modelItem => item.Email)</li>
+                                        <li>@Html.LabelFor(modelItem => item.ReportType) @Html.Raw(item.ReportType.ToDescription())</li>
+                                        <li>@Html.LabelFor(modelItem => item.Frequency) @Html.Raw(item.Frequency.ToDescription())</li>
+                                        <li>@Html.LabelFor(modelItem => item.CreationDate) @Html.DisplayFor(modelItem => item.CreationDate)</li>
+
+                                        @if (item.ReportType != ReportType.ApplicationUsageReport)
+                                        {
+                                            <li>
+                                                <b>License Type: </b>
+                                                @Html.DisplayFor(modelItem => item.IncludePurchased) @Html.LabelFor(modelItem => item.IncludePurchased)@Html.Raw("&nbsp;&nbsp;")
+                                                @Html.DisplayFor(modelItem => item.IncludePda) @Html.LabelFor(modelItem => item.IncludePda)@Html.Raw("&nbsp;&nbsp;")
+                                                @Html.DisplayFor(modelItem => item.IncludeToc) @Html.LabelFor(modelItem => item.IncludeToc)@Html.Raw("&nbsp;&nbsp;")
+                                                @Html.DisplayFor(modelItem => item.IncludeTrialStats) @Html.LabelFor(modelItem => item.IncludeTrialStats)
+                                            </li>
+                                        }
+	                                    @if (!string.IsNullOrWhiteSpace(item.ResourceDisplay))
+	                                    {
+		                                    <li>@Html.LabelFor(x => item.ResourceDisplay) @Html.DisplayFor(x => item.ResourceDisplay)</li>
+	                                    }
+	                                    @if (!string.IsNullOrWhiteSpace(item.PublisherDisplay))
+	                                    {
+		                                    <li>@Html.LabelFor(x => item.PublisherDisplay) @Html.DisplayFor(x => item.PublisherDisplay)</li>
+	                                    }
+	                                    @if (!string.IsNullOrWhiteSpace(item.PracticeAreaDisplay))
+	                                    {
+		                                    <li>@Html.LabelFor(x => item.PracticeAreaDisplay) @Html.DisplayFor(x => item.PracticeAreaDisplay)</li>
+	                                    }
+										<li>@Html.LabelFor(modelItem => item.Period) @Html.Raw(item.PeriodDisplay())</li>
+
+	                                    @if(item.Period == ReportPeriod.UserSpecified)
+                                        {
+                                            <li>@Html.LabelFor(modelItem => item.PeriodStartDate) @Html.DisplayFor(modelItem => item.PeriodStartDate) - @Html.DisplayFor(modelItem => item.PeriodEndDate)</li>
+                                        }
+
+                                        @if (!item.Description.IsEmpty())
+                                        {
+                                            <li>@Html.LabelFor(modelItem => item.Description) @Html.DisplayFor(modelItem => item.Description)</li>
+                                        }
+                                        @if (!item.InstitutionName.IsEmpty())
+                                        {
+                                            <li>@Html.LabelFor(modelItem => item.InstitutionName) @Html.DisplayFor(modelItem => item.InstitutionName), @Html.DisplayFor(modelItem => item.InstitutionAccountNumber)</li>
+                                        }
+                                    </ul>
+                                </td>
+                                <td class="my-reports-actions actions">
+                                    <a href="@item.ExecuteLink" class="btn btn-medium"><span>Execute</span></a>
+                                    <a href="@item.DetailLink" class="btn btn-medium"><span>Edit</span></a>
+                                    <a href="#delete-@item.Id" data-toggle="modal" class="btn btn-medium"><span>Delete</span></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p><strong>No Saved My Reports Available.</strong></p>
+        }
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>  
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}
+
+@section InlineModal
+{
+    @foreach (var item in Model.SavedReportItems)
+    {
+        <div id="delete-@item.Id" class="content modal delete">
+            <div class="modal-header">
+                <h1>Delete Saved Report</h1>
+                <a class="close" data-dismiss="modal" href="#">Close</a>
+            </div>
+
+            <div class="modal-body">
+                <p>Are you sure you want to delete this Saved Report?</p>
+
+                <div>
+                    <ul>
+                        <li>@Html.LabelFor(x => item.Name) @Html.DisplayFor(x => item.Name)</li>
+                        <li>@Html.LabelFor(x => item.Email) @Html.DisplayFor(x => item.Email)</li>
+                        <li>@Html.LabelFor(x => item.Type) @Html.DisplayFor(x => item.Type)</li>
+                        <li>@Html.LabelFor(x => item.Frequency) @Html.DisplayFor(x => item.Frequency)</li>
+                        
+                        <li>@Html.LabelFor(x=> item.Period) @Html.Raw(item.PeriodDisplay())</li>
+                        <li>License Type: 
+                            @Html.DisplayFor(modelItem => item.IncludePurchased)  @Html.LabelFor(modelItem => item.IncludePurchased)@Html.Raw("&nbsp;&nbsp;")
+                            @Html.DisplayFor(modelItem => item.IncludePda)  @Html.LabelFor(modelItem => item.IncludePda)@Html.Raw("&nbsp;&nbsp;")
+                            @Html.DisplayFor(modelItem => item.IncludeToc)  @Html.LabelFor(modelItem => item.IncludeToc)
+                            @Html.DisplayFor(modelItem => item.IncludeTrialStats)  @Html.LabelFor(modelItem => item.IncludeTrialStats)
+                        </li>
+
+
+                        <li>@Html.LabelFor(x => item.CreationDate) @Html.DisplayFor(x => item.CreationDate)</li>
+                        @if (!item.Description.IsEmpty())
+                        {
+                            <li>@Html.LabelFor(x => item.Description) @Html.DisplayFor(x => item.Description)</li>
+                        }
+                        @if (!item.InstitutionName.IsEmpty())
+                        {
+                            <li>@Html.LabelFor(x => item.InstitutionName) @Html.DisplayFor(x => item.InstitutionName), @Html.DisplayFor(x => item.InstitutionAccountNumber)</li>
+                        }
+                    </ul>
+                </div>
+                <div class="actions actions-float" >
+                    @if (Model.InstitutionId > 0)
+                    {
+                        <a href="@item.DeleteLink" class="btn btn-medium"><span>Delete</span></a>
+                    }
+                    else
+                    {
+                        <a href="@item.AdminDeleteLink" class="btn btn-medium"><span>Delete</span></a>
+                    }
+                    <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+                </div>
+            </div>
+        </div>
+    
+    }
+    
+}

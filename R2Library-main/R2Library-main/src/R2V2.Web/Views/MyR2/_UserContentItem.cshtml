@@ -1,0 +1,42 @@
+﻿@using R2V2.Core.MyR2
+@model R2V2.Web.Models.MyR2.UserContentItem
+           
+<div class="titleitem" data-user-content-item='{"Id":@Model.Id, "FolderId":@Model.FolderId}'>
+    <div class="title-description">
+        <div class="clearfix title-meta">
+            <p>Created: @Model.CreationDate.ToShortDateString()</p>
+            
+            <ul class="clearfix actions-title">
+                @if (Model.Type != UserContentType.Bookmark)
+                {
+                    <li><a href="#export" class="btn btn-small" data-toggle="modal" data-target="#export-@Model.Id"><span>Export</span></a></li>
+                }
+                <li><a href="#move" class="btn btn-small" data-toggle="modal" data-target=".modal.move"><span>Move</span></a></li>
+                <li><a href="#remove" class="btn btn-small btn-important"><span>Delete</span></a></li>
+            </ul>
+        </div>
+        
+        <h2 class="title-title">
+            @if (Model.Resource == null)
+            {
+                @Html.Raw(Model.Title)
+            }
+            else
+            {
+                <a href="@Url.Action("Link", "Resource", new { id = Model.ResourceId, sectionId = Model.SectionId })">@Html.Raw(Model.Title)</a>
+            }
+        </h2>
+        <p class="title-blurb">@Html.Raw(Model.SectionTitle)</p>
+    </div>
+
+    <div class="title-image">
+        @if (Model.Resource == null)
+        {
+            <text>Resource not available.</text>
+        }
+        else
+        {
+            <a href="@Url.Action("Link", "Resource", new { id = Model.ResourceId, sectionId = Model.SectionId })" aria-hidden="true"><img src="@Model.ImageUrl" width="80" alt="@Model.Resource.Title" /></a>
+        }
+    </div>
+</div>

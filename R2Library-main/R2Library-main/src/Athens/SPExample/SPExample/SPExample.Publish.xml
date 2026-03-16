@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="D:\Clients\Athens Test\deploy" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="Web.config" publishTime="08/08/2012 09:16:49" />
+    <file relUrl="Site.Master" publishTime="08/01/2012 09:00:09" />
+    <file relUrl="Account/Web.config" publishTime="08/01/2012 09:00:09" />
+    <file relUrl="Account/Register.aspx" publishTime="08/01/2012 09:00:09" />
+    <file relUrl="bin/log4net.dll" publishTime="12/23/2011 08:09:22" />
+    <file relUrl="bin/log4net.xml" publishTime="12/23/2011 08:09:16" />
+    <file relUrl="Protected.aspx" publishTime="08/01/2012 09:02:53" />
+    <file relUrl="Account/ChangePasswordSuccess.aspx" publishTime="08/01/2012 09:00:09" />
+    <file relUrl="Account/Login.aspx" publishTime="08/01/2012 09:00:09" />
+    <file relUrl="Styles/Site.css" publishTime="08/01/2012 09:00:09" />
+    <file relUrl="Scripts/jquery-1.4.1.js" publishTime="08/01/2012 09:00:09" />
+    <file relUrl="Account/ChangePassword.aspx" publishTime="08/01/2012 09:00:09" />
+    <file relUrl="Global.asax" publishTime="08/01/2012 09:00:09" />
+    <file relUrl="bin/OpenAthens.Net.dll" publishTime="05/09/2011 11:14:22" />
+    <file relUrl="About.aspx" publishTime="08/01/2012 09:00:09" />
+    <file relUrl="bin/SPExample.pdb" publishTime="08/14/2012 13:20:05" />
+    <file relUrl="Default.aspx" publishTime="08/01/2012 09:02:53" />
+    <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="08/01/2012 09:00:09" />
+    <file relUrl="bin/SPExample.dll" publishTime="08/14/2012 13:20:05" />
+    <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="08/01/2012 09:00:09" />
+  </publishProfile>
+</publishData>

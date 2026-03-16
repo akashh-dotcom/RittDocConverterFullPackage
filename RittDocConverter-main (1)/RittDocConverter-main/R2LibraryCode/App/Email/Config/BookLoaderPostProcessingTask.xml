@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RittenhouseWebLoader>
+	<EmailConfigurations>
+		<EmailConfiguration type="Success" send="true">
+			<ToAddresses>
+				<EmailAddress>thomas.bradford@rittenhouse.com</EmailAddress>
+				<EmailAddress>nazar.geldymuradov@rittenhouse.com</EmailAddress>
+				<EmailAddress>ipsita.de@rittenhouse.com</EmailAddress>
+				<EmailAddress>gina.ferrigno@rittenhouse.com</EmailAddress>
+				<EmailAddress>DAshlem@dclab.com</EmailAddress>
+			</ToAddresses>
+		</EmailConfiguration>
+		<EmailConfiguration type="Error" send="true">
+			<ToAddresses>
+				<EmailAddress>thomas.bradford@rittenhouse.com</EmailAddress>
+				<EmailAddress>nazar.geldymuradov@rittenhouse.com</EmailAddress>
+				<EmailAddress>ipsita.de@rittenhouse.com</EmailAddress>
+				<EmailAddress>gina.ferrigno@rittenhouse.com</EmailAddress>
+				<EmailAddress>DAshlem@dclab.com</EmailAddress>
+			</ToAddresses>
+		</EmailConfiguration>
+	</EmailConfigurations>
+</RittenhouseWebLoader>

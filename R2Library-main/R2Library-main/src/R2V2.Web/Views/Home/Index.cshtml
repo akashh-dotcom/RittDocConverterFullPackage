@@ -1,0 +1,240 @@
+﻿@model R2V2.Web.Models.Home.MarketingHome
+@{
+    ViewBag.Title = "Index";
+    ViewBag.BodyCssClass = "marketing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="clearfix twocol-with-sidebar contentcontainer">
+    <div class="promobox" id="JavaScriptDetection">
+        <div class="introcontent">
+            <h2>For full functionality of R2 Library, it is necessary to enable JavaScript. <br />Here are the <a href="http://www.enable-javascript.com/" target="_blank"> instructions on how to enable JavaScript in your web browser</a></h2>
+        </div>
+    </div>
+    @if (Model.HasCarousel())
+    {
+        <div class="slider-nav">
+            <table>
+                <tr>
+                    @foreach (var item in Model.R2LibraryCarousel.Items)
+                    {
+                        <td class="slide-title">
+                            <a href="" class="slide-title-link" rel="tooltip" title="@item.NavigationHoverText">@(item.NavigationText ?? "Slide")</a>
+                        </td>
+                    }
+                </tr>
+            </table>
+        </div>
+        <div class="slider">
+            @foreach (var item in Model.R2LibraryCarousel.Items)
+            {
+                <div class="hero">
+                    <div><a href="@(item.DestinationUrl ?? "/")"><img src="@item.ImageUrl" alt="@item.NavigationHoverText" /></a></div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div style="min-height: 300px;">
+            <div class="hero">
+                <div id="intro">@Html.Raw(Model.HomeIntro)</div>
+            </div>
+        </div>
+    }
+
+    <div id="content" class="content" role="main">
+        @if (Model.HasCarousel())
+        {
+            <div class="clearfix promobox">
+                <div class="introcontent">
+                    <div id="intro" style="max-width: 530px;">@Html.Raw(Model.HomeIntro)</div>
+                </div>
+            </div>
+        }
+
+        <div id="mainContent" style="padding-top: 30px;">@Html.Raw(Model.HomeMainContent)</div>
+
+        <h2>Recently added titles and publishers</h2>
+
+        <div class="imagegrid">
+            @foreach (var item in Model.RecentResources)
+            {
+                <a href="@Url.Action("Title", "Resource", new { isbn = item.Isbn })"><img src="@item.ImageUrl" alt="@item.Title" /></a>
+            }
+        </div>
+
+        <h2>Available titles</h2>
+
+        <p>Looking for a full list of available titles? @Html.ActionLink("Click here to download a full list", "ExportResources").</p>
+
+        <div class="questions">
+            <div id="questions">@Html.Raw(Model.HomeQuestions)</div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        @if (Model.FeaturedTitle != null)
+        {
+        @*<div class="callout">
+            <h2>Featured Title</h2>*@
+
+            @*<div class="clearfix featuredtitle">
+                    <h3>@Model.FeaturedTitle.ResourceTitle</h3>
+                    <div style="width: 100%">
+                        <div style="width: 55%"><img src="@Model.FeaturedTitle.ResourceImageFileName" width="113" alt="@Model.FeaturedTitle.ResourceTitle" /></div>
+                        <div style="width: 45%">
+                            <p><strong>Publisher:</strong><br /> @Model.FeaturedTitle.ResourcePublisherName</p>
+                            <p><strong>Price:</strong><br />@string.Format("{0:C}", Model.FeaturedTitle.ResourceListPrice)</p>
+                            <div style="text-align: center; padding-top: 10px; display: block; margin-top: 45px;">
+                                <a style="float: none;" class="btn btn-intro" href="@Url.Action("Title", "Resource", new { isbn = @Model.FeaturedTitle.ResourceIsbn })"><span><strong>View Details</strong></span></a>
+                            </div>
+                        </div>
+                    </div>
+                   <a href="#" class="disabled"><img src="@Model.FeaturedTitle.ResourceImageFileName" width="113" alt="@Model.FeaturedTitle.ResourceTitle" /></a>
+
+                <div class="featuredtitlecontent">
+                    <p><strong>Publisher:</strong><br /> @Model.FeaturedTitle.ResourcePublisherName</p>
+
+                    <p><strong>Price:</strong><br />@string.Format("{0:C}", Model.FeaturedTitle.ResourceListPrice)</p>
+
+
+                    <div style="text-align: center; padding-top: 10px; display: block; margin-top: 45px;">
+                        <a style="float: none;" class="btn btn-intro" href="@Url.Action("Title", "Resource", new { isbn = @Model.FeaturedTitle.ResourceIsbn })"><span><strong>View Details</strong></span></a>
+                    </div>
+
+
+                    <p>@Html.ActionLink("View details about this title", "Title", "Resource", new { isbn = @Model.FeaturedTitle.ResourceIsbn }, null)</p>
+                </div>
+        </div>*@
+
+            @*<div style="display: flex; flex-direction: column; align-items: center; width: 209px; overflow: hidden;">
+                <h3>@Model.FeaturedTitle.ResourceTitle</h3>
+                <div style="display: flex; width: 100%;">
+                    
+                    <div style="flex: 1;"><img src="@Model.FeaturedTitle.ResourceImageFileName" width="113" alt="@Model.FeaturedTitle.ResourceTitle" /></div>
+                    <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 10px;">
+                        <div style="background-color: #f0f0f0; padding: 10px; text-align: center; flex: 1; display: flex; align-items: center; justify-content: center;">
+                            <p><strong>Publisher:</strong><br /> @Model.FeaturedTitle.ResourcePublisherName</p>
+                        </div>
+                        <div style="background-color: #f0f0f0; padding: 10px; text-align: center; flex: 1; display: flex; align-items: center; justify-content: center;">
+                            <p><strong>Price:</strong><br />@string.Format("{0:C}", Model.FeaturedTitle.ResourceListPrice)</p>
+                        </div>
+                    </div>
+                </div>
+                <button style="margin-top: 10px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Click Me
+                </button>
+            </div>
+        </div>*@
+            <div class="callout" style="padding: 10px;">
+                <h2 style="margin-left: -5px;margin-right: -5px;">Featured Title</h2>
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <h3>@Model.FeaturedTitle.ResourceTitle</h3>
+                    <div style="display: flex; width: 100%;">
+			
+                        <div style="flex: 1;padding-top: 10px;"><img src="@Model.FeaturedTitle.ResourceImageFileName" width="113" alt="@Model.FeaturedTitle.ResourceTitle" style="border: 4px solid #B8B5A5;"></div>
+                        <div style="padding-left: 5px;">
+                            <div><p><strong>Publisher:</strong><br>@Model.FeaturedTitle.ResourcePublisherName</p></div>
+                            <div><p><strong>Price:</strong><br>@string.Format("{0:C}", Model.FeaturedTitle.ResourceListPrice)</p></div>
+                        </div>
+                    </div>
+                    <a style="margin-top: 5px !important;" class="btn btn-intro" href="@Url.Action("Title", "Resource", new { isbn = @Model.FeaturedTitle.ResourceIsbn })"><span><strong>View Details</strong></span></a>
+                </div>
+            </div>
+            <br />
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.FeaturedPublisherUrl))
+        {
+            <div class="callout richText" style="padding-top: 5px !important;">
+                <h2 style="margin-left: -5px; margin-right: -5px;">Featured Publisher</h2>
+
+                <img src="@Model.FeaturedPublisherLogo" alt="@Model.FeaturedPublisherName" />
+
+                @Html.Raw(Model.FeaturedPublisherDescription)
+                @*<p><a href="@Model.FeaturedPublisherUrl">View @Model.FeaturedPublisherName Titles</a></p>
+                <p><a href="/Admin/CollectionManagement/List/?PublisherId=@Model.FeaturedPublisherId">View @Model.FeaturedPublisherName Titles for Purchase</a></p>*@
+                <ul style="list-style: none;margin-left: auto;margin-right: auto;text-align: center;">
+                    <li><a style="float:none;" class="btn btn-intro" href="@Model.FeaturedPublisherUrl"><span><strong>Browse Titles</strong></span></a></li>
+                    <li><a style="float:none;" class="btn btn-intro" href="/Admin/CollectionManagement/List/?PublisherId=@Model.FeaturedPublisherId"><span><strong>Purchase Titles</strong></span></a></li>
+                </ul>
+            </div>
+
+        }
+
+    </div>
+
+    <div class="clearfix promobox">
+        <div class="promoboxcontent">
+            <div id="bottomPromo">@Html.Raw(Model.HomePromoBottom)</div>
+        </div>
+    </div>
+</div>
+@if (Model.HasCarousel())
+{
+    <style>
+        #intro ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0;
+            margin: 0;
+            margin-left: 20px;
+            text-align: center;
+        }
+
+        #intro ul li {
+            margin-right: 20px; /* Add some space between items */
+            background: none;
+        }
+    </style>
+}
+else
+{
+    <style>
+        #intro ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0;
+            margin: 0;
+            display: flex; /* Use flexbox to align items horizontally */
+            margin-top: 75px;
+            margin-left: 20px;
+        }
+
+        #intro ul li {
+            margin-right: 20px; /* Add some space between items */
+            background: none;
+        }
+    </style>
+}
+    @section JsDocumentReady {
+        $('.slider').slick({
+        autoplay: true,
+        autoplaySpeed: @Model.R2LibraryCarousel.AutoplaySpeedMilliseconds,
+        dots: false,
+        infinite: true,
+        speed: 100,
+        slide: '.hero',
+        cssEase: 'linear',
+        fade: true,
+        onAfterChange: function(slide, index){
+        $('.slide-title-link').each(function(i) {
+        if (index == i) $(this).addClass('selected');
+        else $(this).removeClass('selected');
+        });
+        }
+        });
+
+        $('.slide-title-link').each(function(index) {
+        if(index == 0) {
+        $(this).addClass('selected');
+        }
+
+        $(this).on('click', function() {
+        $('.slider').slickGoTo(parseInt(index));
+        });
+        });
+
+        $('.slider-nav').tips();
+
+        $('#JavaScriptDetection').hide();
+    }

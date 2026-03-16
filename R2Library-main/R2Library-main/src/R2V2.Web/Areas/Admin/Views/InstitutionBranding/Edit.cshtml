@@ -1,0 +1,87 @@
+﻿@model R2V2.Web.Areas.Admin.Models.InstitutionBranding.InstitutionBranding
+
+@{
+    ViewBag.Title = "Edit Institution Branding";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div id="content" class="content" role="main">
+            <h1>Edit Institution Branding</h1>
+            
+            @Html.Partial("_InstitutionInfo")
+
+            <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><button class="btn-medium" type="submit"><span>Save</span></button></li>
+                    <li><a href="@Url.Action("Detail", new { institutionId = Model.InstitutionId })" class="btn btn-medium"><span>Cancel</span></a></li>
+                </ul>
+            </div></div>
+    
+            <div class="tablecontent">
+                @Html.HiddenFor(x => x.InstitutionId)
+                @Html.HiddenFor(x => x.InstitutionBrandingId)
+                @Html.HiddenFor(x => x.IsRittenhouseAdmin)
+
+                @Html.HiddenFor(x => x.LogoDisplayUrl)
+
+                @Html.ValidationMessageFor(model => model.LogoDisplayUrl)
+
+                <table class="edit">
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.InstitutionDisplayName)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.InstitutionDisplayName, new { @class = "input-full" })
+                            @Html.ValidationMessageFor(model => model.InstitutionDisplayName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.Message)</td>
+                        <td class="field">
+                            <h3>URLs will automatically display as links</h3>
+                            @Html.TextAreaFor(model => model.Message, new {cols = 35, @rows = 3}) 
+                            @Html.ValidationMessageFor(model => model.Message)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.LogoDisplayUrl)</td>
+                        <td class="field">
+                            @if (string.IsNullOrWhiteSpace(Model.LogoDisplayUrl))
+                            {
+                                <img src="/_Static/Images/institution-logos/not-available.gif" alt="No Logo Uploaded" />
+                            }
+                            else
+                            {
+                                <div class="actions remove-image"><button class="btn-medium" type="submit" name="ActionType" value="RemoveImage"><span>Remove Image</span></button></div>
+                                <img src="@Model.LogoDisplayUrl" alt="Image of '@Model.LogoFileName'" />
+                            }
+                            
+                            <h3>Required image specifications:</h3>
+                            <ul class="clearfix">
+                                <li><strong>Format:</strong> Transparent PNG</li>
+                                <li><strong>Maximum width:</strong> 334px</li>
+                                <li><strong>Maximum height:</strong> 67px</li>
+                            </ul>
+                            <input type="file" name="file" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

@@ -1,0 +1,54 @@
+<div class="tablecontent">
+    <p>{Greeting}</p>
+    <p>A title in your R2 Digital Library collection has exceeded the printing parameters allowed under your licensing agreement. Printing for this title has been temporarily suspended.</p>
+    <p>The R2 Digital enables users to print and email sections of any resource on the platform. To comply with publishers’ copyright policies, if a resource receives more than 60 print or email requests or 20% of the total number of HTML pages that comprise the resource on the R2 Digital Library over a 24 hour period, then print or email functionality will be temporarily suspended for that resource. Users will receive a notification upon crossing the 75% threshold of allowable print or email requests.</p>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2"><b>Resource Details:</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Title:</td>
+                <td><b>{ResourceTitle}</b></td>
+            </tr>
+            <tr>
+                <td>ISBNs:</td>
+                <td>{ResourceIsbn10} / {ResourceIsbn13}</td>
+            </tr>
+            <tr>
+                <td>User URL:</td>
+                <td><a href="{FrontendResourceUrl}">{FrontendResourceUrl}</a></td>
+            </tr>
+            <tr>
+                <td>Admin URL:</td>
+                <td><a href="{BackendResourceUrl}">{BackendResourceUrl}</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <table>
+        <thead>
+            <tr>
+                <th colspan="4"><b>User Print Details:</b></th>
+            </tr>
+        </thead>
+        <tbody>
+        <thead>
+            <tr>
+                <th style="background-color:#EDEDED" class="details"><b>User Info</b></th>
+                <th style="background-color:#EDEDED" class="details"><b># of Print Requests</b></th>
+                <th style="background-color:#EDEDED" class="details"><b>Session Start Time</b></th>
+                <th style="background-color:#EDEDED" class="details"><b>Print Timespan</b></th>
+            </tr>
+        </thead>
+        {ResourcePrintLock_Items}
+        <tbody>
+    </table>
+    <br />
+    <br />
+    <p>Please reply to this email for more information. Thank you.</p>
+    <p><strong>The R2 Digital Library Team</strong></p>
+</div>

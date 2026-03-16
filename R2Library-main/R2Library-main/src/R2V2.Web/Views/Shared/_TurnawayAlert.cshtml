@@ -1,0 +1,39 @@
+﻿
+@model R2V2.Web.Models.IR2V2Model
+@{
+    var alert = Model.ConcurrentTurnawayAlert;
+}
+
+@if (alert != null)
+{
+
+    
+            <div id="title-text" class="content modal alert title-text">
+                <div class="modal-header center">
+                    <h3>Concurrent User Turnaways</h3>
+                    <a class="close" data-dismiss="modal" href="#">Close</a>
+                </div>
+                <div class="modal-body center">
+                    <p><a class="btn-link " href="@Url.Action("List", "CollectionManagement", alert.RouteValues)">Click here</a> to see the @Html.DisplayFor(x=> alert.TitleCount) 
+                    @if (alert.TitleCount == 1)
+                    {
+                        <span>title</span>
+                    }
+                    else
+                    {
+                        <span>titles</span>
+                    }
+                        with concurrent user turnaways
+                    @if (alert.OlderThen30Days)
+                    {
+                        <span>since your last login</span>
+                    }
+                    else
+                    {
+                        <span>in the last 30 days.</span>
+                    }
+                    </p>
+                </div>
+            </div>
+       
+}

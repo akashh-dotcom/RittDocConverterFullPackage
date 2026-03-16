@@ -1,0 +1,203 @@
+# RittDoc API Gateway - Traefik Configuration
+# =============================================
+# Traefik is a modern, container-native reverse proxy.
+# It automatically discovers services in Docker/Kubernetes.
+#
+# Usage with Docker Compose:
+#   1. Add traefik service to your docker-compose.yml
+#   2. Add labels to your services (see examples below)
+#   3. Traefik auto-discovers and routes traffic
+
+# =============================================================================
+# Static Configuration (traefik.yml)
+# =============================================================================
+
+api:
+  dashboard: true
+  insecure: true  # Disable in production
+
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          permanent: true
+
+  websecure:
+    address: ":443"
+
+# Certificate resolvers (Let's Encrypt)
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: admin@example.com
+      storage: /letsencrypt/acme.json
+      httpChallenge:
+        entryPoint: web
+
+providers:
+  docker:
+    exposedByDefault: false
+    network: rittdoc-network
+  file:
+    filename: /etc/traefik/dynamic.yml
+    watch: true
+
+# Logging
+log:
+  level: INFO
+  format: json
+
+accessLog:
+  format: json
+  filters:
+    statusCodes:
+      - "400-599"
+
+# =============================================================================
+# Dynamic Configuration (dynamic.yml)
+# =============================================================================
+
+http:
+  # ---------------------------------------------------------------------------
+  # Routers
+  # ---------------------------------------------------------------------------
+  routers:
+    # Service Discovery
+    services-router:
+      rule: "PathPrefix(`/api/v1/services`)"
+      service: services-discovery
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+
+    # EPUB Service
+    epub-router:
+      rule: "PathPrefix(`/epub`)"
+      service: epub-service
+      entryPoints:
+        - websecure
+      middlewares:
+        - strip-epub-prefix
+        - rate-limit
+        - cors
+      tls:
+        certResolver: letsencrypt
+
+    # EPUB Upload (separate for different limits)
+    epub-upload-router:
+      rule: "PathPrefix(`/epub/api/v1/convert`)"
+      service: epub-service
+      entryPoints:
+        - websecure
+      middlewares:
+        - strip-epub-prefix
+        - upload-rate-limit
+        - cors
+      tls:
+        certResolver: letsencrypt
+      priority: 100  # Higher priority than general epub-router
+
+    # Health Check
+    health-router:
+      rule: "Path(`/health`)"
+      service: health-service
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+
+  # ---------------------------------------------------------------------------
+  # Services
+  # ---------------------------------------------------------------------------
+  services:
+    epub-service:
+      loadBalancer:
+        servers:
+          - url: "http://epub-service:5001"
+        healthCheck:
+          path: /api/v1/health
+          interval: "10s"
+          timeout: "3s"
+
+    services-discovery:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8080"  # Traefik API
+
+    health-service:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8080"
+
+  # ---------------------------------------------------------------------------
+  # Middlewares
+  # ---------------------------------------------------------------------------
+  middlewares:
+    # Strip path prefixes
+    strip-epub-prefix:
+      stripPrefix:
+        prefixes:
+          - "/epub"
+
+    # Rate limiting
+    rate-limit:
+      rateLimit:
+        average: 10
+        burst: 20
+        period: 1s
+
+    upload-rate-limit:
+      rateLimit:
+        average: 1
+        burst: 5
+        period: 1s
+
+    # CORS
+    cors:
+      headers:
+        accessControlAllowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - OPTIONS
+        accessControlAllowHeaders:
+          - Authorization
+          - Content-Type
+          - X-API-Key
+        accessControlAllowOriginList:
+          - "https://app.rittdoc.example.com"
+          - "https://staging.rittdoc.example.com"
+        accessControlMaxAge: 86400
+        addVaryHeader: true
+
+    # Retry on failure
+    retry:
+      retry:
+        attempts: 3
+        initialInterval: 100ms
+
+    # Circuit breaker
+    circuit-breaker:
+      circuitBreaker:
+        expression: "LatencyAtQuantileMS(50.0) > 1000"
+
+# =============================================================================
+# Docker Compose Labels (for auto-discovery)
+# =============================================================================
+# Add these labels to your services in docker-compose.yml:
+#
+# epub-service:
+#   labels:
+#     - "traefik.enable=true"
+#     - "traefik.http.routers.epub.rule=PathPrefix(`/epub`)"
+#     - "traefik.http.routers.epub.entrypoints=websecure"
+#     - "traefik.http.routers.epub.tls.certresolver=letsencrypt"
+#     - "traefik.http.services.epub.loadbalancer.server.port=5001"
+#     - "traefik.http.middlewares.epub-strip.stripprefix.prefixes=/epub"
+#     - "traefik.http.routers.epub.middlewares=epub-strip@docker"

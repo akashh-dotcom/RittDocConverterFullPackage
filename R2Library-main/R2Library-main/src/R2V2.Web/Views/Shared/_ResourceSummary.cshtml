@@ -1,0 +1,30 @@
+﻿@model R2V2.Web.Models.IResourceSummary
+
+@if (Model != null)
+{
+    <div class="titleitem">
+        <div class="title-description">
+            <h2 class="title-title"><a href="@Model.Url">@Model.Title</a></h2>
+            <p class="title-authors">@Model.Description</p>
+            @if (!string.IsNullOrWhiteSpace(Model.Gist))
+            {
+                <p class="title-blurb">@Html.Raw(Model.Gist)</p>
+            }
+            @if (Model.ShowLicenseCount)
+            {
+                if (Model.LicenseCount == 1)
+                {
+                    <div class="license-own">You own @Model.LicenseCount license of this eBook</div>
+                }
+                else if (Model.LicenseCount > 1)
+                {
+                    <div class="license-own">You own @Model.LicenseCount licenses of this eBook</div>
+                }
+            }
+        </div>
+        <div class="title-image">
+            <a href="@Model.Url" aria-hidden="true"><img src="@Model.ImageUrl" width="80" alt="@Model.Title" /></a>
+            @Html.Partial("_Tooltips", Model)
+        </div>
+    </div>
+}

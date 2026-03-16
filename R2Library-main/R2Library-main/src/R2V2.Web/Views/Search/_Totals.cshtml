@@ -1,0 +1,30 @@
+﻿@model R2V2.Web.Models.Search.SearchResultSet
+
+<div class="alertbox">
+    @if (Model.SearchResults != null)
+    {
+        <p>
+            We found @string.Format("{0:#,##0}", Model.TotalResultsCount) results for "@Model.Query.GetText()"@(Html.Raw(string.IsNullOrEmpty(Model.SearchWithinTitle) ? "" : " within the title \"" + Model.SearchWithinTitle + "\"")).
+            
+            @if (Model.AlternateTermCount > 0)
+            {
+                <text>You might also try:</text>
+            }
+        </p>
+        if (Model.AlternateTermCount > 0)
+        {
+            var comma = "";
+            <ul class="inline" data-toggle="moreless">
+            @foreach (var term in Model.GetAlternateTerms())
+            {
+                <li>@comma<a href="/Search?q=@term.Term">@term.Term</a></li>
+                comma = ", ";
+            }
+            </ul>
+        }
+    }
+    else
+    {
+        <p>SEARCH ERROR!</p>
+    }
+</div>

@@ -1,0 +1,137 @@
+# RittDocConverter Production Docker Compose
+# ============================================
+# Production-ready configuration with security and scaling options
+#
+# Usage:
+#   docker-compose -f docker-compose.prod.yml up -d
+#
+# Prerequisites:
+#   - Copy .env.example to .env and configure secrets
+#   - Ensure MongoDB credentials are set
+#   - Configure S3 credentials if using cloud storage
+
+version: '3.8'
+
+services:
+  # ==========================================================================
+  # EPUB Processing Service
+  # ==========================================================================
+  epub-service:
+    image: rittdoc/epub-service:${VERSION:-latest}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rittdoc-epub-service
+    restart: always
+    ports:
+      - "${EPUB_API_PORT:-5001}:5001"
+    environment:
+      # API Configuration
+      - API_HOST=0.0.0.0
+      - API_PORT=5001
+      - API_DEBUG=false
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+
+      # MongoDB Configuration
+      - MONGODB_URI=mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongodb:27017/${MONGODB_DATABASE}?authSource=admin
+      - MONGODB_DATABASE=${MONGODB_DATABASE:-RittenhouseXMLConverter}
+      - MONGODB_COLLECTION=${MONGODB_COLLECTION:-conversion_dashboard}
+      - WAIT_FOR_MONGODB=true
+
+      # Processing Configuration
+      - MAX_CONCURRENT_JOBS=${MAX_CONCURRENT_JOBS:-8}
+      - JOB_TIMEOUT_SECONDS=${JOB_TIMEOUT_SECONDS:-3600}
+
+      # S3 Configuration
+      - S3_ENABLED=${S3_ENABLED:-true}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - S3_REGION=${S3_REGION:-us-east-1}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    volumes:
+      - epub-output:/app/Output
+      - epub-logs:/app/logs
+      - epub-data:/app/data
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - rittdoc-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5001/api/v1/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # ==========================================================================
+  # MongoDB Database (Production)
+  # ==========================================================================
+  mongodb:
+    image: mongo:7.0
+    container_name: rittdoc-mongodb
+    restart: always
+    ports:
+      - "${MONGODB_PORT:-27017}:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE:-RittenhouseXMLConverter}
+    volumes:
+      - mongodb-data:/data/db
+      - mongodb-config:/data/configdb
+      - ./docker/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - rittdoc-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "mongosh", "-u", "${MONGO_USER}", "-p", "${MONGO_PASSWORD}", "--authenticationDatabase", "admin", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+# ==========================================================================
+# Networks
+# ==========================================================================
+networks:
+  rittdoc-network:
+    driver: bridge
+    name: rittdoc-network
+
+# ==========================================================================
+# Volumes
+# ==========================================================================
+volumes:
+  epub-output:
+    name: rittdoc-epub-output
+  epub-logs:
+    name: rittdoc-epub-logs
+  epub-data:
+    name: rittdoc-epub-data
+  mongodb-data:
+    name: rittdoc-mongodb-data
+  mongodb-config:
+    name: rittdoc-mongodb-config

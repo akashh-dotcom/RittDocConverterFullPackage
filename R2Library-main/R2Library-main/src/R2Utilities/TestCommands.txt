@@ -1,0 +1,3 @@
+﻿-BookLoaderPostProcessingTask -isbn=1416066438
+-BookLoaderPostProcessingTask -isbn=1439058601
+-TransformXmlTask

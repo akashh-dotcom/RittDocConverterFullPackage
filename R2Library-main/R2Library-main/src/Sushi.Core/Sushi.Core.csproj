@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net481</TargetFramework>
+    <ProjectGuid>{A0A5277A-3512-4553-968D-BB3CAE1E02CC}</ProjectGuid>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>Sushi.Core</AssemblyName>
+    <RootNamespace>Sushi.Core</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Runtime.Serialization" />
+  </ItemGroup>
+
+</Project>

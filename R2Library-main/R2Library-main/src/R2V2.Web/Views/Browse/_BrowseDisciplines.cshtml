@@ -1,0 +1,8 @@
+﻿@model R2V2.Web.Models.SpecialtySummaries
+           
+@if (Model != null && Model.Specialties != null && Model.Specialties.Any())
+{
+    <h1>Browse by Discipline</h1>
+
+    @Html.Partial("_Disciplines", Model)
+}

@@ -1,0 +1,18 @@
+#region
+
+using System.Collections.Generic;
+using R2V2.Core.SuperType;
+
+#endregion
+
+namespace R2V2.Core.Resource.Topic
+{
+    public class Disease : AuditableEntity, ISoftDeletable
+    {
+        public virtual string Name { get; set; }
+        public virtual string Description { get; set; }
+
+        public virtual IList<DiseaseResource> DiseaseResources { get; set; }
+        public virtual bool RecordStatus { get; set; }
+    }
+}

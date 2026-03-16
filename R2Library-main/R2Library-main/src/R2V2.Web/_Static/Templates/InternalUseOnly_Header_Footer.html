@@ -1,0 +1,275 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    
+    <style type="text/css">
+    	/* Reset */
+		html, body, div, span, applet, object, iframe,
+		h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+		a, abbr, acronym, address, big, cite, code,
+		del, dfn, em, img, ins, kbd, q, s, samp,
+		small, strike, strong, sub, sup, tt, var,
+		b, u, i, center,
+		dl, dt, dd, ol, ul, li,
+		fieldset, form, label, legend,
+		table, caption, tbody, tfoot, thead, tr, th, td,
+		article, aside, canvas, details, embed, 
+		figure, figcaption, footer, header, hgroup, 
+		menu, nav, output, ruby, section, summary,
+		time, mark, audio, video {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			font-size: 100%;
+			font: inherit;
+			vertical-align: baseline;
+		}
+
+		article, aside, details, figcaption, figure, 
+		footer, header, hgroup, menu, nav, section {
+			display: block;
+		}
+
+		body {
+			line-height: 1;
+		}
+
+		ol, ul {
+			list-style: none;
+		}
+		
+		blockquote, q {
+			quotes: none;
+		}
+		blockquote:before, blockquote:after,
+		q:before, q:after {
+			content: '';
+			content: none;
+		}
+		
+		table {
+			font-size: 100%;
+			border-collapse: collapse;
+			border-spacing: 0;
+			width: 100%;
+		}
+		table td,
+		table tr {
+			vertical-align: top;
+		}
+		
+		object, embed, img {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			display: block;
+		}
+		
+		select, button {
+			box-sizing: content-box;
+			-moz-box-sizing: content-box;
+			-webkit-box-sizing: content-box;
+		}
+		
+		strong, b {
+			font-weight: bold;
+		}
+		
+		em, i {
+			font-style: italic;
+		}
+
+
+		/* Email Base */
+		body {
+			background: transparent;
+			font-size: 12px; line-height: 18px; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; color: #3E3E3E; text-align: center;	
+	    }
+
+		p { 
+			margin: 0 0 20px;
+	    }
+
+		h1,
+		h2,
+		h3 {
+		    margin: 0; padding: 0;
+		    font-family: Georgia, Times, "Times New Roman", serif;
+	    }
+
+		h1 {
+		    margin: 0 0 6px;
+		    font-size: 1.5em;
+	    }
+		h2 {
+		    font-size: 1.3em;
+	    }
+		h3 {
+		    font-size: 1.1em;
+	    }
+
+		ul {
+		    list-style: outside;
+	    }
+		ol {
+		    list-style: outside decimal;
+	    }
+
+		#container {
+			background: transparent;
+		    margin: 0 auto; padding-top: 15px; width: 95%;
+			text-align: left;
+	    }
+
+	    #logo {
+	    	margin: 0 0 15px;
+	    }
+
+		#footer {
+			color: #010101;
+	    }
+
+	    
+		/* Email Specifics */
+		#content {
+			margin: 0 0 30px;
+		}
+
+		.header-table {
+			margin: 0 0 10px; padding: 4px;
+			background-color: #DDE5EB;
+			line-height: 22px;
+		}
+
+		.tablecontent {
+		    margin: 0 0 30px; padding: 2px 0 0; border: 0;
+		}
+
+			table {
+			    margin: 0; padding: 0; border: 0;
+			    line-height: 1.2;
+		    }
+			    
+			    thead th {
+					padding: 5px 10px; border-bottom: 1px solid #BEBDBA;
+					background-color: #DDE5EB;
+					font-weight: normal; text-align: left; white-space: nowrap;
+			    }
+
+				tbody td {
+					padding: 2px; border-bottom: 1px solid #BEBDBA;
+					background-color: transparent;
+					text-align: left; vertical-align: top;
+				}
+
+				tfoot th,
+				tfoot td {
+					padding: 5px 10px; border: 0;
+					background-color: #DDE5EB;
+					font-weight: bold; text-align: right; white-space: nowrap;
+			    }
+				tfoot td {
+					font-weight: normal;
+			    }
+
+				    table table td {
+				        padding: 0 10px 0 0; border: 0;
+			        }
+
+		        .status {
+		        	width: 100px;
+		        }
+		        .price {
+		        	width: 175px;
+		        	text-align: right;
+		        }
+		        .licenses {
+		        	width: 100px;
+		        	text-align: center;
+		        }				
+				.institution-info{
+					width: 300px;
+				}
+				.purchased-items {
+		        	width: 150px;
+		        	text-align: center;
+		        }
+
+	        table.report {
+		    	width: auto;
+		    }
+		    table.report th {
+		    	padding: 10px 10px 10px 4px; border-bottom: 1px dashed #BEBDBA; width: 400px;
+		    	font-weight: normal; text-align: left;
+		    }
+		    table.report td {
+		    	width: 75px;
+		    	text-align: right;
+		    }
+
+		.title-item h2 {
+			margin: 0 0 6px;
+			font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 1em;
+		}
+
+		.title-item p {
+			margin: 0 0 6px;
+		}
+
+		.title-item .title-image {
+			width: 20%;
+		}
+			.title-item .title-image img {
+				max-width: 54px;
+			}
+		.title-item .title-info-col-1 {
+			width: 40%;
+		}
+		.title-item .title-info-col-2 {
+			width: 40%;
+		}
+
+		strong.active,
+		strong.active-yes {
+			font-weight: bold; color: #0F7105;
+		}
+		strong.disabled,
+		strong.active-no {
+			font-weight: bold; color: #FF0000;
+		}
+		strong.trial-expired {
+			font-weight: bold; color: #000;
+		}
+		
+		.fullprice {
+			display: block;
+			text-decoration: line-through; color: #303030; 
+		}
+		.saleprice {
+			display: block;
+			font-weight: bold;
+	    }
+	    .title-authors {
+		    font-style: italic;
+	    }
+	    
+	    .title-authors + .title-blurb {
+		    margin-top: 5px;
+	    }
+    </style>
+</head>
+<body class="email">
+
+    <div id="container">
+        <h1>{Title}</h1>
+		
+        <!-- Starts the Cart_Body-->
+        {Body}
+        <!-- Ends the Cart_Body-->
+		
+        <p id="footer">&copy; 2003 - {Year} Rittenhouse Digital, LLC. All rights reserved | <a href="{WebsiteUrl}/Home/PrivacyPolicy" style="color:#072F62; text-decoration:none;">Privacy Policy</a> | <a href="{WebsiteUrl}/Home/CopyrightPolicy" style="color:#072F62; text-decoration:none;">Copyright Policy</a></p>
+    </div>
+
+</body>
+</html>

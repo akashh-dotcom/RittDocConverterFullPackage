@@ -1,0 +1,4 @@
+INSERT INTO [dbo].[tConfigurationSetting]([vchConfiguration],[vchSetting],[vchKey],[vchValue],[vchInstructions])VALUES('dev', 'Content', 'KenticoUrl', 'https://deliver.kenticocloud.com/{0}', 'string value - URL for the Kentico Headless CMS');
+INSERT INTO [dbo].[tConfigurationSetting]([vchConfiguration],[vchSetting],[vchKey],[vchValue],[vchInstructions])VALUES('dev', 'Content', 'KenticoProjectId', '6fa3c723-a5f4-0076-52ab-a028ea5e4736', 'string value - The Project Id for the Kentico HeadLess CMS');
+
+INSERT INTO [dbo].[tConfigurationSetting]([vchConfiguration],[vchSetting],[vchKey],[vchValue],[vchInstructions])VALUES('dev', 'Content', 'KenticoEnvironment', 'development', 'string value - The environment type for Kentico.');

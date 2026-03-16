@@ -1,0 +1,12 @@
+﻿/* ==========================================================================
+	Section headers (big, blue background, dashed borders)
+   ========================================================================== */
+.sectionheader {
+	margin-top: 40px; padding: 2px; border-top: 1px dashed #BEBDBA; border-bottom: 1px dashed #BEBDBA;
+    }
+    
+	.sectionheader h2 {
+		padding: 10px 20px 7px;
+		background: #DCE8F2;
+		font-weight: normal; font-size: 1.5em; /* 24px / 16px */ font-family: Georgia, Times, "Times New Roman", serif; line-height: 1;
+		}

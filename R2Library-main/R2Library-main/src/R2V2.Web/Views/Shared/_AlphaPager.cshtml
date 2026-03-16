@@ -1,0 +1,21 @@
+﻿@model R2V2.Web.Models.IPageable
+
+@if (Model != null && Model.PageLinks != null && Model.PageLinks.Any())
+{   
+    <div class="nav-section-wrapper"><div id="alpha" class="clearfix nav-section" data-implement="fixed" data-history="bookmark">
+        <ul class="nav-alpha nav-content">
+            <li><strong>Jump to:</strong></li>
+            @foreach (var link in Model.PageLinks)
+            {
+                if (link.Active)
+                {
+                    <li@(StyleHelpers.AddSelectedState(link.Selected))><a href="@link.Href"><span>@link.Text</span></a></li>
+                }
+                else
+                {
+                    <li><span>@link.Text</span></li>
+                }
+            }
+        </ul>
+    </div></div>
+}

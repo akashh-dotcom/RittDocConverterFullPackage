@@ -1,0 +1,98 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.AnnualFeeReportDetail
+
+<div id="content" class="content" role="main">
+	<h1>Annual Fee Report</h1>
+        
+	@if (Model.ActionsMenu != null)
+	{
+		using (Html.BeginForm("AnnualFeeReport", "Report", null, FormMethod.Post))
+		{
+			@*@Html.HiddenFor(model => model.ReportTypeId)*@
+			@Html.HiddenFor(model => model.InstitutionId)
+			<div id="report-filters" class="tablecontent">
+				<table class="edit">
+					@Html.Partial("_Period")
+					<tr>
+						<td></td>
+						<td class="actions">
+							<button class="btn-medium" type="submit"><span>Run Report</span></button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		}
+	}
+    
+    <div class="group-actions-wrapper">
+        <div class="clearfix group-actions">
+            <p class="header">Annual Fee Report for @if (string.IsNullOrWhiteSpace(Model.DateRangeText))
+                                                    {
+                                                        @Html.DisplayFor(model => model.DateRangeStart)
+                                                        <span> to </span>
+                                                        @Html.DisplayFor(model => model.DateRangeEnd)
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.DisplayFor(model => Model.DateRangeText)
+                                                    }
+                <span> (Count : @Html.DisplayFor(model => model.ReportDataCount))</span>
+            </p>
+        </div>
+    </div>
+    
+    <div class="tablecontent">
+            <table class="list">
+            @foreach (var item in Model.AnnualFeeReportItems)
+            {
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.AccountNumber)</td>
+                                <td class="field">
+                                    @*@Html.DisplayFor(model => item.AccountNumber)*@
+                                    @Html.ActionLink(item.AccountNumber, "Detail", "Institution", new { item.InstitutionId }, null)
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.Consortia)</td>
+                                <td class="field">@Html.DisplayFor(model => item.Consortia)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.ActiveDate)</td>
+                                <td class="field">@Html.DisplayFor(model => item.ActiveDate)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.RenewalDate)</td>
+                                <td class="field">@Html.DisplayFor(model => item.RenewalDate)</td>
+                            </tr>
+                            
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.InstitutionName)</td>
+                                <td class="field" style="max-width: 350px;">
+                                    @Html.ActionLink(item.InstitutionName, "Detail", "Institution", new { item.InstitutionId }, null)                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.ContactName)</td>
+                                <td class="field">@Html.DisplayFor(model => item.ContactName)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.ContactEmail)</td>
+                                <td class="field">
+                                    @Html.ActionLink(item.ContactEmail, "Edit", "User", new { item.InstitutionId, id = item.UserId }, null)
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    
+</div>

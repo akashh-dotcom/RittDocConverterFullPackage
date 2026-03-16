@@ -1,0 +1,393 @@
+﻿/* ==|== print styles =======================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+    
+    /*
+     * General
+     */
+    
+    /* From H5BP */
+    * { background: transparent !important; color: black !important; box-shadow:none !important; text-shadow: none !important; } /* Black prints faster: h5bp.com/s */
+    a, a:visited { text-decoration: underline; }
+    /*a[href]:after { content: " (" attr(href) ")"; }
+    abbr[title]:after { content: " (" attr(title) ")"; }*/
+    .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; } /* Don't show links for images, or javascript/internal links */
+    pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+    thead { display: table-header-group; } /* h5bp.com/t */
+    tr, img { page-break-inside: avoid; }
+    img { max-width: 100% !important; }
+    @page { margin: 0.5cm; }
+    p, h2, h3 { orphans: 3; widows: 3; }
+    h2, h3 { page-break-after: avoid; }
+     
+        
+    /* Hide things that should not print */
+    .utilities, .utilities *,
+    #nav-main,
+    .navbar,
+    .nav-footer *,
+    .nav-legal *,
+    .nav-section-wrapper, .nav-section,
+    .nav-sub,
+    .actions-page-wrapper, .actions-page,
+    .nav-breadcrumb,
+    .tabs,
+    .actions-title,
+    .actions-folder,
+    .display-per-page,
+    .tablecontent .btn, .tablecontent .title-detail a,
+    .intro a,
+    #add-folder,
+    .sidebarmoduleinner h3 a,
+    .featuredtitlecontent a,
+    .callout p a,
+    #debug-search,
+    a.trigger.more, a.trigger.less,
+    table.report-filters, table.report-filters + h2,
+    .alertbox p a,
+    .actions,
+    .figure .actions-figure {
+	    display: none;
+        }
+
+    /* Misc resetting */
+    .printonly, .accordioncontent, .accordion-body {
+	    display: block !important;
+        }
+
+    .recommend-notes {
+	    display: block;
+	    height: auto;
+	    min-height: 15px;
+    }
+
+    /*
+     * Layout
+     */
+    
+    body {
+	    background: #FFF;
+	    font-size: 12pt; color: #000;
+        }
+    
+    header {
+        border-bottom: 1px solid #CCC;
+        }
+        
+        .branding {
+	        margin-bottom: 30px;
+            }
+        
+    footer {
+	    margin-top: 30px; padding-top: 20px; border-top: 1px solid #CCC;
+	    text-align: left;
+        }    
+
+    /*
+     * Grid
+     */
+    .fullcol .content,
+    .onecol .content {
+	    padding: 0 0 15px; border: 0;
+        }
+    .twocol-with-subnav {
+        border: 0;
+        }
+    .twocol-with-sidebar.contentcontainer {
+        border: 0;
+        }
+    .twocol-with-subnav .content,
+    .admin .twocol-with-subnav .content {
+		padding: 0; width: 100%;
+		}
+	.twocol-with-sidebar.contentcontainer .content {
+	    margin: 0; width: 100%;
+	    }
+	.twocol-with-sidebar.contentcontainer .sidebar {
+	 	margin-right: 0;
+	    }
+	.twocol-with-sidebar .subcontent, .twocol-with-sidebar .sidebar {
+	    padding-top: 15px;
+	    }
+	    
+	.twocol-with-sidebar .content {
+	    width: 651px !important;
+	    }
+
+
+    /*
+     * Typography
+     */
+
+
+    /*
+     * Forms
+     */
+     
+    
+    /*
+     * Tables
+     */
+    table {
+	    margin-bottom: 1.4em; border: 1px solid #CCC; border-collapse: separate; border-spacing: 0;
+	    }
+	table, td, th {
+	    vertical-align: top; 
+        }
+    th, thead th {
+	    font-weight: bold; 
+        }
+    th, td, caption {
+	    padding: 4px 10px 4px 5px; 
+	    font-weight: normal;  text-align: left; 
+        }
+    th, td {
+	    border-top: 1px solid #CCC; border-left : 1px solid #CCC;
+        }
+	thead tr:first-child th {
+		border-top: none;
+	    }
+	th:first-child, td:first-child {
+		border-left: none; 
+	    }
+    th.spacer, td.spacer {
+	    border-bottom: none;
+        }
+
+    .titleintrocontent {
+	    margin-top: 20px;
+        }
+    
+    
+    /*
+     * Content
+     */
+    .content h1 {
+        margin-top: 0 !important; border-bottom-width: 1px;
+        }
+
+    .content .header-alpha-group {
+        text-align: left;
+        }
+        
+.content-provider 
+{
+    font-size: .5em;
+    display: block !important;
+}        
+    
+    /*
+     * Components
+     */
+    .intro {
+        margin: 0 0 30px; padding: 0; width: 100%; height: auto;
+        }
+        .intro h2 {
+		    font-size: 1.85em;
+	        }
+	    
+    .alertbox {
+        margin-right: 0; margin-left: 0; padding: 0;
+        }
+        
+        .alertbox li {
+            display: inline !important;
+            }
+            .alertbox li a {
+                font-weight: bold; text-decoration: none;
+                }
+            
+        .alertbox ul + p:before {
+            content: none;
+            }
+        
+    .sidebarmoduleinner ul {
+		list-style: disc;
+	    }
+	    .sidebarmoduleinner ul li {
+	        padding-left: 0;
+	        }
+        
+    a.btn-intro {
+	    padding-left: 0 !important;
+	    }
+	    a.btn-intro span {
+		    padding: 0 0 0 0 !important; height: auto;
+		    }
+
+    .group-actions-wrapper {
+        border: 0;
+        }
+        
+    .figure {
+        position: relative;
+        }
+    
+        .figtable {
+            display: block;
+            padding: 0;
+            overflow: auto;
+            }
+        
+            .figure table {
+                margin: 0;
+                }
+        
+	    .figimage {
+	        float: none;
+	        margin: 0; padding: 10px 0 4px;
+	        background: #EAEAEA;
+	        text-align: center;
+	        }
+	    
+	        .figimg img {
+	            margin: 0 auto; max-width: 752px;
+		        }
+		
+	    .figcaption {
+	        float: none;
+	        padding-right: 0; padding-left: 0; width: 100%;
+	        }
+    
+	.featurebox .featureboxinner .table {
+		max-height: none;
+	}
+
+    /*
+     * Functional Areas
+     */
+    .hero {
+	    border-bottom-width: 1px; padding: 0; width: auto; height: auto;
+        }
+        
+    .marketing.home .two-columns .column {
+	    margin-left: 5%; width: 47%;
+	    }
+	    .marketing.home .two-columns .column:first-child {
+		    margin-left: 0;
+	        }
+	        
+    .questions h2 {
+        border-width: 1px;
+        }
+    .questions h2 + * {
+        border: none;
+        }
+        
+    .questions ul {
+        margin-left: 15px;
+        list-style: disc;
+        }
+        .marketing.home .content ul li {
+            padding: 0;
+            }
+            
+    .featuredtitle img {
+        border-width: 1px;
+        }
+        
+    .contentcontainer > .promobox {
+		margin: 0;
+	    }
+    
+    .titlelist {
+        padding: 0;
+        }
+        
+        .titlelist .titleitem:first-child {
+            border: none !important;
+            }
+        
+        .titlelist .title-title a {
+            text-decoration: none !important;
+            }
+    
+    .title-image img {
+        border-width: 1px;
+        }
+
+    .admin h1 {
+        padding: 0 0 7px; border-bottom: 1px solid #BEBEBE;
+        }
+        
+    .info-bar {
+        padding: 0;
+        }
+    
+    .institution-info {
+        margin: 10px 0 0;
+        }
+
+        .institution-info .cart-name {
+            float: right;
+            font-weight: normal;
+        }
+        
+    .tablecontent thead th {
+		border-bottom: 1px solid #BEBDBA;
+		}
+	.tablecontent .titleitem .license-own {
+        color: #FF0000 !important;
+        }
+    .tablecontent .titleitem .license-cart {
+        color: #008000 !important;
+        }
+    a.active,    
+    a.active-yes,
+    strong.active,
+    strong.active-yes,
+    td.success, td.success label { font-weight: bold; color: #0F7105 !important; }
+    strong.disabled,
+    strong.active-no,
+    td.turnaway, td.turnaway label { font-weight: bold; color: #FF0000 !important; }
+    strong.trial-expired { font-weight: bold; color: #000 !important; }
+	    
+	#resource-content {
+        padding: 0; display: none;  /* disable by default - DO NOT REMOVE! */
+        }
+        
+    .resource-cover img {
+	    border-width: 1px;
+	    }
+	    
+	.resource-info {
+	    width: 775px;
+	    }
+	    
+    #resource-print-disabled {
+	    margin: 10px 0 0; color: #FF0000; font-weight: bold; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    }
+
+    #resource-print-status {
+	    margin: 10px 0 0; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    }
+    
+    .accordion-heading input {
+	    margin: 30px 0 0;
+	    font-size: 1.5882em; /* 27px / 17px */
+	    }
+	    
+	#service-agreement {
+	    margin: 0; padding: 0; border: 0; height: auto;
+        overflow: visible;
+        }
+    
+    
+    /*
+     * Optional rules
+     */
+    
+    /* print the URL after the link in parentheses
+    #content a:after, #sidebar a:after {
+        content: " (" attr(href) ") ";
+        font-size: 90%;
+        }*/
+
+    /* for root-relative links, make printed links have the full URL
+    #content a[href^="/"]:after, #sidebar  a[href^="/"]:after{
+        content: " (http://www.r2library.com" attr(href) ") ";
+        }*/
+}

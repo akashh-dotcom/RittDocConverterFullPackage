@@ -1,0 +1,12 @@
+﻿/* ==========================================================================
+	Utilities
+    extends/overrides HTML5 Boilerplate's helper classes styles: css/packages/h5bp/helper-classes.css
+   ========================================================================== */
+
+img.inline { display: inline; }
+
+.screenreader { position: absolute; left: -10000em; }
+
+.ir { overflow: hidden; height: 0; display: block; }
+
+.printonly { display: none; }

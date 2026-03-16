@@ -1,0 +1,47 @@
+﻿@using R2V2.Core.MyR2
+@model IEnumerable<R2V2.Web.Models.MyR2.UserContentFolder>         
+@{
+    var userContentType = (UserContentType)ViewData["type"];
+    var sUserContentType = userContentType.ToString().ToLower();
+    var myR2LinkType = "bookmarks";
+    switch (userContentType)
+    {
+        case UserContentType.Reference:
+            myR2LinkType = "references";
+            break;
+        case UserContentType.Image:
+            myR2LinkType = "images";
+            break;
+        case UserContentType.CourseLink:
+            myR2LinkType = "course-links";
+            break;
+    }
+}
+
+<div id="@sUserContentType" class="panel save" data-panel="save">
+    @using (Html.BeginForm("Create", "UserContent", new { type = userContentType }, FormMethod.Get))
+    {
+        <ol>
+            <li>
+                <label for="folder-@sUserContentType">Create @userContentType in Folder:</label>
+                <select id="folder-@sUserContentType" name="folderId">
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var folder in Model)
+                        {
+                            <option value="@folder.Id">@folder.FolderName</option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="0">MY @myR2LinkType.ToUpper().Replace("-", "")</option>
+                    }
+                </select>
+            </li>
+            <li class="actions">
+                <button type="submit" class="btn btn-medium"><span>Save</span></button>
+                <button type="reset" class="btn btn-medium"><span>Cancel</span></button>
+            </li>
+        </ol>
+    }
+</div>

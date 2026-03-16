@@ -1,0 +1,25 @@
+﻿@model R2V2.Web.Models.Authentication.TitleAuthenticate
+
+@{
+    ViewBag.Title = "Title Authenticate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="onecol contentcontainer">
+    <div class="hero" role="main">
+        @if (Model.ErrorMessage != null)
+        {
+            <h2>@Model.ErrorMessage</h2>
+        }
+        else
+        {
+            <h1>@Model.Title</h1>
+        <p>
+            ISBN 10: @Html.DisplayFor(x => x.Isbn10) <br/>
+            ISBN 13: @Html.DisplayFor(x => x.Isbn13) <br/><br/>
+            Login to continue to the purchasing details for this Title or <a href="@Url.Action("Title", "Resource", @Model.PublicRoute)">click here</a> for the public view of this Title.
+        </p>
+        }
+        
+    </div>
+</div>

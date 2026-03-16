@@ -1,0 +1,272 @@
+# Springer Publisher Configuration
+# =================================
+# Springer-specific CSS class and structure mappings.
+# Extends the default configuration with Springer conventions.
+
+publisher_name: "Springer"
+publisher_patterns:
+  - "Springer"
+  - "Springer Nature"
+  - "Springer-Verlag"
+  - "Springer Science"
+
+# Springer-specific CSS class mappings
+# These override or extend the defaults
+css_class_mappings:
+  # Springer chapter structure
+  ChapterTitle:
+    element: title
+    role: chapter-title
+  ChapterSubTitle:
+    element: subtitle
+  ChapterHeader:
+    element: bridgehead
+    role: chapter-header
+
+  # Springer section hierarchy
+  Heading1:
+    element: bridgehead
+    role: sect1-title
+  Heading2:
+    element: bridgehead
+    role: sect2-title
+  Heading3:
+    element: bridgehead
+    role: sect3-title
+  HeadingRunIn:
+    element: bridgehead
+    role: run-in
+  HeadingNumber:
+    element: emphasis
+    role: HeadingNumber
+
+  # Springer paragraph styles
+  Para:
+    element: para
+  ParaContinue:
+    element: para
+    role: continue
+  ParaIndent:
+    element: para
+    role: indent
+  ParaNoIndent:
+    element: para
+    role: noindent
+  BodyText:
+    element: para
+  BodyTextIndent:
+    element: para
+    role: indent
+
+  # Springer bibliography
+  Bibliography:
+    element: bibliography
+  BibliographyHeading:
+    element: title
+    context: bibliography
+  Citation:
+    element: bibliomixed
+  CitationNumber:
+    skip: true
+  CitationContent:
+    element: bibliomixed
+    role: citation-content
+  CitationRef:
+    element: xref
+    role: citation
+  # Fix C-016: BibSection sub-divisions within bibliography (e.g., "Recommended Reading")
+  BibSection:
+    element: bibliodiv
+    role: bib-section
+
+  # Springer figures
+  Figure:
+    element: figure
+  FigureCaption:
+    element: title
+    context: figure
+  FigureLegend:
+    element: para
+    context: figure
+    role: legend
+  FigureNumber:
+    skip: true
+  FigureCredit:
+    element: para
+    role: credit
+
+  # Springer tables
+  Table:
+    element: table
+  TableTitle:
+    element: title
+    context: table
+  TableFootnote:
+    element: footnote
+    role: table-footnote
+  TableNumber:
+    skip: true
+
+  # Springer boxes/sidebars
+  Box:
+    element: sidebar
+  BoxTitle:
+    element: title
+    context: sidebar
+  BoxBody:
+    element: para
+  Infobox:
+    element: sidebar
+    role: info
+  CaseStudy:
+    element: sidebar
+    role: case-study
+  Example:
+    element: example
+  FormalPara:
+    element: sidebar
+    role: formal-para
+  ParaTypeTip:
+    element: tip
+  ParaTypeWarning:
+    element: warning
+  ParaTypeCaution:
+    element: caution
+  ParaTypeImportant:
+    element: important
+  ParaTypeNote:
+    element: note
+
+  # Springer equations
+  Equation:
+    element: equation
+  EquationNumber:
+    skip: true
+  InlineEquation:
+    element: inlineequation
+
+  # Springer lists
+  BulletList:
+    element: itemizedlist
+  NumberedList:
+    element: orderedlist
+  DefinitionList:
+    element: variablelist
+  ListItem:
+    element: listitem
+  ItemNumber:
+    element: phrase
+    role: item-number
+  ItemContent:
+    element: phrase
+    role: item-content
+  ClearBoth:
+    skip: true
+
+  # Springer chapter metadata
+  ChapterCopyright:
+    element: para
+    role: ChapterCopyright
+  AffiliationText:
+    element: para
+    role: AffiliationText
+  ChapterDOI:
+    element: para
+    role: ChapterDOI
+  # Context information spans in chapter headers
+  # These follow a <div class="ChapterCopyright"> and need separation
+  ContextInformationAuthorEditorNames:
+    element: phrase
+    role: author-names
+  ContextInformationBookTitles:
+    element: phrase
+    role: book-titles
+  ChapterContextInformation:
+    element: para
+    role: ChapterContextInformation
+
+  # Contact info - skip these (internal EPUB navigation metadata)
+  ContactIcon:
+    skip: true
+  ContactOfAuthor:
+    skip: true
+  Contacts:
+    skip: true
+
+  # Springer abstracts and keywords
+  Abstract:
+    element: abstract
+  AbstractPara:
+    element: para
+  Keywords:
+    element: keywordset
+  KeywordGroup:
+    element: keywordset
+  Keyword:
+    element: keyword
+
+  # Springer author information
+  AuthorGroup:
+    element: authorgroup
+  AuthorName:
+    element: author
+  Affiliation:
+    element: affiliation
+  Email:
+    element: email
+
+  # Springer footnotes
+  Footnote:
+    element: footnote
+  FootnoteNumber:
+    skip: true
+  FootnoteText:
+    element: para
+  Endnote:
+    element: footnote
+    role: endnote
+
+  # Springer index
+  Index:
+    element: index
+  IndexHeading:
+    element: title
+    context: index
+  IndexEntry:
+    element: indexentry
+  IndexTerm:
+    element: indexterm
+
+# Springer epub:type extensions
+epub_type_mappings:
+  doc-abstract: abstract
+  doc-acknowledgments: preface
+  doc-afterword: appendix
+  doc-appendix: appendix
+  doc-bibliography: bibliography
+  doc-chapter: chapter
+  doc-colophon: colophon
+  doc-conclusion: appendix
+  doc-cover: titlepage
+  doc-dedication: dedication
+  doc-endnotes: bibliodiv
+  doc-epilogue: appendix
+  doc-epigraph: epigraph
+  doc-foreword: preface
+  doc-glossary: glossary
+  doc-index: index
+  doc-introduction: preface
+  doc-part: part
+  doc-preface: preface
+  doc-prologue: preface
+
+# Elements to skip in Springer EPUBs
+skip_elements:
+  - CitationNumber
+  - FigureNumber
+  - TableNumber
+  - EquationNumber
+  - FootnoteNumber
+  - PageNumber
+  - RunningHead
+  - RunningFoot

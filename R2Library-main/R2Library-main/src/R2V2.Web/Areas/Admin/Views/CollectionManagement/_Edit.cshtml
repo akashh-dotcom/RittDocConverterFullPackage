@@ -1,0 +1,41 @@
+﻿@model R2V2.Web.Areas.Admin.Models.CollectionManagement.CollectionEdit
+
+<div class="content modal collection-manage" id="collection-edit">
+    <div class="modal-header">
+        <h1>Edit License Count</h1>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+            
+    <div class="modal-body">
+        <h2>@Model.InstitutionResource.Title</h2>
+        <ul>
+            <li>@Html.LabelFor(modelItem => Model.InstitutionResource.Isbn10) @Model.InstitutionResource.Isbn</li>
+            <li>@Html.LabelFor(modelItem => Model.InstitutionResource.Authors) @Model.InstitutionResource.Authors</li>
+            <li>@Html.LabelFor(modelItem => Model.InstitutionResource.PublisherName) @Model.InstitutionResource.PublisherName</li>
+        </ul>
+
+        @using (Html.BeginForm("Edit", "CollectionManagement"))
+        {
+            <table>
+                <tbody>
+                    <tr>
+                        <th><strong>Current licenses:</strong></th>
+                        <td class="license-count">@Model.InstitutionResource.LicenseCount</td>
+                    </tr>
+                    <tr>
+                        <th><strong>@Html.LabelFor(x => x.NumberOfLicenses, "Total new licenses:")</strong></th>
+                        <td>@Html.TextBoxFor(x => x.NumberOfLicenses, new { @class = "input-xsmall force-numeric", @maxlength = "4" })</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            @Html.HiddenFor(x => x.InstitutionId)
+            @Html.HiddenFor(x => x.InstitutionResource.Id)
+            
+            <div class="actions">
+                <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+                <button class="btn-medium" type="submit"><span>Update License Count</span></button>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head>
+    <meta name="dtb:uid" content="urn:isbn:978-3-031-28218-8"/>
+  </head>
+  <docTitle><text>Principles of Microbial Metabolism and Metabolic Ecology</text></docTitle>
+  <docAuthor><text>Alfred M. Spormann</text></docAuthor>
+  <navMap>
+    <navPoint id="navpoint-1" playOrder="1">
+      <navLabel><text>Cover</text></navLabel>
+      <content src="html/Cover.xhtml"/>
+    </navPoint>
+    <navPoint id="navpoint-2" playOrder="2">
+      <navLabel><text>Front Matter</text></navLabel>
+      <content src="html/483209_1_En_BookFrontmatter_OnlinePDF.xhtml"/>
+    </navPoint>
+    <navPoint id="navpoint-3" playOrder="3">
+      <navLabel><text>1. Microbial Life on Earth, Metabolism, and Metabolic Diversity</text></navLabel>
+      <content src="html/483209_1_En_1_Chapter.xhtml"/>
+    </navPoint>
+    <navPoint id="navpoint-4" playOrder="4">
+      <navLabel><text>2. A Microbe’s Environment and Natural Selection</text></navLabel>
+      <content src="html/483209_1_En_2_Chapter.xhtml"/>
+    </navPoint>
+    <navPoint id="navpoint-5" playOrder="5">
+      <navLabel><text>3. Microbial Energetics</text></navLabel>
+      <content src="html/483209_1_En_3_Chapter.xhtml"/>
+    </navPoint>
+    <navPoint id="navpoint-6" playOrder="6">
+      <navLabel><text>4. Catabolism and Its Coupling to Anabolism</text></navLabel>
+      <content src="html/483209_1_En_4_Chapter.xhtml"/>
+    </navPoint>
+    <navPoint id="navpoint-7" playOrder="7">
+      <navLabel><text>5. Microbial Kinetics</text></navLabel>
+      <content src="html/483209_1_En_5_Chapter.xhtml"/>
+    </navPoint>
+    <navPoint id="navpoint-8" playOrder="8">
+      <navLabel><text>6. Mechanisms of Microbial Energy Conservation</text></navLabel>
+      <content src="html/483209_1_En_6_Chapter.xhtml"/>
+    </navPoint>
+    <navPoint id="navpoint-9" playOrder="9">
+      <navLabel><text>7. Prototypic Reactions of Prokaryotic Carbon Catabolism</text></navLabel>
+      <content src="html/483209_1_En_7_Chapter.xhtml"/>
+    </navPoint>
+    <navPoint id="navpoint-10" playOrder="10">
+      <navLabel><text>8. Metabolic Modules, Pathways, and Nodes of Intermediates</text></navLabel>
+      <content src="html/483209_1_En_8_Chapter.xhtml"/>
+    </navPoint>
+    <navPoint id="navpoint-11" playOrder="11">
+      <navLabel><text>9. Fermentative Metabolism</text></navLabel>
+      <content src="html/483209_1_En_9_Chapter.xhtml"/>
+    </navPoint>
+    <navPoint id="navpoint-12" playOrder="12">
+      <navLabel><text>10. Prototypic Reactions, Modules, and Pathways of C1 catabolism</text></navLabel>
+      <content src="html/483209_1_En_10_Chapter.xhtml"/>
+    </navPoint>
+    <navPoint id="navpoint-13" playOrder="13">
+      <navLabel><text>Back Matter</text></navLabel>
+      <content src="html/483209_1_En_BookBackmatter_OnlinePDF.xhtml"/>
+    </navPoint>
+  </navMap>
+</ncx>

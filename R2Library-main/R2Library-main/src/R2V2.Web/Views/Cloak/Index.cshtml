@@ -1,0 +1,17 @@
+﻿@model R2V2.Web.Models.Cloak.CloakIndex
+
+@{
+    ViewBag.Title = "Add Guest User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Please ignore this page!</h1>
+        
+        <div>This page was created to trap malicious bots. Please click the browser's back button to return the previous page.</div>
+        <div>DO NOT CLICK ON THIS LINK BELOW!</div>
+        <div>
+            @Html.ActionLink("Please ignore this link!", "Dagger", new { Model.RequestId })
+        </div>
+    </div>
+</div>

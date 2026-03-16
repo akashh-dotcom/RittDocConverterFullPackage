@@ -1,0 +1,61 @@
+﻿@using R2V2.Web.Helpers
+@model R2V2.Web.Models.IR2V2Model
+@{
+    var header = Model.Header;
+}
+
+<header role="banner">
+    <div class="clearfix masthead" style="padding-top: 15px;padding-bottom: 5px;">
+        <div class="branding-main">
+            @if (!string.IsNullOrWhiteSpace(header.BrandingLogoFileName))
+            {
+                <img alt="@header.BrandingInstitutionName" src="@header.BrandingLogoDisplayUrl" class="branding-logo" />
+            }
+            else
+            {
+                //
+                @*<a href="/"><img alt="R2 Digital Library" src="@Url.Image("r2-digital-library.gif")" width="179" height="67" /></a>*@
+                <a href="/"><img alt="R2 Digital Library"  height="67" src="@Url.Image("r2-digital-library.png")" /></a>
+            }
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.EnvironmentName))
+        {
+            <div class="env">@Model.EnvironmentName</div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(header.BrandingLogoFileName))
+        {
+            <div class="branding-sub"><a href="@Url.Action("Index", "Home", new { Area = "" })"><img src=@Url.Image("r2-digital-library.png") height="41"  alt="R2 Digital Library" /></a></div>@*<img src=@Url.Image("r2-digital-library.sub.gif") width="112" height="41" alt="R2 Digital Library" /></a>*@
+        }
+
+        <div class="utilities @Html.Raw(!string.IsNullOrWhiteSpace(header.BrandingLogoDisplayUrl) ? "condensed" : "full")">
+            @if (Model.AuthenticationInfo.IsAuthenticated)
+            {
+                @Html.Partial("_AuthInfo", Model.AuthenticationInfo);
+            }
+
+            @if (header.ShowLoginLink)
+            {
+                <div id="auth-confirmation"></div>
+
+                @Html.Partial("_LoginForm", header.LoginParam);
+                @Html.Partial("_ForgotPasswordForm", header.LoginParam);
+
+                <ul class="clearfix login-links">
+                    @if (Model.AuthenticationInfo.CanIpAuthCreateUsers && Model.AuthenticationInfo.UserId == 0)
+                    {
+                        <li><a href="@Url.Action("Add", "Profile", new { Area = "" })">Create User Profile</a></li>
+                    }
+                    <li><a href="#forgot-password">Forgot password</a></li>
+                    @if (!Model.AuthenticationInfo.IsAthensAuthenticated)
+                    {
+                        <li><a href="@Url.Action("AthensLogin", "Authentication", new { Area = "" })">Athens log in</a></li>
+                    }
+
+                    @*<li><a href="#" class="help disabled" data-toggle="modal">Need log in help?</a></li>*@
+                </ul>
+            }
+        </div>
+    </div>
+</header>

@@ -1,0 +1,51 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Menus.ActionsMenu
+
+<li>
+    <a href="#tools" class="tools" role="button" aria-expanded="false" aria-controls="tools">Tools</a>
+    <div id="tools" class="megamenu">
+        <ul class="clearfix toolbar" data-toggle="menu">
+            @if (Model.ToolLinks == null || !Model.ToolLinks.HidePrint)
+            {
+                <li><a class="print" data-toggle="print" href="#">Print page</a></li>
+            }
+            
+            @if (Model.ToolLinks != null)
+            {
+                if (Model.ToolLinks.EmailPage != null)
+                {
+                    <li>
+                        <a href="#email" class="email" role="button" aria-expanded="false" aria-controls="email">Email this page</a>
+                        <div id="email" class="panel" data-panel="email">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.Partial("_EmailUserContentPanel", Model.ToolLinks.EmailPage)
+                            }
+                        </div>
+                    </li>
+                }
+                if (Model.ToolLinks.ExcelLink != null)
+                {
+                    <li>
+                        <a href="@Model.ToolLinks.ExcelLink.Href" class="export">@Model.ToolLinks.ExcelLink.Text</a>
+                    </li>    
+                }
+                if (Model.ToolLinks.MarcLink != null)
+                {
+                    <li>
+                        <a href="@Model.ToolLinks.MarcLink.Href" class="export" target="_blank" data-toggle="window" data-target="review" data-specs="location=1,status=1,scrollbars=1,height=300,width=475">@Model.ToolLinks.MarcLink.Text</a>
+                    </li>
+                }
+
+                if (Model.ToolLinks.MarcLinks != null)
+                {
+                    <li>
+                        <a href="#marc" class="export" role="button" aria-expanded="false" aria-controls="marc">Export to Marc</a>
+                        <div id="marc" class="panel" data-panel="marc">                           
+                            @Html.Partial("_MarcExportPanel", Model.ToolLinks.MarcLinks)                           
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</li>

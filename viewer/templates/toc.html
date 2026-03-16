@@ -1,0 +1,170 @@
+{% extends "layout.html" %}
+{% block title %}Table of Contents - {{ isbn }}{% endblock %}
+
+{% block extra_head %}
+<style>
+    .book-header {
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #1a3a5c;
+    }
+    .book-header-top {
+        display: flex;
+        gap: 25px;
+        margin-bottom: 15px;
+    }
+    .book-cover { flex-shrink: 0; }
+    .book-cover img { max-width: 150px; border: 1px solid #ccc; }
+    .book-meta { font-size: 0.95em; line-height: 1.6; }
+    .book-meta .label { font-weight: bold; color: #333; }
+    .book-meta .full-text-badge { color: #27ae60; font-weight: bold; font-style: italic; }
+    .book-meta-grid { display: grid; grid-template-columns: auto auto; gap: 4px 30px; }
+    .book-description { margin-top: 15px; }
+    .book-description h3 { color: #c0392b; font-style: italic; margin: 0 0 5px; font-size: 1em; }
+    .toc-container h2 {
+        background: #f0f4f8; padding: 10px 15px; margin: 0 0 5px;
+        font-size: 1.15em; color: #333; border-left: 4px solid #1a3a5c;
+    }
+    .toc-entry { border: 1px solid #ddd; margin-bottom: 2px; }
+    .toc-entry-head {
+        display: flex; align-items: center; padding: 8px 12px;
+        cursor: pointer; background: #fff; font-weight: bold;
+        color: #1a3a5c; font-size: 0.95em;
+    }
+    .toc-entry-head:hover { background: #f0f4f8; }
+    .toc-toggle {
+        display: inline-block; width: 16px; height: 16px; border: 1px solid #1a3a5c;
+        text-align: center; line-height: 14px; font-size: 12px; font-weight: bold;
+        color: #1a3a5c; margin-right: 8px; flex-shrink: 0; cursor: pointer; background: #fff;
+    }
+    .toc-children {
+        display: none; padding: 5px 15px 5px 36px;
+        background: #fafafa; border-top: 1px solid #eee;
+    }
+    .toc-children.open { display: block; }
+    .toc-children a { display: block; padding: 4px 0; color: #1a3a5c; text-decoration: none; font-size: 0.9em; }
+    .toc-children a:hover { text-decoration: underline; }
+    .toc-entry-link { color: #1a3a5c; text-decoration: none; }
+    .toc-entry-link:hover { text-decoration: underline; }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="breadcrumb-bar">
+    <a href="/">Books</a> &rsaquo; <strong>{{ isbn }}</strong>
+</div>
+<div class="main-content">
+    <div class="card">
+        {% if book_meta %}
+        <div class="book-header">
+            <div class="book-header-top">
+                {% if book_meta.cover_image %}
+                <div class="book-cover">
+                    <img src="/images/{{ isbn }}/{{ book_meta.cover_image }}" alt="Book cover for '{{ book_meta.title }}'">
+                </div>
+                {% endif %}
+                <div class="book-meta">
+                    <div class="full-text-badge">Full Text Available</div>
+                    <div class="book-meta-grid">
+                        {% if book_meta.authors %}
+                        <span class="label">Author:</span>
+                        <span>{{ book_meta.authors|join(', ') }}</span>
+                        {% endif %}
+                        {% if book_meta.publisher %}
+                        <span class="label">Publisher:</span>
+                        <span>{{ book_meta.publisher }}</span>
+                        {% endif %}
+                        {% if book_meta.pubdate %}
+                        <span class="label">Publication Date:</span>
+                        <span>{{ book_meta.pubdate }}</span>
+                        {% endif %}
+                        {% if book_meta.isbn13 %}
+                        <span class="label">ISBN 13:</span>
+                        <span>{{ book_meta.isbn13 }}</span>
+                        {% endif %}
+                        {% if book_meta.isbn10 %}
+                        <span class="label">ISBN 10:</span>
+                        <span>{{ book_meta.isbn10 }}</span>
+                        {% endif %}
+                        {% if book_meta.edition %}
+                        <span class="label">Edition:</span>
+                        <span>{{ book_meta.edition }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% if book_meta.title %}
+            <div class="book-description">
+                <h3>Description:</h3>
+                <p>{{ book_meta.title }}</p>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="toc-container">
+            <h2>Table of Contents</h2>
+
+            {% if toc_data and toc_data.entries %}
+                {% for entry in toc_data.entries %}
+                <div class="toc-entry">
+                    <div class="toc-entry-head" onclick="toggleTocEntry(this)">
+                        {% if entry.children %}
+                        <span class="toc-toggle">+</span>
+                        {% else %}
+                        <span class="toc-toggle" style="visibility:hidden">+</span>
+                        {% endif %}
+                        {% if entry.children %}
+                        <a href="/viewer/{{ isbn }}/{{ entry.children[0].id }}" class="toc-entry-link">{{ entry.display_title }}</a>
+                        {% else %}
+                        <span>{{ entry.display_title }}</span>
+                        {% endif %}
+                    </div>
+                    {% if entry.children %}
+                    <div class="toc-children" id="toc-{{ entry.id }}">
+                        {% for child in entry.children %}
+                        <a href="/viewer/{{ isbn }}/{{ child.id }}">{{ child.title }}</a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% elif toc_html %}
+                <div id="toc-content">
+                    {{ toc_html|safe }}
+                </div>
+            {% else %}
+                <p>No TOC file found. Browse sections directly:</p>
+            {% endif %}
+
+            {% if sections and not toc_data %}
+            <h3>All Sections</h3>
+            <ul>
+                {% for s in sections %}
+                <li>
+                    <a href="/viewer/{{ isbn }}/{{ s.id }}">
+                        {{ s.type|capitalize }}: {{ s.id }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function toggleTocEntry(head) {
+        var children = head.nextElementSibling;
+        if (children && children.classList.contains('toc-children')) {
+            children.classList.toggle('open');
+            var toggle = head.querySelector('.toc-toggle');
+            if (toggle) {
+                toggle.textContent = children.classList.contains('open') ? '-' : '+';
+            }
+        }
+    }
+</script>
+{% endblock %}

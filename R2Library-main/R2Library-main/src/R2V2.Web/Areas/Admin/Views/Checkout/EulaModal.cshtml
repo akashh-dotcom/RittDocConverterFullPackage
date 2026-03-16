@@ -1,0 +1,33 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Cart.CollectionAdd
+@{
+    ViewBag.Title = "EULA";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="clearfix contentcontainer">
+    <div id="content" class="content" role="main">
+	    <h2>R2 LIBRARY Institutional License Agreement</h2>
+		
+		@Html.Partial("../Checkout/_Eula")
+        
+        @using (Html.BeginForm("EulaModal", "Checkout"))
+        {   
+			@Html.Partial("../CollectionManagement/_HiddenQueryFields", Model.ResourceQuery)
+            
+            <div class="group-actions-wrapper"><div class="clearfix group-actions">
+                <ul class="actions">
+                    <li><a data-toggle="print" href="#"><span>Print</span></a></li>
+                    <li><a href="/_Static/Downloads/r2-library-institutional-license-agreement.pdf" target="_blank" data-toggle="window"><span>Save</span></a></li>
+                    <li><a class="cancel" data-dismiss="modal"><span>Cancel</span></a></li>
+                    <li><button class="btn-medium" type="submit"><span>I Agree</span></button></li>
+                </ul>
+            </div></div>
+        }
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.IFrameModal({ $dismiss: $('a[data-dismiss="modal"]'), parent: window.parent });
+}

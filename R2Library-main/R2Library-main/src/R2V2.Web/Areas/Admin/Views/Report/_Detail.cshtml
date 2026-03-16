@@ -1,0 +1,55 @@
+﻿@using R2V2.Core.Reports
+@model R2V2.Web.Areas.Admin.Models.Report.SavedReportDetail
+<div class="group-actions-wrapper">
+    <div class="clearfix group-actions" data-implement="fixed">
+        <ul class="actions">
+            <li><button type="submit" class="btn btn-medium"><span>Save</span></button></li>
+            <li><a data-history="back" class="btn btn-medium"><span>Cancel</span></a></li>
+        </ul>
+    </div>
+</div>        
+<div class="tablecontent">
+    <table class="edit compact">
+        <tbody>
+            <tr>
+                <td class="label">@Html.LabelFor(model => model.Type)</td>
+                <td class="field">@Html.Raw(Model.Type.ToDescription())</td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(model => model.Name)</td>
+                <td>
+                    @Html.TextBoxFor(model => model.Name, new { @class = "input-full" })
+                    @Html.ValidationMessageFor(model => model.Name)
+                </td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(model => model.FrequencyList)</td>
+                <td class="field">@Html.DropDownListFor(model => model.Frequency, Model.FrequencyList)</td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(model => model.EmailAddress)</td>
+                <td class="field">
+                    @Html.TextBoxFor(model => model.EmailAddress, new { @class = "input-full" })
+                    @Html.ValidationMessageFor(model => model.EmailAddress)
+                </td>
+            </tr>
+            <tr>
+                <td class="label">@Html.LabelFor(model => model.Description)</td>
+                <td class="field">@Html.TextAreaFor(model => model.Description, new { @class = "input-full" })</td>
+            </tr>
+            @*@Html.Partial("_PurchasedTitlesOnly")*@
+            @if (Model.Type != ReportType.ApplicationUsageReport)
+            {
+                @Html.Partial("_LicenseTypeFilter")
+            }
+            @Html.Partial("_Period")
+
+            @if (Model.Type == ReportType.ResourceUsageReport)
+            {
+                @Html.Partial("_ResourceUsageOptions")
+            }
+            @Html.Partial("_IpRangeOptions")
+        </tbody>
+    </table>
+</div>
+  

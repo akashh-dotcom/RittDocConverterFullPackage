@@ -1,0 +1,32 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Cart.CollectionAdd
+
+<div class="content modal collection-manage" id="collection-add">
+    <div class="modal-header">
+        <h1>Add To Cart</h1>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+
+    <div class="modal-body">
+
+        <div>
+            <table style="margin-left: 10px; margin-top: 15px">
+                @foreach (var cart in Model.CachedCarts)
+                {
+                    <tr>
+                        <td rowspan="2">
+                            <a class="savedCartLink" href="@Url.Action("AddResourceToCart", "Cart", new { Model.InstitutionResource.InstitutionId, resourceId = Model.InstitutionResource.Id, cartId = cart.Id, Model.ParentPageTitle, Model.NumberOfLicenses })"><span>@cart.CartName</span></a>
+                        </td>
+                        <td><b>@Html.LabelFor(x => cart.ItemCount)</b>@Html.DisplayFor(x => cart.ItemCount)</td>
+                        <td><b>@Html.LabelFor(x => cart.Total)</b>@Html.DisplayFor(x => cart.Total)</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;"><b>@Html.LabelFor(x => cart.CreatedBy)</b>@Html.DisplayFor(x => cart.CreatedBy)</td>
+                        <td style="padding-bottom: 10px;"><b>@Html.LabelFor(x => cart.CreatedDate)</b>@Html.DisplayFor(x => cart.CreatedDate)</td>
+                        <td style="padding-bottom: 10px;"><b>@Html.LabelFor(x => cart.UpdatedDate)</b>@Html.DisplayFor(x => cart.UpdatedDate)</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,108 @@
+<p>
+	<table>
+		<thead>
+			<tr>
+				<td align="center" colspan="3"><b>Web Activity {WebActivity_StartDate} to {WebActivity_EndDate}</b></td>
+			</tr>
+			<tr>
+				<td align="right" style="width:50%;color:#0033FF;"><b>Page Requests</b>:&nbsp;</td>
+				<td align="right" style="width:50px;"><b>{WebActivity_Page_Requests}</b></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align="right">Page Requests between 2 seconds and 5 seconds:&nbsp;</td>
+				<td align="right"><b>{WebActivity_Page_Requests_2_5}</b></td>
+				<td align="left"><b>&nbsp;({WebActivity_Page_Requests_2_5_Percentage})</b></td>
+			</tr>
+			<tr>
+				<td align="right">Page Requests between 5 seconds and 10 seconds:&nbsp;</td>
+				<td align="right"><b>{WebActivity_Page_Requests_5_10}</b></td>
+				<td align="left"><b>&nbsp;({WebActivity_Page_Requests_5_10_Percentage})</b></td>
+			</tr>
+			<tr>
+				<td align="right">Page Requests over 10 seconds:&nbsp;</td>
+				<td align="right"><b>{WebActivity_Page_Requests_Over_10}</b></td>
+				<td align="left"><b>&nbsp;({WebActivity_Page_Requests_Over_10_Percentage})</b></td>
+			</tr>			
+			<tr>
+				<td align="right">Average Page Request Times:&nbsp;</td>
+				<td align="right"><b>{WebActivity_Average_Request_Times}</b></td>
+				<td align="left">&nbsp;ms</td>
+			</tr>
+		<tr>
+			<td align="right">Median Page Request Times:&nbsp;</td>
+			<td align="right"><b>{WebActivity_Median_Request_Times}</b></td>
+			<td align="left">&nbsp;ms</td>
+		</tr>
+		<tr>
+			<td align="right" style="width:50%;color:#0033FF;"><b>Number of searches</b>:&nbsp;</td>
+			<td align="right" style="width:50px;"><b>{WebActivity_Search_Requests}</b></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td align="right">Average search time:&nbsp;</td>
+			<td align="right"><b>{WebActivity_Search_Average}</b></td>
+			<td align="left">&nbsp;ms</td>
+		</tr>
+			<tr>
+				<td align="right">Max search time:&nbsp;</td>
+				<td align="right"><b>{WebActivity_Search_Max}</b></td>
+				<td align="left">&nbsp;ms</td>
+			</tr>
+			<tr>
+				<td align="right" style="color:#009900;"><b>All Content Requests</b>:&nbsp;</td>
+				<td align="right"><b>{WebActivity_All_Content_Requests}</b></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align="right" style="color:#009900;"><b>TOC Requests</b>:&nbsp;</td>
+				<td align="right"><b>{WebActivity_TOC_Requests}</b></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align="right" style="color:#009900;"><b>Successful Content Requests</b>:&nbsp;</td>
+				<td align="right"><b>{WebActivity_Content_Requests}</b></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align="right">Concurrency Turnaways:&nbsp;</td>
+				<td align="right"><b>{WebActivity_Concurrency_Turnaways}</b></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align="right">Access Turnaways:&nbsp;</td>
+				<td align="right"><b>{WebActivity_Access_Turnaways}</b></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align="right" style="color:#330066;"><b>Print Requests</b>:&nbsp;</td>
+				<td align="right"><b>{WebActivity_Print_Requests}</b></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align="right" style="color:#660000;"><b>Email Requests</b>:&nbsp;</td>
+				<td align="right"><b>{WebActivity_Email_Requests}</b></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align="right" style="color:#FF33CC;"><b>Sessions</b>:&nbsp;</td>
+				<td align="right"><b>{WebActivity_Sessions}</b></td>
+				<td></td>
+			</tr>
+		</thead>
+	</table>
+</p>
+		
+<div class="tablecontent">
+	<table>
+		<thead>
+			<tr>
+				<th class="status">Counts</th>
+				<th class="details" colspan="3">Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			{Result_Items}
+		<tbody>
+	</table>
+</div>

@@ -1,0 +1,38 @@
+﻿@model R2V2.Web.Areas.Admin.Models.IpAddressRange.InstitutionIpRanges
+           
+
+<tr>
+    <td class="error-td" colspan="2">
+        @Html.ValidationMessageFor(x => x.EditIpAddressRange)
+        @Html.ValidationMessageFor(x => x.EditIpAddressRange.OctetA)
+        @Html.ValidationMessageFor(x => x.EditIpAddressRange.OctetB)
+        @Html.ValidationMessageFor(x => x.EditIpAddressRange.OctetCStart)
+        @Html.ValidationMessageFor(x => x.EditIpAddressRange.OctetDStart)
+
+        @Html.ValidationMessageFor(x => x.EditIpAddressRange.OctetCEnd)
+        @Html.ValidationMessageFor(x => x.EditIpAddressRange.OctetDEnd)                                
+    </td>
+    <td class="error-td"colspan="2"></td>
+</tr>
+
+<tr>
+    <td style="vertical-align:middle;">                               
+        @Html.TextBoxFor(x => x.EditIpAddressRange.OctetA, new { maxlength = 3, id = "ip-start-octect-a",       onkeyup = "R2V2.Admin.Utilities.Transfer('#ip-end-octect-a', this.value)",      onkeypress = "R2V2.Admin.Utilities.PeriodTab(event, '#ip-start-octect-b')", @class = "input-xxsmall" }).
+        @Html.TextBoxFor(x => x.EditIpAddressRange.OctetB, new { maxlength = 3, id = "ip-start-octect-b",       onkeyup = "R2V2.Admin.Utilities.Transfer('#ip-end-octect-b', this.value)",      onkeypress = "R2V2.Admin.Utilities.PeriodTab(event, '#ip-start-octect-c')", @class = "input-xxsmall" }).
+        @Html.TextBoxFor(x => x.EditIpAddressRange.OctetCStart, new { maxlength = 3, id = "ip-start-octect-c",                                                                                  onkeypress = "R2V2.Admin.Utilities.PeriodTab(event, '#ip-start-octect-d')", @class = "input-xxsmall" }).
+        @Html.TextBoxFor(x => x.EditIpAddressRange.OctetDStart, new { maxlength = 3, id = "ip-start-octect-d",  onkeyup = "R2V2.Admin.Utilities.TransferMax('#ip-end-octect-d', this.value)",   onkeypress = "R2V2.Admin.Utilities.PeriodTab(event, '#ip-end-octect-c')", @class = "input-xxsmall" })
+    </td>
+    <td style="vertical-align:middle;">
+
+        @Html.TextBoxFor(x => x.EditIpAddressRange.OctetA, new { maxlength = 3, disabled = "disabled", id = "ip-end-octect-a", @class = "input-xxsmall" }).
+        @Html.TextBoxFor(x => x.EditIpAddressRange.OctetB, new { maxlength = 3, disabled = "disabled", id = "ip-end-octect-b", @class = "input-xxsmall" }).
+        @Html.TextBoxFor(x => x.EditIpAddressRange.OctetCEnd, new { maxlength = 3, id = "ip-end-octect-c", @class = "input-xxsmall", onkeypress = "R2V2.Admin.Utilities.PeriodTab(event, '#ip-end-octect-d')" }).
+        @Html.TextBoxFor(x => x.EditIpAddressRange.OctetDEnd, new { maxlength = 3, id = "ip-end-octect-d", @class = "input-xxsmall", onkeypress = "R2V2.Admin.Utilities.PeriodTab(event, '#ip-description')" })
+    </td>
+    <td>@Html.TextBoxFor(x => x.EditIpAddressRange.Description, new { maxlength = 50, @class = "input-medium", id = "ip-description" })</td>
+    <td class="actions">
+        <button class="btn-medium" type="submit" ><span>Save</span></button> 
+        <a href="@Url.Action("List", new { institutionId = Model.InstitutionId })" class="btn btn-medium"><span>Cancel</span></a>
+    </td>
+</tr>
+

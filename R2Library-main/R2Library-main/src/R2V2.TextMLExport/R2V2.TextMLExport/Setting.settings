@@ -1,0 +1,32 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="R2V2.TextMLExport" GeneratedClassName="Setting">
+  <Profiles />
+  <Settings>
+    <Setting Name="TextmlServer" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">10.0.0.67</Value>
+    </Setting>
+    <Setting Name="OutputDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">E:\R2v2\Content\xml3</Value>
+    </Setting>
+    <Setting Name="TextmlDocBase" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">RIS Document Base</Value>
+    </Setting>
+    <Setting Name="BatchSize" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="R2DatabaseConnection" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Server=10.0.0.32;Database=RIT001_2012-03-21;User ID=R2WebUser;Password=Web2012;Trusted_Connection=False&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Server=10.0.0.32;Database=RIT001_2012-03-21;User ID=R2WebUser;Password=Web2012;Trusted_Connection=False</Value>
+    </Setting>
+    <Setting Name="R2UtilitiesDatabaseConnection" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Server=10.0.0.32;Database=R2Utilities;User ID=R2UtilitiesUser;Password=R2User2012;Trusted_Connection=False&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Server=10.0.0.32;Database=R2Utilities;User ID=R2UtilitiesUser;Password=R2User2012;Trusted_Connection=False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

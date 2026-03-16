@@ -1,0 +1,62 @@
+﻿@model R2V2.Web.Areas.Admin.Models.ReserveShelfManagement.ReserveShelfListManagement
+@{
+    ViewBag.Title = "Reserve Shelf Management";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    
+    <div id="content" class="content" role="main">
+        <h1>Reserve Shelf Management</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+    
+        <div class="group-actions-wrapper"><div class="clearfix group-actions">
+            <ul class="actions">
+                <li><a href="@Url.Action("Edit", new { institutionId = Model.InstitutionId, reserveShelfId = 0 })" class="btn btn-medium"><span>Add Reserve Shelf</span></a></li>
+            </ul>
+        </div></div>
+
+        @if (Model.ReserveShelfLists != null && Model.ReserveShelfLists.Any())
+        {
+            <div class="tablecontent">
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th class="reserve-shelf-title">Title</th>
+                            <th class="reserve-shelf-description">Description</th>
+                            <th class="reserve-shelf-title-count"># of Titles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ReserveShelfLists)
+                        {
+                            <tr>
+                                <td class="reserve-shelf-title"><a href="@Url.Action("Detail", new { institutionId = Model.InstitutionId, reserveShelfId = item.Id })">@Html.DisplayFor(model => item.Name)</a></td>
+                                <td class="reserve-shelf-description">@Html.Raw(item.Description)</td>
+                                <td class="reserve-shelf-title-count">@Html.DisplayFor(model => item.ResourceCount)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p><strong>No Reserve Shelves Available.</strong></p>
+        }
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

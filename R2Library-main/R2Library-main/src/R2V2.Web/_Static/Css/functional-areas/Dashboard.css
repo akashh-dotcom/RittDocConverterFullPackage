@@ -1,0 +1,450 @@
+﻿/* --------------------------------------------------------------------- */
+/* --- Resource Blocks */
+/* --------------------------------------------------------------------- */
+
+article.dashboard-resourceItem {
+        width: 48%;
+        min-height: 220px;
+        padding: 0;
+        margin: 6px 1% 0 1%;
+        float: left;
+    }
+    article.dashboard-resourceItem:nth-child(odd) {
+        clear: left;
+    }
+        article.dashboard-resourceItem h4 {
+            color: #af1b3f;
+            margin-top: 0;
+            line-height: 18px;
+        }
+        article.dashboard-resourceItem img {
+            float: left;
+            width: 100px;
+            border: 1px solid #808080;
+            margin: 6px 6px 6px 0;
+        }
+        article.dashboard-resourceItem .resourceDetails {
+            margin-left: 108px;
+            margin-top: 0;
+            padding-top: 6px;
+        }
+            article.dashboard-resourceItem li {
+                font-size: 12px;
+                line-height: 16px;
+                background: none;
+                padding: 0;
+                margin: 0;
+            }
+            article.dashboard-resourceItem li.detailsLink {
+                margin-top: 4px;
+            }
+            article.dashboard-resourceItem a {
+                font-weight: bold;
+                color: #ffffff;
+                text-decoration: none;
+                padding: 2px 12px;
+                background: #4f708f;
+                border: 1px solid #20487b;
+            }
+            article.dashboard-resourceItem li label {
+                font-weight: bold;
+            }
+            article.dashboard-resourceItem li.listprice {
+                text-decoration: line-through;
+            }
+            article.dashboard-resourceItem .licenseCount {
+                color: #6d0721;
+                font-size: 14px;
+            }
+            article.dashboard-resourceItem .license-cart {
+                color: #20487b;
+            }
+            article.dashboard-resourceItem .discountPrice {
+                color: #207055;
+                font-size: 14px;
+            }
+            
+
+/* --------------------------------------------------------------------- */
+/* --- Section - General styles */
+/* --------------------------------------------------------------------- */
+
+/* --- IE7 Clearfix --- */
+.group:before,
+.group:after {
+    content: "";
+    display: table;
+} 
+.group:after {
+    clear: both;
+}
+.group {
+    zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+}
+#dashboard h1, #dashboard h2, #dashboard h3, #dashboard h4, #dashboard h5, #dashboard h6, #dashboard p, #dashboard div, #dashboard li, #dashboard label, #dashboard span {
+    font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+#dashboard section {
+    clear: both;
+}
+#dashboard section h3 {
+    color: #20487b;
+    font-size: 26px;
+    font-weight: normal;
+    text-align: center;
+    padding: 0;
+}
+#dashboard section h5 {
+    color: #666666;
+    font-weight: bold;
+    display: block;
+    margin-top: 0;
+    font-size: 14px;
+    text-align: center;
+}
+#dashboard section label {
+    cursor: default;
+}
+#dashboard section li {
+    font-size: 14px;
+}
+
+section a {
+    color: #20487b;
+}
+    section a:hover, section a:active {
+        color: #a6cbed;
+    }
+
+/* --------------------------------------------------------------------- */
+/* --- Header */
+/* --------------------------------------------------------------------- */
+
+#dashboard-header {
+    padding: 12px 0 1px 0;
+    background: #4f708f;
+}
+#dashboard .institution-info {
+    color: #a6cbed;
+    float: left;
+    margin-left: 12px;
+}
+
+/* ---------- Date Fields ------------------- */
+
+#dashboard-header .field {
+    float: right;
+    margin-right: 12px;
+}
+    #dashboard-header .field select {
+        float: right;
+        margin-bottom: 6px;
+        margin-right: 3px;
+        font-size: 0.75em;
+        width: 190px;
+    }
+#dashboard #filter-date-range {
+    clear: both;
+    display: block;
+    padding-left: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#dashboard #filter-date-range .input-daterange input {
+    border: none;
+    
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+#dashboard #filter-date-range.collapse {
+    height: 0;
+    margin-bottom: 12px;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+    #dashboard #filter-date-range.in.collapse {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        display: block;
+        float: right;
+    }
+    #dashboard #filter-date-range label {
+        color: #a9c8e5;
+        float: left;
+        padding-top: 2px;
+        margin-left: 4px;
+    }
+    #dashboard #filter-date-range input {
+        float: left;
+        margin: 6px 3px;
+        border-radius: 2px;
+        font-size: .75em;
+    }
+
+    #dashboard #filter-date-range .input-small {
+        width: 78px;
+    }
+    #dashboard #filter-date-range button {
+        padding: 4px 24px;
+        font-weight: bold;
+        background: #be395a;
+        border-bottom: 4px solid #6d0721;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        color: #5f061d;
+        margin-top: 4px;
+        margin-right: 3px;
+        margin-left: 2px;
+        text-decoration: none;
+        width: 144px;
+        }
+        #filter-date-range button:hover, #filter-date-range button:active {
+            color: #5f061d;
+            background: #d75979;
+            text-decoration: none;
+        }
+
+/* ---------- Navigation ------------------- */
+
+    #dashboard-header nav {
+        clear: both;
+        padding-top: 0;
+    }
+        #dashboard-header ul {
+            list-style-type: none;
+            padding-bottom: 1px;
+        }
+        #dashboard-header nav li {
+            float: left;
+            padding-left: 0;
+            width: 33%;
+            text-align: center;
+            list-style-type: none;
+            background: none;
+        }
+            #dashboard-header nav a {
+                padding: 12px 18px 4px 18px;
+                text-decoration: none;
+                color: #a9c8e5;
+                font-size: 18px;
+            }
+            #dashboard-header nav a:hover, #dashboard-header nav li.selected a {
+                border-bottom: 4px solid #af1b3f;
+                padding-bottom: 1px;
+                color: #ffffff;
+            }
+
+/* --------------------------------------------------------------------- */
+/* --- Quick Notes */
+/* --------------------------------------------------------------------- */
+
+#dashboard-quickNotes {
+    padding: 12px 12px 6px 12px;
+}
+    #dashboard-quickNotes ul {
+        padding: 0 24px;
+        margin-top: 0;
+    }
+        #dashboard-quickNotes ul li {
+            color: #666666;
+        }
+
+/* --------------------------------------------------------------------- */
+/* --- Account Usage */
+/* --------------------------------------------------------------------- */
+
+#dashboard-accountUsage {
+    padding: 6px 12px;
+}
+    #dashboard-accountUsage .usageStats {
+
+    }
+        #dashboard-accountUsage ul {
+            width: 50%;
+            float: left;
+            margin: 2px 0;
+        }
+        #dashboard-accountUsage li {
+            float: left;
+            background-image: none;
+            margin: 0;
+        }
+        #dashboard-accountUsage li:before, #dashboard-accountUsage li:after {
+            margin: 0;
+        }
+        #dashboard-accountUsage li.label {
+            width: 60%;
+            font-size: 14px;
+            padding-left: 0;
+            padding-right: 12px;
+            text-align: right;
+            line-height: 38px;
+            cursor: default;
+            background: #cccccc;
+            border: 1px solid #808080;
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+        }
+        #dashboard-accountUsage li.value {
+            width: 27%;
+            font-size: 22px;
+            font-weight: bold;
+            color: #af1b3f;
+            margin: 0;
+            padding: 0;
+            line-height: 34px;
+            text-align: center;
+            background: #ffffff;
+            border: 1px solid #808080;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+            padding-bottom: 4px;
+        }
+    #dashboard-accountUsage h4 {
+        text-align: center;
+        padding-top: 6px;
+        clear: both;
+    }
+
+/* --------------------------------------------------------------------- */
+/* --- Highlights */
+/* --------------------------------------------------------------------- */
+
+#dashboard-highlights {
+    padding: 24px 12px;
+}
+    #dashboard-highlights .countStat {
+        width: 47.7%;
+        margin: 0 1%;
+        padding: 0;
+        float: left;
+        border: 1px solid #ababab;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+    }
+    #dashboard-highlights .countStat:before, #dashboard-highlights .countStat:after {
+        margin: 0;
+    }
+        #dashboard-highlights .countStat h4 {
+            color: #ffffff;
+            padding: 12px;
+            background: #4f708f;
+            text-align: center;
+            margin-top: 0;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+        #dashboard-highlights .countStat h5 {
+            text-align: center;
+            margin-top: 4px;
+        }
+            #dashboard-highlights .countStat h5 a {
+                color: #af1b3f;
+                padding: 0 12px;
+            }
+            #dashboard-highlights .countStat h5 a:hover, #dashboard-highlights .countStat h5 a:active {
+                color: #be395a;
+            }
+        #dashboard-highlights .countStat h2 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #af1b3f;
+            margin: 0;
+            padding: 6px 12px;
+            text-align: center;
+            background: #ffffff;
+            border-top: 1px solid #ababab;
+            border-bottom: 1px solid #ababab;
+        }
+        #dashboard-highlights .countStat p {
+            color: #999999;
+            padding: 0 12px;
+            text-align: center;
+        }
+
+    #dashboard-highlights .resourceGroup {
+        width: 48%;
+        margin: 24px 1% 0 1%;
+        padding: 0;
+        float: left;
+    }
+        #dashboard-highlights .resourceGroup p {
+            text-align: center;
+            color: #999999;
+            padding-top: 6px;
+            border: 1px solid #ababab;
+            border-top: none;
+            margin-top: 0;
+        }
+        #dashboard-highlights .resourceGroup > h4 {
+            color: #ffffff;
+            padding: 12px;
+            background: #4f708f;
+            border: 1px solid #ababab;
+            text-align: center;
+            margin-top: 0;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+            #dashboard-highlights .resourceGroup article.dashboard-resourceItem {
+                width: 100%;
+            }
+
+/* --------------------------------------------------------------------- */
+/* --- Content Spotlight/BookList */
+/* --------------------------------------------------------------------- */
+
+#dashboard-contentSpotlight, #dashboard-booklist {
+    margin: 24px 0;
+}
+    #dashboard-contentSpotlight .spotlightGroup, #dashboard-booklist .spotlightGroup {
+        padding-bottom: 12px;
+    }
+        #dashboard-contentSpotlight .spotlightGroup:nth-child(odd), #dashboard-booklist .spotlightGroup:nth-child(odd) {
+            background: #e1e1e1;
+        }
+    #dashboard-contentSpotlight h3, #dashboard-booklist h3 {
+        color: #20487b;
+        font-size: 22px;
+        font-weight: normal;
+        padding: 12px;
+        text-align: center;
+    }
+    #dashboard-contentSpotlight .viewMore, #dashboard-booklist .viewMore {
+        clear: both;
+        padding: 4px 24px 4px 24px;
+        width: 100px;
+        margin: 16px auto;
+        display: block;
+        font-weight: bold;
+        background: #be395a;
+        border-bottom: 4px solid #6d0721;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        color: #5f061d;
+        text-decoration: none;
+        text-align: center;
+    }
+        #dashboard-contentSpotlight .viewMore:hover, #dashboard-contentSpotlight .viewMore:active, #dashboard-booklist .viewMore:hover, #dashboard-booklist .viewMore:active {
+            background: #d75979;
+            color: #5f061d;
+            text-decoration: none;
+        }
+    /* --- Override of standard resourceItem clear left - even/odd seem to flip??? --- */
+    #dashboard-contentSpotlight article.dashboard-resourceItem:nth-child(even) {
+        clear: left;
+    }
+    #dashboard-contentSpotlight article.dashboard-resourceItem:nth-child(odd) {
+        clear: none;
+    }
+
+
+

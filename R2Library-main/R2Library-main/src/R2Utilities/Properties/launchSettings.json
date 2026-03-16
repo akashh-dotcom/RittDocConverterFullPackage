@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "R2Utilities - No Args": {
+      "commandName": "Project"
+    },
+    "BookLoaderPostProcessingTask": {
+      "commandName": "Project",
+      "commandLineArgs": "-BookLoaderPostProcessingTask -isbn=9781234567890 -includeChapterNumbersInToc=true"
+    }
+  }
+}

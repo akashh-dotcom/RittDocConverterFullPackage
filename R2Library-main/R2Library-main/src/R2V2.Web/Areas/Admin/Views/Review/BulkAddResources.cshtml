@@ -1,0 +1,79 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Review.BulkAddToReview
+
+@{
+	ViewBag.Title = "Bulk Add Resources";
+	ViewBag.BodyCssClass = "admin cm-modal-base recommend";
+	Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="content collection-manage">
+    <div class="modal-header">
+        <h1>Bulk Add Resources</h1>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+            
+	<div class="modal-body">
+		<div id="bulk-add-area-small">		
+		@if (Model.ResourceCount > 0)
+		{
+			<h3>The following @Html.DisplayFor(model => model.ResourceCount) resources will be added to the review list:</h3>
+			<ul>		
+				@foreach (var resource in Model.Resources)
+				{
+					<li>@resource.Title, ISBN: @resource.Isbn13</li>
+				}
+			</ul>
+		}
+		else
+		{
+			<div><strong>Sorry, none of the resources selected are eligible for the review list at this time.</strong></div>
+		}
+		
+		@if (Model.ExcludedResourceCount > 0)
+		{
+			<h3>The following @Html.DisplayFor(model => model.ExcludedResourceCount) titles are not eligible for the review list:</h3>
+			<ul>		
+				@foreach (var resource in Model.ExcludedResources)
+				{
+					<li>@resource.Title, ISBN: @resource.Isbn13</li>
+				}
+			</ul>
+		}
+		</div>
+
+		@using (Html.BeginForm("BulkAddResources", "Review"))
+		{
+		    @*if (Model.ResourceCount > 0)
+		    {
+		        <table>
+		            <tbody>
+		                <tr>
+		                    <th><strong>@Html.LabelFor(model => model.Notes)</strong></th>
+		                    <td class="field">@Html.TextAreaFor(model => model.Notes)</td>
+		                </tr>
+		                <tr>
+		                    <th></th>
+		                    <td>@Html.ValidationMessageFor(model => model.Notes)</td>
+		                </tr>
+		            </tbody>
+		        </table>      
+		    }*@
+			
+			@Html.Hidden("bulkAddToReview", "yes")
+			@Html.Hidden("Resources", Model.ResourceQuery.Resources)
+			@Html.Partial("../CollectionManagement/_HiddenQueryFields", Model.ResourceQuery)
+			<div class="actions">
+				<a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+				@if (Model.ResourceCount > 0)
+				{
+					<button class="btn-medium" type="submit"><span>Add All to Review</span></button>
+				}
+			</div>
+		}
+	</div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.IFrameModal({ $dismiss: $('a[data-dismiss="modal"]'), parent: window.parent });
+}

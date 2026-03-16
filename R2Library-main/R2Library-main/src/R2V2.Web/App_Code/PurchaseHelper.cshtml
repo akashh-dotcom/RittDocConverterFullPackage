@@ -1,0 +1,263 @@
+﻿@using R2V2.Core.Resource
+@using R2V2.Web.Areas.Admin.Models.CollectionManagement
+@using R2V2.Web.Areas.Admin.Models.Dashboard
+@using R2V2.Web.Areas.Admin.Models.Order
+@using R2V2.Web.Areas.Admin.Models.OrderHistory
+@using R2V2.Web.Areas.Admin.Models.Report
+@using Resource = R2V2.Web.Areas.Admin.Models.Resource.Resource
+@using ReviewResource = R2V2.Web.Areas.Admin.Models.Review.ReviewResource
+
+@helper GetLicensesCountDisplay(ResourceOrderItem resourceOrderItem)
+{
+    if (resourceOrderItem.Resource.IsFreeResource)
+    {
+        <span>Unlimited</span>
+    }
+    else
+    {
+        @resourceOrderItem.NumberOfLicenses
+    }
+}
+
+@helper GetPriceDisplay(ResourceOrderItem resourceOrderItem)
+{
+    if (resourceOrderItem.Resource.IsFreeResource)
+    {
+        <span class="saleprice">Price: Free</span>
+    }
+    else
+    {
+        <span class="fullprice">Retail Price: @string.Format("{0:C}", resourceOrderItem.ListPrice)</span>
+        <span class="saleprice">Discount Price: @string.Format("{0:C}", resourceOrderItem.DiscountPrice)</span>
+    }
+}
+
+@helper GetOrderHistoryPriceDisplay(ResourceOrderItem resourceOrderItem)
+{
+    if (resourceOrderItem.Resource.IsFreeResource)
+    {
+        <td class="order-summary-license-count">Unlimited</td>
+        <td class="order-summary-price">
+            <span class="saleprice">Price: Free</span>
+        </td>
+    }
+    else
+    {
+        <td class="order-summary-license-count">@resourceOrderItem.NumberOfLicenses</td>
+        <td class="order-summary-price">
+            <span class="fullprice">Retail Price: @string.Format("{0:C}", resourceOrderItem.ListPrice)</span>
+            <span class="saleprice">Discount Price: @string.Format("{0:C}", resourceOrderItem.DiscountPrice)</span>
+        </td>
+    }
+
+}
+
+@helper GetOrderHistoryPriceDisplay(WebOrderHistoryItem item)
+{
+    if (item.Resource.IsFreeResource)
+    {
+        <td class="order-summary-license-count">Unlimited</td>
+        <td class="order-summary-price">
+            <span class="saleprice">Price: Free</span>
+        </td>
+    }
+    else
+    {
+        <td class="order-summary-license-count" style="text-align: center">
+            @item.NumberOfLicenses
+            @if (item.IsBundle)
+            {
+                <br />
+                <span style="font-weight: bold;">Bundle</span>
+            }
+        </td>
+        <td class="order-summary-price">
+            <span class="fullprice">Retail Price: @string.Format("{0:C}", item.ListPrice)</span>
+            <span class="saleprice">Discount Price: @string.Format("{0:C}", item.DiscountPrice)</span>
+        </td>
+    }
+
+}
+
+@helper GetPriceDisplay(Resource resource)
+{
+    if (resource.IsFreeResource)
+    {
+        <strong><span>Free</span></strong>
+    }
+    else
+    {
+        <strong>@string.Format("{0:C}", resource.ListPrice)</strong>
+    }
+}
+
+@helper GetPriceDisplay(IResource resource)
+{
+if (resource.IsFreeResource)
+{
+        <strong><span>Free</span></strong>
+}
+else
+{
+        <strong>@string.Format("{0:C}", resource.ListPrice)</strong>
+}
+}
+
+@helper GetPriceDisplay(ReviewResource item)
+{
+        if (item.IsFreeResource)
+        {
+            <span class="saleprice">Price: Free</span>
+        }
+        else
+        {
+            <span class="fullprice">Retail Price: @string.Format("{0:C}", item.ListPrice)</span>
+            <span class="saleprice">Discount Price: @string.Format("{0:C}", item.DiscountPrice)</span>
+        }
+    }
+
+@helper GetPriceDisplay(InstitutionResource item)
+{
+    if (item.IsFreeResource)
+    {
+        <span class="saleprice">Price: Free</span>
+    }
+    else
+    {
+        <span class="fullprice">Retail Price: @string.Format("{0:C}", item.ListPrice)</span>
+        <span class="saleprice">Discount Price: @string.Format("{0:C}", item.DiscountPrice)</span>
+    }
+}
+
+@helper GetDashboardPriceDisplay(InstitutionResource item)
+{
+    if (item.IsFreeResource)
+    {
+        <li class="discountPrice">Price: Free</li>
+    }
+    else
+    {
+        <li class="listprice">Retail Price: @string.Format("{0:C}", item.ListPrice)</li>
+        <li class="discountPrice">Discount Price: @string.Format("{0:C}", item.DiscountPrice)</li>
+    }
+}
+
+@helper GetLicenseDisplay(InstitutionResource item)
+{
+    if (item.IsFreeResource)
+    {
+        <span>Unlimited</span>
+    }
+    else
+    {
+        <span>@item.LicenseCount</span>
+    }
+}
+
+@helper GetLicenseDisplay(DashboardResource item)
+{
+    if (item.ResourceCount > 0)
+    {
+        if (item.InstitutionResource.IsFreeResource)
+        {
+            <li class="licenseCount">Count: Unlimited</li>
+        }
+        else
+        {
+            <li class="licenseCount">Count: @item.ResourceCount)</li>
+        }
+    }
+}
+
+@helper GetCartLicenseCountDisplay(InstitutionResource item)
+{
+    if (item.CartLicenseCount > 0)
+    {
+        if (item.IsFreeResource)
+        {
+            <li class="license-cart"><label>Added To Cart</label></li>
+        }
+        else
+        {
+            <li class="license-cart"><label>License Count in Cart: @item.CartLicenseCount</label></li>
+        }
+    }
+}
+
+@helper GetPublisherReportLicenseCount(ReportResource report)
+{
+    if (report.IsFreeResource)
+    {
+        <span>Unlimited</span>
+    }
+    else
+    {
+        <span>@report.TotalLicenseCount</span>
+    }
+}
+
+@helper GetPublisherReportCostCount(ReportResource report)
+{
+    if (report.IsFreeResource)
+    {
+        <span>Free</span>
+    }
+    else
+    {
+        <span>@report.ResourceAveragePrice</span>
+    }
+}
+
+@helper GetBulkDetails(InstitutionResource resource)
+{
+    if (resource.IsFreeResource)
+    {
+        <li>@resource.Title, ISBN: @resource.Isbn13</li>
+    }
+    else
+    {
+        <li>@resource.Title, ISBN: @resource.Isbn13 at @string.Format("{0:C}", resource.DiscountPrice)</li>
+    }
+}
+
+@helper GetDisplayListPrice(DiscountResourceDetail resourceDetail)
+{
+    if (resourceDetail.IsFreeResource)
+    {
+        <span>Free</span>
+
+    }
+    else
+    {
+        <span>@string.Format("{0:C}", resourceDetail.ListPrice)</span>
+    }
+}
+
+@helper GetDisplayDiscountPrice(DiscountResourceDetail resourceDetail)
+{
+    if (resourceDetail.IsFreeResource)
+    {
+        <span>Free</span>
+
+    }
+    else
+    {
+        <span>@string.Format("{0:C}", resourceDetail.DiscountPrice)</span>
+        <span>@string.Format("({0}%)", resourceDetail.DiscountPercentage)</span>
+
+    }
+}
+
+@helper GetDisplayLicenseCount(DiscountResourceDetail resourceDetail)
+{
+    if (resourceDetail.IsFreeResource)
+    {
+        <span>Unlimited</span>
+
+    }
+    else
+    {
+        <span>@resourceDetail.Licenses</span>
+
+    }
+}

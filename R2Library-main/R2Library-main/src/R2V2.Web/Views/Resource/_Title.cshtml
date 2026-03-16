@@ -1,0 +1,117 @@
+﻿@using R2V2.Core.Resource
+@using R2V2.Web
+@model R2V2.Web.Models.Resource.ResourceDetail
+           
+<div id="content" class="content" role="main">
+    <div class="nav-breadcrumb"></div>
+
+    <h1>
+        @Model.Title
+        <span>@Model.SubTitle</span>
+        @if(!Model.IsEmailResource)
+        {
+            <span class="content-provider">
+                @Html.Raw(Model.ContentProviderDisplay())
+            </span>
+        }
+        
+        
+        @if (Model.IsArchive)
+        {
+            <a href="" class="access-info resource-archived" rel="tooltip" title="@Resources.TitleArchivedTooltip">@Resources.TitleArchived</a>
+        }
+    </h1>
+    @if(Model.IsEmailResource)
+    {
+        <div class="content-provider">
+            @Html.Raw(Model.ContentProviderDisplay())
+        </div>
+    }
+    @if (Model.Navigation != null && Model.Navigation.Next != null && Model.IsFullTextAvailable)
+    {
+        <div class="nav-section-wrapper"><div class="clearfix nav-section" data-implement="fixed">
+            <div class="next">
+                @Html.ActionLink("Next >>", "Detail", "Resource", null, null, null, new { isbn = Model.Isbn, section = Model.Navigation.Next.Id }, null)
+            </div>
+        </div></div>
+    }
+    else
+    {
+        <div class="nav-section-wrapper"><div class="nav-section"></div></div>
+    }
+            
+    <div id="resource-content">
+        <div class="clearfix resource-detail">
+            <div class="resource-cover">
+                <img src="@Model.ImageUrl" alt="Image of the book cover for '@Model.Title'" />
+                        
+                @Html.Partial("_Tooltips", Model)
+                @if (Model.TurnawayMessage != null && Model.IsPdaResource && !Model.IsFullTextAvailable)
+                {
+                    <div class="resource-pda-turnaway">@Html.Raw(Model.TurnawayMessage)</div>
+                }
+                
+                @Html.Partial("_ExternalReviews", Model)
+            </div>
+
+            <div class="resource-info">
+                <div class="clearfix columns two-columns-50-40">
+                    <div class="column">
+                        <strong>Author:</strong> @Model.Authors<br />
+                        <strong>Affiliation:</strong> @Model.Affiliation<br />
+                        <strong>Publisher:</strong> @Model.Publisher<br />
+                        @if (Model.PublicationDate != null)
+                        {
+                            <strong>Publication Date:</strong> @Model.PublicationDate.Value.Year
+                        }
+                    </div>
+
+                    <div class="column">
+                        <strong>ISBN 10:</strong> @Model.Isbn10<br />
+                        <strong>ISBN 13:</strong> @Model.Isbn13<br />
+                        @if (Model.EIsbn != null)
+                        {
+                            <strong>eISBN:</strong> @Model.EIsbn<br />
+                        }
+
+                        <strong>Edition:</strong> @Model.Edition
+                    </div>
+                </div>
+                <h2>Description:</h2>
+                <div class="richText">@Html.Raw(Model.Description)</div>
+            </div>
+        </div>
+
+        <div class="clearfix twocol-with-sidebar">
+            <div class="sectionheader">
+                <h2>Table of Contents</h2>
+            </div>
+
+            <div class="subcontent">
+                @Html.Raw(Model.Toc)
+            </div>
+                    
+            @if (Model.Topics != null && Model.Topics.Any())
+            {
+                <div class="sidebar">
+                    <div class="sidebarmodule"><div class="sidebarmoduleinner">
+                        <h2>Topics within this title:</h2>
+                        <ul>
+                            @foreach (var topic in Model.Topics)
+                            {
+                                if (Model.ResourceAccess != ResourceAccess.Allowed)
+                                {
+                                    <li>@topic</li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink(topic, "Index", "Search", "http", null, "within=" + Model.Isbn, new { q = topic }, null)</li>
+                                }
+                            }
+                        </ul>
+                    </div></div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

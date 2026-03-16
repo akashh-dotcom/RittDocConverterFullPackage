@@ -1,0 +1,76 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Testing.EmailViewModel
+@{
+    ViewBag.Title = "Testing - List of Tests";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+@using (Html.BeginForm(null, null, FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    <div id="content" class="content" role="main">
+        <h1>Email Testing - RabbitMQ Email Thread </h1>
+        <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+            <ul class="actions">
+                <li><button class="btn-medium" type="submit"><span>Send Message</span></button></li>
+                <li><a href="@Url.Action("Index")" class="btn btn-medium"><span>Cancel</span></a></li>
+            </ul>
+        </div></div>
+        <div class="tablecontent">
+            <table class="edit">
+                <tbody>
+                @if (!string.IsNullOrEmpty(Model.StatusMessage))
+                {
+                    if (Model.SentSuccessfully)
+                    {
+                        <tr>
+                            <td colspan="2" class="status">@Html.Raw(Model.StatusMessage)</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="2" class="error">@Html.Raw(Model.StatusMessage)</td>
+                        </tr>
+                    }
+                }
+                <tr>
+                    <td class="label">To Address:</td>
+                    <td class="field">@Html.TextBoxFor(m => Model.ToAddress, new {@class = "input-full"})</td>
+                </tr>
+                <tr>
+                    <td class="label">From Address:</td>
+                    <td class="field">@Html.TextBoxFor(m => Model.FromAddress, new {@class = "input-full"})</td>
+                </tr>
+                <tr>
+                    <td class="label">From Name:</td>
+                    <td class="field">@Html.TextBoxFor(m => Model.FromName, new {@class = "input-full"})</td>
+                </tr>
+                <tr>
+                    <td class="label">Reply To Address:</td>
+                    <td class="field">@Html.TextBoxFor(m => Model.ReplyToAddress, new {@class = "input-full"})</td>
+                </tr>
+                <tr>
+                    <td class="label">Reply To Name:</td>
+                    <td class="field">@Html.TextBoxFor(m => Model.ReplyName, new {@class = "input-full"})</td>
+                </tr>
+                <tr>
+                    <td class="label">Subject:</td>
+                    <td class="field">@Html.TextBoxFor(m => Model.Subject, new {@class = "input-full"})</td>
+                </tr>
+                <tr>
+                    <td class="label">Body:</td>
+                    <td class="field">@Html.TextAreaFor(m => Model.Body, new {cols = 115, @rows = 15})</td>
+                </tr>
+                <tr>
+                    <td class="label">Is HTML:</td>
+                    <td class="field">@Html.CheckBoxFor(m => Model.IsHtml)</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+</div>

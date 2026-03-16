@@ -1,0 +1,63 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.CounterBookAccessDeniedDetail
+@{
+    ViewBag.Title = "Counter Book Access Denied Requests";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_Tabs")
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Book Access Denied Report</h1>
+        @if (Model.InstitutionId > 0)
+        {
+            @Html.Partial("_InstitutionInfo")
+        }
+        @if (Model.ActionsMenu != null)
+        {
+
+            using (Html.BeginForm("BookAccessDeniedRequests", "CounterReport", new { institutionId = Model.InstitutionId }, FormMethod.Post))
+            {
+	            @Html.Hidden("ReportQuery.InstitutionId", Model.ReportQuery.InstitutionId)
+                <div id="report-filters" class="tablecontent">
+                    <table class="edit">
+                        @Html.Partial("_Period")
+                        @Html.Partial("_LicenseTypeFilter")
+                        <tr>
+                            <td>
+                            </td>
+                            <td class="actions">
+                                <button class="btn-medium" type="submit">
+                                    <span>Run Report</span></button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+        }
+        @if (Model.ContainsReportResults())
+        {
+            @Html.Partial("_BookAccessDeniedRequests")
+        }
+        else
+        {
+            <p><strong>Sorry, but there are no reports for the given period.</strong></p>
+        }
+    </div>
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+	new R2V2.Admin.ToggleOptionalFields({ $container: $('#filter-date-range'), $trigger: $('#ReportQuery_Period'), action: 'change', triggerValue: 'UserSpecified' });
+    new R2V2.Admin.ToggleOptionalFields({ $container: $('#filter-ip-ranges'), $trigger: $('#ReportQuery_FilterByIpRanges'), action: 'click' });
+    new R2V2.Admin.DatePicker({$dateTextBox: $('#filter-date-range .input-daterange')});
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+
+	$('#save-report-submit').click(function() {
+		$(this).closest("form").attr("action", "/Admin/Report/SavedReport");
+	});
+}

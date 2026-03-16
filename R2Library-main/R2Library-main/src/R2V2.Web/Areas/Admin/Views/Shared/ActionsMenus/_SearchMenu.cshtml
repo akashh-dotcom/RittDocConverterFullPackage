@@ -1,0 +1,55 @@
+﻿@if (Model.SearchMenu != null)
+{
+    <li>
+        <a href="#browse-and-search" class="browse-and-search">Search</a>
+        <div id="browse-and-search" class="megamenu">
+            <div class="megasearch" data-panel="search">
+                @using (Html.BeginForm("Search"))
+                {
+                    <label for="admin-search">@Model.SearchMenu.Label:</label>
+                    <input type="text" name="query" id="admin-search" />
+                    if (null != ViewData["dropDown"])
+                    {
+                        <label for="admin-search-type">Type:</label>
+                        <select id="admin-search-type" name="searchType">
+                            @{
+                                var array = ViewData["dropDown"].ToString().Split('|');
+                            }
+                            @if (array != null)
+                            {
+                                foreach (var selection in array)
+                                {
+                                    <option value="@selection">@selection</option>
+                                }
+                            }
+                        </select>
+                    }
+                    <button type="submit"><span>Search</span></button>
+                    
+                    if (Model.SearchMenu.Query != null)
+                    {
+                        <input type="hidden" name="PurchasedOnly" value="@Model.SearchMenu.Query.PurchasedOnly"/>
+                        <input type="hidden" name="ReserveShelfId" value="@Model.SearchMenu.Query.ReserveShelfId"/>
+                        <input type="hidden" name="IncludePdaResources" value="@Model.SearchMenu.Query.IncludePdaResources"/>
+                        <input type="hidden" name="IncludePdaHistory" value="@Model.SearchMenu.Query.IncludePdaHistory"/>
+                        <input type="hidden" name="IncludeClinicalCornerstone" value="@Model.SearchMenu.Query.IncludeClinicalCornerstone" />
+                        <input type="hidden" name="IncludeFreeResources" value="@Model.SearchMenu.Query.IncludeFreeResources" />
+                        <input type="hidden" name="IncludeNoteworthyNursing" value="@Model.SearchMenu.Query.IncludeNoteworthyNursing" />
+                        <input type="hidden" name="IncludeBestOfYear" value="@Model.SearchMenu.Query.IncludeBestOfYear" />
+                        <input type="hidden" name="IncludeAjnBooks2015" value="@Model.SearchMenu.Query.IncludeAjnBooks2015" />
+                        <input type="hidden" name="IncludeNursingEssentials" value="@Model.SearchMenu.Query.IncludeNursingEssentials" />
+                        <input type="hidden" name="IncludeHospitalEssentials" value="@Model.SearchMenu.Query.IncludeHospitalEssentials" />
+                        <input type="hidden" name="IncludeMedicalEssentials" value="@Model.SearchMenu.Query.IncludeMedicalEssentials" />
+                        <input type="hidden" name="IncludeSpecialDiscounts" value="@Model.SearchMenu.Query.IncludeSpecialDiscounts"/>
+                        <input type="hidden" name="ReviewId" value="@Model.SearchMenu.Query.ReviewId"/>
+                        <input type="hidden" name="RecommendationsOnly" value="@Model.SearchMenu.Query.RecommendationsOnly"/>
+                        if ((int)Model.SearchMenu.Query.ResourceListType != 0)
+                        {
+                            <input type="hidden" name="ResourceListType" value="@Model.SearchMenu.Query.ResourceListType"/>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </li>
+}

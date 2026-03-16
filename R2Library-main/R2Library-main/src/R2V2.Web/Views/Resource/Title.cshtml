@@ -1,0 +1,56 @@
+﻿@model R2V2.Web.Models.Resource.ResourceDetail
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+	if (Model.ActionMenu != null)
+	 {
+		 @Html.Partial("_ActionsMenu")
+	}
+
+	<div class="onecol contentcontainer">
+		@if (Model.RecentlyReleasedResources != null)
+		{
+			@Html.Partial("_Public", Model)
+		}
+		else if (!Model.IsFullTextAvailable)
+		{
+			@Html.Partial("_TitleRequest", Model)
+		}
+		else
+		{
+			@Html.Partial("_Title", Model)
+		}
+	</div>
+}
+
+@section InlineModal
+{
+    @Html.Partial("_TurnawayModal", Model)
+}
+
+@section JsDocumentReady
+{
+	new R2V2.Resource.ActionsMenu({ $container: $('.actions-menu'), title: '@Html.Raw(Model.Title.Replace("'", "\\'"))', resourceId: @Model.Id, isbn: '@Model.Isbn', library: '@Model.PracticeArea' });
+	@if (Model.IsFullTextAvailable)
+	{
+		<text>new R2V2.Resource.SectionNav({ type: 'title', $container: $('.nav-section'), isbn: '@Model.Isbn' });</text>
+	}
+	new R2V2.Resource.Turnaway({ $container: $('#turnaway') });
+	@if (Model.Id > 0)
+	{
+		<text>new R2V2.Resource.PrintLogging({ static: true, endpoint: '@Html.Raw(Url.Action("PrintLog", new {isbn = Model.Isbn, section = Model.Section}))' });</text>
+	}
+
+	$('.content').tips();
+
+	new R2V2.Resource.SeeMoreLess({ $moreArray: $('.more') });
+}
+
+@section PrintCssIncludes
+{
+    <link rel="stylesheet" href="/_Static/Css/core/print-enabled.css" />
+}

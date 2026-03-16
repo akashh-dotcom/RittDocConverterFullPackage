@@ -1,0 +1,196 @@
+@using R2V2.Core.Resource
+@using R2V2.Web.Helpers
+@model R2V2.Web.Areas.Admin.Models.CollectionManagement.InstitutionResource
+           
+@{
+    var emailVersion = ViewData["EmailVersion"] as string;
+    var isEmailVersion = emailVersion == "true";
+
+    var doodyReviewUrl = ViewData["DoodyReviewUrl"] as string;
+}
+
+<div class="titleitem">
+    @if (!isEmailVersion)
+    {
+        <h2><a href="@Url.Action("Title", "Resource", new { Area = "", Model.Isbn })" data-toggle="collapse" data-target="#item-@Model.Isbn" id="click-@Model.Isbn-@Model.ListIndex">@Html.DisplayFor(modelItem => Model.Title)</a></h2>
+    }
+    else
+    {
+        <h2>@Html.DisplayFor(modelItem => Model.Title)</h2>
+    }
+    @Html.Raw(Model.SubTitleDisplay())
+    <ul>
+        <li>@Model.Authors</li>
+        <li>@Html.LabelFor(modelItem => Model.PublisherName) @Html.DisplayFor(modelItem => Model.PublisherName)</li>
+        <li>@Html.LabelFor(modelItem => Model.PublicationDate) @Html.DisplayFor(modelItem => Model.PublicationDate)</li>
+        <li>@Html.LabelFor(modelItem => Model.ReleaseDate) @Html.DisplayFor(modelItem => Model.ReleaseDate)</li>
+        @if (Model.DoodyReview == 1)
+        {
+            <li>@Html.LabelFor(modelItem => Model.DoodyRating)@Html.Generate5StarRating(@Model.DoodyRating) (<a href="@string.Format("{0}{1}", doodyReviewUrl, Model.Isbn13 ?? Model.Isbn)" class="external" target="_blank" data-toggle="window" data-target="review" data-specs="location=1,status=1,scrollbars=1,width=450">See Review</a>)</li>
+            @*<li><a href="@string.Format("{0}{1}", doodyReviewUrl, Model.Isbn13 ?? Model.Isbn)" class="external" target="_blank" data-toggle="window" data-target="review" data-specs="location=1,status=1,scrollbars=1,width=450">Doody&#8217;s Expert Review</a></li>*@
+        }
+        @if (Model.ShowLicenseCount)
+        {
+            if (Model.FirstPurchaseDate != null)
+            {
+                <li class="license-own">
+                    @Html.LabelFor(modelItem => Model.LicenseCount)
+                    @PurchaseHelper.GetLicenseDisplay(Model)
+                </li>
+                <li>@Html.LabelFor(modelItem => Model.FirstPurchaseDate) @Html.DisplayFor(modelItem => Model.FirstPurchaseDate)</li>
+            }
+        }
+        <li class="license-cart">@Html.DisplayFor(x => x.SpecialText)</li>
+        @PurchaseHelper.GetCartLicenseCountDisplay(Model)
+        @if (Model.PdaCreatedDate != null)
+        {
+            if (Model.PdaRuleAddedDate != null)
+            {
+                <li class="first license-pda">@Html.LabelFor(modelItem => Model.PdaRuleAddedDate) @Html.DisplayFor(modelItem => Model.PdaRuleAddedDate)</li>
+            }
+            else
+            {
+                <li class="first license-pda">@Html.LabelFor(modelItem => Model.PdaCreatedDate) @Html.DisplayFor(modelItem => Model.PdaCreatedDate)</li>
+            }
+
+            if (Model.ResourceNotSaleableDate != null)
+            {
+                <li class="license-pda">@Html.LabelFor(modelItem => Model.PdaAccessCount) withdrawn by publisher @Html.DisplayFor(x => x.ResourceNotSaleableDate)</li>
+            }
+            else
+            {
+                <li class="license-pda">@Html.LabelFor(modelItem => Model.PdaAccessCount) @Html.DisplayFor(modelItem => Model.PdaAccessCount)</li>
+            }
+        }
+        @if (Model.PdaAddedToCartDate != null && Model.PdaCartDeletedDate == null)
+        {
+            <li class="license-pda">@Html.LabelFor(modelItem => Model.PdaAddedToCartDate) @Html.DisplayFor(modelItem => Model.PdaAddedToCartDate)</li>
+        }
+        @if (Model.PdaResourceArchived)
+        {
+            <li class="license-own">Title was archived and removed from PDA Collection.</li>
+        }
+        @if (Model.PdaCartItemExpired)
+        {
+            <li class="license-own">Title was removed from cart after 30 days.</li>
+        }
+
+        @if (Model.PdaDeletedDate != null && !Model.PdaResourceArchived)
+        {
+            <li class="license-own">Manually removed prior to trigger event. Still eligible for PDA.</li>
+        }
+        else if (Model.PdaCartDeletedDate != null)
+        {
+            <li class="license-own">Manually removed from cart @Html.DisplayFor(modelItem => Model.PdaCartDeletedDate). Not eligible for PDA.</li>
+        }
+
+        @for (var i = 0; i < Model.Recommendeds.Count; i++)
+        {
+            var recommended = Model.Recommendeds[i];
+            if (recommended.PurchaseDate != null)
+            {
+                <li @Html.Raw(i == 0 ? "class=\"first license-pda\"" : "class=\"license-pda\"")>
+                    @*@Html.LabelFor(model => recommended.PurchaseDate) @Html.DisplayFor(model => recommended.PurchaseDate)
+                        by @Html.DisplayFor(model =>recommended.PurchasedByUser.FirstName) @Html.DisplayFor(model => recommended.PurchasedByUser.LastName)
+                        [@Html.DisplayFor(model =>recommended.PurchasedByUser.Department)]*@
+                    @Html.Partial("_ResourceRecommendNote", recommended)
+                </li>
+            }
+            else if (recommended.AddedToCartDate != null)
+            {
+                <li @Html.Raw(i == 0 ? "class=\"first license-pda\"" : "class=\"license-pda\"")>
+                    @*@Html.LabelFor(model =>recommended.AddedToCartDate) @Html.DisplayFor(model =>recommended.AddedToCartDate)
+                        by @Html.DisplayFor(model =>recommended.AddedToCartByUser.FirstName) @Html.DisplayFor(model =>recommended.AddedToCartByUser.LastName)
+                        [@Html.DisplayFor(model =>recommended.AddedToCartByUser.Department)]*@
+                    @Html.Partial("_ResourceRecommendNote", recommended)
+                </li>
+            }
+            else if (recommended.DeletedDate != null)
+            {
+                <li @Html.Raw(i == 0 ? "class=\"first license-pda\"" : "class=\"license-pda\"")>
+                    @*@Html.LabelFor(model =>recommended.DeletedDate) @Html.DisplayFor(model =>recommended.DeletedDate)
+                        by @Html.DisplayFor(model =>recommended.DeletedByUser.FirstName) @Html.DisplayFor(model =>recommended.DeletedByUser.LastName)
+                        [@Html.DisplayFor(model =>recommended.DeletedByUser.Department)]*@
+                    @Html.Partial("_ResourceRecommendNote", recommended)
+                </li>
+            }
+            else
+            {
+                <li @Html.Raw(i == 0 ? "class=\"first license-pda\"" : "class=\"license-pda\"")>
+                    @*@Html.LabelFor(model => recommended.CreationDate) @Html.DisplayFor(model => recommended.CreationDate)
+                        by @Html.DisplayFor(model => recommended.ExpertReviewerUser.FirstName) @Html.DisplayFor(model => recommended.ExpertReviewerUser.LastName)
+                        [@Html.DisplayFor(model => recommended.ExpertReviewerUser.Department)]*@
+                    @Html.Partial("_ResourceRecommendNote", recommended)
+                </li>
+            }
+        }
+
+        @if (Model.ConcurrentTurnawayCount > 0)
+        {
+            <li class="license-own">@Html.LabelFor(modelItem => Model.ConcurrentTurnawayCount) @Html.DisplayFor(modelItem => Model.ConcurrentTurnawayCount)</li>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.PublisherProductStatement))
+        {
+            <li class="product-statement">@Html.Raw(Model.PublisherProductStatement)</li>
+        }
+    </ul>
+    <div id="item-@Model.Isbn" class="collapse title-detail">
+        <div class="clearfix">
+            <div class="title-image"><img alt="@Model.Title" src="@Model.ImageUrl" /></div>
+
+            <div class="title-meta">
+                <ul>
+                    <li><strong>Affiliation: </strong>@Html.Raw(Model.Affiliation)</li>
+                    @if (Model.StatusId == (int)ResourceStatus.Forthcoming)
+                    {
+                        <li>@Html.LabelFor(modelItem => Model.DueDate)@Html.DisplayFor(modelItem => Model.DueDate)</li>
+                    }
+                    @if (Model.PracticeAreas != null && Model.PracticeAreas.Any())
+                    {
+                        var firstPracticeArea = true;
+                        <li>
+                            @Html.LabelFor(modelItem => Model.PracticeAreas)
+                            @foreach (var practiceArea in Model.PracticeAreas)
+                            {
+                                @(firstPracticeArea ? "" : ", ")@practiceArea.Name
+                                firstPracticeArea = false;
+                            }
+                        </li>
+                    }
+                    @if (Model.Specialties != null && Model.Specialties.Any())
+                    {
+                        var firstSpecialty = true;
+                        <li>
+                            @Html.LabelFor(modelItem => Model.Specialties)
+                            @foreach (var specialty in Model.Specialties)
+                            {
+                                @(firstSpecialty ? "" : ", ")@specialty.Name
+                                firstSpecialty = false;
+                            }
+                        </li>
+                    }
+                    <li>@Html.LabelFor(modelItem => Model.Isbn10) @Html.DisplayFor(modelItem => Model.Isbn10)</li>
+                    <li>@Html.LabelFor(modelItem => Model.Isbn13) @Html.DisplayFor(modelItem => Model.Isbn13)</li>
+                    @if (Model.EIsbn != null)
+                    {
+                        <li>@Html.LabelFor(modelItem => Model.EIsbn) @Html.DisplayFor(modelItem => Model.EIsbn)</li>
+                    }
+                    <li>@Html.LabelFor(modelItem => Model.Edition) @Html.DisplayFor(modelItem => Model.Edition)</li>
+                    @if (!string.IsNullOrWhiteSpace(Model.OriginalSourceString))
+                    {
+                        <li>@Html.LabelFor(modelItem => Model.OriginalSource) @Html.DisplayFor(modelItem => Model.OriginalSourceString)</li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <p>@Model.ResourceDescription</p>
+
+        @if (!isEmailVersion)
+        {
+            <p><strong><a href="@Url.Action("Title", "Resource", new { Area = "", Model.Isbn })" target="_blank" data-toggle="window">View Full Detail</a></strong></p>
+            <p><strong><a href="@Url.Action("Resource", "MarcExport", new { InstitutionId = Model.InstitutionId, Model.Isbn })" target="_blank" data-toggle="window" data-specs="location=1,status=1,scrollbars=1,height=300,width=475">Marc Export</a></strong></p>
+        }
+    </div>
+</div>

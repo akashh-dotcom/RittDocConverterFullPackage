@@ -1,0 +1,33 @@
+﻿@using R2V2.Web
+@model R2V2.Web.Models.Resource.ResourceDetail
+@{
+    var doodyCoreTitle = Model.DctStatusId == 158;
+    var essentialDoodyCoreTitle = Model.DctStatusId == 159;
+    var brandonHillSelection = Model.BrandonHillStatus == 1;
+    var hasDoodyReview = Model.DoodyReviewUrl != null;
+}
+
+@if (doodyCoreTitle || essentialDoodyCoreTitle || brandonHillSelection)
+{
+    <div class="resource-types">
+        @if (doodyCoreTitle)
+        {
+            <a rel="tooltip" title="@Resources.DoodyCoreTitle"><img src="@Url.Content("/_Static/Images/logos/Doody.jpg")" alt="" width="28" height="28" /></a>
+        }
+        @if (essentialDoodyCoreTitle)
+        {
+            <a rel="tooltip" title="@Resources.EssentialDoodyCoreTitle"><img src="@Url.Content("/_Static/Images/logos/EssentialDoody.jpg")" alt="" width="28" height="28" /></a>
+        }
+        @if (brandonHillSelection)
+        {
+            <a rel="tooltip" title="@Resources.BrandonHillSelection"><img src="@Url.Content("/_Static/Images/logos/BH.jpg")" alt="" width="28" height="28" /></a>
+        }
+    </div>    
+}
+
+@if (hasDoodyReview)
+{
+    <div class="resource-reviews">
+        <a href="@Model.DoodyReviewUrl" class="external" target="_blank" data-toggle="window" data-target="review" data-specs="location=1,status=1,scrollbars=1,width=450">Doody&#8217;s Expert Review</a>
+    </div>
+}

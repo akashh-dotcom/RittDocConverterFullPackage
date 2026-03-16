@@ -1,0 +1,68 @@
+﻿@model R2V2.Web.Areas.Admin.Models.ProductSubscription.ProductSubscriptions
+
+@{
+    ViewBag.Title = "Product Subscription";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>@Model.Product.Name</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+        
+        
+        <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+            <ul class="actions">
+                <li><a href="@Url.Action("Add", new { id = Model.InstitutionId, productId = Model.Product.Id })" class="btn btn-medium"><span>Add Precision Search</span></a></li>
+            </ul>
+        </div></div>
+    
+        @if (Model.Subscriptions != null && Model.Subscriptions.Any())
+        {
+            <div class="tablecontent">
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var productSubscription in Model.Subscriptions)
+                        {
+                            <tr>
+                                <td>@productSubscription.StartDate</td>
+                                <td>@productSubscription.EndDate</td>
+                                <td>@productSubscription.ProductSubscriptionStatus</td>
+                                <td class="actions">
+                                    <a href="@Url.Action("Edit", new { institutionId = Model.InstitutionId, productSubscription.Id })" class="btn btn-medium"><span>Edit</span></a> 
+                                    <a href="@Url.Action("Delete", new { institutionId = Model.InstitutionId, productSubscription.Id })" class="btn btn-medium"><span>Delete</span></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p><strong>No @Model.Product.Name Subscriptions Available.</strong></p>
+        }
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

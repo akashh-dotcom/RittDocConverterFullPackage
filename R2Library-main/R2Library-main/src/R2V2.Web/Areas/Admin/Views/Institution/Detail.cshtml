@@ -1,0 +1,163 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Institution.Institution
+@{
+    ViewBag.Title = "Institution Detail";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Profile</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+        
+        <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+            <ul class="actions">
+                <li><a href="@Url.Action("Edit", new { id = Model.InstitutionId })" class="btn btn-medium"><span>Edit Institution</span></a></li>
+            </ul>
+        </div></div>
+
+        <div class="tablecontent">
+            <table class="detail">
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.AccountStatus)</td>
+                    <td class="field">@Html.DisplayFor(x => x.AccountStatus.Description)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.TrialEndDate)</td>
+                    <td class="field">@Html.DisplayFor(x => x.TrialEndDate)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.InstitutionName)</td>
+                    <td class="field">@Html.DisplayFor(x => x.InstitutionName)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.AccountNumber)</td>
+                    <td class="field">@Html.DisplayFor(x => x.AccountNumber)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.AnnualFeeDate)</td>
+                    <td class="field">@Html.DisplayFor(x => x.AnnualFeeDate)</td>
+                </tr>
+                @if (Model.IsRittenhouseAdmin || Model.IsSalesAssociate)
+                {
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => x.InstitutionTerritory.Name)</td>
+                        <td class="field">@Html.DisplayFor(x => x.InstitutionTerritory.Name)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => x.Type)</td>
+                        <td class="field">@Html.DisplayFor(x => x.Type.Name)</td>
+                    </tr>
+                }
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.Address)</td>
+                    <td class="field">
+                        @Html.DisplayFor(x => x.Address.Address1) <br />
+                        @if (!string.IsNullOrWhiteSpace(Model.Address.Address2))
+                        {
+                            @Html.DisplayFor(x => x.Address.Address2)<br />
+                        }
+                        @Html.DisplayFor(x => x.Address.City),
+                        @Html.DisplayFor(x => x.Address.State)
+                        @Html.DisplayFor(x => x.Address.Zip)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.DisplayAllProductsText)</td>
+                    <td class="field">@Html.DisplayFor(x => x.DisplayAllProductsText)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.IncludeArchivedTitlesByDefaultText)</td>
+                    <td class="field">@Html.DisplayFor(x => x.IncludeArchivedTitlesByDefaultText)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.HomePage)</td>
+                    <td class="field">@Html.DisplayFor(x => x.HomePage.Description)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.EnableHomePageCollectionLink)</td>
+                    <td class="field">@Html.DisplayFor(x => x.EnableHomePageCollectionLinkText)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.AccessType)</td>
+                    <td class="field">@Html.DisplayFor(x => x.AccessType.Description)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.HouseAccountText)</td>
+                    <td class="field">@Html.DisplayFor(x => x.HouseAccountText)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.EnableExpertReviewerUserText)</td>
+                    <td class="field">@Html.DisplayFor(x => x.EnableExpertReviewerUserText)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.OclcSymbol)</td>
+                    <td class="field">@Html.DisplayFor(x => x.OclcSymbol)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.Discount)</td>
+                    <td class="field">@Html.DisplayFor(x => x.Discount)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.TrustedKey)</td>
+                    <td class="field">@Html.DisplayFor(x => x.TrustedKey)</td>
+                </tr>
+                <tr>
+                    <td class="label">Trusted Authentication Service:</td>
+                    <td class="field">@Html.ActionLink("View", "List", "WebServiceAuthentication", new { institutionId = Model.InstitutionId }, null)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.AthensAffiliation)</td>
+                    @if (string.IsNullOrWhiteSpace(Model.AthensAffiliation))
+                    {
+                        <td class="field">@Html.DisplayFor(x => x.AthensAffiliation)</td>
+                    }
+                    else
+                    {
+                        <td class="field athens-fixed-width">@Html.DisplayFor(x => x.AthensAffiliation)</td>
+                    }
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.LogUrl)</td>
+                    <td class="field">@Html.DisplayFor(x => x.LogUrl)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.ProxyPrefix)</td>
+                    <td class="field">@Html.DisplayFor(x => x.ProxyPrefix)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.AdministratorName)</td>
+                    @if (Model.AdministratorUserId != 0)
+                    {
+                        <td class="name">@Html.ActionLink(Model.AdministratorName, "Edit", "User", new { institutionId = Model.InstitutionId, id = Model.AdministratorUserId }, null)</td>
+                    }
+                    else
+                    {
+                        <td class="field">@Html.DisplayFor(x => x.AdministratorName)</td>
+                    }
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.AdministratorEmail)</td>
+                    <td class="field">@Html.DisplayFor(x => x.AdministratorEmail)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.EnableIpPlus)</td>
+                    <td class="field"><a class="slide-title-link" rel="tooltip" title="IP Plus allows institutions who share an IP address(s) to authenticate to their own individual collection. For more information, please contact customerservice@r2library.com">@Html.DisplayFor(x => x.EnableIpPlusText)</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

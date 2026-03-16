@@ -1,0 +1,33 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Special.SpecialList
+@{
+    ViewBag.Title = "Resource Specials List";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@*<div class="clearfix fullcol contentcontainer">*@
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Specials List</h1>
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><a href="@Url.Action("Add")" class="btn btn-medium"><span>Add New Special</span></a></li>
+                </ul>                              
+            </div>
+        </div>
+
+        @Html.Partial("_List")
+
+    </div>
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

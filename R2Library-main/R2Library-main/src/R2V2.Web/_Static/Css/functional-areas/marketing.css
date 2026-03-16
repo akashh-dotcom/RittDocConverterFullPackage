@@ -1,0 +1,254 @@
+﻿/* ==========================================================================
+	Marketing Home
+   ========================================================================== */
+
+.marketing.home .content {
+	line-height: 1.3571;
+    }
+.marketing.home .contentcontainer {
+	font-size: 0.875em; /* 14px / 16px */
+    }
+
+
+/*
+ * Hero
+ */
+.marketing .hero {
+    border: 0; border-bottom: 2px solid #E2E2E2; padding: 35px 444px 0 35px; width: 479px; height: 220px;
+    background: transparent url(../images/hero/marketing.jpg) 0 0 no-repeat;
+    font-size: 1.2142em; /* 17px / 14px */
+    }
+
+	.marketing .slider .hero {
+		padding: inherit;
+		height: inherit;
+		}
+    
+    .marketing .hero p {
+	    font-size: 1em;
+	    }
+    
+	.marketing .hero a.btn {
+		margin-top: 20px;
+	    }
+	    .marketing .hero a.btn strong {
+	        padding: 0 28px 0 0;
+		    background: transparent url(../images/icons/doublearrow.png) 100% .25em no-repeat;
+	        font-weight: normal;
+	        }
+#intro {
+	font-family: Georgia,Times,"Times New Roman",serif;
+}
+#intro h1{
+    margin: 0;
+    font-family: "Helvetica Neue",Helvetica,sans-serif;
+    font-size: 1.25em;
+    font-weight: bold;
+    /*color: #af1b3f;*/
+}
+#intro p {
+    font-family: Georgia,Times,"Times New Roman",serif;
+    margin: 7px 0 0;
+}
+
+a.btn-intro {
+    float: right;
+}
+/*
+ * Promobox
+ */
+.promobox {
+    display: flex;
+    flex-direction: row;
+	clear: both;
+    margin: 30px 0 0; padding: 10px; border: 1px dashed #9d9d9d;
+	background: url(../images/layout/bg-promobox.jpg) repeat-x 0 0 #FFF;
+	line-height: 1.2;
+    }
+	.contentcontainer > .promobox {
+		margin: 30px 50px 30px 49px;
+		line-height: 1.2857; /* 18px / 14px */
+	    }
+
+    .promobox .promoimage {
+        order: 1;
+        }
+        .promobox .promoimage img {
+            border: 1px solid #9A9A9A;
+            }
+
+    .promobox .promoboxcontent {
+        order: 2;
+        }
+	
+	.promobox--media .promoimage {
+		margin-right: 14px;
+		}
+		
+	.marketing.home .promobox h2 {
+		font-weight: bold; font-size: 1.1428em; /* 16px / 14px */ font-family: "Helvetica Neue", Helvetica, sans-serif;
+		}
+	.marketing.home .content .promobox h2 {
+		font-size: 1.0714em; /* 15px / 14px */
+	    }
+	    
+		.promobox h2 a {
+		    padding: 0 22px 0 0;
+		    background: transparent url(../images/icons/doublearrow.blue.png) 100% .3em no-repeat;
+			text-decoration: underline;
+		    }
+		    
+		    .promobox h2 a img {
+			    position: relative;
+			    display: inline-block; vertical-align: middle;
+			    margin-top: -.5ex; margin-left: 10px;
+		        }
+		    .ie7 .promobox h2 a img {
+		        margin-top: 0;
+		        }
+		
+		.promobox h2 + p {
+			margin-top: 10px;
+		    }
+			.promobox--media .promoboxcontent h2 + p {
+				margin-top: 0;
+			    }
+
+
+/*
+ * Image Grid
+ */
+.imagegrid {
+	position: relative;
+	margin-right: -10px;
+    }
+    
+	.imagegrid img {
+		display: inline-block; vertical-align: top;
+		margin: 5px 9px 5px 0; border: 2px solid #C0BDAF; width: auto; max-height: 77px;
+		}
+
+.marketing.home .two-columns .column {
+	margin-left: 12%; width: 42%;
+	}
+	.marketing.home .two-columns .column:first-child {
+		margin-left: 2%;
+	    }
+	    
+.marketing.home .content ul li {
+	padding-left: 14px;
+	background-image: url(../images/icons/ul-bullet-level1.marketing.gif); background-position: 0 .5em;
+    }
+
+
+/*
+ * Questions
+ */
+.questions {
+	margin-top: 30px;
+	line-height: 1.2857; /* 18px / 14px */
+    }
+    
+	.questions h2 {
+		padding-bottom: 3px; border-bottom: 4px solid #BEBEBE;
+		}
+		.questions h2 + * {
+			margin-top: 2px !important; padding-top: 5px; border-top: 1px solid #BEBEBE;
+			}
+			
+	.questions h3 {
+		position: relative;
+		margin: 30px -5px 0; padding: 0 0 2px 5px; border-bottom: 1px solid #BEBEBE;
+		font-style: italic;
+	    }
+		.questions h3:first-child {
+			margin-top: 0;
+		    }
+
+
+/*
+ * Sidebar callouts
+ */
+.callout {
+    padding: 5px 20px 25px;
+    /*padding: 5px 20px 10px;*/
+    background-color: #FFF;
+    font-size: 0.9285em; /* 13px / 14px */
+    line-height: 1.3846; /* 18px / 13px */
+}
+	
+	.callout h2 {
+		position: relative;
+		margin: 0 -15px 0; padding: 3px 15px 1px;
+		background-color: #E0E0E0;
+		font-weight: bold; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 1.0769em; /* 14px / 13px */
+		}
+		.callout h2 + * {
+			margin-top:  20px;
+		    }
+			.callout h2 + .featuredtitle {
+				margin-top: 15px;
+			}
+	
+	.callout h3 {
+		font-size: 1.0769; /* 14px / 13px */ text-transform: uppercase;
+	    }
+
+.richText {
+    font-style: normal;
+    width: 97.5%;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 10px !important;
+    /*padding-right: 10px !important;*/
+    /*background-color: white;*/
+}
+    .richText ol {
+        margin-left: 1.5em;
+        list-style-position: inside;
+    }
+    .richText ul {
+        list-style: disc;
+        list-style-position: inside;
+        margin-left: 1.5em;
+    }
+.richText ul li {
+    background: none;
+    padding: 0;
+}
+
+    .richText p {
+        margin: 0;
+        display: block !important;
+    }
+    .richText .ql-align-center {
+        text-align: center;
+    }
+    .richText img, .ql-editor img {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+
+    .richText .ql-align-right {
+        text-align: right;
+    }
+    .richText .ql-align-left {
+        text-align: left;
+    }
+    .richText .ql-align-justify {
+        text-align: justify;
+    }
+/*
+ * Featured Title callout
+ */
+.featuredtitle img {
+    position: relative;
+    float: left;
+    margin: 5px 7px 0 0;
+    border: 4px solid #B8B5A5;
+}
+    
+.featuredtitle .featuredtitlecontent {
+	line-height: 1.2;
+	}

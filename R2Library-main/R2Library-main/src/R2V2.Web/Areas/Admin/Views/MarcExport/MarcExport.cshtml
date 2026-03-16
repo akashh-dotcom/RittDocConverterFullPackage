@@ -1,0 +1,86 @@
+﻿@model R2V2.Web.Areas.Admin.Models.MarcRecordExport
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>R2 Library Marc Download</title>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+      
+      <style>
+          body {
+              background: #B1D2ED url(_Static/images/layout/bg-body.jpg) repeat 0 0;
+          }
+
+          #popupContent h2 {
+              font-family: Georgia, Times, "Times New Roman", serif;
+              font-size: 1.55em;
+              color: #3E3E3E;
+          }
+
+          #popupContent {
+              margin-top: 50px;
+              margin-left: 20px;
+          }
+
+          #popupContent p {
+              font-family: "Helvetica Neue", Helvetica, sans-serif;
+              font-size: 12px;
+          }
+          #popupContent p:first-child {
+              font-size: 13px;
+              font-weight: bold;
+          }
+
+        /*
+         * Medium form button
+         */
+        #popupContent button.btn-medium {
+	        position: relative;
+	        overflow: visible;
+	        padding: 0 0 0 4px !important; border: none; height: 23px;
+	        background: url(/_Static/images/buttons/sprite-black-left.med.png) no-repeat 0 0 transparent;
+	        cursor: pointer;
+            margin-left: 160px;
+            margin-top: 15px;
+	        }
+
+	        #popupContent button.btn-medium span {
+		        position: relative;
+		        display: block;
+		        margin-left: -2px; padding: 0 12px 0 8px; height: 23px;
+		        line-height: 23px !important;
+		        background: url(/_Static/images/buttons/sprite-black-right.med.png) no-repeat 100% 0;
+		        font-size: 11px; font-size: 0.6875rem; /* 11px / 16px */ color: #FFF !important; text-decoration: none !important; text-transform: uppercase;
+		        white-space: nowrap;
+	            }
+		
+        #popupContent button.btn-medium:hover {
+	        background-position: 0 -100px;
+	        }
+
+	        #popupContent button.btn-medium:hover span {
+		        background-position: 100% -100px;
+		        }
+
+      </style>
+  </head>
+
+  <body>
+      <div id="popupContent">
+          <h2>Export to MARC</h2>
+          <p>Closing this window before you get the file will terminate the request.</p>
+          <p>You may continue using R2library.com while your request is processing.</p>          
+          <button class="btn btn-medium" onclick="window.close(); return false;"><span>Close</span></button>
+      </div>      
+    <form action="@Model.Url" method="POST" name="myForm" > 
+      <input type="hidden" value="@Model.MarcRecordRequestString" name="jsonMarcRecordRequestString">
+    </form>
+
+      <script type="text/javascript">
+          $(document).ready(function () {
+              document.forms['myForm'].submit();              
+          });
+    </script>
+
+  </body>

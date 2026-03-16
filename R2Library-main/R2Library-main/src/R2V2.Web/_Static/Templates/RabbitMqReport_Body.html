@@ -1,0 +1,37 @@
+<p>
+	<table>
+		<thead style="font-size: 16px;">
+			<tr>
+				<td align="center" colspan="3">Report Date:&nbsp;<b>{Date_Run}</b></td>
+			</tr>
+			<tr>
+				<td align="center" colspan="3">Total Instances:&nbsp;<b>{Instances_Count}</b></td>
+			</tr>
+			<tr>
+				<td align="center" colspan="3">Total Queues:&nbsp;<b>{Queues_Count}</b></td>
+			</tr>
+		<tr>
+		    <td>&nbsp;</td>
+		    <td align="center" style="{Queues_Error_Count_Style}; width: 230px;">Queues With Messages:&nbsp;<b>{Queues_With_Messages_Count}</b></td>
+            <td>&nbsp;</td>
+		</tr>
+		</thead>
+	</table>
+</p>
+		
+<div class="tablecontent">
+	<table>
+		<thead>
+			<tr>
+				 <th class="status">Host</th>
+				 <th class="details">Queue Name</th>
+				 <th class="details">Idle Since</th>
+				 <th class="details">Total Published (since service start)</th>
+				 <th class="price">Messages Not Processed</th> 
+			 </tr> 
+		</thead> 
+		<tbody>
+			{Host_Items}
+		<tbody>
+	</table>
+</div>

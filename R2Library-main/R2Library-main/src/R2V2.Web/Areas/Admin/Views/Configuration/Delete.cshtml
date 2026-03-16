@@ -1,0 +1,61 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Configuration.ConfigurationSettingModel
+
+@{
+    ViewBag.Title = "Delete Configuration Setting";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="content collection-manage">
+    <div class="modal-header">
+        <h1>Delete Configuration Setting</h1>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+
+    <div class="modal-body">
+
+        @if (Model.Setting != null)
+        {
+            <div id="bulk-add-area">
+                <h3>Are you sure you want to Delete the following setting?</h3>
+                <ul>
+                    <li>@Html.LabelFor(x => x.Setting.Configuration): @Html.DisplayFor(x => x.Setting.Configuration)</li>
+                    <li>@Html.LabelFor(x => x.Setting.Setting): @Html.DisplayFor(x => x.Setting.Setting)</li>
+                    <li>@Html.LabelFor(x => x.Setting.Key): @Html.DisplayFor(x => x.Setting.Key)</li>
+                    <li>@Html.LabelFor(x => x.Setting.Value): @Html.DisplayFor(x => x.Setting.Value)</li>
+                    <li>@Html.LabelFor(x => x.Setting.Description): @Html.DisplayFor(x => x.Setting.Description)</li>
+                </ul>
+            </div>
+            <br/>
+
+            using (Html.BeginForm("Delete"))
+            {
+                @Html.HiddenFor(x => x.Setting.Id)
+                @Html.HiddenFor(x => x.LiveSettings)
+                @Html.HiddenFor(x=> x.BackLinkUrl)
+
+                <div class="actions">
+                    <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+                    <button class="btn-medium" type="submit" data-dismiss="modal"><span>Delete</span></button>
+                </div>
+            }
+        }
+        else
+        {
+            <div>
+                <p>The Configuration Setting has been removed.</p>
+                <div class="actions">
+                    <a class="cancel" data-dismiss="navigation" href="@Model.BackLinkUrl">Close</a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.Configuration({ parent: window.parent, $dismiss: $('a[data-dismiss="modal"]')});
+    new R2V2.Admin.Configuration({ parent: window.parent, $dismiss: $('a[data-dismiss="navigation"]')});
+}

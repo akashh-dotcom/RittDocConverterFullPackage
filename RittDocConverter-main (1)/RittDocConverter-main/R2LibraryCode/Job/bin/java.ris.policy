@@ -1,0 +1,12 @@
+grant {
+  permission java.net.SocketPermission "*:1-65535", "connect";
+  
+  permission java.io.FilePermission "<<ALL FILES>>", "read, write, delete";
+  
+  permission java.util.PropertyPermission "java.home", "read";
+  permission java.util.PropertyPermission "user.dir", "read";
+  permission java.util.PropertyPermission "file.encoding", "read";
+  
+  permission java.lang.RuntimePermission "accessClassInPackage.sun.io";
+  
+ };

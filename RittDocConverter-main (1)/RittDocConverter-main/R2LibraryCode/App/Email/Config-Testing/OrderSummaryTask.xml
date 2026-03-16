@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RittenhouseWebLoader>
+	<EmailConfigurations>
+		<!-- Email config for in task emails, example: reports -->
+		<EmailConfiguration type="Task" send="true">
+			<ToAddresses>
+				<EmailAddress>thomas.bradford@rittenhouse.com</EmailAddress>
+				<EmailAddress>ipsita.de@rittenhouse.com</EmailAddress>
+				<EmailAddress>kevin.ream@rittenhouse.com</EmailAddress>
+				<EmailAddress>marilyn.bruff@rittenhouse.com</EmailAddress>	
+			</ToAddresses>
+		</EmailConfiguration>
+		<!-- Email config end of task emails on success -->
+		<!-- Email config end of task emails on error -->
+		<EmailConfiguration type="Error" send="true">
+			<ToAddresses>
+				<EmailAddress>thomas.bradford@rittenhouse.com</EmailAddress>
+			</ToAddresses>
+		</EmailConfiguration>
+	</EmailConfigurations>
+</RittenhouseWebLoader>

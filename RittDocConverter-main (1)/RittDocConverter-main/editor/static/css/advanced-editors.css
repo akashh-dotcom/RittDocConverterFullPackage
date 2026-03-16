@@ -1,0 +1,748 @@
+/* Advanced Math Equation Editor and Table Editor Styles */
+
+/* ============================================================================
+   MATH EQUATION EDITOR
+   ============================================================================ */
+
+#mathEquationDialog {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.math-dialog-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.math-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.math-dialog-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.math-dialog-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.math-dialog-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.math-dialog-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.math-dialog-footer {
+    padding: 16px 20px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Math Input Section */
+.math-input-section {
+    margin-bottom: 20px;
+}
+
+.math-input-section label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+#mathLatexInput {
+    width: 100%;
+    height: 80px;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    resize: vertical;
+    transition: border-color 0.2s;
+}
+
+#mathLatexInput:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Math Preview */
+.math-preview-section {
+    margin-bottom: 20px;
+}
+
+.math-preview-section label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+#mathPreview {
+    min-height: 60px;
+    padding: 20px;
+    background: #f8fafc;
+    border: 2px dashed #e2e8f0;
+    border-radius: 8px;
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#mathPreview .placeholder {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+/* Math fraction styling */
+.math-frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 3px;
+}
+
+.math-frac .math-num {
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+}
+
+.math-frac .math-den {
+    padding-top: 2px;
+}
+
+.math-equation {
+    display: inline-block;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    padding: 2px 4px;
+}
+
+/* Math Templates Grid */
+.math-templates-section {
+    margin-bottom: 20px;
+}
+
+.math-templates-section h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 10px;
+}
+
+.math-templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 8px;
+}
+
+.math-template-btn {
+    padding: 10px 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.math-template-btn:hover {
+    background: #f3f4f6;
+    border-color: #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.math-template-btn .template-symbol {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.math-template-btn .template-label {
+    font-size: 10px;
+    color: #6b7280;
+}
+
+/* Math Symbols Tabs */
+.math-symbols-tabs {
+    display: flex;
+    border-bottom: 2px solid #e2e8f0;
+    margin-bottom: 15px;
+}
+
+.math-symbols-tab {
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    color: #6b7280;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+}
+
+.math-symbols-tab:hover {
+    color: #374151;
+    background: #f8fafc;
+}
+
+.math-symbols-tab.active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+}
+
+/* Math Symbols Grid */
+.math-symbols-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    gap: 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 4px;
+}
+
+.math-symbol-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.math-symbol-btn:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+
+/* ============================================================================
+   TABLE EDITOR
+   ============================================================================ */
+
+/* Editable table styling */
+.editable-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.editable-table td,
+.editable-table th {
+    position: relative;
+    min-width: 50px;
+}
+
+.editable-table td:focus,
+.editable-table th:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: -2px;
+}
+
+/* Cell selection */
+.cell-selected {
+    background-color: rgba(59, 130, 246, 0.2) !important;
+    outline: 2px solid #3b82f6 !important;
+    outline-offset: -2px;
+}
+
+/* Table context menu */
+.table-context-menu {
+    display: none;
+    position: fixed;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    z-index: 10001;
+    min-width: 200px;
+    padding: 8px 0;
+    overflow: hidden;
+}
+
+.context-menu-group {
+    padding: 4px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.context-menu-group:last-child {
+    border-bottom: none;
+}
+
+.context-menu-title {
+    padding: 4px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #9ca3af;
+    letter-spacing: 0.5px;
+}
+
+.context-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    color: #374151;
+    text-align: left;
+    transition: background 0.15s;
+}
+
+.context-menu-item:hover {
+    background: #f3f4f6;
+}
+
+.context-menu-item i {
+    width: 16px;
+    color: #6b7280;
+}
+
+.context-menu-item.danger {
+    color: #dc2626;
+}
+
+.context-menu-item.danger i {
+    color: #dc2626;
+}
+
+.context-menu-item.danger:hover {
+    background: #fef2f2;
+}
+
+/* Insert Table Dialog */
+#insertTableDialog {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.insert-table-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 600px;
+    overflow: hidden;
+}
+
+.insert-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+
+.insert-table-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.insert-table-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.insert-table-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.insert-table-body {
+    padding: 20px;
+}
+
+.insert-table-footer {
+    padding: 16px 20px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Table settings form */
+.table-settings-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.table-settings-group {
+    flex: 1;
+}
+
+.table-settings-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+.table-settings-group input[type="number"],
+.table-settings-group input[type="text"],
+.table-settings-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.table-settings-group input:focus,
+.table-settings-group select:focus {
+    outline: none;
+    border-color: #10b981;
+}
+
+.table-checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.table-checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
+.table-checkbox-group label {
+    font-size: 14px;
+    color: #374151;
+}
+
+/* Table Preview Grid */
+#tablePreviewGrid {
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.table-preview-grid {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-preview-grid td,
+.table-preview-grid th {
+    border: 1px solid #d1d5db;
+    padding: 8px;
+    min-width: 30px;
+    min-height: 30px;
+}
+
+.table-preview-grid th {
+    background: #e5e7eb;
+}
+
+.preview-note {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #6b7280;
+    text-align: center;
+}
+
+/* Cell Properties Dialog */
+#cellPropertiesDialog,
+#tablePropertiesDialog {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.properties-dialog-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 450px;
+    overflow: hidden;
+}
+
+.properties-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: #374151;
+    color: white;
+}
+
+.properties-dialog-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.properties-dialog-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.properties-dialog-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.properties-dialog-body {
+    padding: 20px;
+}
+
+.properties-dialog-footer {
+    padding: 16px 20px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Property row */
+.property-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.property-group {
+    flex: 1;
+}
+
+.property-group label {
+    display: block;
+    font-weight: 500;
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+.property-group input,
+.property-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.property-group input[type="color"] {
+    padding: 2px;
+    height: 36px;
+}
+
+.property-group input:focus,
+.property-group select:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+/* Buttons */
+.btn-primary {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #3b82f6;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2563eb;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background: #f3f4f6;
+}
+
+.btn-success {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #10b981;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #059669;
+}
+
+.btn-purple {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #7c3aed;
+    color: white;
+}
+
+.btn-purple:hover {
+    background: #6d28d9;
+}
+
+/* Math symbol sections in existing dialog */
+.symbol-section {
+    margin-bottom: 20px;
+}
+
+.symbol-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Updated toolbar button for math and table */
+.toolbar-btn.math-btn,
+.toolbar-btn.table-btn {
+    min-width: auto;
+}
+
+.toolbar-btn.math-btn i,
+.toolbar-btn.table-btn i {
+    font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .math-dialog-content,
+    .insert-table-content,
+    .properties-dialog-content {
+        width: 95%;
+        margin: 10px;
+    }
+
+    .math-templates-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .table-settings-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .property-row {
+        flex-direction: column;
+    }
+}

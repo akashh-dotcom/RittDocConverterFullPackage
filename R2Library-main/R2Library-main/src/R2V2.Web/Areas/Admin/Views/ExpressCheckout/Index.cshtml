@@ -1,0 +1,38 @@
+﻿@model R2V2.Web.Areas.Admin.Models.ExpressCheckout.ExpressCheckout
+@{
+	ViewBag.Title = "Express Check Out";
+	ViewBag.BodyCssClass = "admin";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+	<div id="content" class="content collection-manage expresscheckout" role="main">
+		<h1>Express Check Out</h1>
+	    <p>To add multiple titles to your shopping cart, enter a list of ISBNs into the text box below and click "Add all ISBNs to cart".<br />You can use ISBN 10 and ISBN 13 separated by:
+	        comma, slash, back slash, space or carriage return.</p>
+        @using (Html.BeginForm("Index", "ExpressCheckout"))
+        {
+            <div>
+                @Html.TextAreaFor(x => x.Isbns, 25, 115, null)
+            </div>            
+            <br />            
+            <div class="actions">                
+                <button type="submit" class="btn-medium" value="addtopda" name="action" data-implement="modal"><span>Add all ISBNs to my PDA collection</span></button>
+                <button type="submit" class="btn-medium "  value="addtocart" name="action"><span>Add all ISBNs to cart</span></button>                
+            </div>
+        }
+		
+	</div>
+	
+	@Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ExpressCheckout({ $parent: $('#container'), trigger: '.btn-addIsbns' });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

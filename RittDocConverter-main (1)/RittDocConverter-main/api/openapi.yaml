@@ -1,0 +1,2123 @@
+openapi: 3.0.3
+info:
+  title: RittDoc EPUB Processing API
+  description: |
+    REST API for converting EPUB files to RittDoc DocBook XML format.
+
+    This API provides endpoints for:
+    - EPUB to DocBook XML conversion
+    - Job management and status tracking
+    - Configuration management
+    - Dashboard and statistics
+    - Publisher profile management
+
+    ## Authentication
+    Currently, no authentication is required. CORS is enabled for all origins.
+
+    ## Rate Limiting
+    No rate limiting is currently enforced.
+
+    ## Error Handling
+    All endpoints return consistent error responses with appropriate HTTP status codes.
+  version: 2.0.0
+  contact:
+    name: RittDoc Support
+  license:
+    name: Proprietary
+
+servers:
+  - url: http://localhost:5001
+    description: Local development server (API)
+  - url: http://epub-service:5001
+    description: Docker internal network (API)
+  - url: https://api.example.com/epub
+    description: Production (via API Gateway)
+  - url: http://localhost:5000
+    description: Local development server (Editor)
+  - url: http://editor:5000
+    description: Docker internal network (Editor)
+
+tags:
+  - name: Health
+    description: Health check and service discovery endpoints
+  - name: Conversion
+    description: EPUB conversion operations
+  - name: Jobs
+    description: Job management and status
+  - name: Dashboard
+    description: Dashboard and statistics (MongoDB)
+  - name: Config
+    description: Configuration management
+  - name: Publishers
+    description: Publisher profile management
+  - name: Download
+    description: File download endpoints
+  - name: Editor
+    description: |
+      DocBook XML Editor endpoints (runs on separate port 5000).
+      The editor provides a web-based interface for viewing and editing
+      DocBook XML with synchronized EPUB/PDF viewing.
+
+paths:
+  # =============================================================================
+  # Health & Info
+  # =============================================================================
+  /api/v1/health:
+    get:
+      tags: [Health]
+      summary: Health check
+      description: Check if the service is running and healthy
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: healthy
+                service: epub-processor
+                version: "2.0.0"
+
+  /api/v1/info:
+    get:
+      tags: [Health]
+      summary: API information
+      description: Get API version and available endpoints
+      operationId: getInfo
+      responses:
+        '200':
+          description: API information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoResponse'
+
+  /api/v1/service-info:
+    get:
+      tags: [Health]
+      summary: Service discovery
+      description: |
+        Get detailed service information for service discovery.
+        Use this to dynamically discover capabilities, limits, and endpoints.
+      operationId: getServiceInfo
+      responses:
+        '200':
+          description: Service discovery information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceInfoResponse'
+              example:
+                service:
+                  name: epub-processor
+                  display_name: EPUB Processing Service
+                  version: "2.0.0"
+                  type: conversion
+                  description: Converts EPUB files to RittDoc DocBook XML format
+                environment: development
+                external_url: ""
+                endpoints:
+                  health: /api/v1/health
+                  convert: /api/v1/convert
+                  jobs: /api/v1/jobs
+                  config: /api/v1/config
+                  dashboard: /api/v1/mongodb/dashboard
+                capabilities:
+                  - epub_to_docbook
+                  - epub3_support
+                  - batch_conversion
+                  - async_processing
+                  - progress_tracking
+                supported_formats:
+                  input: [".epub", ".epub3"]
+                  output: ["docbook-xml", "rittdoc-zip"]
+                limits:
+                  max_file_size_mb: 100
+                  max_concurrent_jobs: 4
+                  job_timeout_seconds: 3600
+
+  # =============================================================================
+  # Conversion
+  # =============================================================================
+  /api/v1/convert:
+    post:
+      tags: [Conversion]
+      summary: Start EPUB conversion
+      description: |
+        Start a new EPUB to DocBook conversion job.
+
+        Supports two modes:
+        1. **File upload**: Use multipart/form-data to upload an EPUB file
+        2. **File path**: Use JSON to specify a path to an existing file on the server
+      operationId: startConversion
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The EPUB file to convert
+                output_dir:
+                  type: string
+                  description: Optional output directory path
+                async:
+                  type: string
+                  enum: ["true", "false"]
+                  default: "true"
+                  description: Run conversion asynchronously
+                debug:
+                  type: string
+                  enum: ["true", "false"]
+                  default: "false"
+                  description: Enable debug logging
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversionRequest'
+      responses:
+        '202':
+          description: Conversion job started (async mode)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionStartResponse'
+              example:
+                job_id: "550e8400-e29b-41d4-a716-446655440000"
+                status: started
+                message: "Conversion started for book.epub"
+        '200':
+          description: Conversion completed (sync mode)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatus'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "Invalid file type. Allowed: .epub, .epub3"
+        '404':
+          description: Input file not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '415':
+          description: Unsupported media type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/convert/batch:
+    post:
+      tags: [Conversion]
+      summary: Start batch conversion
+      description: Start conversion of multiple EPUB files
+      operationId: startBatchConversion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchConversionRequest'
+      responses:
+        '202':
+          description: Batch conversion started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchConversionResponse'
+              example:
+                jobs:
+                  - job_id: "550e8400-e29b-41d4-a716-446655440000"
+                    file: "book1.epub"
+                    status: started
+                  - job_id: "550e8400-e29b-41d4-a716-446655440001"
+                    file: "book2.epub"
+                    status: started
+                total: 2
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/reprocess:
+    post:
+      tags: [Conversion]
+      summary: Reprocess edited package
+      description: |
+        Reprocess an edited RittDoc package.
+
+        This endpoint takes an existing package (after editing) and re-runs:
+        - XSLT transformation
+        - Repackaging
+        - DTD fixing (multi-pass)
+        - Validation
+      operationId: reprocessPackage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReprocessRequest'
+      responses:
+        '200':
+          description: Reprocessing completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReprocessResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Package not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Reprocessing failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReprocessResponse'
+
+  # =============================================================================
+  # Jobs
+  # =============================================================================
+  /api/v1/jobs:
+    get:
+      tags: [Jobs]
+      summary: List conversion jobs
+      description: Get a list of conversion jobs with optional filtering
+      operationId: listJobs
+      parameters:
+        - name: status
+          in: query
+          description: Filter by job status
+          schema:
+            type: string
+            enum: [pending, running, completed, failed, cancelled]
+        - name: limit
+          in: query
+          description: Maximum number of jobs to return
+          schema:
+            type: integer
+            default: 100
+            minimum: 1
+            maximum: 1000
+      responses:
+        '200':
+          description: List of jobs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobListResponse'
+        '400':
+          description: Invalid status parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/jobs/{job_id}:
+    get:
+      tags: [Jobs]
+      summary: Get job status
+      description: Get the current status of a specific conversion job
+      operationId: getJobStatus
+      parameters:
+        - $ref: '#/components/parameters/JobId'
+      responses:
+        '200':
+          description: Job status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatus'
+              example:
+                job_id: "550e8400-e29b-41d4-a716-446655440000"
+                input_file: "/path/to/book.epub"
+                output_dir: "/path/to/output"
+                status: running
+                progress: 50
+                message: "Processing chapter 5 of 10..."
+                created_at: "2024-01-15T10:30:00Z"
+                started_at: "2024-01-15T10:30:01Z"
+        '404':
+          description: Job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags: [Jobs]
+      summary: Cancel job
+      description: Cancel a running or pending conversion job
+      operationId: cancelJob
+      parameters:
+        - $ref: '#/components/parameters/JobId'
+      responses:
+        '200':
+          description: Job cancelled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: cancelled
+                  message:
+                    type: string
+                    example: Job marked as cancelled
+        '404':
+          description: Job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/jobs/{job_id}/result:
+    get:
+      tags: [Jobs]
+      summary: Get job result
+      description: Get detailed result of a completed conversion job
+      operationId: getJobResult
+      parameters:
+        - $ref: '#/components/parameters/JobId'
+      responses:
+        '200':
+          description: Job result details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResult'
+        '404':
+          description: Job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # =============================================================================
+  # Download
+  # =============================================================================
+  /api/v1/download/{job_id}:
+    get:
+      tags: [Download]
+      summary: Download result ZIP
+      description: Download the output ZIP file for a completed conversion job
+      operationId: downloadResult
+      parameters:
+        - $ref: '#/components/parameters/JobId'
+      responses:
+        '200':
+          description: ZIP file download
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Job not completed or failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Job or output file not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/download/{job_id}/report:
+    get:
+      tags: [Download]
+      summary: Download validation report
+      description: Download the validation report (Excel) for a completed job
+      operationId: downloadReport
+      parameters:
+        - $ref: '#/components/parameters/JobId'
+      responses:
+        '200':
+          description: Excel report download
+          content:
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Report not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # =============================================================================
+  # Dashboard (MongoDB)
+  # =============================================================================
+  /api/v1/mongodb/status:
+    get:
+      tags: [Dashboard]
+      summary: MongoDB connection status
+      description: Check if MongoDB is connected and available
+      operationId: getMongoDbStatus
+      responses:
+        '200':
+          description: MongoDB status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MongoDbStatus'
+              example:
+                available: true
+                connected: true
+                database: rittdoc_converter
+                collection: conversions
+
+  /api/v1/mongodb/dashboard:
+    get:
+      tags: [Dashboard]
+      summary: Get full dashboard
+      description: |
+        Get complete dashboard data including statistics, recent conversions, and failed conversions.
+        This is the primary endpoint for populating the UI dashboard.
+      operationId: getDashboard
+      responses:
+        '200':
+          description: Dashboard data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '503':
+          description: MongoDB not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/mongodb/statistics:
+    get:
+      tags: [Dashboard]
+      summary: Get statistics
+      description: Get aggregated conversion statistics
+      operationId: getStatistics
+      responses:
+        '200':
+          description: Statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statistics'
+        '503':
+          description: MongoDB not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/mongodb/conversions:
+    get:
+      tags: [Dashboard]
+      summary: Query conversions
+      description: Query conversions with filters and pagination
+      operationId: getConversions
+      parameters:
+        - name: status
+          in: query
+          description: Filter by status
+          schema:
+            type: string
+            enum: [Success, Failure, "In Progress"]
+        - name: type
+          in: query
+          description: Filter by conversion type
+          schema:
+            type: string
+            enum: [ePub]
+        - name: start_date
+          in: query
+          description: Filter by start date (ISO format)
+          schema:
+            type: string
+            format: date-time
+        - name: end_date
+          in: query
+          description: Filter by end date (ISO format)
+          schema:
+            type: string
+            format: date-time
+        - name: limit
+          in: query
+          description: Maximum records to return
+          schema:
+            type: integer
+            default: 100
+        - name: skip
+          in: query
+          description: Records to skip (pagination)
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Conversion records
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionsResponse'
+        '503':
+          description: MongoDB not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/mongodb/recent:
+    get:
+      tags: [Dashboard]
+      summary: Get recent conversions
+      description: Get the most recent conversion records
+      operationId: getRecentConversions
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum records to return
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Recent conversions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionsResponse'
+
+  /api/v1/mongodb/failed:
+    get:
+      tags: [Dashboard]
+      summary: Get failed conversions
+      description: Get failed conversion records for review
+      operationId: getFailedConversions
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum records to return
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: Failed conversions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionsResponse'
+
+  # =============================================================================
+  # Configuration
+  # =============================================================================
+  /api/v1/config/schema:
+    get:
+      tags: [Config]
+      summary: Get configuration schema
+      description: |
+        Get the full JSON schema for configuration.
+        Use this to dynamically build configuration forms in the UI.
+        The schema includes field definitions, types, defaults, and UI hints.
+      operationId: getConfigSchema
+      responses:
+        '200':
+          description: Configuration schema
+          content:
+            application/json:
+              schema:
+                type: object
+                description: JSON Schema with UI hints
+        '500':
+          description: Schema not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/config/dropdown-options:
+    get:
+      tags: [Config]
+      summary: Get dropdown options
+      description: |
+        Get all fields that have dropdown/select options.
+        Returns a flat list for easy form building.
+      operationId: getDropdownOptions
+      responses:
+        '200':
+          description: Dropdown options
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DropdownOptionsResponse'
+              example:
+                fields:
+                  - path: storage.type
+                    title: Storage Type
+                    widget: dropdown
+                    default: local
+                    options:
+                      - value: local
+                        label: Local Filesystem
+                      - value: s3
+                        label: Amazon S3
+
+  /api/v1/config:
+    get:
+      tags: [Config]
+      summary: Get current configuration
+      description: Get current configuration values
+      operationId: getConfig
+      parameters:
+        - name: section
+          in: query
+          description: Optional section name (storage, processing, etc.)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Current configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigResponse'
+    put:
+      tags: [Config]
+      summary: Update configuration
+      description: Update configuration values
+      operationId: updateConfig
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigUpdateRequest'
+      responses:
+        '200':
+          description: Configuration updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Failed to save
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      tags: [Config]
+      summary: Partial update configuration
+      description: Partially update configuration values (same as PUT)
+      operationId: patchConfig
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigUpdateRequest'
+      responses:
+        '200':
+          description: Configuration updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+
+  /api/v1/config/reset:
+    post:
+      tags: [Config]
+      summary: Reset configuration
+      description: Reset configuration to default values
+      operationId: resetConfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                section:
+                  type: string
+                  description: Optional section to reset (resets all if not specified)
+      responses:
+        '200':
+          description: Configuration reset
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  config:
+                    type: object
+
+  /api/v1/config/validate:
+    post:
+      tags: [Config]
+      summary: Validate configuration
+      description: Validate configuration without saving
+      operationId: validateConfig
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [config]
+              properties:
+                config:
+                  type: object
+                  description: Configuration to validate
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+
+  # =============================================================================
+  # Publishers
+  # =============================================================================
+  /api/v1/config/publishers:
+    get:
+      tags: [Publishers]
+      summary: List publishers
+      description: Get all publisher profiles
+      operationId: getPublishers
+      responses:
+        '200':
+          description: Publisher list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishersResponse'
+    post:
+      tags: [Publishers]
+      summary: Create publisher
+      description: Create a new publisher profile
+      operationId: createPublisher
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublisherCreate'
+      responses:
+        '201':
+          description: Publisher created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  publisher:
+                    $ref: '#/components/schemas/Publisher'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Publisher already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: MongoDB required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/config/publishers/{name}:
+    get:
+      tags: [Publishers]
+      summary: Get publisher
+      description: Get a specific publisher profile
+      operationId: getPublisher
+      parameters:
+        - $ref: '#/components/parameters/PublisherName'
+      responses:
+        '200':
+          description: Publisher profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publisher'
+        '404':
+          description: Publisher not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags: [Publishers]
+      summary: Update publisher
+      description: Update a publisher profile
+      operationId: updatePublisher
+      parameters:
+        - $ref: '#/components/parameters/PublisherName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublisherUpdate'
+      responses:
+        '200':
+          description: Publisher updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Publisher not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags: [Publishers]
+      summary: Delete publisher
+      description: Delete a publisher profile
+      operationId: deletePublisher
+      parameters:
+        - $ref: '#/components/parameters/PublisherName'
+      responses:
+        '200':
+          description: Publisher deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Publisher not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # =============================================================================
+  # Utility
+  # =============================================================================
+  /api/v1/cleanup:
+    post:
+      tags: [Jobs]
+      summary: Cleanup old jobs
+      description: Clean up old completed/failed jobs from memory
+      operationId: cleanupJobs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                max_age_hours:
+                  type: integer
+                  default: 24
+                  description: Maximum age of jobs to keep
+      responses:
+        '200':
+          description: Cleanup completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cleaned:
+                    type: integer
+                    description: Number of jobs cleaned up
+                  message:
+                    type: string
+
+# =============================================================================
+  # Editor (runs on port 5000)
+  # =============================================================================
+  /api/init:
+    get:
+      tags: [Editor]
+      summary: Initialize editor (auto-detect)
+      description: |
+        Initialize editor with auto-detected files.
+        Automatically finds the most recent output files from the Output directory.
+      operationId: editorInitAuto
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      responses:
+        '200':
+          description: Editor initialized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorInitResponse'
+        '500':
+          description: Initialization error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags: [Editor]
+      summary: Initialize editor with files
+      description: Initialize editor with specific file paths
+      operationId: editorInitManual
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditorInitRequest'
+      responses:
+        '200':
+          description: Editor initialized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorInitResponse'
+
+  /api/load-package:
+    post:
+      tags: [Editor]
+      summary: Load ZIP package
+      description: |
+        Load a RittDoc ZIP package for editing.
+        Extracts the package and enables Package Mode for multi-chapter editing.
+      operationId: loadPackage
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [zipPath]
+              properties:
+                zipPath:
+                  type: string
+                  description: Path to the ZIP package file
+      responses:
+        '200':
+          description: Package loaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageLoadResponse'
+        '404':
+          description: ZIP file not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/chapters:
+    get:
+      tags: [Editor]
+      summary: List chapters
+      description: Get list of chapters in the current package (Package Mode only)
+      operationId: listChapters
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      responses:
+        '200':
+          description: Chapter list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChaptersResponse'
+        '400':
+          description: Not in package mode
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/chapter/{filename}:
+    get:
+      tags: [Editor]
+      summary: Get chapter content
+      description: Get the XML content of a specific chapter file
+      operationId: getChapter
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      parameters:
+        - name: filename
+          in: path
+          required: true
+          description: Chapter filename (e.g., ch001.xml)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Chapter content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  filename:
+                    type: string
+                  content:
+                    type: string
+                    description: XML content of the chapter
+        '404':
+          description: Chapter not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/save-chapter:
+    post:
+      tags: [Editor]
+      summary: Save chapter
+      description: Save changes to a specific chapter file
+      operationId: saveChapter
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [filename, content]
+              properties:
+                filename:
+                  type: string
+                  description: Chapter filename
+                content:
+                  type: string
+                  description: Updated XML content
+      responses:
+        '200':
+          description: Chapter saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Not in package mode
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/save-package:
+    post:
+      tags: [Editor]
+      summary: Save and reprocess package
+      description: |
+        Save all changes back to the ZIP file and automatically reprocess.
+        This triggers XSLT transformation, DTD fixes, and validation.
+      operationId: savePackage
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      responses:
+        '200':
+          description: Package saved and reprocessed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageSaveResponse'
+        '400':
+          description: Not in package mode
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/save:
+    post:
+      tags: [Editor]
+      summary: Save content
+      description: Save XML or HTML content changes
+      operationId: saveContent
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [type, content]
+              properties:
+                type:
+                  type: string
+                  enum: [xml, html]
+                  description: Content type to save
+                content:
+                  type: string
+                  description: The content to save
+                reprocess:
+                  type: boolean
+                  default: false
+                  description: Trigger reprocessing after save
+      responses:
+        '200':
+          description: Content saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+
+  /api/validate-dtd:
+    post:
+      tags: [Editor]
+      summary: Validate XML against DTD
+      description: Validate XML content against the RittDoc DTD
+      operationId: validateDtd
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [xml]
+              properties:
+                xml:
+                  type: string
+                  description: XML content to validate
+      responses:
+        '200':
+          description: Validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DtdValidationResponse'
+
+  /api/render-book-html:
+    post:
+      tags: [Editor]
+      summary: Render book HTML
+      description: Generate HTML preview from combined XML content
+      operationId: renderBookHtml
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [xml]
+              properties:
+                xml:
+                  type: string
+                  description: XML content to render
+      responses:
+        '200':
+          description: Rendered HTML
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  html:
+                    type: string
+                    description: Rendered HTML content
+
+  /api/media/{filename}:
+    get:
+      tags: [Editor]
+      summary: Get media file
+      description: Serve media files (images) from the multimedia folder
+      operationId: getMedia
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      parameters:
+        - name: filename
+          in: path
+          required: true
+          description: Media filename
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Media file
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Media file not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/media-list:
+    get:
+      tags: [Editor]
+      summary: List media files
+      description: Get list of all available media files in the multimedia folder
+      operationId: listMedia
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      responses:
+        '200':
+          description: Media file list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  files:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        path:
+                          type: string
+
+  /api/pdf:
+    get:
+      tags: [Editor]
+      summary: Get PDF file
+      description: Serve the PDF file for the viewer
+      operationId: getPdf
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      responses:
+        '200':
+          description: PDF file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: PDF not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/epub:
+    get:
+      tags: [Editor]
+      summary: Get EPUB file
+      description: Serve the EPUB file for the viewer
+      operationId: getEpub
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      responses:
+        '200':
+          description: EPUB file
+          content:
+            application/epub+zip:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: EPUB not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/screenshot:
+    post:
+      tags: [Editor]
+      summary: Save screenshot
+      description: Save a screenshot image captured from the PDF viewer
+      operationId: saveScreenshot
+      servers:
+        - url: http://localhost:5000
+          description: Editor server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [imageData, targetFilename]
+              properties:
+                imageData:
+                  type: string
+                  description: Base64 encoded image data
+                targetFilename:
+                  type: string
+                  description: Target filename for the screenshot
+                pageNumber:
+                  type: integer
+                  description: PDF page number where screenshot was taken
+      responses:
+        '200':
+          description: Screenshot saved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  path:
+                    type: string
+                    description: Path to the saved screenshot
+
+# =============================================================================
+# Components
+# =============================================================================
+components:
+  parameters:
+    JobId:
+      name: job_id
+      in: path
+      required: true
+      description: The unique job identifier (UUID)
+      schema:
+        type: string
+        format: uuid
+    PublisherName:
+      name: name
+      in: path
+      required: true
+      description: Publisher name
+      schema:
+        type: string
+
+  schemas:
+    # Common
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+          description: Error message
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+
+    # Health
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, unhealthy]
+        service:
+          type: string
+        version:
+          type: string
+
+    InfoResponse:
+      type: object
+      properties:
+        service:
+          type: string
+        version:
+          type: string
+        description:
+          type: string
+        endpoints:
+          type: object
+
+    ServiceInfoResponse:
+      type: object
+      properties:
+        service:
+          type: object
+          properties:
+            name:
+              type: string
+            display_name:
+              type: string
+            version:
+              type: string
+            type:
+              type: string
+            description:
+              type: string
+        environment:
+          type: string
+        external_url:
+          type: string
+        endpoints:
+          type: object
+          additionalProperties:
+            type: string
+        capabilities:
+          type: array
+          items:
+            type: string
+        supported_formats:
+          type: object
+          properties:
+            input:
+              type: array
+              items:
+                type: string
+            output:
+              type: array
+              items:
+                type: string
+        dependencies:
+          type: object
+        limits:
+          type: object
+          properties:
+            max_file_size_mb:
+              type: integer
+            max_concurrent_jobs:
+              type: integer
+            job_timeout_seconds:
+              type: integer
+
+    # Conversion
+    ConversionRequest:
+      type: object
+      required: [input_file]
+      properties:
+        input_file:
+          type: string
+          description: Path to the input EPUB file
+        output_dir:
+          type: string
+          description: Optional output directory
+        async:
+          type: boolean
+          default: true
+          description: Run conversion asynchronously
+        debug:
+          type: boolean
+          default: false
+          description: Enable debug logging
+
+    ConversionStartResponse:
+      type: object
+      properties:
+        job_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [started]
+        message:
+          type: string
+
+    BatchConversionRequest:
+      type: object
+      required: [files]
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+          description: Array of file paths to convert
+        output_dir:
+          type: string
+          description: Optional output directory
+
+    BatchConversionResponse:
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            type: object
+            properties:
+              job_id:
+                type: string
+              file:
+                type: string
+              status:
+                type: string
+              error:
+                type: string
+        total:
+          type: integer
+
+    ReprocessRequest:
+      type: object
+      required: [package_path]
+      properties:
+        package_path:
+          type: string
+          description: Path to ZIP or extracted directory
+        output_dir:
+          type: string
+        apply_xslt:
+          type: boolean
+          default: true
+        apply_dtd_fixes:
+          type: boolean
+          default: true
+        validate:
+          type: boolean
+          default: true
+
+    ReprocessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        output_zip:
+          type: string
+        validation_passed:
+          type: boolean
+        errors_fixed:
+          type: integer
+        remaining_errors:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
+
+    # Jobs
+    JobStatus:
+      type: object
+      properties:
+        job_id:
+          type: string
+          format: uuid
+        input_file:
+          type: string
+        output_dir:
+          type: string
+        status:
+          type: string
+          enum: [pending, running, completed, failed, cancelled]
+        progress:
+          type: integer
+          minimum: 0
+          maximum: 100
+        message:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+        result:
+          type: object
+          properties:
+            output_file:
+              type: string
+            output_dir:
+              type: string
+            file_size_mb:
+              type: number
+        error:
+          type: string
+
+    JobListResponse:
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobStatus'
+        total:
+          type: integer
+
+    JobResult:
+      type: object
+      properties:
+        job_id:
+          type: string
+        input_file:
+          type: string
+        output_file:
+          type: string
+        output_dir:
+          type: string
+        started_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+        duration_seconds:
+          type: number
+        file_size_mb:
+          type: number
+        validation_report:
+          type: string
+        intermediate_files:
+          type: array
+          items:
+            type: string
+
+    # Dashboard
+    MongoDbStatus:
+      type: object
+      properties:
+        available:
+          type: boolean
+        connected:
+          type: boolean
+        database:
+          type: string
+        collection:
+          type: string
+        error:
+          type: string
+        message:
+          type: string
+
+    Statistics:
+      type: object
+      properties:
+        total_conversions:
+          type: integer
+        successful:
+          type: integer
+        failed:
+          type: integer
+        in_progress:
+          type: integer
+        total_images:
+          type: integer
+        total_tables:
+          type: integer
+        epub_conversions:
+          type: integer
+
+    ConversionRecord:
+      type: object
+      properties:
+        filename:
+          type: string
+        title:
+          type: string
+        status:
+          type: string
+          enum: [Success, Failure, "In Progress"]
+        type:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        duration:
+          type: string
+        images:
+          type: integer
+        tables:
+          type: integer
+        error_message:
+          type: string
+
+    ConversionsResponse:
+      type: object
+      properties:
+        conversions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversionRecord'
+        total:
+          type: integer
+        limit:
+          type: integer
+        skip:
+          type: integer
+
+    DashboardResponse:
+      type: object
+      properties:
+        statistics:
+          $ref: '#/components/schemas/Statistics'
+        recent_conversions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversionRecord'
+        failed_conversions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversionRecord'
+        source:
+          type: string
+          enum: [mongodb, none, error]
+
+    # Config
+    ConfigResponse:
+      type: object
+      properties:
+        config:
+          type: object
+          description: Current configuration values
+        section:
+          type: string
+          description: Section name if filtered
+
+    ConfigUpdateRequest:
+      type: object
+      required: [config]
+      properties:
+        section:
+          type: string
+          description: Optional section to update
+        config:
+          type: object
+          description: Configuration updates
+
+    DropdownOptionsResponse:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+              title:
+                type: string
+              widget:
+                type: string
+                enum: [dropdown, multi_select, slider]
+              default:
+                oneOf:
+                  - type: string
+                  - type: integer
+                  - type: boolean
+              options:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                    label:
+                      type: string
+              min:
+                type: number
+              max:
+                type: number
+              step:
+                type: number
+
+    ValidationResponse:
+      type: object
+      properties:
+        valid:
+          type: boolean
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+              error:
+                type: string
+
+    # Publishers
+    Publisher:
+      type: object
+      properties:
+        name:
+          type: string
+        aliases:
+          type: array
+          items:
+            type: string
+        isbn_prefixes:
+          type: array
+          items:
+            type: string
+        confidence_base:
+          type: integer
+          minimum: 0
+          maximum: 100
+        known_issues:
+          type: array
+          items:
+            type: string
+        notes:
+          type: string
+        success_rate:
+          type: number
+        total_processed:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    PublisherCreate:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        aliases:
+          type: array
+          items:
+            type: string
+          default: []
+        isbn_prefixes:
+          type: array
+          items:
+            type: string
+          default: []
+        confidence_base:
+          type: integer
+          minimum: 0
+          maximum: 100
+          default: 70
+        known_issues:
+          type: array
+          items:
+            type: string
+          default: []
+        notes:
+          type: string
+
+    PublisherUpdate:
+      type: object
+      properties:
+        aliases:
+          type: array
+          items:
+            type: string
+        isbn_prefixes:
+          type: array
+          items:
+            type: string
+        confidence_base:
+          type: integer
+          minimum: 0
+          maximum: 100
+        known_issues:
+          type: array
+          items:
+            type: string
+        notes:
+          type: string
+
+    PublishersResponse:
+      type: object
+      properties:
+        publishers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Publisher'
+
+    # Editor
+    EditorInitRequest:
+      type: object
+      properties:
+        workingDir:
+          type: string
+          description: Working directory path
+        xmlPath:
+          type: string
+          description: Path to XML file
+        htmlPath:
+          type: string
+          description: Path to HTML file
+        pdfPath:
+          type: string
+          description: Path to PDF or EPUB file
+
+    EditorInitResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        xml:
+          type: string
+          description: XML content
+        html:
+          type: string
+          description: HTML content
+        pdf:
+          type: object
+          properties:
+            path:
+              type: string
+            exists:
+              type: boolean
+        epub:
+          type: object
+          properties:
+            path:
+              type: string
+            exists:
+              type: boolean
+        file_type:
+          type: string
+          enum: [pdf, epub]
+        multimedia_folder:
+          type: string
+        package_mode:
+          type: boolean
+        package:
+          type: object
+          description: Package info (only in package mode)
+          properties:
+            zip_file:
+              type: string
+            num_chapters:
+              type: integer
+            chapters:
+              type: array
+              items:
+                type: object
+                properties:
+                  file:
+                    type: string
+
+    PackageLoadResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        num_chapters:
+          type: integer
+        chapters:
+          type: array
+          items:
+            type: object
+            properties:
+              file:
+                type: string
+
+    ChaptersResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        chapters:
+          type: array
+          items:
+            type: object
+            properties:
+              file:
+                type: string
+
+    PackageSaveResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        backup:
+          type: string
+          description: Path to backup file
+        reprocessed:
+          type: boolean
+        output_zip:
+          type: string
+          description: Path to output ZIP
+        validation_passed:
+          type: boolean
+        errors_fixed:
+          type: integer
+        remaining_errors:
+          type: integer
+        report_path:
+          type: string
+        error:
+          type: string
+
+    DtdValidationResponse:
+      type: object
+      properties:
+        valid:
+          type: boolean
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+              line:
+                type: integer
+              column:
+                type: integer
+              type:
+                type: string
+        can_auto_fix:
+          type: boolean
+        error_count:
+          type: integer
+        message:
+          type: string

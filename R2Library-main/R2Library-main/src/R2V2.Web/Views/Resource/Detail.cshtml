@@ -1,0 +1,194 @@
+﻿@using R2V2.Core.MyR2
+@using R2V2.Web
+@using R2V2.Web.Helpers
+@model R2V2.Web.Models.Resource.ResourceDetail
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_ActionsMenu")
+
+<div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        <div class="nav-breadcrumb"></div>
+        
+        @if (Model.IsFullTextAvailable)
+        {
+             if (!Model.IsPrintingEnabled)
+             {
+                 <div id="resource-print-disabled">Printing has been temporarily disabled for this title, please contact your administrator for more information.</div>
+             }
+             else
+             {
+                 <div id="resource-print-status">Print @Model.NumberOfPrintRequests of @Model.MaxNumberOfPrintRequests in the past 24 hours.</div>
+                 if (Model.PrintWarningThresholdReached)
+                 {
+                     <div id="resource-print-warn">You have reached @string.Format("{0}%", Model.PrintWarningThresholdPercentage) of the print limit for this title.</div>
+                 }
+             }
+        }
+        <h1>
+            @Model.Title
+            <span class="content-provider">
+                @Html.Raw(Model.ContentProviderDisplay())
+            </span>
+            @if (Model.IsArchive)
+            {
+                <a href="" class="access-info resource-archived" rel="tooltip" title="@Resources.TitleArchivedTooltip">@Resources.TitleArchived</a>
+            }
+        </h1>
+
+        @if (Model.IsFullTextAvailable)
+        {
+            <div class="nav-section-wrapper"><div class="clearfix nav-section" data-implement="fixed"></div></div>
+        }
+        else
+        {
+            <div class="nav-section-wrapper"><div class="nav-section"></div></div>
+        }
+
+        @if (Model.HideContent)
+        {
+            if (Model.HideRecaptcha)
+            {
+                <div id="resource-print-disabled">@Resources.RecaptchaDenied</div>
+            }
+            else
+            {
+                using (Html.BeginForm())
+                {
+                    <p>to continue, please type the text and click submit</p>
+                    @Html.GenerateNonGoogleCaptcha()
+                    @Html.ValidationMessageFor(x => x.HideContent)
+
+                    <div class="group-actions-wrapper">
+                        <div class="clearfix group-actions" data-implement="fixed">
+                            <ul class="actions">
+                                <li><button class="btn-medium" type="submit"><span>submit</span></button></li>
+                                @Html.HiddenFor(x => x.Isbn)
+                                @Html.HiddenFor(x => x.Section)
+                            </ul>
+                        </div>
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            <div id="resource-content" @(Model.IsArchive ? " class=archived" : "") data-history="bookmark">
+                @Html.Raw(Model.ContentHtml)
+            </div>
+
+            <div class="printonly citation">
+                <p>@Model.Citation</p>
+            </div>
+
+        }
+    </div>
+</div>
+
+@section InlineModal
+{
+    <div class="content modal save" tabindex="-1" role="dialog">
+        <div class="modal-header">
+            <h1>Save Image</h1>
+            <a class="close" data-dismiss="modal" tabindex="0" href="#">Close</a>
+        </div>
+
+        <div class="modal-body">
+            @if (Model.UserContentFolders != null && Model.UserContentFolders.ContainsKey(UserContentType.Image))
+            {
+                @Html.Partial("_SaveUserContentPanel", Model.UserContentFolders[UserContentType.Image], new ViewDataDictionary { { "type", UserContentType.Image } })
+            }
+        </div>
+    </div>
+
+    @if (Model.IsFullTextAvailable)
+    {
+        <div id="timeout" class="content modal timeout" tabindex="-1" role="dialog">
+            <div class="modal-header">
+                <h1>Resource Timeout</h1>
+                <a class="close" data-dismiss="modal" tabindex="0" href="#">Close</a>
+            </div>
+
+            <div class="modal-body">
+                <h4>You have reached your resource timeout.</h4>
+                <p>This page will be redirected in <strong class="countdown-time">@Model.ResourceTimeoutModalInSeconds</strong> seconds. If you want to continue to view this resource, please <a data-dismiss="modal" tabindex="0" href="#">reset the timer</a>.</p>
+                <p class="action"><a data-dismiss="modal" class="btn" tabindex="0" href="#"><span>Reset the timer</span></a></p>
+            </div>
+        </div>
+    }
+
+    @Html.Partial("_TurnawayModal", Model)
+
+    @Html.Partial("_VideoModal", Model)
+
+    <div class="content modal enlarge" tabindex="-1" role="dialog">
+        <div class="modal-header">
+            <h1 class="image-caption">Enlarge Image</h1>
+            <a class="close" data-dismiss="modal" tabindex="0" href="#">Close</a>
+        </div>
+
+        <div class="modal-body"></div>
+    </div>
+}
+
+@section JsDocumentReady
+{
+    new R2V2.Resource.ActionsMenu({ $container: $('.actions-menu'), title: '@Html.Raw(Model.Title.Replace("'", "\\'"))', resourceId: @Model.Id, isbn: '@Model.Isbn', library: '@Model.PracticeArea' });
+    new R2V2.Resource.BreadcrumbNav({ $container: $('.nav-breadcrumb'), isbn: '@Model.Isbn' });
+    @if (Model.IsFullTextAvailable)
+    {
+        <text>new R2V2.Resource.SectionNav({ type: 'detail',  $container: $('.nav-section'), isbn: '@Model.Isbn' });</text>
+        <text>new R2V2.Resource.Timeout({ $container: $('#timeout'), countdownTimeSelector: '.countdown-time', titleUrl: '@Url.Action("Title", "Resource", new { Model.Isbn })', displayTimeInSeconds: @Model.ResourceTimeoutModalInSeconds, lockTimeInMinutes: @Model.ResourceTimeoutInMinutes });</text>
+    }
+
+    @if (Model.ContainsVideo == 1)
+    {
+        <text>new R2V2.Resource.Flowplayer( { $container: $('#resource-content'),  $videoContainer: $('#videoContainer'), $videoDirectLinkContainer: $('#videoDirectLinkContainer'), isbn: '@Model.Isbn', mediaBaseUrl: '@Model.MediaBaseUrl', section: '@Model.Section', proxyPrefix: '@Model.ProxyPrefix', flowplayerKey: '@Model.FlowplayerKey' });</text>       
+    }
+
+    @if (Model.ContainsVideo == 2)
+    {
+        <text>new R2V2.Resource.Ooyala( { $container: $('#resource-content'),  $videoContainer: $('#videoContainer'), $videoDirectLinkContainer: $('#videoDirectLinkContainer'), isbn: '@Model.Isbn', mediaBaseUrl: '@Model.MediaBaseUrl', section: '@Model.Section', proxyPrefix: '@Model.ProxyPrefix', ooyalaPCode: '@Model.OoyalaPCode', ooyalaPlayerBrandingId: '@Model.OoyalaPlayerBrandingId' });</text>       
+    }
+
+    new R2V2.Resource.Qanda({ $container: $('#resource-content') });
+
+    new R2V2.Resource.Turnaway({ $container: $('#turnaway') });
+    @if (Model.Id > 0)
+    {
+        <text>new R2V2.Resource.PrintLogging({ endpoint: '@Html.Raw(Url.Action("PrintLog", new { isbn = Model.Isbn, section = Model.Section }))' });</text>
+    }
+
+    new R2V2.Resource.SaveImage({ $container: $('.modal.save'), resourceId: @Model.Id, isbn: '@Model.Isbn', library: '@Model.PracticeArea' });
+    new R2V2.Resource.EnlargeImage({ $modal: $('.enlarge.modal'), $button: $('a[href="#enlarge-image"]') });
+    new R2V2.Resource.Results({ $container: $('#resource-content'), hasContent: @(Model.ContentHtml != null ? "true" : "false"), goTo: '@Model.Goto' });
+    new R2V2.Resource.DirectLinkImage({ $container: $('#resource-content'), $imageDirectLinkContainer: $('#imageDirectLinkContainer'), proxyPrefix: '@Model.ProxyPrefix' });
+    new R2V2.Resource.Tabers({ termContentUrl: '@Url.Action("TermContent", "TabersDictionary")', $container: $('#resource-content'), enableTerms: @(Model.DictionaryTerms.Enable ? "true" : "false"), showAllTerms: @(Model.DictionaryTerms.ShowAll ? "true" : "false")});
+    new R2V2.Resource({ titleUrl: '@Url.Action("Title", "Resource", new { Model.Isbn })', isbn: '@Model.Isbn', hasContent: @(Model.ContentHtml != null ? "true" : "false"), contentJson: @(Html.Raw(Model.ContentJson ?? "null")) });
+    new R2V2.Resource.Figure.Table();
+
+    $('.content').tips();
+}
+
+@section PrintCssIncludes
+{
+    @if (Model.IsPrintingEnabled)
+    {
+        <link rel="stylesheet" href="/_Static/Css/core/print-enabled.css" />
+    }
+}
+
+@section OoyalaVideoPlayerIncludes
+{
+    @if (Model.ContainsVideo == 2)
+    {
+        <script src="//player.ooyala.com/static/v4/stable/latest/core.min.js"></script>
+        <script src="//player.ooyala.com/static/v4/stable/latest/video-plugin/main_html5.min.js"></script>
+        <script src="//player.ooyala.com/static/v4/stable/latest/video-plugin/bit_wrapper.min.js"></script>
+        <script src="//player.ooyala.com/static/v4/stable/latest/skin-plugin/html5-skin.min.js"></script>
+        <link rel="stylesheet" href="//player.ooyala.com/static/v4/stable/latest/skin-plugin/html5-skin.min.css" />
+    }
+}

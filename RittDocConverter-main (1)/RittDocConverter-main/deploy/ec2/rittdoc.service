@@ -1,0 +1,36 @@
+[Unit]
+Description=RittDocConverter Document Processing Services
+Documentation=https://github.com/akashh-dotcom/RittDocConverter
+After=docker.service network-online.target
+Requires=docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/rittdoc/app
+
+# Load environment
+EnvironmentFile=/opt/rittdoc/config/app.env
+
+# Start services
+ExecStart=/usr/bin/docker compose -f deploy/ec2/docker-compose.prod.yml up -d --remove-orphans
+
+# Stop services gracefully
+ExecStop=/usr/bin/docker compose -f deploy/ec2/docker-compose.prod.yml down
+
+# Restart on failure
+Restart=on-failure
+RestartSec=30
+
+# Timeouts
+TimeoutStartSec=300
+TimeoutStopSec=120
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/rittdoc /var/run/docker.sock
+
+[Install]
+WantedBy=multi-user.target

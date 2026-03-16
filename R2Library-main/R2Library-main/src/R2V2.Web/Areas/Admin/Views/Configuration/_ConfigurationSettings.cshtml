@@ -1,0 +1,48 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Configuration.ConfigurationGroupSettingsModel
+
+@foreach (var item in Model.Settings.ConfigurationSettings)
+{
+    <table>
+        <thead>
+        <tr>
+            <th colspan="4" style="font-size: 1em"><a href="@Url.Action("SettingGroupList", new { settingName = item.Key, Model.BackUrl})">@item.Key</a>  <a name="@item.Key" href="#@item.Key"></a> </th>
+        </tr>
+        </thead>
+        @foreach (var setting in item.Value)
+        {
+            <tbody>
+            <tr>
+                <td>
+                    <div style="width: 300px; word-wrap: break-word">
+                        @setting.Key <br/> <b> @setting.Configuration</b>
+                    </div>
+                </td>
+                <td>
+                    <div style="width: 400px; word-wrap: break-word">
+                        @setting.Value
+                        @if (!string.IsNullOrWhiteSpace(setting.NewValue))
+                        {
+                            <div style="width: 400px; background-color: yellow; word-wrap: break-word">
+                                @setting.NewValue
+                            </div>
+                        }
+                    </div>
+                </td>
+                <td>
+
+                    <div style="width: 400px; word-wrap: break-word">
+                        @setting.Description
+                    </div>
+
+                </td>
+                <td>
+                    <ul class="actions">
+                        <li><a href="@Url.Action("EditConfigurationSetting", new {configurationSettingId = setting.Id, configurationName = Model.Settings.ConfigurationName, backUrl = Model.BackUrl})" class="btn btn-medium"><span>Edit</span></a></li>
+                        <li><a href="@Url.Action("Delete", new {configurationSettingId = setting.Id, configurationName = Model.Settings.ConfigurationName, backUrl = Model.BackUrl})" data-toggle="modal" class="btn btn-medium btn-add"><span>Delete</span></a></li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        }
+    </table>
+}

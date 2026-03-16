@@ -1,0 +1,43 @@
+﻿@model R2V2.Web.Areas.Admin.Models.SubscriptionManagement.SubscriptionUsers
+@{
+    ViewBag.Title = "Subscription Users";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Subscription Users</h1>
+
+        <div class="tablecontent">
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th class="user-status">Active</th>
+                        <th class="user-name">Last Name, First Name</th>
+                        <th class="user-email">Email</th>
+                        <th class="user-role">Active/Inactive Subscriptions</th>
+                        <th class="user-last-session">Last Session</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Users)
+                {
+                    <tr>
+                        <td class="user-status"><strong class="active-@item.RecordStatusText.ToLower().Replace(" ", "-")">@Html.DisplayFor(modelItem => item.RecordStatusText)</strong></td>
+                        <td class="user-name">@Html.ActionLink(item.DisplayName(), "EditUser", new { userId = item.Id })</td>
+                        <td class="user-email">@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td class="user-role" style="text-align: center;">@Html.DisplayFor(modelItem => item.ActiveSubscriptions) / @Html.DisplayFor(modelItem => item.InActiveSubscriptions)</td>
+                        <td class="user-last-session">@Html.DisplayFor(modelItem => item.LastSession)</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>

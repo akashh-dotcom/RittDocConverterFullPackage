@@ -1,0 +1,65 @@
+﻿/* ==========================================================================
+	Tabs
+   ========================================================================== */
+
+.tabs {
+	position: relative; z-index: 1;
+	margin: 0 auto; padding-right: 2px; width: 958px;
+	background: url(../images/tabs/bg-right.png) no-repeat 100% 0;
+	text-align: left;
+    }
+
+    .tabs ul {
+        margin: 0 0 0 1px; padding: 3px 0 0; min-height: 25px;
+	    list-style: none;
+	    background: url(../images/tabs/bg-left.png) no-repeat 0 0;
+	    }
+	    .tabs ul li {
+		    position: relative;
+		    float: left;
+	        border-left: 1px solid #86A8C7;
+		    font-size: 0.875em; /* 14px / 16px */
+		    }
+		.tabs ul li:first-child {
+			border: 0;
+		    }
+		    
+		    .tabs ul li a {
+			    display: block;
+			    padding: 3px 17px;
+			    color: #FEFEFE; line-height: 1.25;
+		        }
+			.tabs ul li a:hover {
+				color: #C8DAEF; text-decoration: none;
+			    }
+			    
+			.tabs ul li.selected a,
+			.tabs ul li.selected a:hover {
+				color: #000;
+			    }
+
+		    /* selected states */
+		    .tabs ul li.selected {
+		        z-index: 2;
+		        border: 0;
+			    }
+		     
+		        .tabs ul li.selected a {
+			        position: relative; bottom: -2px;
+			        margin: -8px -1px 0; padding: 0 0 0 3px;
+			        background: url(../images/tabs/bg-left.selected.png) no-repeat 0 0;
+			        }	
+			        .tabs ul li.selected a span {
+				        display: block;
+				        padding: 9px 17px 6px 14px;
+				        background: url(../images/tabs/bg-right.selected.png) no-repeat 100% 0;
+			            }
+			    
+/* SHIMS */
+.ie7 .tabs ul li.selected a {
+	margin: -8px -2px 0;
+	}
+	.ie7 .tabs ul li.selected a span {
+		padding: 9px 18px 6px 15px;
+	    }
+	                    

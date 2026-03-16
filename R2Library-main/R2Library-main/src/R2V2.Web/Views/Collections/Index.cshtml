@@ -1,0 +1,81 @@
+﻿@model R2V2.Web.Models.Collections.CollectionListModel
+@{
+    ViewBag.Title = "Collections";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <div style="padding: 0 0 7px;border-bottom: 4px solid #BEBEBE;font-size: 1.875em;">
+            @if (Model.InstitutionId.HasValue)
+            {
+                <div style="margin-top: 20px;">@Model.SelectedCollection.Name</div>
+                <div style="float: right;position: absolute;top: 0px;left: 77%;">
+                    <div class="collection-management-price" style="">
+                        <div><a class="btn btn-medium btn-add" href="@Url.Action("List", "CollectionManagement", new{Area = "Admin", Model.InstitutionId, CollectionListFilter = Model.SelectedCollection.CollectionId})"><span>Review Titles for Purchase</span></a></div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div>@Model.SelectedCollection.Name</div>
+            }
+        </div>
+        <div class="alertbox richText" style="font-family: arial; font-size: 16px; font-style: normal">
+            @Html.Raw(Model.SelectedCollection.Description)
+        </div>
+
+        <div class="titlelist">
+            @foreach (var reserveShelfResource in Model.SelectedCollection.Resources)
+            {
+                @Html.Partial("_ResourceSummary", reserveShelfResource)
+            }
+        </div>
+    </div>
+    <div class="nav-sub">
+        <h2>Publisher Filter</h2>
+        <ul>
+            @foreach (var publisher in Model.PublisherFilter)
+            {
+
+                if (publisher.Selected)
+                {
+                    <li>@publisher.Name</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink(publisher.Name, "Index", "Collections", new { collectionId = Model.SelectedCollection.CollectionId, publisherId = publisher.Id }, null)</li>
+                }
+            }
+        </ul>
+
+        @if (Model.CollectionList != null && Model.CollectionList.Any() && Model.CollectionList.Count > 1)
+        {
+            <h2>Collections</h2>
+            <ul>
+                @foreach (var collection in Model.CollectionList)
+                {
+                    if (collection.Selected)
+                    {
+                        <li>@collection.Name</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink(collection.Name, "Index", "Collections", new { collection.CollectionId }, null)</li>
+                    }
+
+
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@section CssIncludes{
+    <style>
+        .alertbox p{
+            display: block !important;
+        }
+    </style>
+}

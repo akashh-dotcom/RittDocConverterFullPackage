@@ -1,0 +1,22 @@
+﻿@model R2V2.Web.Areas.Admin.Models.OrderHistory.OrderHistoryDetail
+<ul>
+    <li><strong>Date/Time:</strong> @Model.OrderHistory.PurchaseDate</li>
+    <li><strong>Acct Name:</strong> @Model.Institution.Name/(@Model.Institution.AccountNumber)</li>
+    @if (!string.IsNullOrWhiteSpace(Model.OrderHistory.OrderNumber))
+    {
+        <li><strong>Rittenhouse Order Number:</strong> @Model.OrderHistory.OrderNumber</li>
+    }
+    <li><strong>PO #:</strong> @Model.OrderHistory.PurchaseOrderNumber</li>
+    <li><strong>PO Comment:</strong> @Model.OrderHistory.PurchaseOrderComment</li>
+    <li><strong>Total Charge:</strong> @Html.DisplayFor(x => Model.OrderHistory.OrderTotal)</li>
+    <li><strong>Number of Purchased Licenses:</strong> @Model.OrderHistory.NumberofLicenses</li>
+    <li><strong>Payment Type:</strong> @Model.OrderHistory.BillingMethod</li>
+    @if (!string.IsNullOrWhiteSpace(Model.OrderHistory.PromotionCode))
+    {
+        <li><strong>Promotion Code:</strong> @Model.OrderHistory.PromotionCode (@Html.Raw(Model.OrderHistory.GetDisplayDiscount(true)) discount)</li>
+    }
+    @if (Model.OrderHistory.HasForthcomingTitles)
+    {
+        <li><strong>Pre-Order Titles:</strong> @Model.OrderHistory.ForthcomingTitlesInvoicingMethod</li>
+    }
+</ul>

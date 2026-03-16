@@ -1,0 +1,28 @@
+﻿@model R2V2.Web.Models.Search.SearchResultSet
+
+@if (Model.JumpToLinks.Count() > 1)
+{
+    <div class="nav-section-wrapper"><div id="page" class="clearfix nav-section" data-implement="fixed" data-history="bookmark">
+        <div class="previous">
+            @if (Model.PreviousLink.Enabled)
+            {
+                <a href="#@Model.PreviousLink.Value">&lt;&lt; @Model.PreviousLink.Label</a>
+            }
+        </div>
+
+        <div class="next">
+            @if (Model.NextLink.Enabled)
+            {
+                <a href="#@Model.NextLink.Value">@Model.NextLink.Label &gt;&gt;</a>
+            }
+        </div>
+        
+        <ul class="nav-number nav-content">
+            <li><strong>Jump to page:</strong></li>
+            @foreach (var link in Model.JumpToLinks.Where(link => link.Enabled))
+            {
+                <li@(StyleHelpers.AddSelectedState(link.Current))><a href="#@link.Value"><span>@link.Label</span></a></li>
+            }
+        </ul>
+    </div></div>
+}

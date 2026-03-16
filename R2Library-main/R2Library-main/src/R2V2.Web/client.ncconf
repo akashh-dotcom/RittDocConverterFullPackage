@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <configuration>
+  <ncache-server connection-retries="5" retry-connection-delay="0" retry-interval="1" client-request-timeout="90" connection-timeout="5" port="9800" />
+  <!--<cache id="myPartitionedCache" default-readthru-provider="" default-writethru-provider="" load-balance="False" enable-client-logs="False" log-level="error">
+    <server name="10.0.5.1"/>
+  </cache>-->
+    <cache id="R2Library_Application_Keys" load-balance="True" enable-client-logs="False" log-level="error">
+      <server name="10.0.0.31"/>
+      <!-- <server name="10.0.0.93"/> -->
+    </cache>
+    <cache id="R2Library_Sessions" load-balance="True" enable-client-logs="False" log-level="error">
+      <server name="10.0.0.31"/>
+      <!-- <server name="10.0.0.93"/> -->
+    </cache>
+    
+  </configuration>

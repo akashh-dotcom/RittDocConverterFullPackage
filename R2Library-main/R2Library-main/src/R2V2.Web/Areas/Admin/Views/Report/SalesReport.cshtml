@@ -1,0 +1,25 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.SalesReportDetail
+@{
+    ViewBag.Title = "Sales Report";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    @Html.Partial("_SalesReport", Model)
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.ToggleOptionalFields({ $container: $('#filter-date-range'), $trigger: $('#ReportQuery_Period'), action: 'change', triggerValue: 'UserSpecified' });
+    new R2V2.Admin.DatePicker({$dateTextBox: $('#filter-date-range .input-daterange')});
+    new R2V2.Admin.ResourceSelect({ $resourceId: $('#ReportQuery_ResourceId'), $resourceText: $("#ResourceFilter"), $publisherIdObject: "#ReportQuery_PublisherId option:selected"  , $searchUrl: "@Url.Action("ResourceFilter")"  });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

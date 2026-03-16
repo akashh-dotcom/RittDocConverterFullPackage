@@ -1,0 +1,189 @@
+﻿@using R2V2.Core.Admin
+@model R2V2.Web.Areas.Admin.Models.Alerts.AdministratorAlert
+
+<div class="tablecontent">
+    @Html.HiddenFor(x => x.AlertId)
+    @Html.HiddenFor(x => x.AlertImageExists)
+    
+    <table class="edit kenTest">
+        <tbody>
+        <tr>
+            <td class="label">@Html.LabelFor(x => Model.AlertName)</td>
+            <td class="field">
+                @Html.TextBoxFor(x => Model.AlertName, new { @class = "input-large" })
+                @Html.ValidationMessageFor(x => Model.AlertName)
+            </td>
+        </tr>
+            
+        <tr>
+            <td class="label">@Html.LabelFor(x => Model.StartDate)</td>
+            <td class="field">
+                <input type="text" id="StartDate" name="StartDate" readonly="readonly" value="@string.Format("{0:MM/dd/yyyy}", Model.StartDate)"/>
+                @Html.ValidationMessageFor(x => Model.StartDate)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label">@Html.LabelFor(x => Model.EndDate)</td>
+            <td class="field">
+                <input type="text" id="EndDate" name="EndDate" readonly="readonly" value="@string.Format("{0:MM/dd/yyyy}", Model.EndDate)" />
+                @Html.ValidationMessageFor(x => Model.EndDate)
+            </td>
+        </tr>
+        <tr>                            
+            <td class="label">@Html.LabelFor(model => model.RoleSelectList)</td>
+            <td class="field">
+                @Html.DropDownListFor(model => model.Role.Code, Model.RoleSelectList)
+                @Html.ValidationMessageFor(model => model.RoleSelectList)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label">@Html.LabelFor(x => Model.Title)</td>
+            <td class="field">
+                @Html.TextBoxFor(x => Model.Title, new { @class = "input-large" })
+                @Html.ValidationMessageFor(x=> Model.Title)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">@Html.LabelFor(x => Model.Resource)</td>
+            <td class="field">
+                @Html.TextBoxFor(x=> Model.ResourceFilter, new { @class = "input-full" })
+                @Html.HiddenFor(x=> Model.ResourceId)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Layout: </td>
+            <td class="field">
+                <div id="TextLayout">
+                    <ul>
+                        <li>
+                            @Html.RadioButtonFor(x => x.AlertLayout, AlertLayout.TitleText)
+                            <table class="layout-table title-text">
+                                <tr>
+                                    <td class="first">Title</td>
+                                </tr>
+                                <tr>
+                                    <td class="second">Text</td>
+                                </tr>
+                            </table>
+                        </li>
+                        <li>
+                            @Html.RadioButtonFor(x => x.AlertLayout, AlertLayout.TitleFullImageText)
+                            <table class="layout-table title-full-image">
+                                <tr>
+                                    <td class="first">Title</td>
+                                </tr>
+                                <tr>
+                                    <td class="second">Image</td>
+                                </tr>
+                                <tr>
+                                    <td class="third">Text</td>
+                                </tr>
+                            </table>
+                        </li>
+                        <li>
+                            @Html.RadioButtonFor(x => x.AlertLayout, AlertLayout.TitlePartImageText)
+                            <table class="layout-table title-part-image">
+                                <tr>
+                                    <td class="first" colspan="2">Title</td>
+                                </tr>
+                                <tr>
+                                    <td class="second-one">Image</td>
+                                    <td class="second-two">Text</td>
+                                </tr>
+                                <tr>
+                                    <td class="third" colspan="2"></td>
+                                </tr>
+                            </table>
+                        </li>
+                        <li>
+                            @Html.RadioButtonFor(x => x.AlertLayout, AlertLayout.Html)
+                            <table class="layout-table html">
+                                <tr>
+                                    <td class="first">HTML(Text)</td>
+                                </tr>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+                <div id="ResourceLayout">
+                    <ul>
+                        <li>
+                            @Html.RadioButtonFor(x => x.AlertLayout, AlertLayout.ResourceAndText)
+                            <table class="layout-table title-full-image">
+                                <tr>
+                                    <td class="first">Title</td>
+                                </tr>
+                                <tr>
+                                    <td class="second">Resource</td>
+                                </tr>
+                                <tr>
+                                    <td class="third">Text</td>
+                                </tr>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+                @Html.ValidationMessageFor(x => x.AlertLayout)
+            </td>
+        </tr>
+        <tr id="ResourceButtons">
+            <td class="label">Buttons: </td>
+            <td class="field">@Html.CheckBoxFor(x => x.DisplayPurchase)@Html.LabelFor(x => x.DisplayPurchase)&nbsp;&nbsp;&nbsp;&nbsp;@Html.CheckBoxFor(x => x.DisplayPDA)@Html.LabelFor(x => x.DisplayPDA)</td>
+        </tr>
+        <tr>
+            <td class="label">@Html.LabelFor(x => Model.ImageUrls)</td>
+            <td>
+                <table>
+                    <tr>
+                        <td style="width: 340px">
+                            @if (Model.ImageUrls != null)
+                            {
+                                foreach (var imageUrl in Model.ImageUrls)
+                                {
+                                    <div class="delete-button">
+                                        <button type="submit" name="ActionType" value="@imageUrl.Key" class="btn btn-medium"><span>Remove Image</span></button>
+                                    </div>
+                                    <span class="title-image" >
+                                        <img src="@imageUrl.Value" alt="Image for the Alert" />
+                                        @imageUrl.Value
+                                        <br/>
+                                    </span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            <div class="title-image-upload">
+                                <div class="actions remove-image">
+                                    @Html.ValidationMessageFor(model => model.AlertImages)
+                                    <h3>Required image specifications:</h3>
+                                    <ul class="clearfix">
+                                        <li><strong>Format:</strong> Transparent PNG, JPG or GIF</li>
+                                        <li><strong>Maximum width:</strong> <span>500</span>px</li>
+                                        <li><strong>Maximum height:</strong> <span>300</span>px</li>
+                                    </ul>
+                                    <input type="file" name="file"  />
+                                    <button class="btn-medium" type="submit" name="ActionType" value="VerifyImage"><span>Verify Image</span></button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label">@Html.LabelFor(x => Model.Text)</td>
+            <td class="field">
+                @Html.TextAreaFor(x => Model.Text)
+                @Html.ValidationMessageFor(x => Model.Text)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">@Html.LabelFor(x => Model.DisplayOnce)</td>
+            <td class="field">@Html.EditorFor(x => Model.DisplayOnce)</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

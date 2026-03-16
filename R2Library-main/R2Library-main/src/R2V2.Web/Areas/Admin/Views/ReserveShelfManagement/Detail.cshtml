@@ -1,0 +1,274 @@
+﻿@model R2V2.Web.Areas.Admin.Models.ReserveShelfManagement.ReserveShelfListManagement
+@{
+    ViewBag.Title = "Reserve Shelf Management";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Reserve Shelf Management</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions">
+                <p class="header">Details</p>
+                <ul class="actions">
+                    <li><a href="@Url.Action("Edit", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id })" class="btn btn-medium"><span>Edit</span></a></li>
+                    <li><a href="#delete" data-toggle="modal" class="btn btn-medium"><span>Delete</span></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tablecontent">
+            <table class="detail">
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.EditReserveShelf.Name)</td>
+                    <td class="field">@Html.DisplayFor(x => x.EditReserveShelf.Name)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.EditReserveShelf.Description)</td>
+                    <td class="field">@Html.Raw(Model.EditReserveShelf.Description)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.EditReserveShelf.DefaultSortBy)</td>
+                    <td class="field">@Html.DisplayFor(x => x.EditReserveShelf.DefaultSortBy)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.EditReserveShelf.IsAscending)</td>
+                    <td class="field">
+                        @(Model.EditReserveShelf.IsAscending ? string.Format("Ascending") : string.Format("Descending"))
+                    </td>
+                </tr>
+            </table>
+        </div>
+    
+        <div class="group-actions-wrapper"><div class="clearfix group-actions">
+            <p class="header">Resources</p>
+            <ul class="actions">
+                <li><a href="@Url.Action("ManageResources", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id })" class="btn btn-medium"><span>Add Resources</span></a></li>
+            </ul>
+        </div></div>
+            
+        <div class="tablecontent">
+            <table>
+                <tbody>
+                    @if (Model.EditReserveShelf.Resources != null && Model.EditReserveShelf.Resources.Any())
+                    {
+                        foreach (var reserveShelfResource in Model.EditReserveShelf.Resources)
+                        {
+                            <tr class="titleitem">
+                                <td class="title-image">
+                                    <a href="@Url.Action("Title", "Resource", new {isbn = reserveShelfResource.Isbn, Area = ""})"><img src="@reserveShelfResource.ImageUrl" width="80" alt="@reserveShelfResource.Title" /></a>
+                                    @if (reserveShelfResource.IsArchive && reserveShelfResource.IsPdaResource)
+                                    {
+                                        <a href="" class="access-info resource-archived" rel="tooltip" title="This title is on Trial via PDA and has been declared out of print by the publisher. Please REMOVE.">This title is on PDA and has been archived</a>
+                                    }
+                                    else
+                                    {
+                                        @Html.Partial("_Tooltips", reserveShelfResource)
+                                    }
+
+
+                                </td>
+                                <td class="title-description">
+                                    <h2 class="title-title"><a href="@Url.Action("Title", "Resource", new {isbn = reserveShelfResource.Isbn, Area = ""})">@reserveShelfResource.Title</a></h2>        
+                                    <p class="title-authors">@reserveShelfResource.Description</p>
+                                    @if (!string.IsNullOrWhiteSpace(reserveShelfResource.Gist))
+                                    {
+                                        <p class="title-blurb">@Html.Raw(reserveShelfResource.Gist)</p>
+                                    }
+                                </td>
+                                <td class="actions"><a href="@Url.Action("AddDeleteResources", new { institutionId = Model.InstitutionId, resourceId = reserveShelfResource.Id, addInstitutionResource = false, reserveShelfId = Model.EditReserveShelf.Id })" class="btn btn-medium"><span>Remove</span></a></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3">There are no resources associated with this reserve shelf</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="group-actions-wrapper"><div class="clearfix group-actions">
+            <p class="header">External Urls</p>
+            <ul class="actions">
+                <li><a href="@Url.Action("EditUrl", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id, reserveShelfUrlId = 0 })" class="btn btn-medium"><span>Add External Url</span></a></li>
+            </ul>
+        </div></div>
+            
+        <div class="tablecontent">
+            @if (Model.EditReserveShelf.Urls.Any() || Model.EditReserveShelfUrl != null)
+            {
+                if (Model.EditReserveShelfUrl != null && Model.EditReserveShelfUrl.ReserveShelfUrlId == 0)
+                {
+                    using (Html.BeginForm("EditUrl", "ReserveShelfManagement", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id, reserveShelfUrlId = 0 }))
+                    {
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="reserve-shelf-external-url">Url</th>
+                                    <th class="reserve-shelf-external-description">Description</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="reserve-shelf-external-url">
+                                        @Html.TextBoxFor(model => model.EditReserveShelfUrl.Url, new { @class = "input-medium" })
+                                        @Html.ValidationMessageFor(model => model.EditReserveShelfUrl.Url)
+                                    </td>
+                                    <td class="reserve-shelf-external-description">
+                                        @Html.TextBoxFor(model => model.EditReserveShelfUrl.Description, new { @class = "input-medium" })
+                                        @Html.ValidationMessageFor(model => model.EditReserveShelfUrl.Description)
+                                    </td>
+                                    <td class="actions">
+                                        <button class="btn-medium" type="submit"><span>Save</span></button>
+                                        <a href="@Url.Action("Detail", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id })" class="btn btn-medium"><span>Cancel</span></a>
+                                    </td>
+                                </tr>
+                                @foreach (var reserveShelfUrl in Model.EditReserveShelf.Urls)
+                                {
+                                    <tr>
+                                        <td class="reserve-shelf-external-url"><a href="@reserveShelfUrl.Url" target="_blank" data-toggle="window">@reserveShelfUrl.Url</a></td>
+                                        <td class="reserve-shelf-external-description">@Html.DisplayFor(item => reserveShelfUrl.Description)</td>
+                                        <td class="actions">
+                                            <a href="@Url.Action("EditUrl", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id, reserveShelfUrlId = reserveShelfUrl.ReserveShelfUrlId })" class="btn btn-medium"><span>Edit</span></a>
+                                            <a href="@Url.Action("DeleteExternalUrl", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id, reserveShelfUrlId = reserveShelfUrl.ReserveShelfUrlId })" class="btn btn-medium"><span>Remove</span></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                }
+                else if (Model.EditReserveShelfUrl != null)
+                {
+                    using (Html.BeginForm("EditUrl", "ReserveShelfManagement", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id, reserveShelfUrlId = Model.EditReserveShelfUrl.ReserveShelfUrlId }))
+                    {
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="reserve-shelf-external-url">Url</th>
+                                    <th class="reserve-shelf-external-description">Description</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var reserveShelfUrl in Model.EditReserveShelf.Urls)
+                                {
+                                    if (reserveShelfUrl.ReserveShelfUrlId == Model.EditReserveShelfUrl.ReserveShelfUrlId)
+                                    {
+                                        <tr>
+                                            <td class="reserve-shelf-external-url">
+                                                @Html.TextBoxFor(x => x.EditReserveShelfUrl.Url, new { @class = "input-medium" })
+                                                @Html.ValidationMessageFor(x => x.EditReserveShelfUrl.Url)
+                                            </td>
+                                            <td class="reserve-shelf-external-description">
+                                                @Html.TextBoxFor(x => x.EditReserveShelfUrl.Description, new { @class = "input-medium" })
+                                                @Html.ValidationMessageFor(x => x.EditReserveShelfUrl.Description)
+                                            </td>
+                                            <td class="actions">
+                                                <button class="btn-medium" type="submit"><span>Save</span></button>
+                                                <a href="@Url.Action("Detail", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id })" class="btn btn-medium"><span>Cancel</span></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td class="reserve-shelf-external-url"><a href="@reserveShelfUrl.Url" target="_blank" data-toggle="window">@reserveShelfUrl.Url</a></td>
+                                            <td class="reserve-shelf-external-description">@Html.DisplayFor(item => reserveShelfUrl.Description)</td>
+                                            <td class="actions">
+                                                <a href="@Url.Action("EditUrl", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id, reserveShelfUrlId = reserveShelfUrl.ReserveShelfUrlId })" class="btn btn-medium"><span>Edit</span></a>
+                                                <a href="@Url.Action("DeleteExternalUrl", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id, reserveShelfUrlId = reserveShelfUrl.ReserveShelfUrlId })" class="btn btn-medium"><span>Remove</span></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    }
+                }
+                else
+                {
+                    <table class="detail">
+                        @foreach (var reserveShelfUrl in Model.EditReserveShelf.Urls)
+                        {
+                            <tr>
+                            <td>
+                                <div>
+                                    <ul>
+                                        <li>
+                                            <a href="@reserveShelfUrl.Url" target="_blank" data-toggle="window">@reserveShelfUrl.Url</a><br/><br/>
+                                            @Html.DisplayFor(item => reserveShelfUrl.Description)
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                </td>
+                                <td class="actions">
+                                    <a href="@Url.Action("EditUrl", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id, reserveShelfUrlId = reserveShelfUrl.ReserveShelfUrlId })" class="btn btn-medium"><span>Edit</span></a>
+                                    <a href="@Url.Action("DeleteExternalUrl", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id, reserveShelfUrlId = reserveShelfUrl.ReserveShelfUrlId })" class="btn btn-medium"><span>Remove</span></a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+            }
+            else
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="reserve-shelf-external-url">Url</th>
+                            <th class="reserve-shelf-external-description">Description</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="3">There are no external urls associated with this reserve shelf</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }   
+        </div>
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+
+    $('.titleitem').tips();
+}
+
+@section InlineModal
+{
+    <div id="delete" class="content modal delete">
+        <div class="modal-header">
+            <h1>Delete Reserve Shelf List</h1>
+            <a class="close" data-dismiss="modal" href="#">Close</a>
+        </div>
+
+        <div class="modal-body">
+            <p>Are you sure you want to delete the <strong>@Model.EditReserveShelf.Name</strong> Reserve Shelf?</p>
+            
+            <div class="actions">
+                <a href="@Url.Action("Delete", new { institutionId = Model.InstitutionId, reserveShelfId = Model.EditReserveShelf.Id })" class="btn btn-medium"><span>Yes</span></a>
+                <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+            </div>
+        </div>
+    </div>
+}

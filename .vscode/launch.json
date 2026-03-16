@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Pipeline Server",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/pipeline.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "FLASK_ENV": "development"
+            }
+        }
+    ]
+}

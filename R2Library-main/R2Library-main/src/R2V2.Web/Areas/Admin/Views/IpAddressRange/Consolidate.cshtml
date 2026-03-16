@@ -1,0 +1,84 @@
+﻿@model R2V2.Web.Areas.Admin.Models.IpAddressRange.InstitutionIpRangesConsolidated
+@{
+    ViewBag.Title = "Institution IP Ranges";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Consolidate IP Ranges</h1>
+
+        @Html.Partial("_InstitutionInfo")
+
+        @if (Model.ConsolidateIpAddressRanges.Any())
+        {
+            if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+            {
+                <div><span class="promotion-error">@Html.DisplayFor(x => Model.ErrorMessage)</span></div>
+            }
+            <div class="tablecontent">
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th>IP Ranges to Consolidate</th>
+                            <th>Consolidated IP Range</th>
+                            <th><span>&nbsp;</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ConsolidateIpAddressRanges)
+                        {
+                            <tr>
+                                <td>
+                                    <div>Number of IP Ranges: <span class="consolidate-ip-range-number">@Html.Raw(item.IpAddressRangeCount.ToString())</span><br /><br /></div>
+                                    
+                                    <div class="@Html.Raw(item.GetScroll())">
+                                        @foreach (var ipRange in item.IpAddressRanges)
+                                        {
+                                            @Html.DisplayFor(x => ipRange.OctetA)<span>.</span>
+                                            @Html.DisplayFor(x => ipRange.OctetB)<span>.</span>
+                                            @Html.DisplayFor(x => ipRange.OctetCStart)<span>.</span>
+                                            @Html.DisplayFor(x => ipRange.OctetDStart)<span> - </span>
+                                            @Html.DisplayFor(x => ipRange.OctetA)<span>.</span>
+                                            @Html.DisplayFor(x => ipRange.OctetB)<span>.</span>
+                                            @Html.DisplayFor(x => ipRange.OctetCEnd)<span>.</span>
+                                            @Html.DisplayFor(x => ipRange.OctetDEnd)
+                                            <br/>
+                                        }
+                                    </div>
+                                </td>
+                                <td>
+                                    
+                                    @Html.DisplayFor(x => item.PairedIpRanges.MergedIpAddressRange.OctetA).@Html.DisplayFor(x => item.PairedIpRanges.MergedIpAddressRange.OctetB).<span class="consolidate-ip-range-number">@Html.DisplayFor(x => item.PairedIpRanges.MergedIpAddressRange.OctetCStart)</span>.<span class="consolidate-ip-range-number">@Html.DisplayFor(x => item.PairedIpRanges.MergedIpAddressRange.OctetDStart)</span> - 
+                                    @Html.DisplayFor(x => item.PairedIpRanges.MergedIpAddressRange.OctetA).@Html.DisplayFor(x => item.PairedIpRanges.MergedIpAddressRange.OctetB).<span class="consolidate-ip-range-number">@Html.DisplayFor(x => item.PairedIpRanges.MergedIpAddressRange.OctetCEnd)</span>.<span class="consolidate-ip-range-number">@Html.DisplayFor(x => item.PairedIpRanges.MergedIpAddressRange.OctetDEnd)</span>
+                                </td>
+                                <td class="actions">
+                                    <a href="@Url.Action("ConsolidateRange", new {institutionId = Model.InstitutionId, startIpAddressRangeId = item.PairedIpRanges.IpAddressRange1.Id, endIpAddressRangeId = item.PairedIpRanges.IpAddressRange2.Id, Model.GetConflicts})" class="btn btn-medium"><span>Consolidate</span></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        }
+        else
+        {
+            <p><strong>No IP Ranges Available.</strong></p>
+        }
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.SelectedItems({ $container: $('#ipRanges'), trigger: '.item-select' });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

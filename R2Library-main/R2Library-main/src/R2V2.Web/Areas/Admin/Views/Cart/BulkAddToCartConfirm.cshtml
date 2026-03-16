@@ -1,0 +1,43 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Cart.BulkAddToCart
+@{
+	ViewBag.Title = "PDA Add";
+	ViewBag.BodyCssClass = "admin";
+	Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="content collection-manage">
+    <div class="modal-header">
+        <h1>Bulk Added Titles to Cart</h1>
+        <a class="close" href="@Model.KeepShoppingLink" data-dismiss="navigation">Close</a>
+    </div>
+            
+    <div class="modal-body">
+		<div id="bulk-add-area">		
+		    <h3>A single license has been added to the cart for each of the following resources:</h3>
+		    <ul>		
+			@foreach (var resource in Model.Resources)
+			{
+			    @PurchaseHelper.GetBulkDetails(resource)
+			}
+			</ul>
+            <p>
+                <strong>
+                    Resource Count: @Html.DisplayFor(model => model.ResourceCount), License Count: @Html.DisplayFor(model => model.LicenseCount), Total Cost: @Html.DisplayFor(model => model.Total)
+                </strong>
+            </p>
+	    </div>
+		<br />
+		<div class="actions">
+			<a href="@Model.CollectionLink" class="btn btn-medium" data-dismiss="navigation"><span>View My R2 Collection</span></a>
+			<a href="@Model.KeepShoppingLink" class="btn btn-medium" data-dismiss="navigation"><span>Keep Shopping</span></a>
+			<a href="@Model.CartLink" class="btn btn-medium" data-dismiss="navigation"><span>Shopping Cart</span></a>
+		</div>
+	</div>
+</div>
+@section JsDocumentReady
+{
+    new R2V2.Admin.IFrameModal({
+        parent: window.parent,
+        $dismiss: $('a[data-dismiss="navigation"]')
+    });
+}

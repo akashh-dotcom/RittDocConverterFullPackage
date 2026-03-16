@@ -1,0 +1,98 @@
+﻿@model R2V2.Web.Models.Trial.Trial
+
+@Html.HiddenFor(x=> x.AccountNumber)
+@Html.HiddenFor(x=> x.Hash)
+@Html.HiddenFor(x=> x.Timestamp)
+	<div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+									   	<ul class="actions">
+											<li><button class="btn-medium" type="submit"><span>Create Trial</span></button></li>
+											<li><a class="btn btn-medium" href="@Url.Action("Index", "Home")"><span>Cancel</span></a></li>
+										</ul>
+									   </div></div>
+
+	<div class="info-bar">
+		<p>Institution:</p>
+	</div>
+
+	 @if (Model.Error)
+	 {
+		<div>Error: @Model.ErrorMessage</div>
+	 }	
+	
+	<div class="tablecontent">
+		<table class="detail">
+			<tr>
+				<td class="label">@Html.LabelFor(x => x.Institution.TrialEndDate)</td>
+				<td class="field">@Html.DisplayFor(x => x.Institution.TrialEndDate)@Html.HiddenFor(x => x.Institution.TrialEndDate)</td>
+			</tr>
+			<tr>
+				<td class="label">@Html.LabelFor(x => x.Institution.InstitutionName)</td>
+				<td class="field">@Html.DisplayFor(x => x.Institution.InstitutionName)@Html.HiddenFor(x => x.Institution.InstitutionName)</td>
+			</tr>
+			<tr>
+				<td class="label">@Html.LabelFor(x => x.Institution.AccountNumber)</td>
+				<td class="field">@Html.DisplayFor(x => x.Institution.AccountNumber)@Html.HiddenFor(x => x.Institution.AccountNumber)</td>
+			</tr>
+			<tr>
+				<td class="label">@Html.LabelFor(x => x.Institution.Address)</td>
+				<td class="field">
+					@Html.DisplayFor(x => x.Institution.Address.Address1)@Html.HiddenFor(x => x.Institution.Address.Address1) <br />
+					@if (!string.IsNullOrWhiteSpace(Model.Institution.Address.Address2))
+					{
+						@Html.DisplayFor(x => x.Institution.Address.Address2)@Html.HiddenFor(x => x.Institution.Address.Address2)<br/>
+					}
+					@Html.DisplayFor(x => x.Institution.Address.City)@Html.HiddenFor(x => x.Institution.Address.City), 
+					@Html.DisplayFor(x => x.Institution.Address.State)@Html.HiddenFor(x => x.Institution.Address.State)
+					@Html.DisplayFor(x => x.Institution.Address.Zip)@Html.HiddenFor(x => x.Institution.Address.Zip)
+				</td>
+			</tr>
+		</table>
+	</div>
+
+    <div class="info-bar">
+        <p>Institution Administrator:</p>
+    </div>
+
+<div class="tablecontent">
+	<table class="edit">
+		<tr>
+			<td class="label">@Html.LabelFor(model => model.User.FirstName)</td>
+			<td class="field">
+				@Html.TextBoxFor(model => model.User.FirstName)
+				@Html.ValidationMessageFor(model => model.User.FirstName)
+			</td>
+		</tr>
+		<tr>
+			<td class="label">@Html.LabelFor(model => model.User.LastName)</td>
+			<td class="field">
+				@Html.TextBoxFor(model => model.User.LastName, new { @class = "input-medium" })
+				@Html.ValidationMessageFor(model => model.User.LastName)
+			</td>
+		</tr>
+		<tr>
+			<td class="label">@Html.LabelFor(model => model.User.Email)</td>
+			<td class="field">
+				@Html.TextBoxFor(model => model.User.Email, new { @class = "input-full" })
+				@Html.ValidationMessageFor(model => model.User.Email)
+			</td>
+		</tr>
+		<tr>
+			<td class="label">@Html.LabelFor(model => model.User.UserName)</td>
+			<td class="field">@Html.DisplayFor(model => model.User.UserName)@Html.HiddenFor(model => model.User.UserName)</td>
+		</tr>
+		<tr>
+			<td class="label">@Html.LabelFor(model => model.NewPassword)</td>
+			<td class="field">
+				@Html.PasswordFor(model => model.NewPassword, new { @class = "input-medium" })
+				@Html.ValidationMessageFor(model => model.NewPassword)  
+			</td>
+		</tr>
+		<tr>
+			<td class="label">@Html.LabelFor(model => model.ConfirmPassword)</td>
+			<td class="field">
+				@Html.PasswordFor(model => model.ConfirmPassword, new { @class = "input-medium" })
+				@Html.ValidationMessageFor(model => model.ConfirmPassword)
+			</td>
+		</tr>
+	</table>
+</div>

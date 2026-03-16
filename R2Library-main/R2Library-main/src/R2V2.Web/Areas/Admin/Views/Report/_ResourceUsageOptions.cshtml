@@ -1,0 +1,62 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.ReportModel
+<tr>
+    <td class="label">@Html.LabelFor(model => model.PracticeAreaList)</td>
+    <td class="field">
+        @Html.DropDownListFor(model => model.ReportQuery.PracticeAreaId, Model.PracticeAreaList)
+    </td>
+</tr>
+
+<tr>
+    <td class="label">@Html.LabelFor(model => model.SpecialtyList)</td>
+    <td class="field">
+        @Html.DropDownListFor(model => model.ReportQuery.SpecialtyId, Model.SpecialtyList)
+    </td>
+</tr>
+
+@if (Model.InstitutionTypeList != null && Model.InstitutionTypeList.Any())
+{
+    <tr>
+        <td class="label">@Html.LabelFor(model => model.InstitutionTypeList)</td>
+        <td class="field">
+            @Html.DropDownListFor(model => model.ReportQuery.InstitutionTypeId, Model.InstitutionTypeList)
+        </td>
+    </tr>
+}
+
+@if (Model.TerritoryList != null && Model.TerritoryList.Any())
+{
+    <tr>
+        <td class="label">@Html.LabelFor(model => model.TerritoryList)</td>
+        <td class="field">
+            @Html.DropDownListFor(model => model.ReportQuery.TerritoryCode, Model.TerritoryList)
+        </td>
+    </tr>
+}
+
+
+
+@if (Model.NavLinkSections != null && Model.NavLinkSections.Any())
+{
+    <tr>
+        <td class="label">@Html.LabelFor(model => model.PublisherList)</td>
+        <td class="field">
+            @Html.DropDownListFor(model => model.ReportQuery.PublisherId, Model.PublisherList, new { style = "width:500px" })
+        </td>
+    </tr>
+}
+else
+{
+    @Html.HiddenFor(x => x.ReportQuery.PublisherId)
+}
+<tr>
+    <td class="label">@Html.LabelFor(model => model.ResourceList)</td>
+    <td class="field">
+        @Html.TextBoxFor(x => Model.ResourceFilter, new { @class = "input-full" })
+        @Html.HiddenFor(x => Model.ReportQuery.ResourceId)
+    </td>
+
+    @*<td class="field">
+
+            @Html.DropDownListFor(model => model.ReportQuery.ResourceId, Model.ResourceList, new {style = "width:500px"})
+        </td>*@
+</tr>

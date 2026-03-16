@@ -1,0 +1,25 @@
+<p>
+	<table>
+		<thead style="font-size: 16px;">
+			<tr>
+			    <td align="center" colspan="3"><b>LogEvents {LogEvent_TableName} {LogEvent_StartDate} to {LogEvent_EndDate}</b></td>
+			</tr>
+			{LogEvent_Body_Items}
+		</thead>
+	</table>
+</p>
+		
+<div class="tablecontent">
+	<table>
+		<thead>
+			<tr>
+				<th class="status">Level</th>
+				<th class="details">Details</th>
+				<th class="price">Total Count</th>
+			</tr>
+		</thead>
+		<tbody>
+			{LogEvent_Items}
+		<tbody>
+	</table>
+</div>

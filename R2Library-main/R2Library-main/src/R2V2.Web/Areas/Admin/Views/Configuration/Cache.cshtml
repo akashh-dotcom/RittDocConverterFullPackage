@@ -1,0 +1,46 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Configuration.Cache
+@{
+    ViewBag.Title = "Cached Items Status";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Configuration.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="fullcol contentcontainer">        
+    <div id="content" class="content" role="main">
+        <h1>Cached Items Status</h1>
+
+        <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+            <ul class="actions">
+                <li><a href="@Url.Action("CacheUpdate")" class="btn btn-medium"><span>Update</span></a></li>
+            </ul>
+        </div></div>
+        
+        <div id="resource-content">
+			<div class="clearfix resource-detail">
+			    <table>
+			        <thead>
+			            <tr>
+			                <th>Name</th>
+			                <th>Start</th>
+			                <th>End</th>
+			                <th>Action</th>
+			            </tr>
+			        </thead>
+
+			        @foreach (var item in Model.Items)
+			        {
+			            <tr>
+			                <td>@item.Key</td>
+			                <td>@item.InsertDate</td>
+			                <td>@item.ExpirationDate</td>
+			                <td><a href="@Url.Action("CacheUpdateItem", new {@item.Key})" class="btn btn-medium"><span>Update</span></a></td>
+			            </tr>
+			        }
+			    </table>
+			</div>
+        </div>
+    </div>
+</div>
+

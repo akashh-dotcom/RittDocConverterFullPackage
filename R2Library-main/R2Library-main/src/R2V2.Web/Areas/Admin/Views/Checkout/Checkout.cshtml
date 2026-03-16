@@ -1,0 +1,123 @@
+﻿@using R2V2.Core.CollectionManagement
+@using R2V2.Web.Areas.Admin.Models
+@using R2V2.Web.Areas.Admin.Models.Checkout
+@using R2V2.Web.Areas.Admin.Models.CollectionManagement
+@model R2V2.Web.Areas.Admin.Models.Order.Order
+@{
+    ViewBag.Title = "Shopping Cart - Checkout";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Shopping Cart - Checkout</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+        
+        @if (Model.OrderError)
+        {
+            <p class="billing error"><span class="checkout-attention">ATTENTION!</span> There was an error processing your order. please Contact Rittenhouse Customer Service via our <a href="@Url.Action("Index", "Contact", new {Area = ""})">online form</a> for assistance with this order. </p>
+        }
+        
+        <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+                                               <ul class="actions">
+                                                   <li><a class="btn btn-medium" href="@Url.Action("ShoppingCart", "Cart", new{Model.InstitutionId, cartId = Model.OrderId})"><span>Edit Cart</span></a></li>
+                                                   <li><a class="btn btn-medium" href="@Url.Action("List", "CollectionManagement", Model.CollectionManagementQuery.ToRouteValues())"><span>Continue Shopping</span></a></li>
+                                               </ul>
+                                           </div></div>
+
+        @Html.Partial("../Cart/_Cart")
+        
+        @if (Model.IsPromotionAvailable)
+        {
+            if (Model.IsPromotionApplied)
+            {
+                <div class="billing">* = Promotion applied to order: @Html.DisplayFor(x => Model.PromotionCode) - @Html.DisplayFor(x => Model.PromotionName) (@Html.DisplayFor(x => Model.PromotionDiscount)%)</div>
+            }
+            else
+            {
+                <div class="billing"><span class="checkout-attention">ATTENTION!</span> A promotion code is available for this order but has not been applied. Return to the <a href="@Url.Action("ShoppingCart", "Cart", Model.CollectionManagementQuery.ToRouteValues())">shopping cart</a> to apply promotion.</div>
+            }
+        } else if (Model.IsPromotionApplied)
+        {
+            <div class="billing">* = Promotion applied to order: @Html.DisplayFor(x => Model.PromotionCode) - @Html.DisplayFor(x => Model.PromotionName) (@Html.DisplayFor(x => Model.PromotionDiscount)%)</div>
+        }
+
+        <div class="info-bar">
+            <p>Please provide the following information for your purchase:</p>
+        </div>
+        
+        <div class="billing">
+            @using (Html.BeginForm("Checkout", "Checkout"))
+            {
+                @Html.HiddenFor(x => x.OrderId)
+                @Html.HiddenFor(x => x.InstitutionId)
+
+                <p>Choose your billing option:</p>
+                <ol>
+                    <li>
+                        @Html.LabelFor(model => model.PurchaseOrderNumber, "PO # (optional):")
+                        @Html.TextBoxFor(model => model.PurchaseOrderNumber, new { @class = "input-medium" })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderNumber)
+                    </li>
+                    <li>
+                        <ul class="checkboxes">
+                            @if (Model.BillingMethod != BillingMethodEnum.Reseller)
+                            {
+                                <li>@Html.RadioButtonFor(x => x.BillingMethod, BillingMethodEnum.ExistingRittenhouseAccount, new { id = "field-rittenhouse-account" }) <label for="field-rittenhouse-account">@Html.Raw(BillingMethod.ExistingRittenhouseAccount.Description)</label></li>
+                                <li>@Html.RadioButtonFor(x => x.BillingMethod, BillingMethodEnum.DepositAccount, new { id = "field-deposit-account" }) <label for="field-deposit-account">@Html.Raw(BillingMethod.DepositAccount.Description)</label></li>
+                                <li>@Html.RadioButtonFor(x => x.BillingMethod, BillingMethodEnum.CreditCardOnFile, new { id = "field-credit-card" }) <label for="field-credit-card">@Html.Raw(BillingMethod.CreditCardOnFile.Description)</label></li>
+                            }
+                            
+                            @if (Model.BillingMethod == BillingMethodEnum.Reseller)
+                            {
+                                <li>@Html.RadioButtonFor(x => x.BillingMethod, BillingMethodEnum.Reseller, new {  id = "field-reseller", disabled = "disabled", @checked = "checked" }) <label for="field-credit-card">@Html.Raw(BillingMethod.Reseller.Description)</label></li>
+                                @Html.Hidden("BillingMethod", BillingMethodEnum.Reseller)
+                            }
+                        </ul>
+                        @Html.ValidationMessageFor(model => model.BillingMethod)
+                    </li>
+                    @if (Model.HasForthcomingTitles)
+                    {
+                        <li>
+                            Pre-Order Titles:
+                            <ul class="checkboxes">
+                                <li>@Html.RadioButtonFor(x => x.ForthcomingTitlesInvoicingMethod, ForthcomingTitlesInvoicingMethodEnum.InvoiceNow, new { id = "field-invoice-now" }) <label for="field-invoice-now">@Html.Raw(ForthcomingTitlesInvoicingMethod.InvoiceNow.Description)</label></li>
+                                <li>@Html.RadioButtonFor(x => x.ForthcomingTitlesInvoicingMethod, ForthcomingTitlesInvoicingMethodEnum.InvoiceWhenReleased, new { id = "field-invoice-when-released" }) <label for="field-invoice-when-released">@Html.Raw(ForthcomingTitlesInvoicingMethod.InvoiceWhenReleased.Description)</label></li>
+                            </ul>
+                        </li>
+                    }
+                    <li>
+                        @Html.LabelFor(model => model.PurchaseOrderComment, "PO Comment (250 characters max, Please do not include credit card information):")
+                        @Html.TextAreaFor(model => model.PurchaseOrderComment)
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderComment)
+                    </li>
+                </ol>
+                
+                if (!Model.OrderError && Model.DisplayPurchaseButton)
+                {
+                    <div class="group-actions-wrapper">
+                        <div class="clearfix group-actions">
+                            <ul class="actions">
+                                <li><button class="btn-medium" type="submit"><span>Purchase</span></button></li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}}

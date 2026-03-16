@@ -1,0 +1,29 @@
+﻿@model R2V2.Web.Areas.Admin.Models.PublisherConsolidation.Publisher
+
+@{
+    ViewBag.Title = "Publisher Add";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="fullcol contentcontainer">
+    @using (Html.BeginForm("Add", "Publisher"))
+    {
+        <div id="content" class="content" role="main">
+            <h1>Add Publisher</h1>
+
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><button class="btn-medium" type="submit"><span>Save</span></button></li>
+                        <li><a href="@Url.Action("List", "Publisher")" class="btn btn-medium"><span>Cancel</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            @Html.Partial("_PublisherMin", Model)
+        </div>
+    }
+</div>

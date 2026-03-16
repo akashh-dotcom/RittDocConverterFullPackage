@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="PSWS_Request">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="MethodName" type="requiredString" minOccurs="1" maxOccurs="1" />
+        <xs:element name="Parameters">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SourceCode" type="xs:string" maxOccurs="1" minOccurs="1" />
+              <xs:element name="AccountID" type="requiredString" />
+              <xs:element name="CustomerName" type="requiredString" />
+              <xs:element name="CustomerAddress1" type="requiredString" />
+              <xs:element name="CustomerAddress2" type="xs:string" />
+              <xs:element name="CustomerCity" type="requiredString" />
+              <xs:element name="CustomerState" type="xs:string" />
+              <xs:element name="CustomerPostalCode" type="xs:string" />
+              <xs:element name="CustomerCountry" type="requiredString" />
+              <xs:element name="CustomerPhone" type="requiredString" />
+              <xs:element name="CustomerAdminContactLastName" type="requiredString" />
+              <xs:element name="CustomerAdminContactFirstName" type="requiredString" />
+              <xs:element name="CustomerAdminContactEmailAddress" type="requiredString" />
+              <xs:element name="CustomerAdminContactAddress1" type="xs:string" />
+              <xs:element name="CustomerAdminContactAddress2" type="xs:string" />
+              <xs:element name="CustomerAdminContactCity" type="xs:string" />
+              <xs:element name="CustomerAdminContactState" type="xs:string" />
+              <xs:element name="CustomerAdminContactPostalCode" type="xs:string" />
+              <xs:element name="CustomerAdminContactCountry" type="xs:string" />
+              <xs:element name="CustomerAdminContactPhone" type="requiredString" />
+              <xs:element name="CustomerAdminContactJobTitle" type="xs:string" />
+              <xs:element name="CustomerOrganizationType" type="requiredString" />
+              <xs:element name="AgreementType" type="requiredString" />
+              <xs:element name="StartDate" type="requiredString" />
+              <xs:element name="EndDate" type="requiredString" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="requiredInteger">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="1" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:length value="0" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="requiredString">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1">
+      </xs:minLength>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CustomerOrganizationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1-Not For Profit Organization" />
+      <xs:enumeration value="2-Corporation" />
+      <xs:enumeration value="3-Foreign Corporation" />
+      <xs:enumeration value="4-Foreign Not For Profit Organization" />
+      <xs:enumeration value="5-Individual" />
+      <xs:enumeration value="6-Foreign Individual" />
+      <xs:enumeration value="7-Government Agency" />
+      <xs:enumeration value="None" />
+      <xs:enumeration value="9-Partnership" />
+      <xs:enumeration value="10-Foreign Government Agency" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AgreementType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Test" />
+      <xs:enumeration value="Trial" />
+      <xs:enumeration value="License" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

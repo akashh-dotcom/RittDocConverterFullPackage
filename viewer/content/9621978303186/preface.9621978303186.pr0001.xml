@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preface id="pr0001" role="cover">
+   <title>Cover</title>
+   <figure float="0" id="pr0001s0001fg01">
+      <title>Cover</title>
+      <mediaobject>
+         <imageobject>
+            <imagedata fileref="Coverf01.jpg" scalefit="1" width="100%"/>
+         </imageobject>
+      </mediaobject>
+   </figure>
+   <para>Book cover of How Can Nurses Survive Bullying Environments?</para>
+</preface>

@@ -1,0 +1,52 @@
+﻿/* ==========================================================================
+	Alert Box
+   ========================================================================== */
+.alertbox {
+	margin: 15px 30px 0; padding: 15px;
+	background: #FFF;
+	font-size: 0.875em; /* 14px / 16px */ font-style: italic;
+    }
+    
+    .alertbox h3 {
+        font-family: Georgia, Times, 'Times New Roman', serif; font-weight: normal;
+    }
+    
+    .alertbox p {
+        display: inline;
+        }
+        
+    .alertbox ul + p:before {
+        content: " - ";
+        }
+        
+    .alertbox .criteria p {
+        float: left;
+        margin: 0;
+        }
+        
+    .alertbox .criteria ul {
+        float: left;
+        margin: 0 4px;
+        }
+        .alertbox .criteria li {
+            float: left;
+            margin: 0 4px; padding: 0 4px;
+            background: #DAE3EE;
+        }
+        
+    .alertbox .criteria ul + p:before {
+        content: "";
+        }
+        
+/* OVERRIDES */
+.admin .alertbox {
+    margin: 15px 0;
+    }
+.email .alertbox {
+    margin: 15px 0 25px; padding: 0;
+    }
+    
+/* SHIMS */
+.ie7 .alertbox ul + p {
+    margin-left: 10px;
+    }

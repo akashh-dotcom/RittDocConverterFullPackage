@@ -1,0 +1,72 @@
+﻿@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.Resource.ResourceDetail
+@{
+    ViewBag.Title = "Resource Detail";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="onecol contentcontainer">        
+    <div id="content" class="content" role="main">
+		<h1>@Model.Resource.Title</h1>
+		
+        <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+            <ul class="actions">
+                <li><a href="@Url.Action("Detail", Model.ResourceQuery.ToRouteValues())" class="btn btn-medium"><span>Back</span></a></li>
+            </ul>
+        </div></div>
+
+		<h2>Resource Added to Promotion Queue</h2>
+		@if (Model.PromotionStatus)
+		{
+			<div>This resource has been added to the promotion queue. Use the Promotion Queue Admin to initial the promotion process for this resource or any other resource in the promotion queue.</div>
+		}
+		else
+		{
+			<div class="error">ERROR INITIATING PROMOTION.</div>
+		}
+        
+        <div id="resource-content">
+            <div class="clearfix resource-detail">
+                <div class="resource-cover">
+                    <img src="@Model.Resource.ImageUrl" alt="Image of the book cover for '@Model.Resource.Title'" />
+                </div>
+
+                <div class="resource-info">
+                    <div class="clearfix columns two-columns-50-40">
+                        <div class="column">
+                            <strong>Author:</strong> @Model.Resource.Authors<br />
+                            <strong>Publisher:</strong> @Model.Resource.PublisherName<br />
+
+                            <strong>@Html.LabelFor(x => x.Resource.PublicationDate)</strong>  @Html.DisplayFor(x => x.Resource.PublicationDate)<br />
+                            <strong>@Html.LabelFor(x => x.Resource.ReleaseDate)</strong>  @Html.DisplayFor(x => x.Resource.ReleaseDate)<br />                            
+                            <strong>@Html.LabelFor(x => x.Resource.ListPrice)</strong>  @Html.DisplayFor(x => x.Resource.ListPrice)<br />
+                        </div>
+
+                        <div class="column">
+                            <strong>ISBN 10:</strong> @Model.Resource.Isbn10<br />
+                            <strong>ISBN 13:</strong> @Model.Resource.Isbn13<br />
+                            @if (Model.Resource.EIsbn != null)
+							{
+                                <strong>eISBN:</strong> @Model.Resource.EIsbn<br />
+							}
+                            <strong>Edition:</strong> @Model.Resource.Edition<br />
+                        </div>
+                    </div>
+					<br />
+                    <div><strong><a href="@Url.Action("Title", "Resource", new { Area = "", Model.Resource.Isbn })" data-toggle="window">View Full Detail</a></strong></div>
+					@if (Model.DisplayPromotionFields)
+	 {
+						<div class="column"><strong>Last Promotion Date: </strong>@Model.Resource.LastPromotionDate</div>
+						<div class="column"><strong>QA Approval Date: </strong> @Model.Resource.QaApprovalDate</div>
+	 }
+                    <h2>Description:</h2>
+                        
+                    <p>@Model.Resource.ResourceDescription</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

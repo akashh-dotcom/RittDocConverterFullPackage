@@ -1,0 +1,77 @@
+﻿@model R2V2.Web.Areas.Admin.Models.SpecialCollectionManagement.EditModel
+
+@{
+    ViewBag.Title = "Special Resources Add";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="content collection-manage ">
+    <div class="modal-header">
+        <h1>Bulk Add to Special Collection</h1>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+    <div class="modal-body">
+        <div id="bulk-add-area">
+            @if (Model.Resources.Any())
+            {
+                <h3>The Special Discount will be added to following resources:</h3>
+                <ul>
+                    @foreach (var resource in Model.Resources)
+                    {
+                        <li>@resource.Title, ISBN: @resource.Isbn13</li>
+                    }
+                </ul>
+                <p><strong>Resource Count: @Html.Raw(Model.Resources.Count().ToString())</strong></p>
+            }
+            else
+            {
+                <div><strong>Sorry, none of the resources entered are eligible at this time.</strong></div>
+            }
+
+            @if (Model.ExcludedResources.Any())
+            {
+                <h3>The following titles are not eligible because they conflict with another discount or are not purchasable:</h3>
+                <ul>
+                    @foreach (var resource in Model.ExcludedResources)
+                    {
+                        <li>@resource.Title, ISBN: @resource.Isbn13</li>
+                    }
+                </ul>
+                <p><strong>Excluded Resource Count: @Html.Raw(Model.ExcludedResources.Count().ToString())</strong></p>
+            }
+            
+            @if (Model.ResourcesNotFound.Any())
+            {
+                <h3>The following ISBNs could not be found:</h3>
+                <ul>
+                    @foreach (var resource in Model.ResourcesNotFound)
+                    {
+                        <li>@resource</li>
+                    }
+                </ul>
+                <p><strong>ISBNs Not Found Count: @Html.Raw(Model.ResourcesNotFound.Count().ToString())</strong></p>
+            }
+
+        </div>
+
+        @using (Html.BeginForm("BulkAddResources", "SpecialCollectionManagement"))
+        {
+            @Html.HiddenFor(x => x.CollectionId)
+            @Html.HiddenFor(x => x.ResourceString)
+            <div class="actions">
+                <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+                @if (Model.Resources.Any())
+                {
+                    <button class="btn-medium" type="submit" data-dismiss="modal"><span>Add to Special Collection</span></button>
+                }
+            </div>
+        }
+    </div>
+
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.IFrameModal({ $dismiss: $('a[data-dismiss="modal"]'), parent: window.parent });1
+}

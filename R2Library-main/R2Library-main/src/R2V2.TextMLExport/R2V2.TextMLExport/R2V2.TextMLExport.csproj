@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net481</TargetFramework>
+    <ProjectGuid>{B1266C4B-F826-40A5-9387-3432F748B1F3}</ProjectGuid>
+    <RootNamespace>R2V2.TextMLExport</RootNamespace>
+    <AssemblyName>R2V2.TextMLExport</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.IXIACOMPONENTSLib">
+      <HintPath>..\..\..\Libs\TextML\Interop.IXIACOMPONENTSLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.TEXTMLCOMMONLib">
+      <HintPath>..\..\..\Libs\TextML\Interop.TEXTMLCOMMONLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.TEXTMLPROXYLib">
+      <HintPath>..\..\..\Libs\TextML\Interop.TEXTMLPROXYLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setting.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Setting.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\ITask.cs" />
+    <Compile Include="Tasks\TaskBase.cs" />
+    <Compile Include="Tasks\TaskResult.cs" />
+    <Compile Include="Tasks\TaskResultStep.cs" />
+    <Compile Include="Tasks\TextML\TextMLExtractTask.cs" />
+    <Compile Include="Tasks\TextML\TextMLService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Setting.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Setting.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\R2Library.Data.ADO\R2Library.Data.ADO.csproj">
+      <Project>{48D457C3-5207-487F-B2F6-CFBF1A2F5068}</Project>
+      <Name>R2Library.Data.ADO</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

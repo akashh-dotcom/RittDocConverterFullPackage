@@ -1,0 +1,64 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Configuration.ConfigurationGroupSettingsModel
+@{
+    ViewBag.Title = "Live Configuration Setting";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Configuration.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="fullcol contentcontainer">
+    <div id="content" class="content" role="main" >
+        <h1>Live Configuration Settings</h1>
+        
+        @* User.config Status Indicator *@
+        <div style="padding: 10px; margin-bottom: 15px; border-radius: 4px; background-color: @(Model.UserConfigLoaded ? (Model.IsLocalDevelopment ? "#d4edda" : "#fff3cd") : "#f8d7da"); border: 1px solid @(Model.UserConfigLoaded ? (Model.IsLocalDevelopment ? "#c3e6cb" : "#ffeaa7") : "#f5c6cb"); color: @(Model.UserConfigLoaded ? (Model.IsLocalDevelopment ? "#155724" : "#856404") : "#721c24");">
+            <strong>Environment Status:</strong> @Model.EnvironmentInfo
+        </div>
+
+	    <div><b>@Model.Settings.ConfigurationName (@Model.Settings.NumberOfSettings)</b></div>
+
+        <div class="group-actions-wrapper">
+	        <div class="clearfix group-actions" data-implement="fixed">
+		        <ul class="actions" style="float: left;">
+			        <li>View Configuration: @Html.DropDownListFor(x => x.ConfigurationValue, Model.ConfigurationList)</li> 
+			        <li>Navigate to: @Html.DropDownListFor(x => x.NavigationValue, Model.NavigationList)</li>
+		        </ul>
+		        <ul class="actions">
+			        <li><a href="@Url.Action("AddConfigurationSetting", new {configurationName = Model.Settings.ConfigurationName, backUrl = Model.BackUrl})" class="btn btn-medium"><span>Add New Setting</span></a></li>
+			        @if (Model.DisplayReloadButton)
+			        {
+				        <li><a href="@Url.Action("ReloadSettings")" class="btn btn-medium"><span>Reload Settings</span></a></li>
+			        }
+		        </ul>
+	        </div>
+        </div>
+        <div>
+            <div>
+                @Html.Partial("_ConfigurationSettings", Model)
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.PdaCollection({ $parent: $('#container'), triggers: ['.btn-add'] });
+
+    $("#NavigationValue").change(function() {
+        var aTag = $("a[name='"+ $("#NavigationValue").val() +"']");
+        if($("#NavigationValue").val() == 'Top of Page'){
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+        }
+        else{
+            $('html,body').animate({scrollTop: aTag.offset().top -120},'slow');
+        }
+    });
+    
+    $("#ConfigurationValue").change(function() {
+        var redirect = $("#ConfigurationValue").val();
+        window.location.href = redirect;
+    });
+    
+    PageLinkValue
+}

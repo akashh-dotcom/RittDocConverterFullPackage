@@ -1,0 +1,24 @@
+﻿@using R2V2.Core.Reports
+@model R2V2.Web.Areas.Admin.Models.Report.ReportModel
+@if (Model.NavLinkSections != null && Model.NavLinkSections.Any() && Model.IsLicenseTypeEnabled)
+{
+    <tr>
+        <td class="label">License Type: </td>
+        <td class="field">
+            <span class="filter-license-filter">@Html.CheckBoxFor(model => model.ReportQuery.IncludePurchasedTitles)          @Html.LabelFor(model => model.IncludePurchasedTitles)</span>
+            
+            @if (!Model.IsPublisherUser)
+            {
+                <span class="filter-license-filter">@Html.CheckBoxFor(model => model.ReportQuery.IncludePdaTitles)          @Html.LabelFor(model => model.IncludePdaTitles)</span>
+            }
+            @if (!Model.DisableTocLicenseType)
+            {
+                <span class="filter-license-filter">@Html.CheckBoxFor(model => model.ReportQuery.IncludeTocTitles)          @Html.LabelFor(model => model.IncludeTocTitles)</span>
+            }
+            @if (!Model.IsPublisherUser && Model.Type != ReportType.CounterDeniedRequests)
+            {
+                <span class="filter-license-filter">@Html.CheckBoxFor(model => model.ReportQuery.IncludeTrialStats)          @Html.LabelFor(model => model.IncludeTrialStats)</span>
+            }
+        </td>
+    </tr>
+}

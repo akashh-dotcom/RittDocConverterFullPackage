@@ -1,0 +1,24 @@
+﻿@model R2V2.Web.Models.LoginParam
+           
+<div id="login" class="authentication">
+    @using (Ajax.BeginForm("LoginAjax", "Authentication", new { Area = "" }, new AjaxOptions { HttpMethod = "POST", OnBegin = "R2V2.Authentication.DisableSubmit", OnComplete = "R2V2.Authentication.Login" }))
+    {
+        @Html.HiddenFor(x => x.RedirectUrl)
+
+        <div class="validation-message"></div>
+        
+        <div class="clearfix">
+            <label for="login-user">Login:</label>
+
+            <div class="textfield"><div class="textfieldinner">
+                @Html.TextBoxFor(x => x.UserName, new { id = "login-user", @class = "text", placeholder = "Enter username", maxlength = 50 })
+            </div></div>
+        
+            <div class="textfield"><div class="textfieldinner">
+                @Html.PasswordFor(x => x.Password, new { id = "login-password", @class = "text", placeholder = "Enter password", maxlength = 20 })
+            </div></div>
+        
+            <button type="submit" class="btn-medium"><span>Log In</span></button>
+        </div>
+    }
+</div>

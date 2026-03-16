@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net481</TargetFramework>
+  <ProjectGuid>{DCDD86F7-E2AD-425F-B876-F371A8102566}</ProjectGuid>
+    <RootNamespace>R2V2.WindowsService</RootNamespace>
+    <AssemblyName>R2V2.WindowsService</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseWindowsForms>true</UseWindowsForms>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.4.0" />
+    <PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="6.1.0" />
+    <PackageReference Include="CommonServiceLocation" Version="1.0.0" />
+    <PackageReference Include="DiffieHellman" Version="1.0.0" />
+    <PackageReference Include="EasyNetQ" Version="2.3.1" />
+    <PackageReference Include="FluentNHibernate" Version="3.4.1" />
+    <PackageReference Include="log4net" Version="3.2.0" />
+    <PackageReference Include="Microsoft.Diagnostics.Tracing.EventSource.Redist" Version="1.1.28" />
+    <PackageReference Include="CommonServiceLocator" Version="2.0.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="NHibernate" Version="5.6.0" />
+    <PackageReference Include="Org.Mentalis.Security" Version="1.0.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.1" />
+    <PackageReference Include="Tamir.SharpSSH" Version="1.1.1.13" />
+  </ItemGroup><ItemGroup>
+    <Reference Include="dtSearchNetApi4">
+      <HintPath>..\..\Libs\DtSearch\dtSearchNetApi4.dll</HintPath>
+    </Reference>
+  </ItemGroup><ItemGroup>
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\R2Library.Data.ADO\R2Library.Data.ADO.csproj" />
+    <ProjectReference Include="..\R2V2\R2V2.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="app.config" />
+    <Content Include="hibernate.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Threads\Promotion\Promote.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="dtengine">
+      <Guid>{A967E5C4-B0E1-11D3-B57C-00105AA461D0}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+    <WCFMetadataStorage Include="Service References\PrecisionSearch\" />
+  </ItemGroup>
+
+</Project>

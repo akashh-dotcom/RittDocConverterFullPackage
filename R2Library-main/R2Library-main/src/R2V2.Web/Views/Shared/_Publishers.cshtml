@@ -1,0 +1,43 @@
+﻿@model R2V2.Web.Models.PublisherSummaries
+
+@if (Model != null && Model.Publishers != null && Model.Publishers.Any())
+{
+    <div id="publisher" class="clearfix columns three-columns" data-history="bookmark">
+        <div class="column">
+            <h2 class="header-alpha-group">A - H</h2>
+            <ul class="alpha-group">
+                @foreach (var publisher in Model.Publishers.Where(x => x.Name.Length > 0 && x.Name.ToUpper()[0] >= 'A' && x.Name.ToUpper()[0] <= 'H'))
+                {
+                    if (publisher != null && !string.IsNullOrWhiteSpace(publisher.Name))
+                    {
+                        <li><a href="#@publisher.Id">@publisher.Name</a> (@publisher.ResourceCount)</li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="column">
+            <h2 class="header-alpha-group">I - O</h2>
+            <ul class="alpha-group">
+                @foreach (var publisher in Model.Publishers.Where(x => x.Name.Length > 0 && x.Name.ToUpper()[0] >= 'I' && x.Name.ToUpper()[0] <= 'O'))
+                {
+                    if (publisher != null && !string.IsNullOrWhiteSpace(publisher.Name))
+                    {
+                        <li><a href="#@publisher.Id">@publisher.Name</a> (@publisher.ResourceCount)</li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="column">
+            <h2 class="header-alpha-group">P - Z</h2>
+            <ul class="alpha-group">
+                @foreach (var publisher in Model.Publishers.Where(x => x.Name.Length > 0 && x.Name.ToUpper()[0] >= 'P' && x.Name.ToUpper()[0] <= 'Z'))
+                {
+                    if (publisher != null && !string.IsNullOrWhiteSpace(publisher.Name))
+                    {
+                        <li><a href="#@publisher.Id">@publisher.Name</a> (@publisher.ResourceCount)</li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+}

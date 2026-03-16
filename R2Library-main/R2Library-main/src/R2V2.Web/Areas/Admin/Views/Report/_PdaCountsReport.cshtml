@@ -1,0 +1,154 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.PdaCountsReportDetail
+
+<div id="content" class="content" role="main">
+    <h1>PDA Counts Report</h1>
+
+    @if (Model.ActionsMenu != null)
+    {
+        using (Html.BeginForm("PdaCountsReport", "Report", null, FormMethod.Post))
+        {
+            @*@Html.HiddenFor(model => model.ReportTypeId)*@
+            @Html.HiddenFor(model => model.InstitutionId)
+            <div id="report-filters" class="tablecontent">
+                <table class="edit">
+                    @Html.Partial("_Period")
+                    <tr>
+                        <td>@Html.LabelFor(x => x.TerritoryList)</td>
+                        <td>@Html.DropDownListFor(x => x.ReportQuery.TerritoryCode, Model.TerritoryList)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="actions">
+                            <button class="btn-medium" type="submit"><span>Run Report</span></button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    }
+
+    <div class="group-actions-wrapper">
+        <div class="clearfix group-actions">
+            <p class="header">
+                PDA Counts Report for @if (string.IsNullOrWhiteSpace(Model.DateRangeText))
+                {
+                    @Html.DisplayFor(model => model.DateRangeStart)
+                    <span> to </span>
+                    @Html.DisplayFor(model => model.DateRangeEnd)
+                }
+                else
+                {
+                    @Html.DisplayFor(model => Model.DateRangeText)
+                }
+                <span> (Count : @Html.DisplayFor(model => model.ReportDataCount))</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="tablecontent">
+        <table class="list">
+            @foreach (var item in Model.PdaCountsReportItems)
+            {
+                <tr>
+                    <td>
+                        <table style="max-width: 450px">
+                            <tr>
+                                <td class="label" colspan="2">
+                                    @*@Html.LabelFor(model => item.InstitutionName)
+                    </td>
+                    <td class="field">*@
+                                    @Html.ActionLink(item.InstitutionName, "Detail", "Institution", new { item.InstitutionId }, null)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label" style="width: 175px;">@Html.LabelFor(model => item.AccountNumber)</td>
+                                <td class="field">
+                                    @Html.ActionLink(item.AccountNumber, "Detail", "Institution", new { item.InstitutionId }, null)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">&nbsp;</td>
+                                <td class="field">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaPurchasedResources)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaPurchasedResources)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaPurchasedLicenses)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaPurchasedLicenses)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaPurchasingPercent)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaPurchasingPercent)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaTitleViews)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaTitleViews)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaTitlesAdded)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaTitlesAdded)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaTitlesDeleted)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaTitlesDeleted)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaTitlesAddedToCart)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaTitlesAddedToCart)</td>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.FirmPurchasedResources)</td>
+                                <td class="field">@Html.DisplayFor(model => item.FirmPurchasedResources)</td>
+                            </tr>
+
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.FirmPurchasedLicenses)</td>
+                                <td class="field">@Html.DisplayFor(model => item.FirmPurchasedLicenses)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.ArePdaWizardRulesDefined)</td>
+                                <td class="field">@Html.Raw(item.ArePdaWizardRulesDefined ? "Yes" : "No")</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaWizardPurchasedResources)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaWizardPurchasedResources)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaWizardPurchasedLicenses)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaWizardPurchasedLicenses)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaWizardPurchasingPercent)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaWizardPurchasingPercent)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaWizardTitleViews)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaWizardTitleViews)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaTitlesAddedByRule)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaTitlesAddedByRule)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaWizardTitlesDeleted)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaWizardTitlesDeleted)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => item.PdaWizardTitlesAddedToCart)</td>
+                                <td class="field">@Html.DisplayFor(model => item.PdaWizardTitlesAddedToCart)</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>

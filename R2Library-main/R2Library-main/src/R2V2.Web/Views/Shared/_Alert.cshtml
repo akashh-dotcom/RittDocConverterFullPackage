@@ -1,0 +1,176 @@
+﻿@using R2V2.Core.Admin
+@model R2V2.Web.Areas.Admin.Models.Alerts.AdministratorAlert
+
+@if (Model != null)
+{
+
+    switch (Model.AlertLayout)
+    {
+        case AlertLayout.TitleText:
+            <div id="@Model.GetHtmlId()" class="content modal alert title-text">
+                <div class="modal-header center">
+                    <h3>@Html.DisplayFor(x => Model.Title)</h3>
+                    <a class="close" data-dismiss="modal" href="#">Close</a>
+                </div>
+                <div class="modal-body center">
+                    <p>@Html.DisplayFor(x => Model.Text)</p>
+                </div>
+                @if (!Model.DisplayOnce)
+                {
+                    <div class="modal-footer center">
+                        <div class="hide-Alert-link"><a href="@Url.Action("HideAlert", "Alert", new {Area = "Admin", alertId = Model.AlertId})" class="close"><span>Don't show me this again</span></a></div>
+                    </div>
+                }
+            </div>
+            break;
+
+        case AlertLayout.TitleFullImageText:
+            <div id="@Model.GetHtmlId()" class="content modal alert title-full-image-text">
+                <div class="modal-header center">
+                    <h3>@Html.DisplayFor(x => Model.Title)</h3>
+                    <a class="close" data-dismiss="modal" href="#">Close</a>
+                </div>
+                <div class="modal-body center">
+                    <p>
+                        <img src="@Html.Raw(Model.SingleImageUrl())" alt="" />
+                    </p>
+                </div>
+                <div class="modal-footer center">
+                    <h3>@Html.DisplayFor(x => Model.Text)</h3>
+                    @if (!Model.DisplayOnce)
+                    {
+                        <div class="hide-Alert-link"><a href="@Url.Action("HideAlert", "Alert", new {Area = "Admin", alertId = Model.AlertId})" class="close"><span>Don't show me this again</span></a></div>
+                    }
+                </div>
+            </div>
+            break;
+
+        case AlertLayout.TitlePartImageText:
+            <div id="@Model.GetHtmlId()" class="content modal alert title-part-image-text">
+                <div class="modal-header center">
+                    <h3>@Html.DisplayFor(x => Model.Title)</h3>
+                    <a class="close" data-dismiss="modal" href="#">Close</a>
+                </div>
+                <div class="modal-body center">
+                    <p>
+                        <span style="float: left">
+                            <img src="@Html.Raw(Model.SingleImageUrl())" alt="" />
+                        </span>
+                        @Html.DisplayFor(x => Model.Text)
+                    </p>
+                </div>
+                @if (!Model.DisplayOnce)
+                {
+                    <div class="modal-footer center">
+                        <div class="hide-Alert-link"><a href="@Url.Action("HideAlert", "Alert", new {Area = "Admin", alertId = Model.AlertId})" class="close"><span>Don't show me this again</span></a></div>
+                    </div>
+                }
+            </div>
+            break;
+
+        case AlertLayout.Html:
+            <div id="@Model.GetHtmlId()" class="content modal alert html-layout">
+                <div class="modal-body center">
+                    <a class="close" data-dismiss="modal" href="#">Close</a>
+                    @Html.Raw(Model.Text)
+                </div>
+                @if (!Model.DisplayOnce)
+                {
+                    <div class="modal-footer center">
+                        <div class="hide-Alert-link"><a href="@Url.Action("HideAlert", "Alert", new {Area = "Admin", alertId = Model.AlertId})" class="close"><span>Don't show me this again</span></a></div>
+                    </div>
+                }
+            </div>
+            break;
+        case AlertLayout.ResourceAndText:
+            <div id="@Model.GetHtmlId()" class="content modal alert resource-text-layout">
+                <div class="modal-header center">
+                    <h3>@Html.DisplayFor(x => Model.Title)</h3>
+                    <a class="close" data-dismiss="modal" href="#">Close</a>
+                </div>
+                <div class="modal-body center">
+                    <div class="resource-info">
+                        <div class="clearfix">
+                            <h1 class="header">@Model.Resource.Title</h1>
+                            <div class="resource-cover" style="float: left; max-width: 200px;">
+                                <img src="@Model.Resource.ImageUrl" alt="Image of the book cover for '@Model.Resource.Title'"/>
+                            </div>
+                            <div class="left resource-detail">
+                                <strong>Author:</strong> @Model.Resource.Authors<br/>
+                                <strong>Affiliation:</strong> @Html.Raw(Model.Resource.Affiliation)<br/>
+                                <strong>Publisher: </strong> @Html.DisplayFor(x => Model.Resource.Publisher.DisplayName)<br/>
+                                <strong>Publication Date: </strong> @Html.Raw(string.Format("{0:M/d/yyyy}", Model.Resource.PublicationDate) )<br/>
+                                <strong>R2 Release Date: </strong> @Html.Raw(string.Format("{0:M/d/yyyy}", Model.Resource.ReleaseDate))<br/>
+                                @if (Model.Resource.Edition != null)
+                                {
+                                    <strong>Edition: </strong> @Model.Resource.Edition<br />
+                                }
+                            </div>
+                            <div class="left" style="padding-left: 10px;">
+                                <strong>ISBN 10: </strong> @Model.Resource.Isbn10<br />
+                                <strong>ISBN 13: </strong> @Model.Resource.Isbn13<br />
+                                @if (Model.Resource.EIsbn != null)
+                                {
+                                    <strong>eISBN: </strong> @Model.Resource.EIsbn<br />
+                                }
+                                
+                                
+                                @if (Model.Resource.IsFreeResource)
+                                {
+                                    <strong>Price: </strong> <span>@PurchaseHelper.GetPriceDisplay(Model.Resource)</span><br />
+                                }
+                                else
+                                {
+                                    <strong>List Price: </strong> <span class="strike">@PurchaseHelper.GetPriceDisplay(Model.Resource)</span><br />
+                                    <strong>Discount Price: </strong> <span>
+                                                                          @if (Model.DiscountPrice == 0)
+                                                                          {
+                                                                              <strong>N/A</strong>
+                                                                          }
+                                                                          else
+                                                                          {
+                                                                              <strong>@Html.DisplayFor(x => Model.DiscountPrice)</strong>
+                                                                          }
+                                                                      </span><br />
+                                }
+                                <div class="link">
+                                    @if (Model.DisplayPurchase)
+                                    {
+                                        if (Model.CanAddToCollection)
+                                        {
+                                            @*<div><a href="@Url.Action("AddResourceToCart", "Alert", new {Area = "Admin", resourceId = Model.Resource.Id})" class="btn btn-medium"><span>Add To My Collection</span></a></div>*@
+                                            <div><a class="btn btn-medium" href="@Url.Action("BulkAddToCartVerify", "ExpressCheckout", new {Area = "Admin", Model.InstitutionId, Isbns = Model.Resource.Isbn})"><span>Add To Cart</span></a></div>
+                                        }
+                                        else
+                                        {
+                                            <div><a href="#" class="btn btn-medium"><span>Add To Cart</span></a></div>
+                                        }
+                                    }
+                                    @if (Model.DisplayPDA)
+                                    {
+                                        if (Model.CanAddToCollection)
+                                        {
+                                            <div><a class="btn btn-medium" href="@Url.Action("BulkAddPdaVerify", "ExpressCheckout", new {Area = "Admin", Model.InstitutionId, Isbns = Model.Resource.Isbn})" ><span>Add to My PDA Collection</span></a></div>
+                                        }
+                                        else
+                                        {
+                                            <div><a href="#" class="btn btn-medium"><span>Add to My PDA Collection</span></a></div>
+                                        }
+                                    }
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer center">
+                    <h3>@Html.DisplayFor(x => Model.Text)</h3>
+                    @if (!Model.DisplayOnce)
+                    {
+                        <div class="hide-Alert-link"><a href="@Url.Action("HideAlert", "Alert", new {Area = "Admin", alertId = Model.AlertId})" class="close"><span>Don't show me this again</span></a></div>
+                    }
+                </div>
+            </div>
+            break;
+    }
+}

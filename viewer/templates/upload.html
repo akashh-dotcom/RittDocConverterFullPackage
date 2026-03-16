@@ -1,0 +1,315 @@
+{% extends "layout.html" %}
+{% block title %}Upload EPUB{% endblock %}
+
+{% block extra_head %}
+<style>
+    .upload-area {
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        padding: 60px 30px;
+        text-align: center;
+        cursor: pointer;
+        transition: border-color 0.3s, background 0.3s;
+    }
+    .upload-area:hover, .upload-area.dragover {
+        border-color: #1a3a5c;
+        background: #f0f4f8;
+    }
+    .upload-area input[type="file"] {
+        display: none;
+    }
+    .upload-area h3 {
+        margin: 0 0 10px;
+        color: #1a3a5c;
+    }
+    .upload-area p {
+        color: #888;
+        margin: 0;
+    }
+    .btn-upload {
+        display: inline-block;
+        background: #1a3a5c;
+        color: white;
+        padding: 10px 30px;
+        border: none;
+        border-radius: 4px;
+        font-size: 1em;
+        cursor: pointer;
+        margin-top: 15px;
+    }
+    .btn-upload:hover {
+        background: #244d75;
+    }
+    .progress-area {
+        display: none;
+        margin-top: 20px;
+    }
+    .progress-bar-container {
+        background: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
+        height: 24px;
+    }
+    .progress-bar {
+        background: #1a3a5c;
+        height: 100%;
+        width: 0%;
+        transition: width 0.5s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.85em;
+    }
+    .stage-info {
+        margin-top: 15px;
+        padding: 15px;
+        background: #f8f8f8;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 0.9em;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    .stage-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .error-msg {
+        color: #c0392b;
+        font-weight: bold;
+    }
+    .success-msg {
+        color: #27ae60;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="main-content">
+    <div class="card">
+        <h2>Upload EPUB for Conversion</h2>
+        <p>Upload an EPUB file to process it through the full pipeline:
+           RittDocConverter &rarr; Bookloader &rarr; R2Library Viewer</p>
+
+        <form id="upload-form" enctype="multipart/form-data">
+            <div class="upload-area" id="upload-area">
+                <h3>Drop EPUB file here or click to browse</h3>
+                <p>Accepted format: .epub</p>
+                <input type="file" name="epub" id="epub-input" accept=".epub,.epub3">
+            </div>
+            <br>
+            <button type="submit" class="btn-upload" id="upload-btn" disabled>Upload & Process</button>
+        </form>
+
+        <div class="progress-area" id="progress-area">
+            <div class="stage-label" id="stage-label">Preparing...</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar">0%</div>
+            </div>
+            <div class="stage-info" id="stage-info"></div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>Upload Converted Files Directly</h2>
+        <p>Already have converted XML/image files? Upload them as a ZIP to skip the pipeline.</p>
+
+        <form id="direct-upload-form" enctype="multipart/form-data">
+            <div style="margin-bottom: 12px;">
+                <label for="isbn-input" style="font-weight:bold;">ISBN / Folder Name:</label>
+                <input type="text" id="isbn-input" name="isbn" placeholder="e.g. 9783031866173 (or leave blank to detect from filename)" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-top: 4px; box-sizing: border-box;">
+            </div>
+            <div class="upload-area" id="direct-upload-area">
+                <h3>Drop ZIP file here or click to browse</h3>
+                <p>Accepted format: .zip containing XML and image files</p>
+                <input type="file" name="zipfile" id="zip-input" accept=".zip">
+            </div>
+            <br>
+            <button type="submit" class="btn-upload" id="direct-upload-btn" disabled>Upload Files</button>
+        </form>
+        <div id="direct-result" style="display:none; margin-top: 15px;"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    var uploadArea = document.getElementById('upload-area');
+    var fileInput = document.getElementById('epub-input');
+    var uploadBtn = document.getElementById('upload-btn');
+    var form = document.getElementById('upload-form');
+    var progressArea = document.getElementById('progress-area');
+    var progressBar = document.getElementById('progress-bar');
+    var stageLabel = document.getElementById('stage-label');
+    var stageInfo = document.getElementById('stage-info');
+
+    uploadArea.addEventListener('click', function() { fileInput.click(); });
+
+    fileInput.addEventListener('change', function() {
+        if (fileInput.files.length > 0) {
+            uploadBtn.disabled = false;
+            uploadArea.querySelector('h3').textContent = fileInput.files[0].name;
+        }
+    });
+
+    uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+    uploadArea.addEventListener('dragleave', function() {
+        uploadArea.classList.remove('dragover');
+    });
+    uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        if (e.dataTransfer.files.length > 0) {
+            fileInput.files = e.dataTransfer.files;
+            uploadBtn.disabled = false;
+            uploadArea.querySelector('h3').textContent = e.dataTransfer.files[0].name;
+        }
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!fileInput.files.length) return;
+
+        var formData = new FormData();
+        formData.append('epub', fileInput.files[0]);
+
+        uploadBtn.disabled = true;
+        progressArea.style.display = 'block';
+        stageInfo.innerHTML = '';
+        updateProgress(5, 'Uploading file...');
+
+        fetch('/api/process', {
+            method: 'POST',
+            body: formData
+        })
+        .then(function(resp) { return resp.json(); })
+        .then(function(data) {
+            if (data.job_id) {
+                pollStatus(data.job_id);
+            } else {
+                showError(data.error || 'Unknown error');
+            }
+        })
+        .catch(function(err) {
+            showError('Upload failed: ' + err.message);
+        });
+    });
+
+    function pollStatus(jobId) {
+        fetch('/api/status/' + jobId)
+        .then(function(resp) { return resp.json(); })
+        .then(function(data) {
+            updateProgress(data.progress || 0, data.stage || 'Processing...');
+            if (data.log) {
+                stageInfo.innerHTML = data.log.replace(/\n/g, '<br>');
+                stageInfo.scrollTop = stageInfo.scrollHeight;
+            }
+            if (data.status === 'complete') {
+                stageLabel.innerHTML = '<span class="success-msg">Processing complete!</span>';
+                progressBar.style.width = '100%';
+                progressBar.textContent = '100%';
+                if (data.isbn) {
+                    setTimeout(function() {
+                        window.location.href = '/viewer/' + data.isbn + '/';
+                    }, 1500);
+                }
+            } else if (data.status === 'error') {
+                showError(data.error || 'Processing failed');
+            } else {
+                setTimeout(function() { pollStatus(jobId); }, 2000);
+            }
+        })
+        .catch(function(err) {
+            showError('Status check failed: ' + err.message);
+        });
+    }
+
+    function updateProgress(pct, label) {
+        progressBar.style.width = pct + '%';
+        progressBar.textContent = pct + '%';
+        stageLabel.textContent = label;
+    }
+
+    function showError(msg) {
+        stageLabel.innerHTML = '<span class="error-msg">' + msg + '</span>';
+        uploadBtn.disabled = false;
+    }
+
+    // Direct upload (converted files)
+    var directArea = document.getElementById('direct-upload-area');
+    var zipInput = document.getElementById('zip-input');
+    var directBtn = document.getElementById('direct-upload-btn');
+    var directForm = document.getElementById('direct-upload-form');
+    var directResult = document.getElementById('direct-result');
+
+    directArea.addEventListener('click', function() { zipInput.click(); });
+
+    zipInput.addEventListener('change', function() {
+        if (zipInput.files.length > 0) {
+            directBtn.disabled = false;
+            directArea.querySelector('h3').textContent = zipInput.files[0].name;
+        }
+    });
+
+    directArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        directArea.classList.add('dragover');
+    });
+    directArea.addEventListener('dragleave', function() {
+        directArea.classList.remove('dragover');
+    });
+    directArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        directArea.classList.remove('dragover');
+        if (e.dataTransfer.files.length > 0) {
+            zipInput.files = e.dataTransfer.files;
+            directBtn.disabled = false;
+            directArea.querySelector('h3').textContent = e.dataTransfer.files[0].name;
+        }
+    });
+
+    directForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!zipInput.files.length) return;
+
+        var formData = new FormData();
+        formData.append('zipfile', zipInput.files[0]);
+        var isbn = document.getElementById('isbn-input').value.trim();
+        if (isbn) formData.append('isbn', isbn);
+
+        directBtn.disabled = true;
+        directBtn.textContent = 'Uploading...';
+        directResult.style.display = 'none';
+
+        fetch('/api/upload-converted', {
+            method: 'POST',
+            body: formData
+        })
+        .then(function(resp) { return resp.json(); })
+        .then(function(data) {
+            directBtn.disabled = false;
+            directBtn.textContent = 'Upload Files';
+            if (data.ok) {
+                directResult.style.display = 'block';
+                directResult.innerHTML = '<span class="success-msg">Uploaded ' + data.files + ' files to folder "' + data.isbn + '"</span>' +
+                    '<br><a href="/viewer/' + data.isbn + '/" style="margin-top:8px;display:inline-block;">View Book</a>' +
+                    ' | <a href="/">Back to Books</a>';
+            } else {
+                directResult.style.display = 'block';
+                directResult.innerHTML = '<span class="error-msg">' + (data.error || 'Upload failed') + '</span>';
+            }
+        })
+        .catch(function(err) {
+            directBtn.disabled = false;
+            directBtn.textContent = 'Upload Files';
+            directResult.style.display = 'block';
+            directResult.innerHTML = '<span class="error-msg">Upload failed: ' + err.message + '</span>';
+        });
+    });
+</script>
+{% endblock %}

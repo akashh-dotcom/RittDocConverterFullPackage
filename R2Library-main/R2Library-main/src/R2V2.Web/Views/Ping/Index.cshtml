@@ -1,0 +1,19 @@
+﻿@model R2V2.Web.Models.Ping.PingData
+<!doctype html>
+@{
+    Layout = "";
+}
+<head>
+    <title>Ping | R2 Digital Library</title>
+</head>
+<body>
+
+    <h2>R2 Library - Version 2 - Ping Page</h2>
+    <div>Version: @Model.Version</div>
+    <div>Client IP Address: @Model.ClientIpAddress</div>
+    <div>Database Status: @Model.DatabaseStatus</div>
+    <div>Machine Name: @Model.MachineName</div>
+    <div>Assemply Timestamp: @Model.AssemplyTimestamp.ToString("o")</div>
+    <div>App Started Timestamp: @Model.AppStartTimestamp.ToString("o")</div>
+    <div>Request Timestamp: @Model.RequestTimestamp.ToString("o")</div>
+</body>

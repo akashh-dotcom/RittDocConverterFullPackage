@@ -1,0 +1,41 @@
+﻿body.app-error {
+}
+
+.app-error header {
+    display: none;
+}
+.app-error footer {
+    display: none;
+}
+
+.app-error .navbar {
+    display: none;
+}
+
+.app-error ul.list-errors li {
+    display: block;
+}
+
+.app-error .hero {
+    width: 707px;
+    background: none;
+    height: 275px;
+}
+
+.app-error #container {
+    background: none;
+}
+
+.app-error-action {
+    display: block;
+}
+
+.app-error .app-error-action {
+    text-align: right;
+    padding: 10px 0 0 0;
+}
+
+.app-error .app-error-action a {
+    font-size: 0.75em;
+    margin: 0px 15px 0px 0px;
+}

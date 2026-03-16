@@ -1,0 +1,157 @@
+﻿@using R2V2.Web.Models
+@using SortDirection = R2V2.Core.SortDirection
+@model R2V2.Web.Areas.Admin.Models.Menus.ActionsMenu
+@{
+    var hasSorts = Model.Sorts != null && Model.Sorts.PageLinks != null && Model.Sorts.PageLinks.Count() > 1;
+    var hasFilters = Model.Filters != null && Model.Filters.Values.Any();
+    var columnType = hasSorts ? "two-columns-20-80" : "one-column";
+}
+
+@if (hasSorts || hasFilters)
+{
+    <li>
+        <a href="#sort-and-filter" class="sort-and-filter" role="button" aria-expanded="false" aria-controls="sort-and-filter">Sort &amp; Filter</a>
+        <div id="sort-and-filter" class="megamenu">
+            <div class="clearfix columns @columnType">
+                @if (hasSorts)
+                {
+                    <div class="column">
+                        <h3>Sort Options</h3>
+                        
+                        <strong>@Model.Sorts.Title</strong>
+
+                        <ul class="clearfix">
+                            @foreach (var link in Model.Sorts.PageLinks.Cast<SortLink>().Where(link => link.Active))
+                            {
+                                <li@(StyleHelpers.AddSelectedState(link.Selected))>
+                                    @link.Text
+                                    <strong class="sort-type">
+                                        @if (link.Selected)
+                                        {
+                                            if (Model.Query.SortDirection == SortDirection.Ascending)
+                                            {
+                                                <span class="ascending@(StyleHelpers.AddSelectedStateWithoutClass(link.Selected))" title="Ascending">Ascending</span>
+                                                <span class="descending" title="Descending"><a href="@link.HrefDescending">Descending</a></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="ascending" title="Ascending"><a href="@link.HrefAscending">Ascending</a></span>
+                                                <span class="descending@(StyleHelpers.AddSelectedStateWithoutClass(link.Selected))" title="Descending">Descending</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="ascending" title="Ascending"><a href="@link.HrefAscending">Ascending</a></span>
+                                            <span class="descending" title="Descending"><a href="@link.HrefDescending">Descending</a></span>
+                                        }
+                                    </strong>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                @if (hasFilters)
+                {
+                    <div class="column">
+                        <h3>Filter Options</h3>
+
+                        <div class="clearfix columns four-columns">
+                            @{
+                                var counter = 0;
+                            }
+                            @for (var i = 0; i < Model.Filters.Count; i++)
+                            {
+                                <div class="column">
+                                    <strong>@Model.Filters.ElementAt(i).Value.Title</strong>
+                                    <ul class="clearfix">
+                                        @foreach (var link in Model.Filters.ElementAt(i).Value.PageLinks.Where(x => x.Active))
+                                        {
+                                            if (link.Selected)
+                                            {
+                                                <li@(StyleHelpers.AddSelectedState(link.Selected))><strong>@link.Text</strong></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="@link.Href">@link.Text</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                    @if (Model.SecondRowFilters != null && Model.SecondRowFilters.Any() && Model.SecondRowFilters.ElementAtOrDefault(i).Value != null)
+                                    {
+                                        <br />
+                                        <strong>@Model.SecondRowFilters.ElementAt(i).Value.Title</strong>
+
+                                        <ul class="clearfix">
+                                            @foreach (var link in Model.SecondRowFilters.ElementAt(i).Value.PageLinks.Where(x => x.Active))
+                                            {
+                                                if (link.Selected)
+                                                {
+                                                    <li@(StyleHelpers.AddSelectedState(link.Selected))><strong>@link.Text</strong></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><a href="@link.Href">@link.Text</a></li>
+                                                }
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+                            }
+                            
+                            @*@{
+                                var counter = 0;
+                            }
+                            @foreach (var filterType in Model.Filters.Values)
+                            {
+                                {
+                                    counter++;
+                                }
+                                <div class="column">
+                                    <strong>@filterType.Title</strong>
+
+                                    <ul class="clearfix">
+                                        @foreach (var link in filterType.PageLinks.Where(link => link.Active))
+                                        {
+                                            if (link.Selected)
+                                            {
+                                                <li@(StyleHelpers.AddSelectedState(link.Selected))><strong>@link.Text</strong></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="@link.Href">@link.Text</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                    @if (counter == 1 && Model.SecondRowFilters.Any())
+                                    {
+                                        foreach (var filterType2 in Model.SecondRowFilters.Values)
+                                         {
+                                             <br />
+                                             <strong>@filterType2.Title</strong>
+
+                                             <ul class="clearfix">
+                                                 @foreach (var link in filterType2.PageLinks.Where(link => link.Active))
+                                                 {
+                                                     if (link.Selected)
+                                                     {
+                                                         <li@(StyleHelpers.AddSelectedState(link.Selected))><strong>@link.Text</strong></li>
+                                                     }
+                                                     else
+                                                     {
+                                                         <li><a href="@link.Href">@link.Text</a></li>
+                                                     }
+                                                 }
+                                             </ul>
+                                         }
+                                        
+                                    }
+
+                                </div>
+                            }*@
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </li>
+}

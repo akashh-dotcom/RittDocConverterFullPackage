@@ -1,0 +1,50 @@
+﻿@model R2V2.Web.Areas.Admin.Models.OrderHistory.OrderHistoryList
+
+<div id="content" class="content" role="main">
+    <h1>Institution Order History</h1>
+        
+    @Html.Partial("_InstitutionInfo")
+    
+    @if (Model.OrderHistories != null && Model.OrderHistories.Any())
+    {
+        <div class="tablecontent">
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th>PO #</th>
+                        <th>PO Comment</th>
+                        <th># of Titles</th>
+                        <th># of Licenses</th>
+                        <th>Purchase Date</th>
+                    </tr>
+                </thead>
+
+                    <tbody>
+                        @foreach (var order in Model.OrderHistories)
+                        {
+                            <tr>
+                                <td>
+                                    @if (Model.ActionsMenu != null)
+                                    {
+	                                    @Html.ActionLink(order.PurchaseOrderNumber, "Detail", "OrderHistory", new { institutionId = Model.InstitutionId, id = order.OrderHistoryId }, null)
+                                    }
+                                    else
+                                    {
+                                        @order.PurchaseOrderNumber
+                                    }
+                                </td>
+                                <td>@order.PurchaseOrderComment</td>
+                                <td>@order.NumberofTitles</td>
+                                <td>@order.NumberofLicenses</td>
+                                <td>@order.PurchaseDate</td>
+                            </tr>
+                        }
+                    </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p><strong>No Order History Available.</strong></p>
+    }
+</div>

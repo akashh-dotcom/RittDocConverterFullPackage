@@ -1,0 +1,23 @@
+﻿/* ==|== media queries ======================================================
+   EXAMPLE Media Query for Responsive Design.
+   This example overrides the primary ('mobile first') styles
+   Modify as content requires.
+   ========================================================================== */
+
+/*
+    Phone styles
+*/
+@media only screen and (max-device-width:480px) {
+	body {
+		-webkit-text-size-adjust: 100%;
+	}
+}
+
+/*
+    Tablet styles
+*/
+@media only screen and (device-width: 768px) {
+	body {
+		-webkit-text-size-adjust: 100%;
+	}
+}

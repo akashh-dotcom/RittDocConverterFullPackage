@@ -1,0 +1,116 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Alerts.AdministratorAlerts
+
+@{
+    ViewBag.Title = "Administrator Alerts";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+
+
+<div class="clearfix fullcol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Administrator Alerts</h1>
+        
+                @Html.Partial("_InstitutionInfo")
+        
+        @if (Model.PageLinks.Count() > 1)
+        {
+            <div class="nav-section-wrapper">
+                <div class="clearfix nav-section" data-implement="fixed">
+                    <ul class="nav-number nav-content">
+                        <li><strong>Jump to page:</strong></li>
+                        @foreach (var link in Model.PageLinks)
+                        {
+                            if (link.Active)
+                            {
+                                <li@(StyleHelpers.AddSelectedState(link.Selected))><a href="@link.Href"><span>@link.Text</span></a></li>
+                            }
+                            else
+                            {
+                                <li><span>@link.Text</span></li>
+                            }
+                        }
+                </ul>
+            </div>
+        </div>
+        }
+
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><a href="@Url.Action("Add")" class="btn btn-medium"><span>Add New Alert</span></a></li>
+                </ul>
+            </div>
+        </div>
+        
+        @if (Model.Alerts != null && Model.Alerts.Any())
+        {
+            <div class="tablecontent">
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th>Alert Name</th>
+                            <th>Date Range</th>
+                            <th>User Type</th>
+                            <th>Last Updated</th>
+                            <th>Last Updated By</th>
+                            <th>Preview Link</th>
+                            <th>View Once?</th>
+                            <th class="alerts-actions" style="width:140px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var alertCounter = 0;   
+                        }
+                        @foreach(var item in Model.Alerts)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.AlertName)</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartDate)
+                                    @if (item.EndDate.HasValue)
+                                    {
+                                        @:to @Html.DisplayFor(modelItem => item.EndDate)
+                                    }
+                                    
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.Role.Description)</td> 
+                                <td>@Html.Raw(item.LastUpdated.ToShortDateString())</td>
+                                <td>@Html.DisplayFor(modelItem => item.LastUpdatedBy)</td>
+                                <td><a href="#item-@alertCounter" data-toggle="modal" class="btn btn-medium"><span>Preview</span></a></td>
+                                <td>@Html.Raw(item.DisplayOnceString())</td>
+                                <td class="alerts-actions actions">
+                                    <a href="@Url.Action("Edit", new {item.AlertId})" class="btn btn-medium"><span>Edit</span></a>
+                                    <a href="@Url.Action("Delete", new {item.AlertId})" class="btn btn-medium"><span>Delete</span></a>
+                                </td>
+                            </tr>
+                            {
+                                alertCounter++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            
+        }
+        else
+        {
+            <p><strong>No Alerts Available.</strong></p>
+        }
+
+
+    </div>
+</div>
+
+@section InlineModal
+{
+    @for (var i = 0; i < Model.Alerts.Count(); i++)
+    {
+        Model.Alerts[i].SetItemId(i);
+        @Html.Partial("_Alert", Model.Alerts[i])
+    }
+}

@@ -1,0 +1,156 @@
+﻿@model R2V2.Web.Areas.Admin.Models.SubscriptionManagement.SubscriptionUser
+@{
+    ViewBag.Title = "Subscription User Edit";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@*@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)*@
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Subscription Edit</h1>
+        @using (Html.BeginForm("EditUser", "SubscriptionManagement"))
+        {
+            @Html.HiddenFor(x => x.UserId)
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions">
+                    <ul class="actions">
+                        <li><a class="btn btn-medium" id="backToListButton" href="@Url.Action("Users", "SubscriptionManagement")"><span>Back To List</span></a></li>
+                        <li><button class="btn btn-medium" type="button" href="#" id="userEditButton"><span>Edit</span></button></li>
+                        <li><a class="btn btn-medium" style="display: none" href="@Url.Action("EditUser", new {userId = Model.UserId})" id="cancelButton"><span>Cancel</span></a></li>
+                        @*/Admin/SubscriptionManagement/EditUser?userId=10019*@
+                        <li><button class="btn-medium" type="submit" style="display: none" id="userSubmitButton"><span>submit</span></button></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tablecontent">
+                <table class="edit">
+                    <tbody>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.StatusList)</td>
+                            <td class="field">
+                                @Html.DropDownListFor(model => model.RecordStatus, Model.StatusList, new { disabled = true })
+                                @Html.ValidationMessageFor(model => model.StatusList)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.ExpirationDate)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(model => model.ExpirationDate, "{0:MM/dd/yyyy}", new { disabled = true })
+
+                                @Html.ValidationMessageFor(model => model.ExpirationDate)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.FirstName)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(model => model.FirstName, new { @class = "input-medium", disabled = true })
+                                @Html.ValidationMessageFor(model => model.FirstName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.LastName)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(model => model.LastName, new { @class = "input-medium", disabled = true })
+                                @Html.ValidationMessageFor(model => model.LastName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.Email)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "input-full", disabled = true })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.UserName)</td>
+                            <td class="field">UserName is the Email Address. Changing the Email address will change the UserName.</td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.NewPassword)</td>
+                            <td class="field">
+                                @Html.PasswordFor(model => model.NewPassword, new { @class = "input-medium", disabled = true })
+                                @Html.ValidationMessageFor(model => model.NewPassword)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.ConfirmPassword)</td>
+                            <td class="field">
+                                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "input-medium", disabled = true })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="edit">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Trial End Date</th>
+                            <th>Activation Date</th>
+                            <th>Expiration Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.UserSubscriptions)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(x => item.Name)</td>
+                                <td>@Html.DisplayFor(x => item.TrialExpirationDate, "{0:MM/dd/yyyy}")</td>
+                                <td>@Html.DisplayFor(x => item.ActivationDate, "{0:MM/dd/yyyy}")</td>
+                                <td>@Html.DisplayFor(x => item.ExpirationDate, "{0:MM/dd/yyyy}")</td>
+                                <td><a class="btn btn-medium btn-add" href="#" id="item-@item.Id" data-implement="modal"><span>Edit</span></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        }
+    </div>
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    @*new R2V2.Admin.IFrameModal({ $dismiss: $('a[data-dismiss="modal"]'), parent: window.parent });*@
+    $(document).ready(function () {
+        $("#userEditButton").on("click", function(){
+            $('#RecordStatus').prop("disabled", false);
+            $('#ExpirationDate').prop("disabled", false);
+            $('#FirstName').prop("disabled", false);
+            $('#LastName').prop("disabled", false);
+            $('#Email').prop("disabled", false);
+            $('#NewPassword').prop("disabled", false);
+            $('#ConfirmPassword').prop("disabled", false);
+
+            $('#backToListButton').toggle();
+            $('#userEditButton').toggle();
+            $('#cancelButton').toggle();
+            $('#userSubmitButton').toggle();
+
+        })
+    
+        $("[id^='item-']").on("click", function(){
+            var id = $(this).attr("id").split('-').pop();
+            console.log(id)
+            $(`#modelItem-${id}`).modal('show');
+
+        });
+    })
+}
+
+
+@section InlineModal
+{
+    @for (var i = 0; i < Model.UserSubscriptions.Count(); i++)
+    {
+        ///Model.Alerts[i].SetItemId(i);
+        @Html.Partial("_UserSubscription", Model.UserSubscriptions[i])
+    }
+}

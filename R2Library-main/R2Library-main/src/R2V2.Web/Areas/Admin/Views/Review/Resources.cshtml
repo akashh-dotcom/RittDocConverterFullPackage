@@ -1,0 +1,199 @@
+﻿@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.Review.ReviewResources
+@{
+    ViewBag.Title = "Expert Reviewer Review Lists";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+       
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Expert Reviewer Review List Resources</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+        
+        @using (Html.BeginForm())
+        {
+            <div class="display-per-page">
+                <p class="screenreader">Choose the number of titles to display per page.</p>
+                @Html.DropDownListFor(x => x.ReviewQuery.PageSize, Model.PageSizeSelectList, new {onchange = "this.form.submit();"})
+                @Html.LabelFor(x => x.PageSizeSelectList)
+            </div>
+
+            @Html.HiddenFor(x => x.ReviewQuery.Query)
+            @Html.HiddenFor(x => x.ReviewQuery.ResourceStatus)
+            @Html.HiddenFor(x => x.ReviewQuery.ResourceFilterType)
+            @Html.HiddenFor(x => x.ReviewQuery.SortBy)
+            @Html.HiddenFor(x => x.ReviewQuery.SortDirection)
+            
+            
+            @Html.HiddenFor(x => x.ReviewQuery.PurchasedOnly)
+            @Html.HiddenFor(x => x.ReviewQuery.PracticeAreaFilter)
+            @Html.HiddenFor(x => x.ReviewQuery.SpecialtyFilter)
+            @Html.HiddenFor(x => x.ReviewQuery.CollectionFilter)
+            @Html.HiddenFor(x => x.ReviewQuery.ReviewId)
+            @Html.HiddenFor(x => x.ReviewQuery.Page)
+		}
+        
+        <div class="group-actions-wrapper"><div class="clearfix group-actions">
+            <ul class="actions">
+                <li><a href="@Url.Action("List", new { Model.InstitutionId })" class="btn btn-medium"><span>Back To Lists</span></a></li>
+                <li><a href="@Url.Action("Detail", new { Model.InstitutionId, reviewId = Model.Review.Id })" class="btn btn-medium"><span>Done</span></a></li>
+            </ul>
+        </div></div>
+        
+        <div class="tablecontent">
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th class="reserve-shelf-title">Title</th>
+                        <th class="reserve-shelf-description">Description</th>
+						<th class="reserve-shelf-title-count"># of Titles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="selected">
+                        <td class="reserve-shelf-title">@Model.Review.Name</td>
+                        <td class="reserve-shelf-description">@Model.Review.Description</td>
+						<td class="reserve-shelf-title-count">@Model.Review.ReviewResources.Count()</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        @if (Model.PageLinks.Count() > 1)
+		{
+            <div class="nav-section-wrapper"><div class="clearfix nav-section" data-implement="fixed">
+                <div class="previous">
+                    @if (Model.PreviousLink.Active)
+					{
+                        <a href="@Model.FirstLink.Href">&lt; @Model.FirstLink.Text</a>
+                        <a href="@Model.PreviousLink.Href">&lt;&lt; @Model.PreviousLink.Text</a>
+					}
+                </div>
+
+                <div class="next">
+                    @if (Model.NextLink.Active)
+					{
+                        <a href="@Model.NextLink.Href">@Model.NextLink.Text &gt;&gt;</a>
+                        <a href="@Model.LastLink.Href">@Model.LastLink.Text &gt;</a>
+					}
+                </div>
+                
+                <ul class="nav-number nav-content">
+                    <li><strong>Jump to page:</strong></li>
+                    @foreach (var link in Model.PageLinks)
+					{
+						if (link.Active)
+						{
+                            <li@(StyleHelpers.AddSelectedState(link.Selected))><a href="@Url.Action("Resources", Model.ReviewQuery.ToRouteValues(link.Text))"><span>@link.Text</span></a></li>
+						}
+						else
+						{
+                            <li><span>@link.Text</span></li>
+						}
+					}
+                </ul>
+            </div></div>
+		}
+
+        <div class="alertbox">
+            <h3>Displaying results <strong>@string.Format("{0:#,##0} - {1:#,##0}", Model.ResultsFirstItem, Model.ResultsLastItem)</strong> out of <strong>@string.Format("{0:#,##0}", Model.TotalCount)</strong>.</h3>
+            @if (!string.IsNullOrWhiteSpace(Model.SelectedFilters) || (!Model.ReviewQuery.DefaultQuery && Model.ActionsMenu != null))
+            {
+                <div class="criteria clearfix">
+                    <p>Search criteria:</p>
+                    @if (!string.IsNullOrWhiteSpace(Model.SelectedFilters))
+                    {
+                        <ul>
+                            @Html.Raw(Model.SelectedFilters)
+                        </ul>
+                    }
+                    @if (!Model.ReviewQuery.DefaultQuery && Model.ActionsMenu != null)
+                    {
+                        <p><a href="@Url.Action("Resources", new { Model.InstitutionId, Model.ReviewQuery.ReviewId })">Clear Results</a> or <a href="#sort-and-filter" data-toggle="link">Add More Criteria</a>.</p>
+                    }    
+                </div>
+            }
+        </div>
+        @*<div class="group-actions-wrapper">
+            <div class="clearfix group-actions">
+                <ul class="actions" id="select-actions">
+                    <li><a href="@Url.Action("BulkRecommend", "Recommendations", Model.CollectionManagementQuery.ToRouteValues())" class="btn-mini btn-link btn-addSelected disabled" data-implement="modal"><span>Add selected to list</span></a></li>
+                </ul>
+            </div>
+        </div>*@
+        
+        <div class="tablecontent">
+            <table class="list" id="ebooks">
+                <thead>
+                    <tr>
+                        <th>
+                            @if (Model.ActionsMenu != null)
+                            {
+                                <input type="checkbox" name="item-select-all" id="item-select-all" class="item-select" />
+                            }
+                            else
+                            {
+                                <span>&nbsp;</span>
+                            }
+                        </th>
+                        <th>&nbsp;</th>
+                        <th>Details</th>
+                        <th><a href="@Url.Action("BulkAddResources", "Review", Model.ReviewQuery.ToRouteValues())" class="btn-mini btn-link btn-addSelected disabled" data-implement="modal"><span>Add selected to list</span></a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Resources)
+                    {
+                        <tr>
+                            <td>
+                                @if (Model.ActionsMenu != null)
+                                {
+                                    <input type="checkbox" class="item-select" name="@item.Id" id="@item.Id" />
+                                }
+                                else
+                                {
+                                    <span>&nbsp;</span>
+                                }
+                            </td>
+                            <td>
+                                <span class="resource-status">@ResourceHelpers.ResourceStatus(item.Status)</span>
+                                @ResourceHelpers.ShowListedStatus(item, Model.SpecialIconBaseUrl, Model.ActionsMenu == null)
+                            </td>
+                            <td>@Html.Partial("_ResourceListItem", item, new ViewDataDictionary { { "EmailVersion", Model.ActionsMenu == null ? "true" : "false" } })</td>
+                            <td>
+                               @PurchaseHelper.GetPriceDisplay(item)
+                                
+                                @if (item.IsSelected)
+                                {
+                                    <a href="@Url.Action("DeleteResource", Model.ReviewQuery.ToRouteValues(item.Id, false))" class="btn btn-medium"><span>Remove</span></a>
+                                }
+                                else if(!item.IsFreeResource || (item.IsFreeResource && item.LicenseCount == 0))
+                                {
+                                    <a href="@Url.Action("AddResource", Model.ReviewQuery.ToRouteValues(item.Id, true))" class="btn btn-medium"><span>Add</span></a>
+                                }
+                            </td>
+                        </tr>
+					}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+        
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+ 
+    new R2V2.Admin.SelectedItems({ $container: $('#ebooks'), trigger: '.item-select' });
+    new R2V2.Admin.AddSelectedItems({ $parent: $('#container'), trigger: '.btn-addSelected' });
+    
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

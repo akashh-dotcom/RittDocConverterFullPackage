@@ -1,0 +1,56 @@
+﻿@model R2V2.Web.Areas.Admin.Models.SpecialCollectionManagement.EditModel
+
+@{
+    ViewBag.Title = "Special Collection Add Resources ";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="content collection-manage ">
+    <div class="modal-header">
+        <h1>Bulk Add to Special Collection</h1>
+        <a class="close" data-dismiss="navigation" href="@Url.Action("Edit", new {Model.CollectionId})">Close</a>
+    </div>
+    <div class="modal-body">
+
+        @if (Model.Resources.Any())
+        {
+            <div id="bulk-add-area">
+                <h3>The Special Discount has been applied to the following resources:</h3>
+                <ul>
+                    @foreach (var resource in Model.Resources)
+                    {
+                        <li>@resource.Title, ISBN: @resource.Isbn13</li>
+                    }
+                </ul>
+                <p><strong>Resource Count: @Html.Raw(Model.Resources.Count().ToString())</strong></p>
+                <div class="actions">
+                    <a class="cancel" data-dismiss="navigation" href="@Url.Action("Edit", new { Model.CollectionId })"><span>Close</span></a>
+                </div>
+            </div>
+        }
+        else
+        {
+            using (Html.BeginForm("BulkAddResourcesVerify", "SpecialCollectionManagement"))
+            {
+                <div id="bulk-add-area">
+                    @Html.TextAreaFor(x => x.Isbns, 13, 100, null)
+                </div>
+
+                @Html.HiddenFor(x => x.CollectionId)
+                <div class="actions">
+                    <a class="close" data-dismiss="navigation" href="@Url.Action("Edit", new { Model.CollectionId })">Cancel</a>
+                    <button class="btn-medium" type="submit"><span>Add All to Collection</span></button>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.IFrameModal({
+    parent: window.parent,
+    $dismiss: $('a[data-dismiss="navigation"]')
+    });
+}

@@ -1,0 +1,45 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Configuration.ConfigurationGroupSettingsModel
+@{
+    ViewBag.Title = "Live Configuration Setting";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Configuration.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+<div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Settings Group</h1>
+        <div>@Model.Settings.ConfigurationName (@Model.Settings.NumberOfSettings)</div>
+
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><a href="@Url.Action("AddConfigurationSetting", new {configurationName = Model.Settings.ConfigurationName, backUrl = Model.BackUrl})" class="btn btn-medium"><span>Add New Setting</span></a></li>
+                    <li><a href="@Model.BackUrl" class="btn btn-medium"><span>Back To List</span></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                @Html.Partial("_ConfigurationSettings", Model)
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.PdaCollection({ $parent: $('#container'), triggers: ['.btn-add'] });
+
+    $("#SelectedValue").change(function() {
+    var aTag = $("a[name='"+ $("#SelectedValue").val() +"']");
+    if($("#SelectedValue").val() == 'Top of Page'){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+    }
+    else{
+    $('html,body').animate({scrollTop: aTag.offset().top -120},'slow');
+    }
+    });
+}

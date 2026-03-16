@@ -1,0 +1,45 @@
+﻿
+@model R2V2.Web.Areas.Admin.Models.Cache
+@{
+    ViewBag.Title = "CMS Cache Status";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>CMS Cache Status</h1>
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><a href="@Url.Action("CacheUpdate")" class="btn btn-medium"><span>Update</span></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="resource-content">
+            <div class="clearfix resource-detail">
+                <table>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.Key</td>
+                            <td>@item.InsertDate</td>
+                            <td>@item.ExpirationDate</td>
+                            <td><a href="@Url.Action("CacheUpdateItem", new {item.Key})" class="btn btn-medium"><span>Update</span></a></td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

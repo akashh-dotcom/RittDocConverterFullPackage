@@ -1,0 +1,84 @@
+# macOS system files
+.DS_Store
+# Python virtual environment
+venv/
+venv312/
+
+# macOS system file
+.DS_Store
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# Generated output files
+Output/
+tmp/
+temp/
+analysis_temp/
+multimedia_gridorder/
+epub_temp/
+
+# Input files you don't want to track
+Input/
+
+# Batch processing
+logs/
+*.log
+data/
+*.db
+
+# Environment files (NEVER commit credentials)
+.env
+.env.local
+.env.*.local
+
+# Configuration files (keep examples only)
+config.yaml
+!config*.example
+
+# Intermediate files
+reading_order.xml
+reading_order_enriched.xml
+font_roles.json
+media.xml
+structured.xml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~*_media_fixed.zip
+*_comprehensive_fixed.zip
+
+# Test output files
+test_verification_report.xlsx
+.pytest_cache/
+
+# Validation reports and analysis files
+*_validation_report.xlsx
+*validation_report.xlsx
+*_NoMedia.zip
+*_epubNomedia.zip
+*_xmls.zip
+*.xhtml
+
+# EPUB processing artifacts
+*.epub.*.xlsx
+DCLab_convertedZips.zip
+NewFolderWithItems.zip
+
+# General zip files (comment out if you need to track specific zips)
+# *.zip
+reference_mapping.json
+toc_structure.json
+
+# Auto-fix test output files
+*_AUTO_FIXED*.zip
+
+# EPUB test files (downloaded for testing, not part of source)
+*.epub

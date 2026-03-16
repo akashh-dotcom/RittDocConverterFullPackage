@@ -1,0 +1,75 @@
+﻿@using System.Web.Optimization
+@using R2V2.Web.Helpers
+@model R2V2.Web.Models.IR2V2Model
+
+<!doctype html>
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	
+    <title>@ViewBag.Title | R2 Digital Library</title>
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    
+    @if (IsSectionDefined("CssIncludes"))
+    {
+        @RenderSection("CssIncludes")
+    }
+    <link rel="stylesheet" href="@BundleTable.Bundles.ResolveBundleUrl("~/_Static/bundles/css")" />
+
+	<script src="@Url.Script("libraries/modernizr.custom.js")"></script>
+</head>
+<body class="@Html.Raw(ViewBag.BodyCssClass == "" ? "" : ViewBag.BodyCssClass) @Model.Layout.ControllerName @Model.Layout.ActionName">
+    <div>
+        @RenderBody()
+    </div>
+    
+    @if (IsSectionDefined("InlineModal"))
+    {
+        @RenderSection("InlineModal")
+    }
+	
+	@* JS namespacing *@
+    <script>
+        var R2V2 = R2V2 || {};
+        R2V2.Config = {
+            IsMarketingHome: @(Model.Layout.IsMarketingHome ? "true" : "false"),
+            Tracking: { Category: '', Action: '' },
+            DisableRightClick: @(Model.Layout.DisableRightClick ? "true" : "false")
+        };
+    </script>
+    
+    @* Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline *@
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>        window.jQuery || document.write('<script src="@Url.Script("libraries/jquery-1.7.1.min.js")"><\/script>')</script>
+    <script src="@BundleTable.Bundles.ResolveBundleUrl("~/_Static/bundles/js")"></script>
+    @if (IsSectionDefined("JsIncludes"))
+    {
+        @RenderSection("JsIncludes")
+    }
+    
+    <script>
+        ; (function($) {
+            @if (IsSectionDefined("JsDocumentReady"))
+            {
+                @RenderSection("JsDocumentReady")
+            }
+                
+        })(jQuery);
+    </script>
+    
+	<script>
+		var _gaq=[['_setAccount','@Model.Layout.GoogleAnalyticsAccount'],['_trackPageview']];
+		(function(d,t){
+			var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+			g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+			s.parentNode.insertBefore(g,s);
+		}(document,'script'));
+	</script>
+</body>
+</html>

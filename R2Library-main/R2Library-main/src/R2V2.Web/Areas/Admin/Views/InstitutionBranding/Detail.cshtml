@@ -1,0 +1,60 @@
+﻿@using R2V2.Extensions
+@model R2V2.Web.Areas.Admin.Models.InstitutionBranding.InstitutionBranding
+
+@{
+    ViewBag.Title = "Institution Branding";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Institution Branding</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+
+        <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+            <ul class="actions">
+                <li><a href="@Url.Action("Edit", new { institutionId = Model.InstitutionId })" class="btn btn-medium"><span>Edit Institution Branding</span></a></li>
+            </ul>
+        </div></div>
+
+        <div class="tablecontent">
+            <table class="detail">
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.InstitutionDisplayName)</td>
+                    <td class="field">@Html.DisplayFor(x => x.InstitutionDisplayName)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.Message)</td>
+                    <td class="field">@Html.Raw(Model.Message.Linkify())</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(x => x.LogoDisplayUrl)</td>
+                    <td class="field">
+                        @if (string.IsNullOrWhiteSpace(Model.LogoDisplayUrl))
+                        {
+                            <img src="/_Static/Images/institution-logos/not-available.gif" alt="No Logo Uploaded" />
+                        }
+                        else
+                        {
+                            <img src="@Model.LogoDisplayUrl" alt="Image of '@Model.LogoFileName'" />
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

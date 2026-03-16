@@ -1,0 +1,289 @@
+{
+  "_description": "Dropdown options reference for UI configuration forms",
+  "_version": "1.0.0",
+  "_usage": "Import this file in your UI project for static dropdown options",
+
+  "storage_type": {
+    "field": "storage.type",
+    "title": "Storage Type",
+    "widget": "dropdown",
+    "default": "s3",
+    "options": [
+      {"value": "s3", "label": "Amazon S3", "icon": "cloud"},
+      {"value": "local", "label": "Local Storage", "icon": "folder"},
+      {"value": "sftp", "label": "SFTP Server", "icon": "server"}
+    ]
+  },
+
+  "aws_region": {
+    "field": "storage.s3.region",
+    "title": "AWS Region",
+    "widget": "dropdown",
+    "default": "us-east-1",
+    "options": [
+      {"value": "us-east-1", "label": "US East (N. Virginia)", "group": "North America"},
+      {"value": "us-east-2", "label": "US East (Ohio)", "group": "North America"},
+      {"value": "us-west-1", "label": "US West (N. California)", "group": "North America"},
+      {"value": "us-west-2", "label": "US West (Oregon)", "group": "North America"},
+      {"value": "ca-central-1", "label": "Canada (Central)", "group": "North America"},
+      {"value": "eu-west-1", "label": "Europe (Ireland)", "group": "Europe"},
+      {"value": "eu-west-2", "label": "Europe (London)", "group": "Europe"},
+      {"value": "eu-west-3", "label": "Europe (Paris)", "group": "Europe"},
+      {"value": "eu-central-1", "label": "Europe (Frankfurt)", "group": "Europe"},
+      {"value": "eu-north-1", "label": "Europe (Stockholm)", "group": "Europe"},
+      {"value": "ap-south-1", "label": "Asia Pacific (Mumbai)", "group": "Asia Pacific"},
+      {"value": "ap-southeast-1", "label": "Asia Pacific (Singapore)", "group": "Asia Pacific"},
+      {"value": "ap-southeast-2", "label": "Asia Pacific (Sydney)", "group": "Asia Pacific"},
+      {"value": "ap-northeast-1", "label": "Asia Pacific (Tokyo)", "group": "Asia Pacific"},
+      {"value": "ap-northeast-2", "label": "Asia Pacific (Seoul)", "group": "Asia Pacific"},
+      {"value": "sa-east-1", "label": "South America (São Paulo)", "group": "South America"}
+    ]
+  },
+
+  "processing_mode": {
+    "field": "processing.mode",
+    "title": "Processing Mode",
+    "widget": "dropdown",
+    "default": "automated",
+    "options": [
+      {"value": "cli", "label": "CLI Mode (Manual)", "description": "Process files manually via command line"},
+      {"value": "automated", "label": "Automated (Scheduled)", "description": "Automatically process files on schedule"}
+    ]
+  },
+
+  "max_concurrent_jobs": {
+    "field": "processing.max_concurrent_jobs",
+    "title": "Max Concurrent Jobs",
+    "widget": "dropdown",
+    "default": 4,
+    "options": [
+      {"value": 1, "label": "1 (Minimal)", "description": "Lowest resource usage"},
+      {"value": 2, "label": "2 (Low)"},
+      {"value": 4, "label": "4 (Default)", "description": "Balanced performance"},
+      {"value": 8, "label": "8 (High)"},
+      {"value": 16, "label": "16 (Very High)", "description": "For powerful servers"},
+      {"value": 32, "label": "32 (Maximum)", "description": "Maximum parallelism"}
+    ]
+  },
+
+  "timeout_seconds": {
+    "field": "processing.timeout_seconds",
+    "title": "Job Timeout",
+    "widget": "dropdown",
+    "default": 3600,
+    "options": [
+      {"value": 300, "label": "5 minutes", "description": "Quick jobs only"},
+      {"value": 900, "label": "15 minutes"},
+      {"value": 1800, "label": "30 minutes"},
+      {"value": 3600, "label": "1 hour (Default)", "description": "Standard documents"},
+      {"value": 7200, "label": "2 hours", "description": "Large documents"},
+      {"value": 14400, "label": "4 hours", "description": "Very large documents"},
+      {"value": 28800, "label": "8 hours", "description": "Extremely large documents"}
+    ]
+  },
+
+  "max_retries": {
+    "field": "processing.retry.max_attempts",
+    "title": "Max Retry Attempts",
+    "widget": "dropdown",
+    "default": 3,
+    "options": [
+      {"value": 0, "label": "No retries"},
+      {"value": 1, "label": "1 retry"},
+      {"value": 2, "label": "2 retries"},
+      {"value": 3, "label": "3 retries (Default)"},
+      {"value": 5, "label": "5 retries"},
+      {"value": 10, "label": "10 retries"}
+    ]
+  },
+
+  "scheduler_interval": {
+    "field": "scheduler.interval_minutes",
+    "title": "Scheduler Interval",
+    "widget": "dropdown",
+    "default": 60,
+    "options": [
+      {"value": 5, "label": "Every 5 minutes", "description": "High frequency"},
+      {"value": 15, "label": "Every 15 minutes"},
+      {"value": 30, "label": "Every 30 minutes"},
+      {"value": 60, "label": "Every 1 hour (Default)"},
+      {"value": 120, "label": "Every 2 hours"},
+      {"value": 360, "label": "Every 6 hours"},
+      {"value": 720, "label": "Every 12 hours"},
+      {"value": 1440, "label": "Every 24 hours", "description": "Once daily"}
+    ]
+  },
+
+  "log_level": {
+    "field": "logging.level",
+    "title": "Log Level",
+    "widget": "dropdown",
+    "default": "INFO",
+    "options": [
+      {"value": "DEBUG", "label": "DEBUG", "description": "Verbose logging for troubleshooting", "color": "gray"},
+      {"value": "INFO", "label": "INFO (Default)", "description": "Standard operational logs", "color": "blue"},
+      {"value": "WARNING", "label": "WARNING", "description": "Warnings and errors only", "color": "yellow"},
+      {"value": "ERROR", "label": "ERROR", "description": "Errors only", "color": "red"}
+    ]
+  },
+
+  "log_retention": {
+    "field": "logging.retention_days",
+    "title": "Log Retention Period",
+    "widget": "dropdown",
+    "default": 30,
+    "options": [
+      {"value": 7, "label": "7 days"},
+      {"value": 14, "label": "14 days"},
+      {"value": 30, "label": "30 days (Default)"},
+      {"value": 60, "label": "60 days"},
+      {"value": 90, "label": "90 days"},
+      {"value": 180, "label": "180 days"},
+      {"value": 365, "label": "1 year"}
+    ]
+  },
+
+  "smtp_port": {
+    "field": "notifications.channels.email.smtp.port",
+    "title": "SMTP Port",
+    "widget": "dropdown",
+    "default": 587,
+    "options": [
+      {"value": 25, "label": "25 (SMTP)", "description": "Unencrypted SMTP"},
+      {"value": 465, "label": "465 (SMTPS)", "description": "SSL/TLS encrypted"},
+      {"value": 587, "label": "587 (Submission)", "description": "TLS with STARTTLS (Recommended)"},
+      {"value": 2525, "label": "2525 (Alternative)", "description": "Alternative port for some providers"}
+    ]
+  },
+
+  "supported_formats": {
+    "field": "processing.supported_formats",
+    "title": "Supported File Formats",
+    "widget": "multi_select",
+    "default": [".epub"],
+    "options": [
+      {"value": ".epub", "label": "EPUB", "icon": "book"},
+      {"value": ".epub3", "label": "EPUB3", "icon": "book"}
+    ]
+  },
+
+  "webhook_events": {
+    "field": "notifications.channels.webhook.events",
+    "title": "Webhook Events",
+    "widget": "multi_select",
+    "default": ["job.completed", "job.failed"],
+    "options": [
+      {"value": "job.started", "label": "Job Started"},
+      {"value": "job.progress", "label": "Job Progress"},
+      {"value": "job.completed", "label": "Job Completed"},
+      {"value": "job.failed", "label": "Job Failed"},
+      {"value": "review.required", "label": "Review Required"},
+      {"value": "batch.started", "label": "Batch Started"},
+      {"value": "batch.completed", "label": "Batch Completed"}
+    ]
+  },
+
+  "quality_thresholds": {
+    "auto_approve": {
+      "field": "quality.auto_approve_threshold",
+      "title": "Auto-Approve Threshold",
+      "widget": "slider",
+      "default": 80,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "color": "green",
+      "description": "Conversions scoring above this are automatically approved"
+    },
+    "notify": {
+      "field": "quality.notify_threshold",
+      "title": "Notify Threshold",
+      "widget": "slider",
+      "default": 50,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "color": "yellow",
+      "description": "Conversions scoring above this trigger notifications but proceed"
+    },
+    "manual_review": {
+      "field": "quality.manual_review_threshold",
+      "title": "Manual Review Threshold",
+      "widget": "slider",
+      "default": 50,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "color": "red",
+      "description": "Conversions scoring below this require manual review"
+    }
+  },
+
+  "toggle_fields": {
+    "_description": "Fields that use toggle/switch widgets",
+    "fields": [
+      {"path": "storage.s3.enabled", "title": "Enable S3", "default": true},
+      {"path": "storage.s3.use_sftp", "title": "Use SFTP Gateway", "default": false},
+      {"path": "database.mongodb.enabled", "title": "Enable MongoDB", "default": true},
+      {"path": "processing.retry.enabled", "title": "Enable Retry", "default": true},
+      {"path": "scheduler.enabled", "title": "Enable Scheduler", "default": true},
+      {"path": "scheduler.run_on_startup", "title": "Run on Startup", "default": false},
+      {"path": "notifications.enabled", "title": "Enable Notifications", "default": false},
+      {"path": "notifications.channels.email.enabled", "title": "Enable Email", "default": false},
+      {"path": "notifications.channels.email.smtp.use_tls", "title": "Use TLS", "default": true},
+      {"path": "notifications.channels.webhook.enabled", "title": "Enable Webhook", "default": false},
+      {"path": "pipelines.epub.enabled", "title": "Enable EPUB Pipeline", "default": true}
+    ]
+  },
+
+  "text_fields": {
+    "_description": "Fields that use text input widgets",
+    "fields": [
+      {"path": "storage.s3.bucket_name", "title": "Bucket Name", "placeholder": "your-bucket-name"},
+      {"path": "storage.s3.endpoint_url", "title": "Custom Endpoint", "placeholder": "https://minio.example.com"},
+      {"path": "storage.s3.input_prefix", "title": "Input Prefix", "placeholder": "uploads", "default": "uploads"},
+      {"path": "storage.local.input_dir", "title": "Input Directory", "widget": "directory_picker"},
+      {"path": "storage.local.output_dir", "title": "Output Directory", "widget": "directory_picker", "default": "Output"},
+      {"path": "database.mongodb.uri", "title": "MongoDB URI", "placeholder": "mongodb://localhost:27017", "sensitive": true},
+      {"path": "database.mongodb.database", "title": "Database Name", "default": "rittdoc_converter"},
+      {"path": "notifications.channels.email.smtp.host", "title": "SMTP Host", "default": "smtp.gmail.com"},
+      {"path": "notifications.channels.webhook.url", "title": "Webhook URL", "placeholder": "https://..."},
+      {"path": "pipelines.epub.api_url", "title": "EPUB API URL", "default": "http://localhost:5001"}
+    ]
+  },
+
+  "tag_input_fields": {
+    "_description": "Fields that use tag/chip input widgets for arrays",
+    "fields": [
+      {"path": "notifications.channels.email.recipients", "title": "Email Recipients", "placeholder": "Add email..."}
+    ]
+  },
+
+  "conversion_status_options": {
+    "_description": "Status values for filtering conversions",
+    "options": [
+      {"value": "Success", "label": "Success", "color": "green"},
+      {"value": "Failure", "label": "Failed", "color": "red"},
+      {"value": "In Progress", "label": "In Progress", "color": "blue"},
+      {"value": "Partial", "label": "Partial", "color": "yellow"}
+    ]
+  },
+
+  "conversion_type_options": {
+    "_description": "Conversion type values for filtering",
+    "options": [
+      {"value": "ePub", "label": "EPUB"}
+    ]
+  },
+
+  "publisher_confidence_presets": {
+    "_description": "Preset confidence levels for new publishers",
+    "options": [
+      {"value": 95, "label": "Premium (95)", "description": "High-quality publishers like O'Reilly"},
+      {"value": 85, "label": "Standard (85)", "description": "Established publishers"},
+      {"value": 70, "label": "Average (70)", "description": "General publishers"},
+      {"value": 50, "label": "Low (50)", "description": "Unknown or variable quality"},
+      {"value": 30, "label": "Poor (30)", "description": "Known issues, requires review"}
+    ]
+  }
+}

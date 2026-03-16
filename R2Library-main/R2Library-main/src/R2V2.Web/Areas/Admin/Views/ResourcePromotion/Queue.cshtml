@@ -1,0 +1,130 @@
+﻿@model R2V2.Web.Areas.Admin.Models.ResourcePromotion.ResourcePromotionViewModel
+
+@{
+    ViewBag.Title = "Administrator Alerts";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_Tabs")
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    @using (Html.BeginForm())
+    {
+        <div id="content" class="content" role="main">
+            <h1>Resource Promotion Queue</h1>
+
+            @if (Model.ActionsMenu != null)
+            {
+                <div class="group-actions-wrapper">
+                    <div class="clearfix group-actions" data-implement="fixed">
+                        <ul class="actions">
+                            <li><button class="btn-medium" type="submit"><span>Promote Resources</span></button></li>
+                        </ul>
+                    </div>
+                </div>
+            }
+
+            <div class="alertbox">
+                <h3>@Html.LabelFor(model => model.BatchName) @Html.TextBoxFor(model => model.BatchName, new { @class = "input-large" })</h3>
+                @Html.ValidationMessageFor(model => model.BatchName)
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <span class="field-validation-error">@Html.Raw(Model.ErrorMessage)</span>
+                }                
+            </div>
+
+            <div class="tablecontent">
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th class="resource-status">&nbsp;</th>
+                            <th class="resource-details">Details</th>
+                            <th class="resource-price">Price</th>
+                            <th class="resource-price">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var resource in Model.Resources)
+                        {
+                            var item = resource.Resource;
+                            <tr>
+                                <td class="resource-status">
+                                    @ResourceHelpers.ResourceStatus(item.Status)
+                                    @*@ResourceHelpers.ShowListedStatus(item, Model.SpecialIconBaseUrl, Model.ActionsMenu == null)*@
+                                    @if (item.NotSaleable && item.NotSaleableDate.HasValue)
+                                    {
+                                        <br />
+                                        <strong>@Html.LabelFor(x => item.NotSaleable)@Html.DisplayFor(x => item.NotSaleableDate)</strong>
+                                    }
+                                </td>
+                                <td class="resource-details">
+                                    <div class="titleitem">
+                                        <h2><a href="@Url.Action("Edit", "Resource", new {ResourceId = item.Id})" target="_blank">@Html.DisplayFor(modelItem => item.Title)</a></h2>
+
+                                        <div class="clearfix title-meta">
+                                            <ul style="width: 460px">
+                                                <li>@Html.LabelFor(modelItem => resource.Isbns) @Html.DisplayFor(modelItem => resource.Isbns)</li>
+                                                <li>@Html.LabelFor(modelItem => item.Authors) @item.Authors</li>
+                                                <li>@Html.LabelFor(modelItem => item.PublisherName) @Html.DisplayFor(modelItem => item.PublisherName)</li>
+                                                <li>@Html.LabelFor(modelItem => item.PublicationDate) @Html.DisplayFor(modelItem => item.PublicationDate)</li>
+                                                <li>@Html.LabelFor(modelItem => item.ReleaseDate) @Html.DisplayFor(modelItem => item.ReleaseDate)</li>
+                                                @if (item.PracticeAreas != null && item.PracticeAreas.Any())
+                                                {
+                                                    var firstPracticeArea = true;
+                                                    <li>
+                                                        @Html.LabelFor(modelItem => item.PracticeAreas)
+                                                        @foreach (var practiceArea in item.PracticeAreas)
+                                                        {
+                                                            @(firstPracticeArea ? "" : ", ")@practiceArea.Name
+                                                            firstPracticeArea = false;
+                                                        }
+                                                            </li>
+                                                }
+                                                @if (item.Specialties != null && item.Specialties.Any())
+                                                {
+                                                    var firstSpecialty = true;
+                                                    <li>
+                                                        @Html.LabelFor(modelItem => item.Specialties)
+                                                        @foreach (var specialty in item.Specialties)
+                                                        {
+                                                            @(firstSpecialty ? "" : ", ")@specialty.Name
+                                                            firstSpecialty = false;
+                                                        }
+                                                    </li>
+                                                }
+                                                <li>@Html.LabelFor(modelItem => item.QaApprovalDate) @Html.DisplayFor(modelItem => item.QaApprovalDate)</li>
+                                                <li>@Html.LabelFor(modelItem => item.LastPromotionDate) @Html.DisplayFor(modelItem => item.LastPromotionDate)</li>
+                                                <li>@Html.LabelFor(modelItem => resource.AddedByUserFullName) @Html.DisplayFor(modelItem => resource.AddedByUserFullName) on @Html.DisplayFor(modelItem => resource.ResourcePromoteQueue.CreationDate)</li>
+                                                @if (resource.ResourcePromoteQueue.PromotedByUserId != null)
+                                                {
+                                                    <li>@Html.LabelFor(modelItem => resource.PromotedByUserFullName) @Html.DisplayFor(modelItem => resource.PromotedByUserFullName)</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div style="color: #008000">@Html.DisplayFor(x => item.SpecialText)</div>
+                                </td>
+                                <td class="resource-price">
+                                    @PurchaseHelper.GetPriceDisplay(item)
+                                </td>
+                                <td class="resource-price">
+                                    <a class="btn btn-medium btn-add" href="@Url.Action("Remove", new {resourceid=item.Id})" data-implement="modal"><span>Remove</span></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    @Html.Partial("_LeftNav", Model)
+
+</div>
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}
+
+@section InlineModal
+{
+}

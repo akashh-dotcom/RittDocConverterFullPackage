@@ -1,0 +1,106 @@
+﻿@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.Institution.InstitutionList
+
+<div id="content" class="content" role="main">
+    <h1>Institution List</h1>
+
+    @if (Model.ActionsMenu != null)
+    {
+        <div class="group-actions-wrapper"><div class="clearfix group-actions">
+            <ul class="actions">
+                <li><a href="@Url.Action("AddTrial", "InstitutionTrial")" class="btn btn-medium"><span>Add Trial Institution</span></a></li>
+            </ul>
+        </div></div>
+        
+        <div class="nav-section-wrapper"><div class="clearfix nav-section" data-implement="fixed">
+            @if (Model.PageLinks.Count() > 1)
+            {
+                <ul class="nav-content">
+                    <li><strong>Jump to:</strong></li>
+                    @foreach (var link in Model.PageLinks)
+                    {
+                        if (link.Active)
+                        {
+                            <li@(StyleHelpers.AddSelectedState(link.Selected))>
+                                <a href="@Url.Action("List", Model.InstitutionQuery.ToRouteValues(link.Text))"><span>@link.Text</span></a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><span>@link.Text</span></li>
+                        }
+                    }
+                </ul>
+            }
+        </div></div>
+    }
+        
+    <div class="alertbox">
+		<h3>Displaying results <strong>@string.Format("{0:#,##0} - {1:#,##0}", Model.ResultsFirstItem, Model.ResultsLastItem)</strong> out of <strong>@string.Format("{0:#,##0}", Model.TotalCount)</strong>.</h3>
+		@if (!string.IsNullOrWhiteSpace(Model.SelectedFilters) || (!Model.InstitutionQuery.DefaultQuery && Model.ActionsMenu != null))
+        {
+            <div class="criteria clearfix">
+                <p>Search criteria:</p>
+                @if (!string.IsNullOrWhiteSpace(Model.SelectedFilters))
+                {
+                    <ul>
+                        @Html.Raw(Model.SelectedFilters)
+                    </ul>
+                }
+                @if ((!Model.InstitutionQuery.DefaultQuery || Model.InstitutionQuery.Page == "Recent" || Model.InstitutionQuery.RecentOnly) && Model.ActionsMenu != null)
+                {
+                    <p><a href="@Url.Action("List", "Institution")">Clear Results</a> or <a href="#sort-and-filter" data-toggle="link">Add More Criteria</a>.</p>
+                }    
+            </div>
+        }
+    </div>
+
+    <div class="tablecontent">
+        <table class="list">
+            <thead>
+                <tr>
+                    <th class="institution-status"></th> 
+                    <th class="institution-account-number">Account #</th>        
+                    <th class="institution-institution-name">Institution Name</th>
+                    <th class="institution-address">Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Institutions)
+                {
+                    <tr>
+                        <td class="institution-status"><strong class="@item.AccountStatus.Description.ToLower().Replace(" ", "-")">@item.AccountStatus.Description</strong></td>
+                        <td class="institution-account-number">@Html.DisplayFor(modelItem => item.AccountNumber)</td>
+                        @if (Model.ActionsMenu != null)
+                        {
+                            <td class="institution-institution-name">
+                                @*@Html.ActionLink(item.InstitutionName, "Detail", new { item.InstitutionId })*@
+                                
+                                @Html.ActionLink(item.InstitutionName, "Index", "Dashboard",  new { item.InstitutionId }, null)
+
+                                @if (item.InstitutionTerritory != null)
+                                {
+                                    <p class="institution-territory">@item.InstitutionTerritory.Name</p>
+                                }
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="institution-institution-name">@Html.DisplayFor(modelItem => item.InstitutionName)</td>
+                        }
+                        <td class="institution-address">
+                            @Html.DisplayFor(modelItem => item.Address.Address1)<br />
+                            @if (!string.IsNullOrWhiteSpace(item.Address.Address2))
+                            {
+                                @Html.DisplayFor(modelItem => item.Address.Address2)<br />
+                            }                    
+                            @Html.DisplayFor(modelItem => item.Address.City), 
+                            @Html.DisplayFor(modelItem => item.Address.State)
+                            @Html.DisplayFor(modelItem => item.Address.Zip)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

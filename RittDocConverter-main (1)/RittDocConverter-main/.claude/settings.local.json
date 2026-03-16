@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"def comprehensive_fix_dtd\\\\|def EntityTrackingValidator\" /Users/jagadishcu/JCZentrovia-RittDocConverter/*.py)",
+      "Bash(grep -n \"^def comprehensive_fix_dtd\\\\|^class ComprehensiveDTDFixer\" /Users/jagadishcu/JCZentrovia-RittDocConverter/*.py)",
+      "Bash(ls /tmp/book_qa_975134/converted/9783031975134/book.*)",
+      "Bash(ls /tmp/book_qa_975134/converted/9783031975134/preface.*)",
+      "Bash(ls /tmp/book_qa_975134/converted/9783031975134/sect1.*ch*)",
+      "Bash(ls /tmp/book_qa_975134/converted/9783031975134/sect1.*pt*)",
+      "Bash(ls /tmp/book_qa_975134/converted/9783031975134/appendix.*)",
+      "Bash(ls /tmp/book_qa_975134/converted/9783031975134/toc.*)",
+      "Bash(ls /tmp/book_qa_975134/converted/9783031975134/*.xml)"
+    ]
+  }
+}

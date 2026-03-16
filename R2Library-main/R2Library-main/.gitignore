@@ -1,0 +1,23 @@
+# Ignore .vs folders
+.vs/
+.vscode/
+.idea/
+.DS_Store
+.project
+
+.DS_Store
+
+/packages/*
+# Ignore all bin and obj folders
+**/bin/
+**/obj/
+/src/Logs/*
+/src/R2Utilities/*Logs/*
+*.7z
+/Deploy/R2V2.WindowsService/*
+/Deploy/Web/*
+/Deploy/Athens/*
+/Deploy/R2Utilities/*
+/EmailLog
+
+*.csproj.user

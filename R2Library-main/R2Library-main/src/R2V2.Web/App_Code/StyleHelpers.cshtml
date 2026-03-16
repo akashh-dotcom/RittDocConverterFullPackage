@@ -1,0 +1,26 @@
+﻿@helper AddSelectedState(Func<bool> test)
+{
+    AddSelectedState(test());
+}
+
+@helper AddSelectedState(bool test)
+{
+    if (test){<text> class="selected"</text>}
+}
+
+@helper AddSelectedStateWithoutClass(bool test)
+{
+    if (test){<text> selected </text>}
+}
+
+@helper MakePlural(string text, int count)
+{
+    if (count != 1)
+    {
+        @: @string.Format("{0}s", text)
+    }
+    else
+    {
+        <span>@text</span>
+    }
+}

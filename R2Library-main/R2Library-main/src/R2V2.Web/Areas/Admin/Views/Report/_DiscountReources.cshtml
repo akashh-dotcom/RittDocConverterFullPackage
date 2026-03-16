@@ -1,0 +1,54 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.IDiscountReportDetail
+
+@foreach (var item in Model.DiscountResources)
+{
+    <tr>
+        <td rowspan="2" class="label-small">
+            @(Model.ActionsMenu != null ? Html.ActionLink(item.Key, "Detail", "Institution", new {item.Value.First().InstitutionId}, null) : Html.DisplayFor(model => item.Key))
+        </td>
+        <td colspan="3" style="border-bottom: 0 none; padding-bottom: 0"><b>@Html.DisplayFor(model => item.Value.First().InstitutionName)</b></td>
+    </tr>
+    <tr>                            
+        <td colspan="3" style="padding-right: 0;">
+            @foreach (var discountResource in item.Value)
+            {
+                <table>
+                    <tbody style="width: 100%">
+                        <tr>
+                            <td colspan="4" >
+                                @(Model.ActionsMenu != null ? Html.ActionLink(discountResource.Title, "Detail", "Resource", new {discountResource.ResourceId}, null) : Html.DisplayFor(model => discountResource.Title))
+                            </td>
+                            <td rowspan="4" style="width: 75px;">@PurchaseHelper.GetDisplayLicenseCount(discountResource)</td>
+                            <td rowspan="4">@Html.DisplayFor(model => discountResource.Total)</td>
+                        </tr>
+                        <tr>
+                            <td class="label-large">@Html.LabelFor(model => discountResource.Isbn10)</td>
+                            <td class="field">@Html.DisplayFor(model => discountResource.Isbn10)</td>
+                            <td class="label-large">@Html.LabelFor(model => discountResource.ListPrice)</td>
+                            <td class="field">@PurchaseHelper.GetDisplayListPrice(discountResource)</td>
+                        </tr>
+                        <tr>
+                            <td class="label-large">@Html.LabelFor(model => discountResource.Isbn13)</td>
+                            <td class="field">@Html.DisplayFor(model => discountResource.Isbn13)</td>
+                            <td class="label-large">@Html.LabelFor(model => discountResource.DiscountPrice)</td>
+                            <td class="field">@PurchaseHelper.GetDisplayDiscountPrice(discountResource)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" class="label-large">@Html.LabelFor(model => discountResource.Publisher)</td>
+                            <td rowspan="2" class="field">@Html.DisplayFor(model => discountResource.Publisher)</td>
+                            <td class="label-large">@Html.LabelFor(model => discountResource.OrderNumber)</td>
+                            <td class="field">
+                                @(Model.ActionsMenu != null ? Html.ActionLink(discountResource.OrderNumber, "Detail", "OrderHistory", new {discountResource.InstitutionId, id = discountResource.CartId}, null) : Html.DisplayFor(model => discountResource.OrderNumber))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-large">@Html.LabelFor(model => discountResource.PurchaseDate)</td>
+                            <td class="field">@Html.DisplayFor(model => discountResource.PurchaseDate)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+            }
+        </td>
+    </tr>
+}

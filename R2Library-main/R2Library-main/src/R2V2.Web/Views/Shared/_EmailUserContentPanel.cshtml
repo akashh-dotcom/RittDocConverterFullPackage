@@ -1,0 +1,45 @@
+﻿@model R2V2.Web.Models.EmailPage
+
+<p>Please separate recipients by semi-colons.</p>
+<ol>
+    <li>
+        @Html.LabelFor(x => x.To)
+        @Html.TextBoxFor(x => x.To, new { @class = "required multiemail" })
+        <div style="padding-left: 200px;">@Html.ValidationMessageFor(x => x.To)</div>
+    </li>
+    <li>
+        @Html.LabelFor(x => x.Cc)
+        @Html.TextBoxFor(x => x.Cc, new { @class = "multiemail" })
+        <div style="padding-left: 200px;">@Html.ValidationMessageFor(x => x.Cc)</div>
+    </li>
+    <li>
+        @Html.LabelFor(x => x.From)
+        @Html.TextBoxFor(x => x.From, new { @class = "required" })
+        <div style="padding-left: 200px;">@Html.ValidationMessageFor(x => x.From)</div>
+    </li>
+    <li>
+        @Html.LabelFor(x => x.Subject)
+        @Html.TextBoxFor(x => x.Subject, new { @class = "required", @Value = "Information from the R2 Library" })
+        <div style="padding-left: 200px;">@Html.ValidationMessageFor(x => x.Subject)</div>
+    </li>
+    <li>        
+        @Html.LabelFor(x => x.Comments)
+        @Html.TextAreaFor(x => x.Comments)
+        <div style="padding-left: 200px;">@Html.ValidationMessageFor(x => x.Comments)</div>
+    </li>
+    <li class="actions">
+        @if (string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <button type="submit" class="btn btn-medium"><span>Send</span></button>
+            <button type="reset" class="btn btn-medium"><span>Cancel</span></button>
+            if (!string.IsNullOrEmpty(Model.WarningMessage))
+            {
+                <div class="warn-msg">@Html.Raw(@Model.WarningMessage)</div>
+            }
+        }
+        else
+        {
+            <div class="error-msg">@Html.Raw(@Model.ErrorMessage)</div>
+        }
+    </li>
+</ol>

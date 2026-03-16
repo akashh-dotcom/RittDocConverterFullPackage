@@ -1,0 +1,182 @@
+﻿@using R2V2.Core.Institution
+@using R2V2.Web.Areas.Admin.Models
+@model R2V2.Web.Areas.Admin.Models.Review.ReviewEdit
+@{
+    ViewBag.Title = "Expert Reviewer Review Lists";
+	ViewBag.BodyCssClass = "admin";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+	<div id="content" class="content" role="main">
+		<h1>Expert Reviewer Review Lists</h1>
+        
+		@Html.Partial("_InstitutionInfo")
+        
+		@if (!Model.IsExpertReviewer)
+		{
+			<div class="group-actions-wrapper">
+				<div class="clearfix group-actions">
+					<ul class="actions">
+						<li><a href="@Url.Action("Edit", new { institutionId = Model.InstitutionId, reviewId = Model.Review.Id })" class="btn btn-medium"><span>Edit</span></a></li>
+						<li><a href="#delete" data-toggle="modal" class="btn btn-medium"><span>Delete</span></a></li>
+					</ul>
+				</div>
+			</div>
+		} 
+		<div class="tablecontent">
+			<table class="list">
+				<thead>
+					<tr>
+						<th class="reserve-shelf-title">Title</th>
+						<th class="reserve-shelf-description">Description</th>
+						<th class="reserve-shelf-title-count"># of Titles</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="selected">
+						<td class="reserve-shelf-title">@Model.Review.Name</td>
+						<td class="reserve-shelf-description">@Model.Review.Description</td>
+						<td class="reserve-shelf-title-count">@Model.Review.ResourceCount</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+    
+		<div class="group-actions-wrapper">
+			<div class="clearfix group-actions">
+				<p class="header">Resources</p>
+				@if (!Model.IsExpertReviewer)
+				{
+					<ul class="actions">
+						<li><a href="@Url.Action("Resources", new { institutionId = Model.InstitutionId, reviewId = Model.Review.Id })" class="btn btn-medium"><span>Add Resources</span></a></li>
+					</ul>
+				}
+			</div>
+		</div>
+            
+		<div class="tablecontent">
+			<table>
+				<thead>
+					<tr>
+						<th><!--<input type="checkbox" name="item-select-all" id="item-select-all" class="item-select" />--></th>
+						<th>&nbsp;</th>
+						<th>Details</th>
+						<th class="collection-management-price">Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					@if (Model.Review.Resources != null && Model.Review.Resources.Any())
+					{
+						foreach (var item in Model.Review.Resources)
+						{
+							<tr>
+								<td><!--<input type="checkbox" class="item-select" name="@item.Id" id="@item.Id" />--></td>
+								<td>
+									<a name="book-@item.Id"></a>
+                                    <span class="resource-status">@ResourceHelpers.ResourceStatus(item.Status)</span>
+									@ResourceHelpers.ShowListedStatus(item, Model.SpecialIconBaseUrl, Model.ActionsMenu == null)
+								</td>
+							    <td>
+							        @Html.Partial("_ResourceListItem", item, new ViewDataDictionary {{"EmailVersion", Model.ActionsMenu == null ? "true" : "false"}, {"DoodyReviewUrl", Model.DoodyReviewUrl}})
+                                    @if (!item.IsForSale && item.Status == "Archived")
+                                    {
+                                        
+                                        <span>This title has been archived and is no longer available for purchase. Please contact your librarian to request the latest edition.</span>
+                                    }
+							    </td>
+							    <td class="collection-management-price">
+							        @PurchaseHelper.GetPriceDisplay(item)
+
+							        @if (Model.ActionsMenu != null)
+							        {
+							            if (item.IsForSale)
+							            {
+							                if (Model.IsExpertReviewer)
+							                {
+							                    if (item.LicenseCount == 0 || item.LicenseType == LicenseType.Pda)
+							                    {
+							                        if (item.Recommendeds.Count == 0)
+							                        {
+							                            <a class="btn btn-medium btn-recommend" href="@Url.Action("Recommend", "Recommendations", new {Model.CollectionManagementQuery.InstitutionId, resourceId = item.Id, reviewId = Model.Review.Id})" data-implement="modal"><span>Recommend for Purchase</span></a>
+							                        }
+							                        else
+							                        {
+							                            <a class="btn btn-medium btn-recommend" href="@Url.Action("Recommend", "Recommendations", new {Model.CollectionManagementQuery.InstitutionId, resourceId = item.Id, reviewId = Model.Review.Id})" data-implement="modal"><span>Edit Purchase Recommendation</span></a>
+							                        }
+							                    }
+							                }
+							                else
+							                {
+							                    <a class="btn btn-medium btn-review" href="@Url.Action("DeleteResource", new {institutionId = Model.InstitutionId, resourceId = item.Id, addInstitutionResource = false, reviewId = Model.Review.Id, reviewResourceId = item.ReviewResourceId})"><span>Remove From Review List</span></a>
+
+                                                if (Model.IsPdaEnabled)
+                                                {
+                                                    if (item.IsPdaEligible && !item.IsActivePdaResource)
+                                                    {
+                                                        <a class="btn btn-medium btn-addPda" href="@Url.Action("PdaAdd", "Pda", Model.CollectionManagementQuery.ToRouteValues(item.Id))" data-implement="modal"><span>Add to My PDA Collection</span></a>
+                                                    }
+                                                    else if (item.IsActivePdaResource)
+                                                    {
+                                                        <a class="btn btn-medium btn-deletePda" href="@Url.Action("PdaRemove", "Pda", Model.CollectionManagementQuery.ToRouteValues(item.Id))" data-implement="modal"><span>Delete from PDA Collection</span></a>
+                                                    }
+                                                }
+							                }
+							            }
+							            else
+							            {
+							                <a class="btn btn-medium btn-review" href="@Url.Action("DeleteResource", new { institutionId = Model.InstitutionId, resourceId = item.Id, addInstitutionResource = false, reviewId = Model.Review.Id, reviewResourceId = item.ReviewResourceId })"><span>Remove From Review List</span></a>
+							            }
+							        }
+							    </td>
+							</tr>
+						}
+					}
+					else
+					{
+						<tr>
+							<td colspan="3">There are no resources associated with this review list.</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	@Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+	$('.titleitem').tips();
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.AddToCollection({ $parent: $('#container'), trigger: '.btn-add' });
+    new R2V2.Admin.PdaCollection({ $parent: $('#container'), triggers: ['.btn-addPda', '.btn-deletePda','.btn-recommend'] });
+    new R2V2.Admin.EditLicenseCount({ $parent: $('#container'), trigger: '.btn-edit' });
+    new R2V2.Admin.ScrollTo({ location: location.hash });
+    new R2V2.Admin.SelectedItems({ $container: $('#ebooks'), trigger: '.item-select' });
+    new R2V2.Admin.AddSelectedItems({ $parent: $('#container'), trigger: '.btn-addSelected' });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}
+
+@section InlineModal
+{
+    <div id="delete" class="content modal delete">
+        <div class="modal-header">
+            <h1>Delete Review List</h1>
+            <a class="close" data-dismiss="modal" href="#">Close</a>
+        </div>
+
+        <div class="modal-body">
+            <p>Are you sure you want to delete the <strong>@Model.Review.Name</strong> Review List?</p>
+            
+            <div class="actions">
+                <a href="@Url.Action("Delete", new { institutionId = Model.InstitutionId, ReviewId = Model.Review.Id })" class="btn btn-medium"><span>Yes</span></a>
+                <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+            </div>
+        </div>
+    </div>
+}

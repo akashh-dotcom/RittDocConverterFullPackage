@@ -1,0 +1,366 @@
+﻿<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net481</TargetFramework>
+    <ProjectGuid>{915A6125-DBDF-445A-B9BD-588FE1522050}</ProjectGuid>
+    <RootNamespace>R2Utilities</RootNamespace>
+    <AssemblyName>R2Utilities</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PlatformTarget>x64</PlatformTarget>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.4.0" />
+    <PackageReference Include="Autofac.Extras.CommonServiceLocator" Version="6.1.0" />
+    <PackageReference Include="Common.Logging" Version="3.4.1" />
+    <PackageReference Include="Common.Logging.Log4Net208" Version="3.4.1" />
+    <PackageReference Include="CommonServiceLocation" Version="1.0.0" />
+    <PackageReference Include="CommonServiceLocator" Version="2.0.7" />
+    <PackageReference Include="DotNetZip" Version="1.9.8" />
+    <PackageReference Include="EasyNetQ" Version="2.3.1" />
+    <PackageReference Include="FluentNHibernate" Version="3.4.1" />
+    <PackageReference Include="Iesi.Collections" Version="4.1.1" />
+    <PackageReference Include="log4net" Version="3.2.0" />
+    <PackageReference Include="NHibernate" Version="5.6.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
+    <PackageReference Include="System.Net.FtpClient" Version="1.0.5281.14359" />
+    <PackageReference Include="SharpZipLib" Version="0.86.0" />
+  </ItemGroup><ItemGroup>
+    <Reference Include="dtSearchNetApi4">
+      <HintPath>..\..\Libs\DtSearch\dtSearchNetApi4.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+    <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\packages\Common.Logging.2.3.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="dtSearchNetApi4">
+      <HintPath>..\..\Libs\DtSearch\dtSearchNetApi4.dll</HintPath>
+    </Reference>
+    <Reference Include="EasyNetQ, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <HintPath>..\..\packages\EasyNetQ.2.3.1\lib\net451\EasyNetQ.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\Libs\ICSharpCode.SharpZipLib-0.86.0\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.8.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DotNetZip.1.9.8\lib\net20\Ionic.Zip.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net46\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.4.0.2.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RabbitMQ.Client.5.0.1\lib\net451\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.FtpClient, Version=1.0.5281.14359, Culture=neutral, PublicKeyToken=fa4be07daa57c2b7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Net.FtpClient.1.0.5281.14359\lib\net40\System.Net.FtpClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="DataAccess\LogEvents\LogEvent.cs" />
+    <Compile Include="DataAccess\LogEvents\LogEventsConfiguration.cs" />
+    <Compile Include="DataAccess\LogEvents\LogEventsService.cs" />
+    <Compile Include="DataAccess\LogEvents\ReportConfiguration.cs" />
+    <Compile Include="DataAccess\OnixEisbn.cs" />
+    <Compile Include="DataAccess\ResourcePriceUpdateItem.cs" />
+    <Compile Include="DataAccess\ResourceTitleChange.cs" />
+    <Compile Include="DataAccess\ResourceTitleUpdateType.cs" />
+    <Compile Include="Email\EmailBuilders\FindEBookEmailBuildService.cs" />
+    <Compile Include="Infrastructure\Contexts\UtilitiesAdminContext.cs" />
+    <Compile Include="DataAccess\ChildResourceEdition.cs" />
+    <Compile Include="Infrastructure\Contexts\UtilitiesAuthenticationContext.cs" />
+    <Compile Include="Infrastructure\Settings\IndexTermHighlightSettings.cs" />
+    <Compile Include="Infrastructure\Settings\SettingsInitializer.cs" />
+    <Compile Include="Infrastructure\Settings\TabersTermHighlightSettings.cs" />
+    <Compile Include="Infrastructure\Storage\UtilitiesSessionStorageService.cs" />
+    <Compile Include="Tasks\ContentTasks\IndexedResource.cs" />
+    <Compile Include="Tasks\ContentTasks\PriceUpdateTask.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\NullSearch.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\TitleXmlService.cs" />
+    <Compile Include="Tasks\ContentTasks\MakeTocRequestsTask.cs" />
+    <Compile Include="Tasks\ContentTasks\UpdateTitleTask.cs" />
+    <Compile Include="Tasks\ContentTasks\UpdateTocXmlTask.cs" />
+    <Compile Include="Tasks\ContentTasks\ResourceRestoreResult.cs" />
+    <Compile Include="Tasks\ContentTasks\ResourceToRestore.cs" />
+    <Compile Include="Tasks\ContentTasks\RestoreResourceContentTask.cs" />
+    <Compile Include="Tasks\ContentTasks\ResourceContentDirectory.cs" />
+    <Compile Include="Tasks\ContentTasks\ResourceBackup.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\AuditFilesOnDiskResult.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\AuditFilesOnDiskService.cs" />
+    <Compile Include="Tasks\ContentTasks\AuditXmlContentFilesOnDiskTask.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\TocXmlService.cs" />
+    <Compile Include="Tasks\ContentTasks\DtSearchFixIndexTask.cs" />
+    <Compile Include="DataAccess\RabbitMqQueueDetails.cs" />
+    <Compile Include="Tasks\EmailTasks\DailyEmails\RabbitMqReportEmailBuildService.cs" />
+    <Compile Include="Tasks\EmailTasks\DailyEmails\RabbitMqReportTask.cs" />
+    <Compile Include="Tasks\EmailTasks\LogEventsReportEmailBuildService.cs" />
+    <Compile Include="Tasks\ITask.cs" />
+    <Compile Include="Tasks\MaintenanceTasks\AutomatedCartTask.cs" />
+    <Compile Include="Tasks\MaintenanceTasks\CartMaintenanceTask.cs" />
+    <Compile Include="Tasks\MaintenanceTasks\ConfigSettingsTransferTask.cs" />
+    <Compile Include="Tasks\MaintenanceTasks\LogEventsReportTask.cs" />
+    <Compile Include="Tasks\MaintenanceTasks\UpdateWithOnixDataTask.cs" />
+    <Compile Include="Tasks\MaintenanceTasks\ProcessLog4NetFileTask.cs" />
+    <Compile Include="Tasks\ReportTasks\FindEbooksTask.cs" />
+    <Compile Include="Tasks\TaskGroups.cs" />
+    <Compile Include="DataAccess\ArchiveResource.cs" />
+    <Compile Include="DataAccess\AtoZIndexDataService.cs" />
+    <Compile Include="DataAccess\CoreResource.cs" />
+    <Compile Include="DataAccess\DoodyUpdateService.cs" />
+    <Compile Include="DataAccess\EmailTaskService.cs" />
+    <Compile Include="DataAccess\ResourceEdition.cs" />
+    <Compile Include="DataAccess\UtilitiesStatisticsService.cs" />
+    <Compile Include="DataAccess\WebStatisticsService.cs" />
+    <Compile Include="DataAccess\ResourcePublisher.cs" />
+    <Compile Include="DataAccess\ResourcePublisherDataService.cs" />
+    <Compile Include="DataAccess\Terms\DiseaseSynonymResource.cs" />
+    <Compile Include="DataAccess\Terms\SearchTermItem.cs" />
+    <Compile Include="DataAccess\Terms\TermResourceDataService.cs" />
+    <Compile Include="DataAccess\Terms\KeywordResource.cs" />
+    <Compile Include="DataAccess\Terms\DrugSynonymResource.cs" />
+    <Compile Include="DataAccess\Terms\DrugResource.cs" />
+    <Compile Include="DataAccess\Terms\DiseaseResource.cs" />
+    <Compile Include="DataAccess\Terms\TermResource.cs" />
+    <Compile Include="DataAccess\Terms\TermDataService.cs" />
+    <Compile Include="DataAccess\LicensingDataService.cs" />
+    <Compile Include="DataAccess\Terms\DiseaseNameDataService.cs" />
+    <Compile Include="DataAccess\Terms\DiseaseName.cs" />
+    <Compile Include="DataAccess\Terms\DiseaseSynonym.cs" />
+    <Compile Include="DataAccess\Terms\DiseaseSynonymDataService.cs" />
+    <Compile Include="DataAccess\Mesh\MeshDataService.cs" />
+    <Compile Include="DataAccess\Mesh\MeshTerm.cs" />
+    <Compile Include="DataAccess\NewEditionResource.cs" />
+    <Compile Include="DataAccess\PdaResource.cs" />
+    <Compile Include="DataAccess\ReportContentView.cs" />
+    <Compile Include="DataAccess\ReportDataService.cs" />
+    <Compile Include="DataAccess\ReportPageView.cs" />
+    <Compile Include="DataAccess\ReportWebDataService.cs" />
+    <Compile Include="DataAccess\ResourceDocIds.cs" />
+    <Compile Include="DataAccess\ResourceSpecialtyDataService.cs" />
+    <Compile Include="DataAccess\ResourcePracticeAreaDataService.cs" />
+    <Compile Include="DataAccess\ResourceAuthor.cs" />
+    <Compile Include="DataAccess\ResourceCore.cs" />
+    <Compile Include="DataAccess\ResourceCoreDataService.cs" />
+    <Compile Include="DataAccess\ResourceFile.cs" />
+    <Compile Include="DataAccess\ResourceFileDataService.cs" />
+    <Compile Include="DataAccess\ResourceIsbn.cs" />
+    <Compile Include="DataAccess\ResourcePracticeArea.cs" />
+    <Compile Include="DataAccess\ResourceSpecialty.cs" />
+    <Compile Include="DataAccess\ShoppingCartUser.cs" />
+    <Compile Include="DataAccess\Terms\IndexTermDataService.cs" />
+    <Compile Include="DataAccess\Terms\TermToHighlight.cs" />
+    <Compile Include="DataAccess\Tabers\TermContent.cs" />
+    <Compile Include="DataAccess\Tabers\MainEntry.cs" />
+    <Compile Include="DataAccess\Tabers\TabersDataService.cs" />
+    <Compile Include="DataAccess\TrialNotice.cs" />
+    <Compile Include="DataAccess\WebActivity\HitCount.cs" />
+    <Compile Include="DataAccess\WebActivity\NumberOfRequestTimes.cs" />
+    <Compile Include="DataAccess\WebActivity\TopInstitution.cs" />
+    <Compile Include="DataAccess\WebActivity\TopInstitutionResource.cs" />
+    <Compile Include="DataAccess\WebActivity\TopIpAddress.cs" />
+    <Compile Include="DataAccess\WebActivity\TopResource.cs" />
+    <Compile Include="DataAccess\WebActivity\WebActivityReport.cs" />
+    <Compile Include="DataAccess\WebActivity\WebActivityService.cs" />
+    <Compile Include="Email\EmailBuilders\InternalUtilitiesEmailBuildService.cs" />
+    <Compile Include="Email\EmailBuilders\TrialNotificationEmailBuildService.cs" />
+    <Compile Include="Email\EmailConfiguration.cs" />
+    <Compile Include="Email\EmailDeliveryService.cs" />
+    <Compile Include="Email\EmailMessage.cs" />
+    <Compile Include="Email\TaskEmailSettings.cs" />
+    <Compile Include="Infrastructure\ServiceLocatorBuilder.cs" />
+    <Compile Include="Infrastructure\Settings\IR2UtilitiesSettings.cs" />
+    <Compile Include="Infrastructure\Settings\TermHighlightSettings.cs" />
+    <Compile Include="Infrastructure\Settings\R2UtilitiesSettings.cs" />
+    <Compile Include="Infrastructure\Storage\ApplicationWideStorageService.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="R2ReportsBase.cs" />
+    <Compile Include="R2UtilitiesBase.cs" />
+    <Compile Include="Tasks\ContentTasks\AhfsDrugMonograph\AhfsDrug.cs" />
+    <Compile Include="Tasks\ContentTasks\AhfsDrugMonograph\AhfsDrugDataService.cs" />
+    <Compile Include="Tasks\ContentTasks\BookInfo\Author.cs" />
+    <Compile Include="Tasks\ContentTasks\BookInfo\BookSearchInfo.cs" />
+    <Compile Include="Tasks\ContentTasks\BookInfo\DocSearchInfo.cs" />
+    <Compile Include="Tasks\ContentTasks\BookInfo\Editor.cs" />
+    <Compile Include="Tasks\ContentTasks\BookInfo\EditorAffiliation.cs" />
+    <Compile Include="Tasks\ContentTasks\BookLoaderPostProcessingTask.cs" />
+    <Compile Include="Tasks\ContentTasks\AhfsDrugMonographLoaderTask.cs" />
+    <Compile Include="Tasks\ContentTasks\BackupResourceContentTask.cs" />
+    <Compile Include="Tasks\ContentTasks\IndexTermHighlighterTask.cs" />
+    <Compile Include="Tasks\ContentTasks\LoadDiseasesTask.cs" />
+    <Compile Include="Tasks\ContentTasks\LoadTabersDictionaryTask.cs" />
+    <Compile Include="Tasks\ContentTasks\DocIds.cs" />
+    <Compile Include="Tasks\ContentTasks\InvalidDocIds.cs" />
+    <Compile Include="Tasks\ContentTasks\LoadTabersTermsTask.cs" />
+    <Compile Include="Tasks\ContentTasks\ResourceContentStatus.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\HitHighlighter.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\ResourceToHighlight.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\DtSearchBatchIndexer.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\DtSearchService.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\ISearchResultItem.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\R2SearchResultItem.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\ResourceToIndex.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\SearchService.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\TermHighlighterService.cs" />
+    <Compile Include="Tasks\ContentTasks\Services\TransformXmlService.cs" />
+    <Compile Include="Tasks\ContentTasks\TabersTermHighlighterTask.cs" />
+    <Compile Include="Tasks\ContentTasks\VerifyDocIdsTask.cs" />
+    <Compile Include="Tasks\ContentTasks\FixDocIdsTask.cs" />
+    <Compile Include="Tasks\ContentTasks\DtSearchIndexCompressTask.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tasks\ContentTasks\FixHtmlMetaTagsTask.cs" />
+    <Compile Include="Tasks\ContentTasks\DtSearchHtmlIndexerTask.cs" />
+    <Compile Include="Tasks\ContentTasks\TransformXmlTask.cs" />
+    <Compile Include="Tasks\ContentTasks\IndexStatusTask.cs" />
+    <Compile Include="Tasks\ContentTasks\Xsl\ResourceTransformData.cs" />
+    <Compile Include="Tasks\DataConversion\ConvertUserSearchDataTask.cs" />
+    <Compile Include="Tasks\DataConversion\LimitCriteria.cs" />
+    <Compile Include="Tasks\DataConversion\SearchCriteria.cs" />
+    <Compile Include="Tasks\DataConversion\SearchData.cs" />
+    <Compile Include="Tasks\EmailTaskBase.cs" />
+    <Compile Include="Tasks\EmailTasks\InstitutionDashboardEmailTask.cs" />
+    <Compile Include="Tasks\EmailTasks\WeeklyEmails\DoodyUpdateResourceTask.cs" />
+    <Compile Include="Tasks\MaintenanceTasks\AggregateDailyInstitutionResourceStatisticsTask.cs" />
+    <Compile Include="Tasks\MaintenanceTasks\AggregateInstitutionStatisticsTask.cs" />
+    <Compile Include="Tasks\MaintenanceTasks\DoodyUpdateTask.cs" />
+    <Compile Include="Tasks\MaintenanceTasks\Ip2LocationTask.cs" />
+    <Compile Include="Tasks\ReportTasks\SavedReportsTask.cs" />
+    <Compile Include="Tasks\TaskBase.cs" />
+    <Compile Include="Tasks\Testing\RequestLoggingTestTask.cs" />
+    <Compile Include="Utilities\FileCompression.cs" />
+    <Compile Include="Utilities\IsbnException.cs" />
+    <Compile Include="Utilities\IsbnUtilities.cs" />
+    <Compile Include="Infrastructure\Storage\LocalStorageService.cs" />
+    <Compile Include="Utilities\XmlHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Email\Config\LogEventsReportTask.xml" />
+    <Content Include="Email\Config\RestoreResourceContentTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\Config\BackupResourceContentTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\Config\VerifyDocIdsTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Email\Config\LoadDiseasesTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\Config\TabersHighlighterTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\Config\IndexTermHighlighterTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\Config\TermHighlighterTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\Config\UtilityReportTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\Config\FindEbooksTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\Config\WebActivityReportTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\Config\OrderSummaryTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\Config\SavedReportsTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestCommands.txt" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Email\Config\BookLoaderPostProcessingTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\Config\Default.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Email\Config\TransformXmlTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="hibernate.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\R2Library.Data.ADO\R2Library.Data.ADO.csproj">
+      <Project>{48D457C3-5207-487F-B2F6-CFBF1A2F5068}</Project>
+      <Name>R2Library.Data.ADO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\R2V2\R2V2.csproj">
+      <Project>{B3071828-95B4-49E2-8881-D418348710D5}</Project>
+      <Name>R2V2</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="dtengine">
+      <Guid>{A967E5C4-B0E1-11D3-B57C-00105AA461D0}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tasks\FeedTasks\" />
+  </ItemGroup></Project>

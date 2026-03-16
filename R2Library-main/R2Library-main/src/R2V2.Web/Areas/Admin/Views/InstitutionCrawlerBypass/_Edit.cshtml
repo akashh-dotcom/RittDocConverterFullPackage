@@ -1,0 +1,39 @@
+﻿@model R2V2.Web.Areas.Admin.Models.InstitutionCrawlerBypass.InstitutionCrawlerBypassDetail
+<table>
+    <thead>
+        <tr>
+            <th>IP Address</th>
+            <th>User Agent</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+                    
+    <tr>
+        <td class="error-td" colspan="2">
+            @Html.ValidationMessageFor(x => x.InstitutionCrawlerBypass)
+            @Html.ValidationMessageFor(x => x.InstitutionCrawlerBypass.OctetA)
+            @Html.ValidationMessageFor(x => x.InstitutionCrawlerBypass.OctetB)
+            @Html.ValidationMessageFor(x => x.InstitutionCrawlerBypass.OctetC)
+            @Html.ValidationMessageFor(x => x.InstitutionCrawlerBypass.OctetD)
+            @Html.ValidationMessageFor(x => x.InstitutionCrawlerBypass.UserAgent)
+        </td>
+        <td class="error-td"colspan="2"></td>
+    </tr>
+
+    <tr>
+        <td style="vertical-align:middle;">
+            @Html.TextBoxFor(x => x.InstitutionCrawlerBypass.OctetA, new { maxlength = 3, @class = "input-xxsmall" }).
+            @Html.TextBoxFor(x => x.InstitutionCrawlerBypass.OctetB, new { maxlength = 3, @class = "input-xxsmall" }).
+            @Html.TextBoxFor(x => x.InstitutionCrawlerBypass.OctetC, new { maxlength = 3, @class = "input-xxsmall" }).
+            @Html.TextBoxFor(x => x.InstitutionCrawlerBypass.OctetD, new { maxlength = 3, @class = "input-xxsmall" })
+        </td>
+        <td>
+            @Html.TextBoxFor(x => x.InstitutionCrawlerBypass.UserAgent, new { maxlength = 255, @class = "input-medium" })
+        </td>        
+        <td class="actions">
+            <button class="btn-medium" type="submit" ><span>Save</span></button> 
+            <a href="@Url.Action("Index", new { institutionId = Model.InstitutionId })" class="btn btn-medium"><span>Cancel</span></a>
+        </td>
+    </tr>
+</table>

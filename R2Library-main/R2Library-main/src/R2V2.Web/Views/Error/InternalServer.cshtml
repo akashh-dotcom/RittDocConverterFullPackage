@@ -1,0 +1,31 @@
+﻿@using R2V2.Extensions
+@model R2V2.Web.Models.Error.InternalServerViewModel
+@{
+    ViewBag.Title = "Internal Server";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.BodyCssClass = "app-error";
+}
+
+<div class="onecol contentcontainer">
+    <div class="hero" role="main">
+        <h1>Whoops! Our website has generated an error.</h1>
+        
+        <ul class="list-errors">
+            @if(Model.ErrorId.IsNotEmpty()){
+                <li><strong>Request Id:</strong> @Model.ErrorId</li>
+            }
+            <li><strong>Time:</strong> @DateTime.Now.ToString()</li>
+            <li><strong>Reported Error Path:</strong> @Model.AspxErrorPath</li>
+        </ul>
+    </div>
+    <div class="app-error-action">
+        <a class="cancel" data-dismiss="modal" href="#">Close</a>
+    </div>
+</div>
+@section JsDocumentReady
+{
+    new R2V2.Admin.IFrameModal({ 
+        $dismiss: $('a[data-dismiss="modal"]'), 
+        parent: window.parent 
+    });
+}

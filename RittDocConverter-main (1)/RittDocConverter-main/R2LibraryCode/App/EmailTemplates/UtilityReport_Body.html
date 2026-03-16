@@ -1,0 +1,35 @@
+<p>
+	<table>
+		<thead style="font-size: 16px;">
+			<tr>
+			    <td align="center" colspan="3"><b>R2Utilities Processes {Utility_StartDate} to {Utility_EndDate}</b></td>
+			</tr>
+			<tr>
+				<td align="center" colspan="3">Total Processes:&nbsp;<b>{Utility_Processes_Count}</b></td>
+			</tr>
+			<tr>
+				<td align="center" colspan="3">Total Steps:&nbsp;<b>{Utility_Step_Count}</b></td>
+			</tr>
+		<tr>
+		    <td>&nbsp;</td>
+		    <td align="center" style="{Utility_Error_Count_Style}; width: 115px;">Total Errors:&nbsp;<b>{Utility_Error_Count}</b></td>
+            <td>&nbsp;</td>
+		</tr>
+		</thead>
+	</table>
+</p>
+		
+<div class="tablecontent">
+	<table>
+		<thead>
+			<tr>
+				<th class="status">Task Id</th>
+				<th class="details">Task Details</th>
+				<th class="price">Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			{Task_Items}
+		<tbody>
+	</table>
+</div>

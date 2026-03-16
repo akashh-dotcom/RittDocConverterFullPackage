@@ -1,0 +1,79 @@
+﻿@using R2V2.Web.Areas.Admin.Models.Resource
+@helper ResourceStatus(string status)
+{
+    //case ResourceStatus.Active:
+    //    return "Active";
+    //case ResourceStatus.Archived:
+    //    return "Archived";
+    //case ResourceStatus.Forthcoming:
+    //    return "Pre-Order";
+    //case ResourceStatus.Inactive:
+    //    return "Not Available";
+    //    default:
+    //    return "";
+    if (!string.IsNullOrWhiteSpace(status))
+    {
+        switch (status.ToLower())
+        {
+            case "active":
+                <a class="@status.ToLower().Replace(" ", "-")" style="font-weight: bold; text-decoration: none;" rel="tooltip" title="Available to purchase and can view if already purchased">@status</a>
+                break;
+            case "archived":
+                <a class="@status.ToLower().Replace(" ", "-")" style="font-weight: bold; text-decoration: none; color: #707070" rel="tooltip" title="Not available for Sale, but can view if already purchased">@status</a>
+                break;
+            case "pre-order":
+                <a class="@status.ToLower().Replace(" ", "-")" style="font-weight: bold; text-decoration: none; color: black" rel="tooltip" title="Available for purchase, but not yet ready for viewing">@status</a>
+                break;
+            case "not available":
+                <a class="@status.ToLower().Replace(" ", "-")" style="font-weight: bold; text-decoration: none; color: red" rel="tooltip" title="Not available for sale and cannot view">@status</a>
+                break;
+        }
+    }
+}
+
+@helper ShowListedStatus(IAdminResource resource, string specialIconBaseUrl, bool textOnly = false, string specialIconName = null, string specialIconText = null)
+{
+    if (textOnly)
+    {
+        if (resource.IsBrandonHill())
+        {
+            <div><strong>Brandon Hill Selection</strong></div>
+        }
+        if (resource.IsDct())
+        {
+            <div><strong>Doody Core Title</strong></div>
+        }
+        if (resource.IsDctEssential())
+        {
+            <div><strong>Essential Doody Core Title</strong></div>
+        }
+    }
+    else
+    {
+        if (resource.IsBrandonHill())
+        {
+            <img src="/_Static/Images/logos/BH.jpg" alt="Former Brandon Hill" title="Former Brandon Hill" />
+        }
+        if (resource.IsDct())
+        {
+            <img src="/_Static/Images/logos/Doody.jpg" alt="Doody Core Title" title="Doody Core Title" />
+        }
+
+        if (resource.IsDctEssential())
+        {
+            <img src="/_Static/Images/logos/EssentialDoody.jpg" alt="Essential Doody Core Title" title="Essential Doody Core Title" />
+        }
+
+        if (specialIconName != null)
+        {
+            <img src="@string.Format("{0}{1}", specialIconBaseUrl, specialIconName)" alt="@specialIconText" title="@specialIconText" />
+        }
+        else if (resource.SpecialIconName != null)
+        {
+            <img src="@string.Format("{0}{1}", specialIconBaseUrl, resource.SpecialIconName)" alt="@resource.SpecialIconText()" title="@resource.SpecialIconText()" />
+        }
+
+
+    }
+
+}

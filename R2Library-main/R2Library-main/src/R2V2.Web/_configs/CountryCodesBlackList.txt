@@ -1,0 +1,10 @@
+﻿CN	China
+KP	Korea  Democratic People's Republic of
+BY	Belarus
+RU	Russian Federation
+RO	Romania
+TR	Turkey
+TW	Taiwan
+BR	Brazil
+UA	Ukraine
+HU	Hungary

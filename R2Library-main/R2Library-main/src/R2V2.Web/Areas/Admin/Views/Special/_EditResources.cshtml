@@ -1,0 +1,99 @@
+﻿@using R2V2.Core.Resource
+@model R2V2.Web.Areas.Admin.Models.Special.SpecialView
+
+<div class="tablecontent">
+    <table class="list">
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>Details</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.SpecialDiscountResources != null && Model.SpecialDiscountResources.Any())
+            {
+                foreach (var item in Model.SpecialDiscountResources)
+                {
+                    <tr>
+                        <td>
+                            <span class="resource-status">@ResourceHelpers.ResourceStatus(item.Resource.Status)</span>
+                            @ResourceHelpers.ShowListedStatus(item.Resource, Model.SpecialBaseIconUrl, Model.ActionsMenu == null)
+                        </td>
+                        <td>
+                                
+                            <div class="titleitem">
+                
+                                <h2><a href="@Url.Action("Title", "Resource", new {Area = "", item.Resource.Isbn})" data-toggle="collapse" data-target="#item-@item.Resource.Isbn">@Html.DisplayFor(modelItem => item.Resource.Title)</a></h2>
+                                <ul>
+                                    <li>@item.Resource.Authors</li>
+                                    <li>@Html.LabelFor(modelItem => item.Resource.PublisherName) @Html.DisplayFor(modelItem => item.Resource.PublisherName)</li>
+                                    <li>@Html.LabelFor(modelItem => item.Resource.PublicationDate) @Html.DisplayFor(modelItem => item.Resource.PublicationDate)</li>
+                                    <li>@Html.LabelFor(modelItem => item.Resource.ReleaseDate) @Html.DisplayFor(modelItem => item.Resource.ReleaseDate)</li>
+                                    <li class="license-cart">@Html.DisplayFor(x => item.Resource.SpecialText)</li>
+                                </ul>    
+                                <div id="item-@item.Resource.Isbn" class="collapse title-detail">
+                                    <div class="title-container">
+                                        <div class="title-meta">
+                                            <ul>
+                                                <li><strong>Affiliation: </strong>@Html.Raw(item.Resource.Affiliation)</li>
+                                                @if (item.Resource.StatusId == (int)ResourceStatus.Forthcoming)
+                                                {
+                                                    <li>@Html.LabelFor(modelItem => item.Resource.DueDate)@Html.DisplayFor(modelItem => item.Resource.DueDate)</li>
+                                                }
+                                                @if (item.Resource.PracticeAreas != null && item.Resource.PracticeAreas.Any())
+                                                {
+                                                    var firstPracticeArea = true;
+                                                    <li>
+                                                        @Html.LabelFor(modelItem => item.Resource.PracticeAreas)
+                                                        @foreach (var practiceArea in item.Resource.PracticeAreas)
+                                                        {
+                                                            @(firstPracticeArea ? "" : ", ")@practiceArea.Name
+                                                            firstPracticeArea = false;
+                                                        }
+                                                    </li>
+                                                }
+                                                @if (item.Resource.Specialties != null && item.Resource.Specialties.Any())
+                                                {
+                                                    var firstSpecialty = true;
+                                                    <li>
+                                                        @Html.LabelFor(modelItem => item.Resource.Specialties)
+                                                        @foreach (var specialty in item.Resource.Specialties)
+                                                        {
+                                                            @(firstSpecialty ? "" : ", ")@specialty.Name
+                                                            firstSpecialty = false;
+                                                        }
+                                                    </li>
+                                                }
+                                                <li>@Html.LabelFor(modelItem => item.Resource.Isbn10) @Html.DisplayFor(modelItem => item.Resource.Isbn10)</li>
+                                                <li>@Html.LabelFor(modelItem => item.Resource.Isbn13) @Html.DisplayFor(modelItem => item.Resource.Isbn13)</li>
+                                                @if (item.Resource.EIsbn != null)
+                                                {
+                                                    <li>@Html.LabelFor(modelItem => item.Resource.EIsbn) @Html.DisplayFor(modelItem => item.Resource.EIsbn)</li>
+                                                }
+                                                <li>@Html.LabelFor(modelItem => item.Resource.Edition) @Html.DisplayFor(modelItem => item.Resource.Edition)</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="title-image"><img alt="@item.Resource.Title" src="@item.Resource.ImageUrl" /></div>
+                                    </div>
+                                        
+                                    <p>@item.Resource.ResourceDescription</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("DeleteSpecialDiscountResource", new {specialDiscountId = item.SpecialDiscountId, specialDiscountResourceId = item.SpecialDiscountResourceId})" class="btn btn-medium"><span>Remove</span></a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3"> No Resources are associated with this discount. Please go to Resources Tab to add Resources.</td>
+                </tr>                        
+            }
+        </tbody>
+    </table>
+</div>

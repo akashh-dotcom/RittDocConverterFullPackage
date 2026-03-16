@@ -1,0 +1,233 @@
+﻿@using R2V2.Web.Helpers
+@model R2V2.Web.Models.Cms.CmsHtml
+
+<div class="onecol contentcontainer">
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(x => x.FormRecipients)
+        @Html.HiddenFor(x => x.ContactInfo.Token1)
+        @Html.HiddenFor(x => x.ContactInfo.Token2)
+        @Html.HiddenFor(x => x.ContactInfo.Token3)
+
+    <div id="content" class="content" role="main">
+        @if (!string.IsNullOrWhiteSpace(Model.FormHeader))
+        {
+            <div style="padding:10px">@Html.Raw(Model.FormHeader)</div>
+        }
+        
+        <div class="field-validation-error">@Html.Raw(Model.SecurityMessage)</div>
+
+        <div class="tablecontent">
+            <table class="edit">
+                <tbody>
+                    <tr class="honey">
+                        <td class="label">@Html.LabelFor(model => model.ContactInfo.Token4)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextBoxFor(model => model.ContactInfo.Token4, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.ContactInfo.Token4)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.Token4)
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ContactInfo.Name)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextBoxFor(model => model.ContactInfo.Name, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.ContactInfo.Name)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.Name)
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ContactInfo.Title)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextBoxFor(model => model.ContactInfo.Title, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.ContactInfo.Title)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.Title)
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ContactInfo.InstitutionName)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextBoxFor(model => model.ContactInfo.InstitutionName, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.ContactInfo.InstitutionName)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.InstitutionName)
+                            }
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ContactInfo.AccountNumber)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextBoxFor(model => model.ContactInfo.AccountNumber, new { @class = "input-medium", @placeholder = "if known" })
+                                @Html.ValidationMessageFor(model => model.ContactInfo.AccountNumber)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.AccountNumber)
+                            }
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ContactInfo.Address1)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextBoxFor(model => model.ContactInfo.Address1, new { @class = "input-full" })
+                                @Html.ValidationMessageFor(model => model.ContactInfo.Address1)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.Address1)
+                            }
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ContactInfo.Address2)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextBoxFor(model => model.ContactInfo.Address2, new { @class = "input-full" })
+                                @Html.ValidationMessageFor(model => model.ContactInfo.Address2)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.Address2)
+                            }
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ContactInfo.City)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextBoxFor(model => model.ContactInfo.City, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.ContactInfo.City)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.City)
+                            }
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ContactInfo.State)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextBoxFor(model => model.ContactInfo.State, new { @class = "input-xxsmall" })
+                                @Html.ValidationMessageFor(model => model.ContactInfo.State)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.State)
+                            }
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ContactInfo.Zip)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextBoxFor(model => model.ContactInfo.Zip, new { @class = "input-small" })
+                                @Html.ValidationMessageFor(model => model.ContactInfo.Zip)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.Zip)
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ContactInfo.PhoneNumber)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextBoxFor(model => model.ContactInfo.PhoneNumber, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.ContactInfo.PhoneNumber)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.PhoneNumber)
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ContactInfo.Email)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextBoxFor(model => model.ContactInfo.Email, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.ContactInfo.Email)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.Email)
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => Model.ContactInfo.Comment)</td>
+                        <td class="field">
+                            @if (!Model.ContactInfo.IsEmailView)
+                            {
+                                @Html.TextAreaFor(x => x.ContactInfo.Comment)
+                                @Html.ValidationMessageFor(model => model.ContactInfo.Comment)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.ContactInfo.Comment)
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            @if (!Model.ContactInfo.IsEmailView)
+            {
+                <p>To submit form, please type the text and click submit</p>
+                <div>
+                    @Html.GenerateNonGoogleCaptcha()
+                    @Html.ValidationMessageFor(x => x.ContactInfo.RecaptchaMessage)
+                </div>
+
+                <div class="group-actions-wrapper">
+                    <div class="clearfix group-actions" data-implement="fixed">
+                        <ul class="actions">
+                            <li><button class="btn-medium" type="submit"><span>submit</span></button></li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    }
+</div>

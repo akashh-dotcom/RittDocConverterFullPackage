@@ -1,0 +1,32 @@
+﻿@model R2V2.Web.Models.Ping.PingIndexStatus
+<!doctype html>
+@{
+    Layout = "";
+}
+<head>
+    <title>Ping | R2 Digital Library</title>
+</head>
+<body>		   
+    <h2>R2 Library - Version 2 - Ping Page</h2>
+    <div>Version: @Model.Version</div>
+    <div>Client IP Address: @Model.ClientIpAddress</div>
+    <div>Database Status: @Model.DatabaseStatus</div>
+    <div>Machine Name: @Model.MachineName</div>
+    <div>Assemply Timestamp: @Model.AssemplyTimestamp.ToString("o")</div>
+    <div>App Started Timestamp: @Model.AppStartTimestamp.ToString("o")</div>
+    <div>Request Timestamp: @Model.RequestTimestamp.ToString("o")</div>
+    <br/>
+    <div><strong>Index Status:</strong></div>
+    <div>Updated Date: @Model.UpdatedDate</div>
+    <div>Compressed Date: @Model.CompressedDate</div>
+    <div>Created Date: @Model.CreatedDate</div>
+    <div>Doc Count:  @string.Format("{0:#,###}", Model.DocCount)</div>
+    <div>Index Size: @string.Format("{0:#,###}", Model.IndexSize) (bytes)</div>
+    <div>Word Count: @string.Format("{0:#,###}", Model.WordCount)</div>
+    <div>Starting Doc Id: @string.Format("{0:#,###}", Model.StartingDocId)</div>
+    <div>Last Doc Id: @string.Format("{0:#,###}", Model.LastDocId)</div>
+    <div>Obsolete Count: @string.Format("{0:#,###}", Model.ObsoleteCount)</div>
+    <div>Structure Version: @string.Format("{0:#,###}", Model.StructureVersion)</div>
+    <div>Percent Full: @Model.PercentFull</div>
+    <div>Fragmentation: @Model.Fragmentation</div>
+</body>

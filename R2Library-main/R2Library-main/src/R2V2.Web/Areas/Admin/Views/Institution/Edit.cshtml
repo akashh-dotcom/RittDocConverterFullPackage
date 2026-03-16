@@ -1,0 +1,311 @@
+﻿@using R2V2.Core.Institution
+@model R2V2.Web.Areas.Admin.Models.Institution.InstitutionEditViewModel
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    @using (Html.BeginForm())
+    {
+        <div id="content" class="content" role="main">
+            <h1>Edit Institution</h1>
+
+            @Html.Partial("_InstitutionInfo")
+
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><button class="btn-medium" type="submit"><span>Save</span></button></li>
+                        <li><a href="@Url.Action("Detail", new {Model.InstitutionId})" class="btn btn-medium"><span>Cancel</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tablecontent">
+                @Html.HiddenFor(model => model.InstitutionId)
+                <table class="edit">
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.AccountStatusSelectList)</td>
+                        <td class="field">
+                            @(Model.IsRittenhouseAdmin ? Html.DropDownListFor(model => model.AccountStatus, Model.AccountStatusSelectList) : Html.DropDownListFor(model => model.AccountStatus, Model.AccountStatusSelectList, new { disabled = "disabled" }))
+                            @Html.ValidationMessageFor(model => model.AccountStatusSelectList)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.TrialEndDate)</td>
+                        <td class="field">
+                            @if (Model.AccountStatus == AccountStatus.Trial)
+                            {
+                                @(Model.IsRittenhouseAdmin ? Html.EditorFor(model => model.TrialEndDate) : Html.DisplayFor(model => model.TrialEndDate))
+                                @Html.ValidationMessageFor(model => model.TrialEndDate)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.TrialEndDate)
+                            }
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.InstitutionName)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.InstitutionName, new { @class = "input-full" })
+                            @Html.ValidationMessageFor(model => model.InstitutionName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.AccountNumber)</td>
+                        <td class="field">@Html.DisplayFor(model => model.AccountNumber)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.AnnualFeeDate)</td>
+                        <td class="field">
+                            <input type="text" id="AnnualFeeDate" name="AnnualFeeDate" readonly="readonly" value="@string.Format("{0:MM/dd/yyyy}", Model.AnnualFeeDate)" />
+                            @Html.ValidationMessageFor(x => Model.AnnualFeeDate)
+
+                            @*@Html.EditorFor(model => model.AnnualFeeDate)*@
+                        </td>
+                    </tr>
+                    @if (Model.IsRittenhouseAdmin || Model.IsSalesAssociate)
+                    {
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.TerritorySelectList)</td>
+                            <td class="field">
+                                @if (Model.InstitutionTerritory == null || Model.InstitutionTerritory.TerritoryId == 0)
+                                {
+                                    @Html.DropDownListFor(x => Model.InstitutionTerritory.TerritoryId, Model.TerritorySelectList)
+                                }
+                                else
+                                {
+                                    <span>Cannot manually set the territory. This is updated nightly from prelude.</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.Address.Address1)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.Address.Address1, new { @class = "input-full" })
+                            @Html.ValidationMessageFor(model => model.Address.Address1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.Address.Address2)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.Address.Address2, new { @class = "input-full" })
+                            @Html.ValidationMessageFor(model => model.Address.Address2)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.Address.City)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.Address.City, new { @class = "input-full" })
+                            @Html.ValidationMessageFor(model => model.Address.City)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.Address.State)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.Address.State, new { @class = "input-xxsmall" })
+                            @Html.ValidationMessageFor(model => model.Address.State)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.Address.Zip)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.Address.Zip, new { @class = "input-small" })
+                            @Html.ValidationMessageFor(model => model.Address.Zip)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.DisplayAllProductsText)</td>
+                        <td class="field">
+                            <ul>
+                                <li>@Html.RadioButtonFor(x => x.DisplayAllProducts, true) Yes</li>
+                                <li>@Html.RadioButtonFor(x => x.DisplayAllProducts, false) No</li>
+                            </ul>
+                            @Html.ValidationMessageFor(model => model.DisplayAllProducts)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.IncludeArchivedTitlesByDefaultText)</td>
+                        <td class="field">
+                            <ul>
+                                <li>@Html.RadioButtonFor(x => x.IncludeArchivedTitlesByDefault, true) Yes</li>
+                                <li>@Html.RadioButtonFor(x => x.IncludeArchivedTitlesByDefault, false) No</li>
+                            </ul>
+                            @Html.ValidationMessageFor(model => model.IncludeArchivedTitlesByDefault)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.HomePage)</td>
+                        <td class="field">
+                            <ul>
+
+                                <li>@Html.RadioButtonFor(x => x.HomePageId, (int)HomePage.Discipline) @Html.Raw(InstitutionHomePage.Discipline.Description)</li>
+                                <li>@Html.RadioButtonFor(x => x.HomePageId, (int)HomePage.Titles) @Html.Raw(InstitutionHomePage.Titles.Description)</li>
+                                <li>@Html.RadioButtonFor(x => x.HomePageId, (int)HomePage.AtoZIndex) @Html.Raw(InstitutionHomePage.AtoZIndex.Description)</li>
+                            </ul>
+                            @Html.ValidationMessageFor(model => model.HomePage)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+
+                            @Html.LabelFor(x => x.EnableHomePageCollectionLink)
+
+                        </td>
+                        <td class="field">
+                            <ul>
+                                <li>@Html.RadioButtonFor(x => x.EnableHomePageCollectionLink, true) Yes</li>
+                                <li>@Html.RadioButtonFor(x => x.EnableHomePageCollectionLink, false) No</li>
+                            </ul>
+                            @Html.ValidationMessageFor(model => model.EnableIpPlus)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.AccessTypeSelectList)</td>
+                        <td class="field">
+                            @Html.DropDownListFor(model => model.AccessType, Model.AccessTypeSelectList)
+                            @Html.ValidationMessageFor(model => model.AccessTypeSelectList)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.Discount)</td>
+                        <td class="field">
+                            @(Model.IsRittenhouseAdmin ? Html.EditorFor(model => model.Discount) : Html.TextBoxFor(model => model.Discount, new { disabled = "disabled" }))
+                            @Html.ValidationMessageFor(model => model.Discount)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.HouseAccountText)</td>
+                        <td class="field">
+                            <ul>
+                                @if (Model.IsRittenhouseAdmin)
+                                {
+                                    <li>@Html.RadioButtonFor(x => x.HouseAccount, true) Yes</li>
+                                    <li>@Html.RadioButtonFor(x => x.HouseAccount, false) No</li>
+                                }
+                                else
+                                {
+                                    <li>@Html.RadioButtonFor(x => x.HouseAccount, true, new { disabled = "disabled" }) Yes</li>
+                                    <li>@Html.RadioButtonFor(x => x.HouseAccount, false, new { disabled = "disabled" }) No</li>
+                                }
+
+                            </ul>
+                            @Html.ValidationMessageFor(model => model.HouseAccountText)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.EnableExpertReviewerUserText)</td>
+                        <td class="field">
+                            <ul>
+                                <li>@Html.RadioButtonFor(x => x.EnableExpertReviewerUser, true) Yes</li>
+                                <li>@Html.RadioButtonFor(x => x.EnableExpertReviewerUser, false) No</li>
+                            </ul>
+                            @Html.ValidationMessageFor(model => model.EnableExpertReviewerUserText)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.OclcSymbol)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.OclcSymbol, new { @class = "input-small" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.AthensAffiliation)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.AthensAffiliation, new { @class = "input-full" })
+                            @Html.ValidationMessageFor(model => model.AthensAffiliation)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.LogUrl)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.LogUrl, new { @class = "input-full" })
+                            @Html.ValidationMessageFor(model => model.LogUrl)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => x.ProxyPrefix)</td>
+                        <td class="field">
+                            @Html.TextBoxFor(model => model.ProxyPrefix, new { @class = "input-full" })
+                            @Html.ValidationMessageFor(model => model.ProxyPrefix)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.TrustedKey)</td>
+                        <td class="field">
+                            <ul>
+                                <li>@Html.DisplayFor(model => model.TrustedKey) @Html.HiddenFor(x => x.TrustedKey)</li>
+                                @if (Model.IsRittenhouseAdmin || Model.IsSalesAssociate)
+                                {
+
+                                    <li>Generating a new key will break an Institution's current Trusted Authentication. Please send them the new key ASAP.</li>
+                                    <li><button class="btn-medium" type="submit" value="generatekey" name="action"><span>Generate Key</span></button></li>
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.InstitutionTypeSelectList)</td>
+                        <td class="field">@Html.DropDownListFor(x => Model.Type.Id, Model.InstitutionTypeSelectList)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.TerritorySelectList)</td>
+                        <td class="field">
+                            @if (Model.InstitutionTerritory == null || Model.InstitutionTerritory.TerritoryId == 0)
+                            {
+                                @Html.DropDownListFor(x => Model.InstitutionTerritory.TerritoryId, Model.TerritorySelectList)
+                            }
+                            else
+                            {
+                                <span>Cannot manually set the territory. This is updated nightly from prelude.</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => x.AdministratorName)</td>
+                        <td class="field">@Html.DisplayFor(x => x.AdministratorName)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => x.AdministratorEmail)</td>
+                        <td class="field">@Html.DisplayFor(x => x.AdministratorEmail)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+
+                            @Html.LabelFor(x => x.EnableIpPlus)
+
+                        </td>
+                        <td class="field">
+                            <ul>
+                                <li>@Html.RadioButtonFor(x => x.EnableIpPlus, true) <a class="slide-title-link" rel="tooltip" title="IP Plus allows institutions who share an IP address(s) to authenticate to their own individual collection. For more information, please contact customerservice@r2library.com">Yes</a></li>
+                                <li>@Html.RadioButtonFor(x => x.EnableIpPlus, false) No</li>
+                            </ul>
+                            @Html.ValidationMessageFor(model => model.EnableIpPlus)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+    new R2V2.Admin.DatePicker({$dateTextBox: $("input[id$=Date]"), $endDatePlusYears: 1});
+}

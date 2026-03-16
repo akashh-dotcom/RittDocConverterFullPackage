@@ -1,0 +1,77 @@
+﻿@using R2V2.Core.Institution
+@model R2V2.Web.Areas.Admin.Models.Cart.CollectionAdd
+
+<div class="content modal collection-manage" id="collection-add">
+    <div class="modal-header">
+        <h1>Add To Cart</h1>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+
+    <div class="modal-body">
+        <h2>@Model.InstitutionResource.Title</h2>
+        <ul>
+            <li>@Html.LabelFor(modelItem => Model.InstitutionResource.Isbn10) @Model.InstitutionResource.Isbn</li>
+            <li>@Html.LabelFor(modelItem => Model.InstitutionResource.Authors) @Model.InstitutionResource.Authors</li>
+            <li>@Html.LabelFor(modelItem => Model.InstitutionResource.PublisherName) @Model.InstitutionResource.PublisherName</li>
+        </ul>
+
+        @using (Html.BeginForm("Add", "Cart"))
+        {
+            if (!Model.InstitutionResource.IsFreeResource)
+            {
+                <table>
+                    <tbody>
+                        <tr>
+                            <th><strong>Current licenses:</strong></th>
+                            @if (@Model.InstitutionResource.LicenseType == LicenseType.Pda)
+                            {
+                                <td>0</td>
+                            }
+                            else
+                            {
+                                <td>@Model.InstitutionResource.LicenseCount</td>
+                            }
+                        </tr>
+                        <tr>
+                            <th><strong>@Html.LabelFor(x => x.NumberOfLicenses, "Total new licenses:")</strong></th>
+                            <td>@Html.TextBoxFor(x => x.NumberOfLicenses, new { @class = "input-xsmall force-numeric", @maxlength = "4" })</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td class="fullprice">@Html.DisplayFor(model => model.InstitutionResource.ListPrice)</td>
+                        </tr>
+                        <tr>
+                            <th>x</th>
+                            <td class="saleprice">@Html.DisplayFor(model => model.InstitutionResource.DiscountPrice)</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td class="cart-item-total">@Html.DisplayFor(model => model.Total)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <table>
+                    <tbody>
+                        @Html.Hidden("NumberOfLicenses", 500)
+                        <tr>
+                            <th><strong>@Html.LabelFor(x => x.NumberOfLicenses, "Total new licenses:")</strong></th>
+                            <td>Unlimited</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+
+            <div class="actions">
+                <a class="cancel" data-dismiss="modal" href="#">Cancel</a>
+                @if (Model.DisplayAddToSavedCart)
+                {
+                    <a class="btn btn-medium addToSavedCartLink" href="@Url.Action("AddToSavedCart", "Cart", new{Model.InstitutionResource.InstitutionId, resourceId = Model.InstitutionResource.Id, Model.ParentPageTitle, Model.NumberOfLicenses})"><span>Add to Saved Cart</span></a>
+                }
+            <a class="btn btn-medium addToCartLink" href="@Url.Action("AddResourceToCart", "Cart", new{Model.InstitutionResource.InstitutionId, resourceId = Model.InstitutionResource.Id, Model.CartId, Model.ParentPageTitle, Model.NumberOfLicenses})"><span>Add to Cart</span></a>
+            </div>
+        }
+    </div>
+</div>

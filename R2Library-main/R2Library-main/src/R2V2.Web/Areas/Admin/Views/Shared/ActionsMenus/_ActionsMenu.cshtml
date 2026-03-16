@@ -1,0 +1,11 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Menus.ActionsMenu
+           
+<div class="actions-page-wrapper"><div class="clearfix actions-page" data-implement="fixed">
+	<ul class="actions-menu" data-toggle="menu">
+@*        @Html.Partial("ActionsMenus/_SearchMenu")*@
+        @Html.Partial("ActionsMenus/_ToolsMenu")
+        @Html.Partial("ActionsMenus/_SortAndFilterMenu")
+        @Html.Partial("ActionsMenus/_SavedCartMenu")
+        @Html.Partial("ActionsMenus/_ShoppingCartMenu")
+	</ul>
+</div></div>

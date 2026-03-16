@@ -1,0 +1,143 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.ApplicationUsageDetail
+
+<div id="content" class="content" role="main">
+    <h1>Application Usage Report</h1>
+
+    @if (Model.InstitutionId > 0)
+    {
+        @Html.Partial("_InstitutionInfo")
+    }
+
+    @if (Model.ActionsMenu != null)
+    {
+        using (Html.BeginForm("ApplicationUsage", "Report", new { institutionId = Model.InstitutionId }, FormMethod.Post))
+        {
+            @Html.Hidden("ReportQuery.ReportTypeId", (int)Model.Type)
+            @Html.HiddenFor(model => model.ReportQuery.InstitutionId)
+            <div id="report-filters" class="tablecontent">
+                <table class="edit">
+                    @Html.Partial("_Period")
+                    @*@Html.Partial("_LicenseTypeFilter")*@
+                    @Html.Partial("_IpRangeOptions")
+                    <tr>
+                        <td></td>
+                        <td class="actions">
+                            <button class="btn-medium" type="submit"><span>Run Report</span></button>
+                            @if (Model.IsSaveEnabled)
+                            {
+                                <button class="btn-medium" type="submit" id="save-report-submit"><span>Save / Schedule Report</span></button>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    }
+    @if (!Model.IsFirstRun)
+    {
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions">
+                <p class="header">Application Usage for @Html.DisplayFor(model => model.DateRangeStart) to @Html.DisplayFor(model => model.DateRangeEnd)</p>
+            </div>
+        </div>
+
+        <div class="tablecontent">
+            <table class="report">
+                <tr>
+                    <td class="label">@Html.LabelFor(model => model.UserSessionCount)</td>
+                    <td class="field">@Html.DisplayFor(model => model.UserSessionCount)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(model => model.PageViewCount)</td>
+                    <td class="field">@Html.DisplayFor(model => model.PageViewCount)</td>
+                </tr>
+                <tr>
+                    <td class="label success">@Html.LabelFor(model => model.ContentRetrievalCount)</td>
+                    <td class="field success">@Html.DisplayFor(model => model.ContentRetrievalCount)</td>
+                </tr>
+                <tr>
+                    <td class="label success">@Html.LabelFor(model => model.TocRetrievalCount)</td>
+                    <td class="field success">@Html.DisplayFor(model => model.TocRetrievalCount)</td>
+                </tr>
+                <tr>
+                    <td class="label turnaway">@Html.LabelFor(model => model.ConcurrencyTurnawayCount)</td>
+                    <td class="field turnaway">@Html.DisplayFor(model => model.ConcurrencyTurnawayCount)</td>
+                </tr>
+                <tr>
+                    <td class="label turnaway">@Html.LabelFor(model => model.AccessTurnawayCount)</td>
+                    <td class="field turnaway">@Html.DisplayFor(model => model.AccessTurnawayCount)</td>
+                </tr>
+            </table>
+        </div>
+        if (Model.IsRittenhouseAdmin)
+        {
+            <div class="info-bar">
+                <p>PDA Titles:</p>
+            </div>
+            <div class="tablecontent">
+                <table class="report">
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.PdaTotalCount)</td>
+                        <td class="field">@Html.DisplayFor(model => model.PdaTotalCount)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.PdaActiveCount)</td>
+                        <td class="field">@Html.DisplayFor(model => model.PdaActiveCount)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.PdaCartCount)</td>
+                        <td class="field">@Html.DisplayFor(model => model.PdaCartCount)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.PdaPurchaseCount)</td>
+                        <td class="field">@Html.DisplayFor(model => model.PdaPurchaseCount)</td>
+                    </tr>
+                </table>
+            </div>
+        }
+
+
+        <div class="info-bar">
+            <p>Search Types:</p>
+        </div>
+
+        <div class="tablecontent">
+            <table class="report">
+                <tr>
+                    <td class="label">@Html.LabelFor(model => model.SearchActiveCount)</td>
+                    <td class="field">@Html.DisplayFor(model => model.SearchActiveCount)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(model => model.SearchArchivedCount)</td>
+                    <td class="field">@Html.DisplayFor(model => model.SearchArchivedCount)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(model => model.SearchImageCount)</td>
+                    <td class="field">@Html.DisplayFor(model => model.SearchImageCount)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(model => model.SearchDrugCount)</td>
+                    <td class="field">@Html.DisplayFor(model => model.SearchDrugCount)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="info-bar">
+            <p>Third Party Search Types:</p>
+        </div>
+
+        <div class="tablecontent">
+            <table class="report">
+                <tr>
+                    <td class="label">@Html.LabelFor(model => model.SearchPubMedCount)</td>
+                    <td class="field">@Html.DisplayFor(model => model.SearchPubMedCount)</td>
+                </tr>
+                <tr>
+                    <td class="label">@Html.LabelFor(model => model.SearchMeshCount)</td>
+                    <td class="field">@Html.DisplayFor(model => model.SearchMeshCount)</td>
+                </tr>
+            </table>
+        </div>
+    }
+
+</div>

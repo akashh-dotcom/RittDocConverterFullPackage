@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//RIS Dev//DTD DocBook V4.3 -Based Variant V1.1//EN" "http://LOCALHOST/dtd/V1.1/RittDocBook.dtd" [
+	<!ENTITY pr0001 SYSTEM "pr0001.xml">
+	<!ENTITY pr0002 SYSTEM "pr0002.xml">
+	<!ENTITY ch0001 SYSTEM "ch0001.xml">
+	<!ENTITY ch0002 SYSTEM "ch0002.xml">
+	<!ENTITY ch0003 SYSTEM "ch0003.xml">
+	<!ENTITY ch0004 SYSTEM "ch0004.xml">
+	<!ENTITY ch0005 SYSTEM "ch0005.xml">
+	<!ENTITY ch0006 SYSTEM "ch0006.xml">
+	<!ENTITY ch0007 SYSTEM "ch0007.xml">
+	<!ENTITY ch0008 SYSTEM "ch0008.xml">
+	<!ENTITY ch0009 SYSTEM "ch0009.xml">
+	<!ENTITY ch0010 SYSTEM "ch0010.xml">
+	<!ENTITY ch0011 SYSTEM "ch0011.xml">
+	<!ENTITY ch0012 SYSTEM "ch0012.xml">
+	<!ENTITY ch0013 SYSTEM "ch0013.xml">
+]>
+
+<book id="b001">
+  <bookinfo><isbn>9621978303186</isbn><title>How Can Nurses Survive Bullying Environments?</title><authorgroup><author><personname><firstname>Cheryl</firstname><surname>Green</surname></personname></author></authorgroup><publisher><publishername>Springer Nature Switzerland</publishername></publisher><pubdate>2024</pubdate><edition>1st Edition</edition><copyright><year>2025</year><holder>Copyright © 2025 The Editor(s) (if applicable) and The Author(s), under exclusive license to Springer Nature Switzerland AG</holder></copyright></bookinfo>&pr0001;
+
+  
+&pr0002;
+
+  
+&ch0001;
+
+  
+&ch0002;
+
+  
+&ch0003;
+
+  
+&ch0004;
+
+  
+&ch0005;
+
+  
+&ch0006;
+
+  
+&ch0007;
+
+  
+&ch0008;
+
+  
+&ch0009;
+
+  
+&ch0010;
+
+  
+&ch0011;
+
+  
+&ch0012;
+
+  
+&ch0013;
+
+</book>

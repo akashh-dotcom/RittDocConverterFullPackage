@@ -1,0 +1,60 @@
+﻿@model R2V2.Web.Models.AthensModel
+@{
+    ViewBag.Title = "Link Athens";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Athens Account Options</h1>
+        <div class="athens-container">
+            
+            <div class="athens-option">
+	            <div class="athens-title">Login</div>
+	            <div class="athens-sub-title">Have an R2 Library user name and password?</div>
+                <div class="athens-description">Log into the R2 Library to link your Athens account with your R2 Library account to enable access to the R2 Library using your Athens credentials.</div>
+
+                @using (Html.BeginForm("LinkAthens", "Authentication", FormMethod.Post))
+                {
+                    @Html.Hidden("LoginInfo.RedirectUrl", Model.RedirectUrl)
+                    @Html.Hidden("LoginInfo.AthensTargetedId", Model.AthensTargetedId)
+                    if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+                    {
+                        <div class="athens-error">@Html.DisplayFor(x => x.ErrorMessage)</div>
+                    }
+                    <div class="athens-login-wrapper">
+                        <div class="textfield" style="margin-top: 8px;">
+                            <div class="textfieldinner">
+                                @Html.TextBoxFor(x => x.LoginInfo.UserName, new {id = "login-user", @class = "text", placeholder = "Enter username", maxlength = 50})
+                            </div>
+                        </div>
+                        <div class="textfield" style="margin-top: 8px;">
+                            <div class="textfieldinner">
+                                @Html.PasswordFor(x => x.LoginInfo.Password, new {id = "login-password", @class = "text", placeholder = "Enter password", maxlength = 20})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="athens-submit-wrapper">
+                        <button type="submit" class="btn-medium"><span style="font-size: 13px;">Log in</span></button>
+                    </div>
+                }
+            </div>
+            
+            @if (Model.AuthenticationInfo.CanIpAuthCreateUsers)
+            {
+                <div class="athens-option">
+	                <div class="athens-title">Create</div>
+	                <div class="athens-sub-title">Don’t have an R2 Library user name and password?</div>
+                    <div class="athens-description">Create an R2 Library user account that will be linked to your Athens account for seamless access to the R2 Library with your Athens credentials.</div>
+                    <div class="athens-link"><a href="@Url.Action("AddAthens", "Profile", new{targetedId = Model.AthensTargetedId})">Create Account</a>
+                    </div>
+                </div>
+            }
+            <div class="athens-option">
+	            <div class="athens-title">Continue</div>
+	            <div class="athens-sub-title">Skip it.</div>
+                <div class="athens-description">Continue to the R2 Library without logging in. Access may not be available to remote users</div>
+                <div class="athens-link"><a href="@Model.RedirectUrl">Continue</a></div>
+            </div>
+        </div>
+    </div>
+</div>

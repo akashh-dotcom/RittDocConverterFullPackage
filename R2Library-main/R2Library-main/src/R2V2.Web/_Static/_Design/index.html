@@ -1,0 +1,774 @@
+﻿<!DOCTYPE html>
+<html class="" lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Collection Management | R2 Digital Library</title>
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link rel="stylesheet" href="/_Static/bundles/css?v=Lzuwx9qkD23vgk0otxmJfsEKZj71bz3fiOLmDUnc9oU1" />
+    
+    <style>
+        .content table.list tr:hover {
+	        background-color: #dddddd;
+	        cursor: pointer;
+        }
+
+        .content ul.selectable li {
+	        background: #efefef;
+        }
+
+        .content ul.selectable li:hover {
+	        background: #dddddd;
+	        cursor: pointer;
+        }
+
+        .content ul.selectable li:active,
+        .content ul li.rui-selectable-selected,
+        .content ul li.rui-selectable-selected:hover,
+        .content ul li.rui-selectable-selected:active {
+	        background: #a5c4e0;
+        }
+
+        .content ul.selectable li.rui-selectable-disabled:first-child {
+	        font-style: italic;
+	        font-weight: bold;
+	        background: #dedede;	
+	        cursor: default;
+	        opacity: 1;
+        }
+
+        .content ul.selectable li.rui-selectable-disabled {
+	        background: #dddddd;
+	        opacity: .5;
+        }
+
+        #discipline, #practice-area, #show-only {
+	        float: left;
+	        width: 29%;
+	        padding: 10px;
+	        margin-top: 0;
+        }
+
+        #discipline li, #practice-area li, #show-only li {
+	        list-style: none;
+        }
+
+        #discipline {
+	        width: 325px;
+	        height: 450px;
+	        overflow-y: scroll;
+        }
+
+        #rules {
+	        height: 200px;
+	        overflow-y: auto;
+	        margin-top: 15px;
+        }
+
+        #new-rule h2 {
+	        font-size: 14px;
+	        margin-top: 30px;
+	        margin-bottom: 0;
+	        padding: 0;
+        }
+
+        #profile-extras {
+	        margin-top: 20px;
+        }
+
+        #profile-extras ul li {
+	        list-style: none;
+	        background: none;
+        }
+
+        .prefilled-name {
+	        margin-top: 20px;
+	        margin-bottom: 10px;
+        }
+
+        #profile-extras input {
+            margin-right: 5px;
+        }
+
+    </style>
+
+</head>
+<body class="admin collectionmanagement list">
+    <header role="banner">
+        <div class="clearfix masthead">
+            <div class="branding-main">
+                <a href="http://stage.r2library.com/"><img alt="R2 Digital Library" src="static/r2-digital-library.gif" width="179" height="67"></a>
+            </div>
+            <div class="utilities full">
+                <p>Welcome back, <a href="http://stage.r2library.com/Profile" title="My User Profile">Mike</a>! <a href="http://stage.r2library.com/Authentication/LogOut" class="logout">Log Out</a></p>
+            </div>
+        </div>
+    </header>
+
+    <div id="container" class="clearfix">
+
+        <div class="clearfix navbar">
+            <nav id="nav-main" role="navigation">
+                <ul class="clearfix">
+                    <li><a href="http://stage.r2library.com/"><span>&lt;&lt; Back to R2Library</span></a></li>
+                </ul>
+            </nav>
+
+            <div id="search" data-toggle="menu" data-trigger=".searchinner a">
+                <form action="http://stage.r2library.com/Admin/CollectionManagement/List/821" method="GET" novalidate="novalidate">
+                    <input type="hidden" name="IncludePdaResources" value="True">
+
+                    <div class="clearfix searchinner">
+                        <div class="searchwrap">
+                            <div class="searchwrapinner">
+                                <input name="query" type="text" class="text" value="" placeholder="Search for resources by title, author, ISBN or key word">
+                            </div>
+                        </div>
+                        <button type="submit"><span>Search</span></button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <ul class="clearfix">
+                <li class="selected"><a href="http://stage.r2library.com/Admin/Institution/List"><span>Institutions</span></a></li>
+                <li><a href="http://stage.r2library.com/Admin/Resource/List"><span>Resources</span></a></li>
+                <li><a href="http://stage.r2library.com/Admin/User/List/0?Page=1&PageSize=10"><span>Users</span></a></li>
+                <li><a href="http://stage.r2library.com/Admin/Report/ApplicationUsage/0?Period=Last30Days"><span>Reports</span></a></li>
+                <li><a href="http://stage.r2library.com/Admin/Publisher/List"><span>Publishers</span></a></li>
+                <li><a href="http://stage.r2library.com/Admin/Alert/List"><span>Alerts</span></a></li>
+                <li><a href="http://stage.r2library.com/Admin/Promotion/List"><span>Discounts</span></a></li>
+            </ul>
+        </div>
+
+
+
+        <div class="actions-page-wrapper">
+            <div class="clearfix actions-page" data-implement="fixed">
+                <ul class="actions-menu" data-toggle="menu">
+
+
+                    <li>
+                        <a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True#tools" class="tools">Tools</a>
+                        <div id="tools" class="megamenu">
+                            <ul class="clearfix toolbar" data-toggle="menu">
+                                <li><a class="print" data-toggle="print">Print page</a></li>
+
+                                <li>
+                                    <a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True#email" class="email">Email this page</a>
+                                    <div id="email" class="panel" data-panel="email">
+                                        <form action="static/index.html" method="post" novalidate="novalidate">
+                                            <p>Please separate recipients by semi-colons.</p>
+                                            <ol>
+                                                <li>
+                                                    <label for="To">To:</label>
+                                                    <input class="required multiemail" id="To" name="To" type="text" value="">
+                                                </li>
+                                                <li>
+                                                    <label for="Cc">CC:</label>
+                                                    <input class="multiemail" id="Cc" name="Cc" type="text" value="">
+                                                </li>
+                                                <li>
+                                                    <label for="From">Your Email Address:</label>
+                                                    <input id="From" name="From" type="text" value="">
+                                                </li>
+                                                <li>
+                                                    <label for="Subject">Subject:</label>
+                                                    <input value="Information from the R2 Library" class="required" id="Subject" name="Subject" type="text">
+                                                </li>
+                                                <li>
+                                                    <label for="Comments">Comments:</label>
+                                                    <textarea cols="20" id="Comments" name="Comments" rows="2"></textarea>
+                                                </li>
+                                                <li class="actions">
+                                                    <button type="submit" class="btn btn-medium"><span>Send</span></button>
+                                                    <button type="reset" class="btn btn-medium"><span>Cancel</span></button>
+                                                </li>
+                                            </ol>
+                                        </form>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="http://stage.r2library.com/Admin/CollectionManagement/Export/821?IncludePdaResources=True" class="export">Export to Excel</a>
+                                </li>
+                                <li>
+                                    <a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True#marc" class="export">Export to Marc</a>
+                                    <div id="marc" class="panel" data-panel="marc">
+
+                                        <ol data-toggle="menu" class="clearfix toolbar">
+                                            <li>
+                                                <a href="http://stage.r2library.com/Admin/MarcExport/CollectionManagementList/821?IncludePdaResources=True" class="export" target="_blank" data-toggle="window" data-target="review" data-specs="location=1,status=1,scrollbars=1,height=300,width=475">Export Page to Marc</a>
+
+                                            </li>
+                                            <li>
+                                                <a href="http://stage.r2library.com/Admin/MarcExport/CollectionManagementList/821?IncludePdaResources=True&PageSize=2147483647" class="export" target="_blank" data-toggle="window" data-target="review" data-specs="location=1,status=1,scrollbars=1,height=300,width=475">Export my PDA Collection to Marc</a>
+
+                                            </li>
+                                            <li>
+                                                <a href="http://stage.r2library.com/Admin/MarcExport/CollectionManagementList/821?IncludePdaResources=True&IsDeleteMarcRecord=True" class="export-delete" target="_blank" data-toggle="window" data-target="review" data-specs="location=1,status=1,scrollbars=1,height=300,width=475">Export Page to Marc Delete</a>
+
+                                            </li>
+                                            <li>
+                                                <a href="http://stage.r2library.com/Admin/MarcExport/CollectionManagementList/821?IncludePdaResources=True&PageSize=2147483647&IsDeleteMarcRecord=True" class="export-delete" target="_blank" data-toggle="window" data-target="review" data-specs="location=1,status=1,scrollbars=1,height=300,width=475">Export my PDA Collection to Marc Delete</a>
+
+                                            </li>
+                                        </ol>
+
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+
+                    <li class="">
+                        <a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True#sort-and-filter" class="sort-and-filter">Sort &amp; Filter</a>
+                        <div id="sort-and-filter" class="megamenu">
+                            <div class="clearfix columns two-columns-20-80">
+                                <div class="column">
+                                    <h3>Sort Options</h3>
+
+                                    <strong>Sort by:</strong>
+
+                                    <ul class="clearfix">
+                                        <li>
+                                            Status
+                                            <strong class="sort-type">
+                                                <span class="ascending" title="Ascending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=status&IncludePdaResources=True&SortDirection=Ascending">Ascending</a></span>
+                                                <span class="descending" title="Descending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=status&IncludePdaResources=True&SortDirection=Descending">Descending</a></span>
+                                            </strong>
+                                        </li>
+                                        <li>
+                                            Publication Date
+                                            <strong class="sort-type">
+                                                <span class="ascending" title="Ascending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=publicationdate&IncludePdaResources=True&SortDirection=Ascending">Ascending</a></span>
+                                                <span class="descending" title="Descending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=publicationdate&IncludePdaResources=True&SortDirection=Descending">Descending</a></span>
+                                            </strong>
+                                        </li>
+                                        <li>
+                                            R2 Release Date
+                                            <strong class="sort-type">
+                                                <span class="ascending" title="Ascending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=releasedate&IncludePdaResources=True&SortDirection=Ascending">Ascending</a></span>
+                                                <span class="descending" title="Descending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=releasedate&IncludePdaResources=True&SortDirection=Descending">Descending</a></span>
+                                            </strong>
+                                        </li>
+                                        <li>
+                                            Book Title
+                                            <strong class="sort-type">
+                                                <span class="ascending" title="Ascending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=title&IncludePdaResources=True&SortDirection=Ascending">Ascending</a></span>
+                                                <span class="descending" title="Descending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=title&IncludePdaResources=True&SortDirection=Descending">Descending</a></span>
+                                            </strong>
+                                        </li>
+                                        <li>
+                                            Publisher
+                                            <strong class="sort-type">
+                                                <span class="ascending" title="Ascending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=publisher&IncludePdaResources=True&SortDirection=Ascending">Ascending</a></span>
+                                                <span class="descending" title="Descending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=publisher&IncludePdaResources=True&SortDirection=Descending">Descending</a></span>
+                                            </strong>
+                                        </li>
+                                        <li>
+                                            Author
+                                            <strong class="sort-type">
+                                                <span class="ascending" title="Ascending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=author&IncludePdaResources=True&SortDirection=Ascending">Ascending</a></span>
+                                                <span class="descending" title="Descending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=author&IncludePdaResources=True&SortDirection=Descending">Descending</a></span>
+                                            </strong>
+                                        </li>
+                                        <li>
+                                            Due Date
+                                            <strong class="sort-type">
+                                                <span class="ascending" title="Ascending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=duedate&IncludePdaResources=True&SortDirection=Ascending">Ascending</a></span>
+                                                <span class="descending" title="Descending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=duedate&IncludePdaResources=True&SortDirection=Descending">Descending</a></span>
+                                            </strong>
+                                        </li>
+                                        <li>
+                                            Price
+                                            <strong class="sort-type">
+                                                <span class="ascending" title="Ascending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=price&IncludePdaResources=True&SortDirection=Ascending">Ascending</a></span>
+                                                <span class="descending" title="Descending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=price&IncludePdaResources=True&SortDirection=Descending">Descending</a></span>
+                                            </strong>
+                                        </li>
+                                        <li>
+                                            PDA Date Added
+                                            <strong class="sort-type">
+                                                <span class="ascending" title="Ascending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=pdadateadded&IncludePdaResources=True&SortDirection=Ascending">Ascending</a></span>
+                                                <span class="descending" title="Descending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=pdadateadded&IncludePdaResources=True&SortDirection=Descending">Descending</a></span>
+                                            </strong>
+                                        </li>
+                                        <li>
+                                            PDA View Count
+                                            <strong class="sort-type">
+                                                <span class="ascending" title="Ascending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=pdaviewcount&IncludePdaResources=True&SortDirection=Ascending">Ascending</a></span>
+                                                <span class="descending" title="Descending"><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?SortBy=pdaviewcount&IncludePdaResources=True&SortDirection=Descending">Descending</a></span>
+                                            </strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="column">
+                                    <h3>Filter Options</h3>
+
+                                    <div class="clearfix columns four-columns">
+                                        <div class="column">
+                                            <strong>Status:</strong>
+
+                                            <ul class="clearfix">
+                                                <li class="selected"><strong>All</strong></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?ResourceStatus=Active&IncludePdaResources=True">Active</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?ResourceStatus=Archived&IncludePdaResources=True">Archived</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?ResourceStatus=Forthcoming&IncludePdaResources=True">Forthcoming</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="column">
+                                            <strong>Show Only:</strong>
+
+                                            <ul class="clearfix">
+                                                <li class="selected"><strong>All</strong></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?ResourceFilterType=BrandonHill&IncludePdaResources=True">Former Brandon Hill</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?ResourceFilterType=Dct&IncludePdaResources=True">DCT</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?ResourceFilterType=DctEssentials&IncludePdaResources=True">DCT Essentials</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?ResourceFilterType=AjnBooksOfYear&IncludePdaResources=True">AJN Books of the Year</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?ResourceFilterType=SpecialOffer&IncludePdaResources=True">Special Offer</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?ResourceFilterType=ContainsVideo&IncludePdaResources=True">Resources with Video</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="column">
+                                            <strong>Practice Area:</strong>
+
+                                            <ul class="clearfix">
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&PracticeAreaFilter=3">Allied Health</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&PracticeAreaFilter=7">Chiropractic Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&PracticeAreaFilter=4">Consumer Health</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&PracticeAreaFilter=6">Dentistry</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&PracticeAreaFilter=1">Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&PracticeAreaFilter=2">Nursing</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&PracticeAreaFilter=8">Osteopathic Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&PracticeAreaFilter=9">Pharmacy</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&PracticeAreaFilter=10">Podiatry</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&PracticeAreaFilter=11">Psychology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&PracticeAreaFilter=12">Undergraduate</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&PracticeAreaFilter=5">Veterinary Medicine</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="column">
+                                            <strong>Discipline:</strong>
+
+                                            <ul class="clearfix">
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=10">AIDS</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=11">Allergy</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=12">Alternative/ Complementary Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=13">Anatomy</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=14">Anesthesiology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=156">Anesthesiology Assisting</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=157">Athletic Training</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=15">Aviation &amp; Space Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=16">Biochemistry</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=17">Biology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=18">Biotechnology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=158">Blood Bank Technology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=109">Cardiovascular</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=159">Cardiovascular Technology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=110">Care Plans</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=20">Chemistry</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=190">Coding / Reimbursement</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=111">Communication</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=21">Computers In Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=113">Critical Care</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=22">Critical Care and Intensive Care</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=160">Cytotechnology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=161">Dental Hygiene</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=196">Dentistry</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=23">Dermatology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=24">Diabetes Mellitus / Diabetes Insipidus</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=25">Diagnosis</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=26">Dictionaries</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=163">Dictionaries / Terminology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=27">Directories</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=117">Dosages &amp; Solutions</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=118">Education</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=167">EEG Technology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=119">Emergency</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=169">Emergency Medical Services</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=30">Endocrinology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=31">Epidemiology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=32">Ethics</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=33">Ethnic Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=207">Exercise Science</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=121">Family Nursing</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=34">Family Practice</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=135">Fluids &amp; Electrolytes</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=35">Forensic Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=123">Fundamentals</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=36">Gastroenterology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=37">Genetics</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=122">Geriatrics</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=39">Hematology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=40">Histology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=41">History of Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=124">Home Health</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=42">Hospitals &amp; Administration</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=43">Immunology &amp; Serology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=44">Infectious Disease</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=45">Internal Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=125">Laboratory Diagnosis</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=46">Laboratory Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=47">Legal Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=208">Life Sciences</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=195">Massage Therapy</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=127">Maternal Child Nursing</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=171">Medical Assisting</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=172">Medical Illustration</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=174">Medical Records Administration</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=48">Medical Sociology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=128">Medical Surgical Nursing</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=173">Medical Technology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=49">Medical Trade</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=175">Medical Transcription</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=50">Metabolism</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=51">Microbiology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=53">Molecular Biology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=52">Musculoskeletal System</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=54">Neonatology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=55">Nephrology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=57">Neuroanatomy / Neurophysiology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=56">Neurology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=176">Nuclear Medicine Assisting</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=107">Nurse Anesthetist</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=106">Nurse Midwife</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=108">Nurse Practitioner</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=136">Nursing As A Profession</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=177">Nursing Assisting</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=203">Nursing Board Review</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=137">Nursing Process/Diagnosis</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=139">Nursing Theory</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=104">Nursing: Administration &amp; Management</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=105">Nursing: Advanced Practice</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=116">Nutrition and Dietetics</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=59">Obstetrics &amp; Gynecology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=60">Occupational Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=178">Occupational Therapy</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=141">Oncology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=180">Ophthalmic Technology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=62">Ophthalmology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=64">Orthopedic Surgery</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=63">Orthopedics</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=181">Orthotist / Prosthetist</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=65">Otorhinolaryngology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=205">Pain Management</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=66">Palliative Care</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=67">Parasitology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=69">Pathology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=144">Patient Education</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=70">Pediatrics</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=182">Perfusionist</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=131">Perioperative</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=193">Pharmaceutical Chemistry</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=71">Pharmacology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=192">Pharmacy</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=204">Pharmacy Board Review</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=194">Pharmacy Technology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=72">Physical Medicine and Rehabilitation</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=183">Physical Therapy</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=191">Physician Assistant</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=73">Physiology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=147">Practical / Vocational Nursing</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=75">Practice Management</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=74">Practice of Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=99">Primary Care</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=76">Psychiatry</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=77">Psychology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=78">Psychopharmacology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=112">Public/Community Health</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=100">Pulmonary Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=184">Radiologic Technology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=80">Radiology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=81">Radiology: General &amp; Diagnostic</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=83">Radiology: MRI / CT</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=82">Radiology: Nuclear Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=84">Radiology: Ultrasound</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=149">Reference</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=101">Research</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=85">Residency Planning</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=86">Respiratory / Pulmonary System</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=185">Respiratory Therapy</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=186">Respiratory Therapy Technology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=87">Rheumatology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=209">Social Work</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=202">Specialty Board Review</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=187">Speech Therapy / Audiology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=88">Sports Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=95">Statistics</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=89">Substance Abuse</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=90">Surgery</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=91">Surgery: Gastroenterologic</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=92">Surgery: Neurologic</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=93">Surgery: Plastic &amp; Reconstructive</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=94">Surgery: Thoracic / Cardiovascular</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=206">Surgery: Transplantation</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=189">Surgical assisting</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=188">Surgical Technology</a></li>
+                                                <lii><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=96">Toxicology</a></lii>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=153">Transcultural Nursing</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=133">Transplantation</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=97">Tropical Medicine</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=98">Urology</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=201">USMLE Review</a></li>
+                                                <li><a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True&SpecialtyFilter=197">Veterinary Medicine</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True#saved-carts" class="tools">Saved Carts (0)</a>
+                        <div id="saved-carts" class="megamenu" data-panel="menu">
+                            <div>
+                                You have no saved carts. You can save a cart once on the shopping cart page.
+                            </div>
+                        </div>
+                    </li>
+                    <li class="pull-right">
+                        <a href="http://stage.r2library.com/Admin/CollectionManagement/List/821?IncludePdaResources=True#shopping-cart" class="shopping-cart">Shopping Cart (0)</a>
+
+                        <div id="shopping-cart" class="megamenu" data-panel="shoppingcart">
+                            <ul>
+                                <li><strong>Items:</strong> 0</li>
+                                <li><strong>Total:</strong> 0.00</li>
+                                <li><a class="btn btn-medium" href="http://stage.r2library.com/Admin/Cart/ShoppingCart/1"><span>View Cart</span></a></li>
+
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="clearfix fullcol contentcontainer">
+            <div id="content" class="content" role="main">
+                <h1>PDA Profile</h1>
+
+                <div class="clearfix" id="new-rule">
+                    <a href="new.html" style="font-size: 13px; float: right; margin-top: -20px;">Add New Rule</a>
+                </div>
+                <div class="clearfix" id="rules">
+                    <table class="list">
+                        <thead>
+                            <tr>
+                                <th class="name">Name</th>
+                                <th class="description">Descrption</th>
+                                <th class="updated">Updated</th>
+                                <th class="">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class=""><a href="">Name1</a></td>
+                                <td class="">Brief description can go here</td>
+                                <td class="">10/10/15</td>
+                                <td class=""><a href="">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td class=""><a href="">Name2</a></td>
+                                <td class="">Brief description can go here</td>
+                                <td class="">10/11/15</td>
+                                <td class=""><a href="">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td class=""><a href="">Name3</a></td>
+                                <td class="">Brief description can go here</td>
+                                <td class="">10/12/15</td>
+                                <td class=""><a href="">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td class=""><a href="">Name4</a></td>
+                                <td class="">Brief description can go here</td>
+                                <td class="">10/13/15</td>
+                                <td class=""><a href="">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td class=""><a href="">Name5</a></td>
+                                <td class="">Brief description can go here</td>
+                                <td class="">10/10/15</td>
+                                <td class=""><a href="">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td class=""><a href="">Name6</a></td>
+                                <td class="">Brief description can go here</td>
+                                <td class="">10/11/15</td>
+                                <td class=""><a href="">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td class=""><a href="">Name7</a></td>
+                                <td class="">Brief description can go here</td>
+                                <td class="">10/12/15</td>
+                                <td class=""><a href="">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td class=""><a href="">Name8</a></td>
+                                <td class="">Brief description can go here</td>
+                                <td class="">10/13/15</td>
+                                <td class=""><a href="">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td class=""><a href="">Name9</a></td>
+                                <td class="">Brief description can go here</td>
+                                <td class="">10/10/15</td>
+                                <td class=""><a href="">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td class=""><a href="">Name10</a></td>
+                                <td class="">Brief description can go here</td>
+                                <td class="">10/11/15</td>
+                                <td class=""><a href="">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td class=""><a href="">Name11</a></td>
+                                <td class="">Brief description can go here</td>
+                                <td class="">10/12/15</td>
+                                <td class=""><a href="">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td class=""><a href="">Name12</a></td>
+                                <td class="">Brief description can go here</td>
+                                <td class="">10/13/15</td>
+                                <td class=""><a href="">Delete</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="clearfix" id="profile-extras">
+                    <ul>
+                        <li><label><input type="checkbox" id="" name="" value="">Back Fill Collection</label></li>
+                        <li><label><input type="checkbox" id="" name="" value="">Add Future Resources</label></li>
+                        <li><label><input type="checkbox" id="" name="" value="">New Editions of Purchased Resources</label></li>
+                        <li><label><input type="checkbox" id="" name="" value="">New Editions of PDA Resources</label></li>
+                        <li><label><input type="checkbox" id="" name="" value="">Price</label> <input type="text" name="" value="" disabled="disabled" /></li>
+                    </ul>
+                </div>
+
+                <div class="clearfix prefilled-name">
+                    <button class="btn-medium" type="submit"><span>Save</span></button>
+                </div>
+            </div>
+        </div>
+
+        <footer role="contentinfo">
+            <div class="nav-footer" role="navigation">
+                <ul>
+                    <li><a href="http://stage.r2library.com/Home/About">About R2</a></li>
+                    <li><a href="http://stage.r2library.com/Home/Faqs">FAQs</a></li>
+                    <li><a href="http://stage.r2library.com/_Static/Downloads/r2-library-user-guide.pdf" class="icon pdf-file" target="_blank" data-toggle="window">User Guide</a></li>
+                    <li><a href="http://stage.r2library.com/Contact/AskYourLibrarian">Ask Your Librarian</a></li>
+                </ul>
+            </div>
+
+            <p>© 2003 - 2015 Rittenhouse Book Distributors, Inc. All rights reserved</p>
+
+            <div class="nav-legal" role="navigation">
+                <ul>
+                    <li><a href="http://stage.r2library.com/Home/PrivacyPolicy">Privacy Policy</a></li>
+                    <li><a href="http://stage.r2library.com/Home/CopyrightPolicy">Copyright Policy</a></li>
+                    <li><a href="http://stage.r2library.com/Contact">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="machine-name">RITTSTG, zdp5tkev30hmshvgapcnyh5e, 98.111.187.34</div>
+        </footer>
+    </div>
+
+
+    <script>
+        var R2V2 = R2V2 || {};
+        R2V2.Config = {
+            IsMarketingHome: false,
+            Tracking: { Category: '', Action: '' },
+            DisableRightClick: false
+        };
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/_Static/Scripts/libraries/jquery-1.7.1.min.js"><\/script>')</script>
+
+    <script src="/_Static/bundles/js?v=zhkWWCsXbryEHYs7kWhIRvcbY9_7Cij9bQv5iVv1VcA1"></script>
+
+    <script src="/_Static/_Design/static/rightjs/right.js"></script>
+    <script src="/_Static/_Design/static/rightjs/right-selectable.js"></script>
+
+    <script>
+        (function ($, undefined) {
+            var PDAProfile = {
+                total: 12,
+                suggestedName: function () {
+                    return 'Name ' + (this.total + 1);
+                },
+                isSelected: function () {
+                    var selected;
+
+                    $.each(PDAProfile.selectables, function (key, selectable) {
+                        if (selectable.value && selectable.value.length > 0) {
+                            selected = true;
+                            return false;
+                        }
+                    });
+
+                    return selected;
+                },
+                selectables: {
+                    showOnly: new Selectable('show-only', {}),
+                    practiceArea: new Selectable('practice-area', {}),
+                    discipline: new Selectable('discipline', {})
+                }
+            };
+
+            //Select All
+            $('.rui-all').on('click', function () {
+                var type = $(this).parent().attr('selectable-item');
+                PDAProfile.selectables[type].select();
+            });
+
+            //De-select all (None)
+            $('.rui-none').on('click', function () {
+                var type = $(this).parent().attr('selectable-item');
+                PDAProfile.selectables[type].unselect();
+            });
+
+
+            $('.selectable li').on('click', function (e) {
+                e.preventDefault();
+
+                var $list = $(this).parent();
+                var $item = $(e.target);
+
+                if (isItemDisabled($item)) return;
+
+                if (PDAProfile.isSelected() === true) {
+                    toggleSuggestName(PDAProfile.suggestedName());
+                    return;
+                } else {
+                    toggleSuggestName();
+                }
+            });
+
+            function toggleSuggestName(name) {
+                if (name) {
+                    $('input[name="Name"]').val(name);
+                } else {
+                    $('input[name="Name"]').val('');
+                }
+            }
+
+            function isItemDisabled($item) {
+                return $item.hasClass('rui-selectable-disabled');
+            }
+
+        })(jQuery);
+
+    </script>
+</body>
+</html>

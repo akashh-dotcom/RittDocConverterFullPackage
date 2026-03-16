@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.medinfonow.com/PrecisionSearchWebServices" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.medinfonow.com/PrecisionSearchWebServices" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.medinfonow.com/PrecisionSearchWebServices">
+      <s:element name="execute">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="soapRequest" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="executeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="executeResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="executeSoapIn">
+    <wsdl:part name="parameters" element="tns:execute" />
+  </wsdl:message>
+  <wsdl:message name="executeSoapOut">
+    <wsdl:part name="parameters" element="tns:executeResponse" />
+  </wsdl:message>
+  <wsdl:message name="executeHttpPostIn">
+    <wsdl:part name="AuthToken" type="s:string" />
+    <wsdl:part name="soapRequest" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="executeHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:portType name="PSWebServicesSoap">
+    <wsdl:operation name="execute">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Execute Precision Search Web Services</wsdl:documentation>
+      <wsdl:input message="tns:executeSoapIn" />
+      <wsdl:output message="tns:executeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PSWebServicesHttpPost">
+    <wsdl:operation name="execute">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Execute Precision Search Web Services</wsdl:documentation>
+      <wsdl:input message="tns:executeHttpPostIn" />
+      <wsdl:output message="tns:executeHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PSWebServicesSoap" type="tns:PSWebServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="execute">
+      <soap:operation soapAction="/Executes all Functions after validating request" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PSWebServicesSoap12" type="tns:PSWebServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="execute">
+      <soap12:operation soapAction="/Executes all Functions after validating request" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PSWebServicesHttpPost" type="tns:PSWebServicesHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="execute">
+      <http:operation location="/execute" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PSWebServices">
+    <wsdl:port name="PSWebServicesSoap" binding="tns:PSWebServicesSoap">
+      <soap:address location="http://www.medinfonow.com/PrecisionSearchWebServices/PSWebServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PSWebServicesSoap12" binding="tns:PSWebServicesSoap12">
+      <soap12:address location="http://www.medinfonow.com/PrecisionSearchWebServices/PSWebServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PSWebServicesHttpPost" binding="tns:PSWebServicesHttpPost">
+      <http:address location="http://www.medinfonow.com/PrecisionSearchWebServices/PSWebServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

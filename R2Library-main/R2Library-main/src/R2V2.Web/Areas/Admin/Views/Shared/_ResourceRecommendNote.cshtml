@@ -1,0 +1,17 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Recommendations.Recommended
+
+
+@Html.DisplayFor(x => Model.DisplayText)
+<a href="#" data-toggle="collapse" data-target="#recommend-notes-@Model.Id" title="click to show/hide notes">
+	<img class="recommend-on" src="/_Static/Images/icons/reviewer-notes.png" alt="click to show/hide notes" />
+</a>
+<div id="recommend-notes-@Model.Id" class="collapse recommend-notes">
+	@if (!string.IsNullOrWhiteSpace(Model.DeletedNotes))
+	{
+	    <strong>Deleted Notes:</strong> @Model.DeletedNotes
+	}
+	else
+	{
+	    <strong>Notes:</strong> @Model.Notes
+	}
+</div>

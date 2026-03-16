@@ -1,0 +1,48 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.CounterPlatformDetail
+
+
+<div class="group-actions-wrapper">
+    <div class="clearfix group-actions">
+        <p class="header">
+            Platform Usage Requests for @Html.Raw(Model.CounterPlatformUsageRequests.ReportRequest.DateRangeStart.ToShortDateString())
+            to @Html.Raw(Model.CounterPlatformUsageRequests.ReportRequest.DateRangeEnd.ToShortDateString())</p>
+    </div>
+</div>
+<div class="tablecontent counter-scroll">
+    <table class="list" >
+        <thead>
+            <tr>
+                <th class="counter-type">Type</th>
+                <th class="counter-total">Total</th>
+                @foreach (var item in Model.CounterPlatformUsageRequests.TotalItemRequests)
+                {
+                    <th>@Html.Raw(item.ShortMonth())-@Html.Raw(item.Year.ToString())</th>
+                }
+            </tr>
+        </thead>
+        <tr>
+            <td>Total Item Requests</td>
+            <td><b>@Html.Raw(Model.TotalItemRequestsTotal())</b></td>
+            @foreach (var hit in Model.CounterPlatformUsageRequests.TotalItemRequests)
+            {
+                <td>@Html.DisplayFor(x => hit.HitCount)</td>
+            }
+        </tr>
+        <tr>
+            <td>Unique Item Requests</td>
+            <td><b>@Html.Raw(Model.UniqueItemRequestsTotal())</b></td>
+            @foreach (var hit in Model.CounterPlatformUsageRequests.UniqueItemRequests)
+            {
+                <td>@Html.DisplayFor(x => hit.HitCount)</td>
+            }
+        </tr>
+        <tr>
+            <td>Unique Title Requests</td>
+            <td><b>@Html.Raw(Model.UniqueTitleRequestsTotal())</b></td>
+            @foreach (var hit in Model.CounterPlatformUsageRequests.UniqueTitleRequests)
+            {
+                <td>@Html.DisplayFor(x => hit.HitCount)</td>
+            }
+        </tr>
+    </table>
+</div>

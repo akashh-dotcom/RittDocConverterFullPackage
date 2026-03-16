@@ -1,0 +1,178 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Marketing.AutomatedCartModel
+@{
+    ViewBag.Title = "Automated Shopping Carts";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <form action="" method="post">
+            <h1>Automated Shopping Carts</h1>
+            <div id="report-filters" class="tablecontent" style="padding: 0 10px">
+
+                <table class="edit">
+                    @Html.Partial("_MarketingPeriod", Model.ReportQuery)
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.InstitutionTypeSelectList)</td>
+                        <td class="field">@Html.ListBoxFor(x => x.ReportQuery.InstitutionTypeIds, Model.InstitutionTypeSelectList, new { multiple = "multiple", style = "height: 75px;" })</td>
+                    </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.TerritorySelectList)</td>
+                        <td class="field">@Html.ListBoxFor(x => x.ReportQuery.TerritoryCodes, Model.TerritorySelectList, new { multiple = "multiple", style = "height: 75px;" })</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Included Titles: @Html.ValidationMessageFor(model => model.ReportQuery.IncludeNewEdition)</td>
+                        <td class="field">
+                            <span class="filter-license-filter" style="width: 110px;">@Html.CheckBoxFor(model => model.ReportQuery.IncludeNewEdition) @Html.LabelFor(model => model.IncludeNewEdition)</span>
+                            <span class="filter-license-filter" style="width: 130px;">@Html.CheckBoxFor(model => model.ReportQuery.IncludeTriggeredPda) @Html.LabelFor(model => model.IncludeTriggeredPda)</span>
+                            <span class="filter-license-filter" style="width: 140px;">@Html.CheckBoxFor(model => model.ReportQuery.IncludeReviewed) @Html.LabelFor(model => model.IncludeReviewed)</span>
+                            <span class="filter-license-filter">@Html.CheckBoxFor(model => model.ReportQuery.IncludeTurnaway) @Html.LabelFor(model => model.IncludeTurnaway)</span>
+                            <span class="filter-license-filter">@Html.CheckBoxFor(model => model.ReportQuery.IncludeRequested) @Html.LabelFor(model => model.IncludeRequested)</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Included Account Numbers: </td>
+                        <td class="field">
+                            @Html.TextAreaFor(x => x.ReportQuery.AccountNumberBatch, new { cols = 35, @rows = 3, placeholder = "Account Numbers only seperated by a comma , this is NOT required" })
+                            @Html.ValidationMessageFor(x => x.ReportQuery.AccountNumberBatch)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.Raw(Model.DisplayCount())
+                            <br />
+                            @Html.Raw(Model.DateRangeDisplay())
+                            <br />
+                            @Html.ValidationMessageFor(x => x.SelectedInstitutionIds)
+                        </td>
+                        <td class="actions">
+                            <button class="btn-medium" type="submit" value="AutomatedCartFilter" name="action:AutomatedCartFilter"><span>Filter Institutions</span></button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+
+            @if (Model.Institutions != null && Model.Institutions.Any())
+            {
+                <div class="tablecontent">
+                    <table class="list" id="table-for-select">
+                        <thead>
+                            <tr>
+                                <th class="institution-status">
+                                    <input type="checkbox" name="item-select-all" id="item-select-all" class="item-select" />
+                                </th>
+                                <th class="institution-account-number">Account #</th>
+                                <th class="institution-institution-name">Institution Name</th>
+                                <th style="width: 100px">Territory</th>
+                                <th>New</th>
+                                <th>PDA</th>
+                                <th>Rev</th>
+                                <th>Turn</th>
+                                <th>Req</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Institutions)
+                            {
+                                <tr>
+                                    <td class="institution-status">
+                                        <input type="checkbox" class="item-select" name="@item.InstitutionId" id="@item.InstitutionId" @Model.IsChecked(item.InstitutionId) />
+                                    </td>
+                                    <td class="institution-account-number">@Html.DisplayFor(modelItem => item.AccountNumber)</td>
+                                    <td class="institution-institution-name">
+                                        @Html.HiddenFor(x => item.InstitutionId)
+                                        <a rel="tooltip" title="@Html.Raw(Model.GetToolTip(item.Address))" style="text-decoration: none !important; color: #3E3E3E;">@item.InstitutionName</a>
+                                        <br />
+                                        @if (item.InstitutionType != null)
+                                        {
+                                            <span style="font-weight: normal; font-size: .8em">@item.InstitutionType.Name</span>
+                                        }
+                                    </td>
+
+                                    <td style="width: 100px">
+                                        @if (item.InstitutionTerritory != null)
+                                        {
+                                            @item.InstitutionTerritory.Code
+                                        }
+                                        else
+                                        {
+                                            <span>N/A</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.NewEdition)
+                                        {
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.TriggeredPda)
+                                        {
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.Reviewed)
+                                        {
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.Turnaway)
+                                        {
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.Requested)
+                                        {
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="actions" colspan="9" id="select-actions">
+                                    <div style="padding-top: 5px; padding-bottom: 5px;">
+                                        @Html.HiddenFor(x => x.SelectedInstitutionIds)
+                                        <button class="btn-medium" type="submit" value="AutomatedCartSelected" name="action:AutomatedCartSelected"><span>Process Selected Institutions</span></button>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+            }
+            else
+            {
+                if (Model.ReportQuery != null && !Model.ReportQuery.IsDefaultQuery)
+                {
+                    <div>No results based on your query.</div>
+                }
+            }
+            <button class="btn-medium" style="display: none;" type="submit" value="ExportAutomatedCart" name="action:ExportAutomatedCart"><span>Excel Export</span></button>
+        </form>
+    </div>
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.Marketing.ActionsMenu({ $container: $('.actions-menu'), $linkExport: $('.actions-menu').find('a.export'), $exportButton: $('#content').find('button[value="ExportAutomatedCart"]')});
+    new R2V2.Admin.ToggleOptionalFields({ $container: $('#filter-date-range'), $trigger: $('#ReportQuery_Period'), action: 'change', triggerValue: 'UserSpecified' });
+    new R2V2.Admin.DatePicker({$dateTextBox: $("#filter-date-range .input-daterange")});
+    new R2V2.Admin.SelectedItemsPostOnly({ $container: $('#table-for-select'), trigger: '.item-select' });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

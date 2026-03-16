@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FullTextAvailable" xml:space="preserve">
+    <value>Full Text Available</value>
+  </data>
+  <data name="FullTextAvailableTooltip" xml:space="preserve">
+    <value>This title is available in your collection.</value>
+  </data>
+  <data name="ResourceAccessDenied" xml:space="preserve">
+    <value>You do not have access to this resource at this time. R2 users, please login or {0} for more information.</value>
+  </data>
+  <data name="TitleArchived" xml:space="preserve">
+    <value>This title has been archived.</value>
+  </data>
+  <data name="TitleArchivedTooltip" xml:space="preserve">
+    <value>This title has been officially declared out of print by the publisher and remains available for viewing with institutional ownership.</value>
+  </data>
+  <data name="TOCAvailable" xml:space="preserve">
+    <value>Table of Contents Available</value>
+  </data>
+  <data name="TOCAvailableTooltip" xml:space="preserve">
+    <value>This table of contents is available in your collection.</value>
+  </data>
+  <data name="TOCAvailablePDATooltip" xml:space="preserve">
+    <value>This title is being considered for purchase by the library and is currently not accessible. Please contact your library administrator for more information.</value>
+  </data>
+  <data name="ResourceAccessLocked" xml:space="preserve">
+    <value>This content is currently unavailable because all of the licenses are in use. Please try again shortly.</value>
+  </data>
+  <data name="CurrentPasswordIncorrect" xml:space="preserve">
+    <value>Current Password is incorrect.</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Passwords do not match.</value>
+  </data>
+  <data name="UserIsRequired" xml:space="preserve">
+    <value>Username is required</value>
+  </data>
+  <data name="UserNameCommas" xml:space="preserve">
+    <value>Username cannot contain commas</value>
+  </data>
+  <data name="UserNameAlreadyInUse" xml:space="preserve">
+    <value>This UserName is already in use.</value>
+  </data>
+  <data name="ReactivatePleaseFillInPassword" xml:space="preserve">
+    <value>A new password is required to reactivate an account</value>
+  </data>
+  <data name="PleaseFillInPassword" xml:space="preserve">
+    <value>Please fill in a password</value>
+  </data>
+  <data name="PasswordNotValid" xml:space="preserve">
+    <value>Password must be 8 to 20 characters and contain 3 out of 4: Upper case, Lower case, Number, Special Character `~!@#$%^&amp;*()&gt;&lt;?:,./\;'|-</value>
+  </data>
+  <data name="AccountDoesNotExistInPrelude" xml:space="preserve">
+    <value>Sorry this account does not exist in prelude.</value>
+  </data>
+  <data name="AccountAlreadyExists" xml:space="preserve">
+    <value>Sorry this account already exists.</value>
+  </data>
+  <data name="UserNameAlreadyExists" xml:space="preserve">
+    <value>This Username already exists. Please try a different UserName.</value>
+  </data>
+  <data name="DoodyCoreTitle" xml:space="preserve">
+    <value>This is a Doody Core Title</value>
+  </data>
+  <data name="EssentialDoodyCoreTitle" xml:space="preserve">
+    <value>This is an Essential Doody Core Title</value>
+  </data>
+  <data name="BrandonHillSelection" xml:space="preserve">
+    <value>This Title is a Brandon Hill Selection</value>
+  </data>
+  <data name="PasswordMinMaxLength" xml:space="preserve">
+    <value>Password Max Length is 20 and Minimum Length is 4 characters</value>
+  </data>
+  <data name="PdaResourceAccessDenied" xml:space="preserve">
+    <value>This title is being considered for purchase by the library and is currently not accessible. Please {0} to contact your library administrator for more information. The information for this title will be automatically included in your message.</value>
+  </data>
+  <data name="RecaptchaDenied" xml:space="preserve">
+    <value>You have failed the Recaptcha entry form to many times. Please try again later.</value>
+  </data>
+  <data name="PdaAccessDenied" xml:space="preserve">
+    <value>This title is not currently accessible. If you want your library to consider purchasing it, click “Suggest for Purchase” and complete the title request form. Let your library know you are interested in using this title. The information for this title will be automatically included in your message.</value>
+  </data>
+  <data name="PdaAccessDeniedAdmin" xml:space="preserve">
+    <value>This title is being considered for purchase by the library and is currently not accessible. This title is on PDA and has triggered because it reached the maximum views. </value>
+  </data>
+</root>

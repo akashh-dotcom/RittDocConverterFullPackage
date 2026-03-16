@@ -1,0 +1,105 @@
+# Shared MongoDB Infrastructure
+# ==============================
+# This is the SHARED MongoDB instance used by all RittDoc services:
+# - EPUB Processing Service
+# - PDF Processing Service (separate repo)
+# - UI Project (separate repo)
+#
+# RECOMMENDED: Deploy this separately or use MongoDB Atlas for production
+#
+# Usage:
+#   # Start shared MongoDB
+#   docker-compose -f deploy/infrastructure/docker-compose.mongodb.yml up -d
+#
+#   # Then start services pointing to this MongoDB
+#   MONGODB_URI=mongodb://localhost:27017 docker-compose up -d
+#
+# For production, consider:
+#   - MongoDB Atlas (managed cloud)
+#   - Self-hosted MongoDB cluster with replication
+#   - AWS DocumentDB / Azure Cosmos DB
+
+version: '3.8'
+
+services:
+  # ==========================================================================
+  # Shared MongoDB Database
+  # ==========================================================================
+  mongodb:
+    image: mongo:7.0
+    container_name: rittdoc-shared-mongodb
+    restart: always
+    ports:
+      - "${MONGODB_PORT:-27017}:27017"
+    environment:
+      # Authentication (recommended for production)
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER:-admin}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD:-changeme}
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE:-RittenhouseXMLConverter}
+    volumes:
+      - mongodb-data:/data/db
+      - mongodb-config:/data/configdb
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - rittdoc-shared
+    healthcheck:
+      test: ["CMD", "mongosh", "-u", "${MONGO_USER:-admin}", "-p", "${MONGO_PASSWORD:-changeme}", "--authenticationDatabase", "admin", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+
+  # ==========================================================================
+  # MongoDB Express (Admin UI) - Optional
+  # ==========================================================================
+  mongo-express:
+    image: mongo-express:latest
+    container_name: rittdoc-mongo-admin
+    restart: unless-stopped
+    ports:
+      - "${MONGO_EXPRESS_PORT:-8081}:8081"
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_USER:-admin}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_PASSWORD:-changeme}
+      - ME_CONFIG_MONGODB_URL=mongodb://${MONGO_USER:-admin}:${MONGO_PASSWORD:-changeme}@mongodb:27017/
+      - ME_CONFIG_BASICAUTH_USERNAME=${MONGO_EXPRESS_USER:-admin}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_EXPRESS_PASSWORD:-admin}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - rittdoc-shared
+    profiles:
+      - admin  # Only starts with: docker-compose --profile admin up
+
+# ==========================================================================
+# Networks
+# ==========================================================================
+networks:
+  rittdoc-shared:
+    driver: bridge
+    name: rittdoc-shared
+    # Allow external connections from other docker-compose projects
+    # Other services connect via: MONGODB_URI=mongodb://admin:changeme@host.docker.internal:27017
+
+# ==========================================================================
+# Volumes
+# ==========================================================================
+volumes:
+  mongodb-data:
+    name: rittdoc-shared-mongodb-data
+  mongodb-config:
+    name: rittdoc-shared-mongodb-config

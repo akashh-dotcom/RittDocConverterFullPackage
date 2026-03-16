@@ -1,0 +1,354 @@
+{% extends "layout.html" %}
+{% block title %}R2Library Viewer - Books{% endblock %}
+
+{% block body %}
+<div class="main-content">
+    <div class="card">
+        <h2>Processed Books</h2>
+        {% if books %}
+        <div class="book-list">
+            {% for book in books %}
+            <div class="book-folder">
+                <div class="book-folder-header" onclick="toggleFolder('folder-{{ book.isbn }}')">
+                    <span class="folder-icon" id="icon-folder-{{ book.isbn }}">&#128193;</span>
+                    <div class="book-folder-info">
+                        <strong>{{ book.isbn }}</strong>
+                        {% if book.title and book.title != book.isbn %}
+                        <span class="book-title-label">— {{ book.title }}</span>
+                        {% endif %}
+                        {% if book.authors %}
+                        <span class="book-author-label">by {{ book.authors | join(', ') }}</span>
+                        {% endif %}
+                    </div>
+                    <span class="file-count">{{ book.file_count }} files</span>
+                    <a href="/download/{{ book.isbn }}/all" class="btn-action btn-download" onclick="event.stopPropagation()" title="Download all files as ZIP">&#11015; All</a>
+                    <button class="btn-action btn-replace" onclick="event.stopPropagation(); triggerReplace('{{ book.isbn }}', 'all')" title="Replace all files from ZIP">&#8635; All</button>
+                    <a href="/viewer/{{ book.isbn }}/" class="btn-view-toc" onclick="event.stopPropagation()">View TOC</a>
+                </div>
+                <div class="book-folder-contents" id="folder-{{ book.isbn }}" style="display:none;">
+                    <!-- XML Files Subfolder -->
+                    <div class="sub-folder">
+                        <div class="sub-folder-header" onclick="toggleFolder('xml-{{ book.isbn }}')">
+                            <span class="folder-icon sub-icon" id="icon-xml-{{ book.isbn }}">&#128193;</span>
+                            <strong>XML Files</strong>
+                            <span class="file-count">{{ book.xml_count }} files</span>
+                            <a href="/download/{{ book.isbn }}/xml" class="btn-action btn-download btn-sm" onclick="event.stopPropagation()" title="Download XML files as ZIP">&#11015; Download</a>
+                            <button class="btn-action btn-replace btn-sm" onclick="event.stopPropagation(); triggerReplace('{{ book.isbn }}', 'xml')" title="Replace XML files from ZIP">&#8635; Replace</button>
+                        </div>
+                        <div class="sub-folder-files" id="xml-{{ book.isbn }}" style="display:none;">
+                            <table class="file-table">
+                                <thead>
+                                    <tr><th>File Name</th><th>Size</th><th>Action</th></tr>
+                                </thead>
+                                <tbody>
+                                    {% for file in book.xml_files %}
+                                    <tr>
+                                        <td><span class="file-icon">&#128196;</span> {{ file.name }}</td>
+                                        <td class="file-size">{{ "%.1f KB" | format(file.size / 1024) }}</td>
+                                        <td class="action-cell">
+                                            {% set name = file.name %}
+                                            {% if name.startswith('sect1.') and name.endswith('.xml') %}
+                                                {% set section_id = name.replace('sect1.' + book.isbn + '.', '').replace('.xml', '') %}
+                                                <a href="/viewer/{{ book.isbn }}/{{ section_id }}">View</a>
+                                            {% elif name.startswith('preface.') and name.endswith('.xml') %}
+                                                {% set section_id = name.replace('preface.' + book.isbn + '.', '').replace('.xml', '') %}
+                                                <a href="/viewer/{{ book.isbn }}/{{ section_id }}">View</a>
+                                            {% endif %}
+                                            <a href="/download-file/{{ book.isbn }}/{{ file.name }}" class="btn-action btn-download btn-xs" title="Download file">&#11015;</a>
+                                            <button class="btn-action btn-replace btn-xs" onclick="triggerFileReplace('{{ book.isbn }}', '{{ file.name }}')" title="Replace file">&#8635;</button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Images Subfolder -->
+                    <div class="sub-folder">
+                        <div class="sub-folder-header" onclick="toggleFolder('img-{{ book.isbn }}')">
+                            <span class="folder-icon sub-icon" id="icon-img-{{ book.isbn }}">&#128193;</span>
+                            <strong>Images</strong>
+                            <span class="file-count">{{ book.image_count }} files</span>
+                            <a href="/download/{{ book.isbn }}/images" class="btn-action btn-download btn-sm" onclick="event.stopPropagation()" title="Download images as ZIP">&#11015; Download</a>
+                            <button class="btn-action btn-replace btn-sm" onclick="event.stopPropagation(); triggerReplace('{{ book.isbn }}', 'images')" title="Replace images from ZIP">&#8635; Replace</button>
+                        </div>
+                        <div class="sub-folder-files" id="img-{{ book.isbn }}" style="display:none;">
+                            <table class="file-table">
+                                <thead>
+                                    <tr><th>File Name</th><th>Size</th><th>Action</th></tr>
+                                </thead>
+                                <tbody>
+                                    {% for file in book.image_files %}
+                                    <tr>
+                                        <td><span class="file-icon">&#128247;</span> {{ file.name }}</td>
+                                        <td class="file-size">{{ "%.1f KB" | format(file.size / 1024) }}</td>
+                                        <td><a href="/images/{{ book.isbn }}/{{ file.name }}" target="_blank">View</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No books processed yet. <a href="/upload">Upload an EPUB</a> to get started.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Hidden file input for replace uploads -->
+<input type="file" id="replace-file-input" accept=".zip" style="display:none;">
+<input type="file" id="replace-single-file-input" accept=".xml" style="display:none;">
+
+<style>
+    .book-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .book-folder {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .book-folder-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        background: #f5f7fa;
+        cursor: pointer;
+        transition: background 0.15s;
+    }
+    .book-folder-header:hover {
+        background: #e8ecf1;
+    }
+    .folder-icon {
+        font-size: 1.4em;
+    }
+    .book-folder-info {
+        flex: 1;
+        min-width: 0;
+    }
+    .book-title-label {
+        color: #555;
+        font-size: 0.9em;
+    }
+    .book-author-label {
+        display: block;
+        color: #777;
+        font-size: 0.82em;
+    }
+    .file-count {
+        color: #888;
+        font-size: 0.85em;
+        white-space: nowrap;
+    }
+    .btn-view-toc {
+        padding: 5px 14px;
+        background: #1a3a5c;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 0.85em;
+        white-space: nowrap;
+    }
+    .btn-view-toc:hover {
+        background: #2a5a8c;
+    }
+    .btn-action {
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.8em;
+        text-decoration: none;
+        cursor: pointer;
+        white-space: nowrap;
+        border: 1.5px solid;
+        background: transparent;
+    }
+    .btn-download {
+        color: #1a6fa0;
+        border-color: #1a6fa0;
+    }
+    .btn-download:hover {
+        background: #1a6fa0;
+        color: #fff;
+    }
+    .btn-replace {
+        color: #c47a20;
+        border-color: #c47a20;
+    }
+    .btn-replace:hover {
+        background: #c47a20;
+        color: #fff;
+    }
+    .btn-sm {
+        padding: 3px 8px;
+        font-size: 0.78em;
+    }
+    .btn-xs {
+        padding: 2px 6px;
+        font-size: 0.75em;
+        line-height: 1;
+    }
+    .action-cell {
+        white-space: nowrap;
+    }
+    .action-cell a, .action-cell button {
+        margin-left: 4px;
+    }
+    .book-folder-contents {
+        border-top: 1px solid #ddd;
+    }
+    .sub-folder {
+        border-bottom: 1px solid #eee;
+    }
+    .sub-folder:last-child {
+        border-bottom: none;
+    }
+    .sub-folder-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 16px 9px 36px;
+        background: #fafbfc;
+        cursor: pointer;
+        transition: background 0.15s;
+    }
+    .sub-folder-header:hover {
+        background: #eef1f5;
+    }
+    .sub-icon {
+        font-size: 1.15em;
+    }
+    .sub-folder-files {
+        max-height: 350px;
+        overflow-y: auto;
+    }
+    .file-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+        font-size: 0.88em;
+    }
+    .file-table thead th {
+        background: #eef1f5;
+        padding: 6px 12px 6px 52px;
+        text-align: left;
+        position: sticky;
+        top: 0;
+        font-size: 0.85em;
+        text-transform: uppercase;
+        color: #555;
+    }
+    .file-table thead th:not(:first-child) {
+        padding-left: 12px;
+    }
+    .file-table td {
+        padding: 5px 12px 5px 52px;
+        border-bottom: 1px solid #eee;
+    }
+    .file-table td:not(:first-child) {
+        padding-left: 12px;
+    }
+    .file-table tbody tr:hover {
+        background: #f8f9fb;
+    }
+    .file-icon {
+        margin-right: 4px;
+    }
+    .file-size {
+        color: #888;
+        white-space: nowrap;
+    }
+</style>
+
+<script>
+function toggleFolder(id) {
+    var el = document.getElementById(id);
+    var icon = document.getElementById('icon-' + id);
+    if (el.style.display === 'none') {
+        el.style.display = 'block';
+        if (icon) icon.innerHTML = '&#128194;';
+    } else {
+        el.style.display = 'none';
+        if (icon) icon.innerHTML = '&#128193;';
+    }
+}
+
+var _replaceIsbn = '';
+var _replaceType = '';
+
+function triggerReplace(isbn, folderType) {
+    var label = folderType === 'all' ? 'ALL files' : (folderType === 'xml' ? 'XML files' : 'Image files');
+    if (!confirm('Replace ' + label + ' for ' + isbn + '?\n\nThis will delete existing ' + label + ' and extract files from the ZIP you select.')) {
+        return;
+    }
+    _replaceIsbn = isbn;
+    _replaceType = folderType;
+    var input = document.getElementById('replace-file-input');
+    input.value = '';
+    input.click();
+}
+
+document.getElementById('replace-file-input').addEventListener('change', function() {
+    if (!this.files.length || !_replaceIsbn) return;
+    var file = this.files[0];
+    var formData = new FormData();
+    formData.append('file', file);
+
+    var url = '/replace/' + _replaceIsbn + '/' + _replaceType;
+    fetch(url, { method: 'POST', body: formData })
+        .then(function(resp) { return resp.json(); })
+        .then(function(data) {
+            if (data.ok) {
+                alert('Files replaced successfully!');
+                location.reload();
+            } else {
+                alert('Error: ' + (data.error || 'Unknown error'));
+            }
+        })
+        .catch(function(err) {
+            alert('Upload failed: ' + err.message);
+        });
+});
+
+// Single file replace
+var _replaceFileIsbn = '';
+var _replaceFileName = '';
+
+function triggerFileReplace(isbn, filename) {
+    if (!confirm('Replace file "' + filename + '"?\n\nSelect the replacement XML file.')) return;
+    _replaceFileIsbn = isbn;
+    _replaceFileName = filename;
+    var input = document.getElementById('replace-single-file-input');
+    input.value = '';
+    input.click();
+}
+
+document.getElementById('replace-single-file-input').addEventListener('change', function() {
+    if (!this.files.length || !_replaceFileIsbn) return;
+    var file = this.files[0];
+    var formData = new FormData();
+    formData.append('file', file);
+
+    var url = '/replace-file/' + _replaceFileIsbn + '/' + _replaceFileName;
+    fetch(url, { method: 'POST', body: formData })
+        .then(function(resp) { return resp.json(); })
+        .then(function(data) {
+            if (data.ok) {
+                alert('File replaced successfully!');
+                location.reload();
+            } else {
+                alert('Error: ' + (data.error || 'Unknown error'));
+            }
+        })
+        .catch(function(err) {
+            alert('Upload failed: ' + err.message);
+        });
+});
+</script>
+{% endblock %}

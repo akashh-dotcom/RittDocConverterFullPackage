@@ -1,0 +1,29 @@
+﻿/* ==========================================================================
+	Intro styles (Homepage)
+   ========================================================================== */
+.intro {
+	margin: 3px 3px 0 3px; padding: 20px 88px 0 84px; width: 780px; height: 96px;
+    background: transparent url(../images/intro/bg.jpg) 0 0 no-repeat;
+    font-size: 0.9375em; /* 15px / 16px */ line-height: 1.4666; /* 22px / 15px */
+    }
+    
+.intro h1,
+.intro h2 {
+    font-size: 1.2em; /* 18px / 15px */ color: #AF1B3F;
+}
+
+    .intro p:first-child
+    {
+        font-size: 1.2em; /* 18px / 15px */
+        color: #AF1B3F;
+    }
+	    
+	.intro p {
+		margin: 0;
+	    }
+	    
+/* SHIMS */
+.ie7 .intro {
+    margin-top: 0;
+    background-position: 0 3px;
+    }

@@ -1,0 +1,123 @@
+﻿@using R2V2.Web.Models.Profile
+@model UserEmailOptions
+
+@{
+    ViewBag.Title = "My Email Options";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="tabs">
+    <ul class="clearfix">
+        <li><a href="@Url.Action("Index", "MyR2", new { type = "bookmarks" })"><span>Bookmarks</span></a></li>
+        <li><a href="@Url.Action("Index", "MyR2", new { type = "course-links" })"><span>Course Links</span></a></li>
+        <li><a href="@Url.Action("Index", "MyR2", new { type = "images" })"><span>Images</span></a></li>
+        <li><a href="@Url.Action("Index", "MyR2", new { type = "references" })"><span>References</span></a></li>
+        <li><a href="@Url.Action("Index", "Profile")"><span>My User Profile</span></a></li>
+        <li class="selected"><a href="@Url.Action("Email", "Profile")"><span>My Email Options</span></a></li>
+    </ul>
+</div>
+
+<div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>My Email Options</h1>
+
+        @using (Html.BeginForm("Email", "Profile", new {}, FormMethod.Post, new {Id = "EmailOptionForm"}))
+        {
+            <div class="group-actions-wrapper">
+                <div class="clearfix group-actions" data-implement="fixed">
+                    <ul class="actions">
+                        <li><button class="btn-medium" type="submit" id="SubmitButton"><span>Save</span></button></li>
+                        <li><a class="btn btn-medium" data-history="back"><span>Cancel</span></a></li>
+                        @*<li><button class="btn-medium" type="button" id="SubmitButton"><span>Check Save</span></button></li>*@
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tablecontent">
+                @Html.HiddenFor(x => x.Id)
+                @Html.HiddenFor(x => x.SubscribedOptions)
+                <table class="edit">
+                    <tbody>
+                        @if (Model.EmailOptions.Any(x => x.GroupEmailCode == GroupEmailCode.Other))
+                        {
+                            <tr>
+                                <th colspan="3" style="background-color: #dde5eb; font-weight: bold; padding: 5px 10px; text-align: left; font-size: 1em; ">On Demand</th>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Subscribe</th>
+                                <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Unsubscribe</th>
+                                <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Notification</th>
+                            </tr>
+                            foreach (var option in Model.EmailOptions.Where(x => x.GroupEmailCode == GroupEmailCode.Other))
+                            {
+                                <tr>
+                                    <td>@Html.RadioButton(option.Code, true, option.Value)</td>
+                                    <td>@Html.RadioButton(option.Code, false, option.Value == false)</td>
+                                    <td>@Html.Raw(option.Description)</td>
+                                </tr>
+                            }
+                        }
+
+                        @if (Model.EmailOptions.Any(x => x.GroupEmailCode == GroupEmailCode.Weekly))
+                        {
+                            <tr>
+                                <th colspan="3" style="background-color: #dde5eb; font-weight: bold; padding: 5px 10px; text-align: left; font-size: 1em; ">Weekly</th>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Subscribe</th>
+                                <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Unsubscribe</th>
+                                <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Notification</th>
+                            </tr>
+                            foreach (var option in Model.EmailOptions.Where(x => x.GroupEmailCode == GroupEmailCode.Weekly))
+                            {
+                                <tr>
+                                    <td>@Html.RadioButton(option.Code, true, option.Value)</td>
+                                    <td>@Html.RadioButton(option.Code, false, option.Value == false)</td>
+                                    <td>@Html.Raw(option.Description)</td>
+                                </tr>
+                            }
+                        }
+                        
+                        @if (Model.EmailOptions.Any(x => x.GroupEmailCode == GroupEmailCode.Monthly))
+                        {
+                            <tr>
+                                <th colspan="3" style="background-color: #dde5eb; font-weight: bold; padding: 5px 10px; text-align: left; font-size: 1em; ">Monthly</th>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Subscribe</th>
+                                <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Unsubscribe</th>
+                                <th style="background-color: #dde5eb; font-weight: normal; padding: 5px 10px; text-align: left; font-size: 0.75em;">Notification</th>
+                            </tr>
+                            foreach (var option in Model.EmailOptions.Where(x => x.GroupEmailCode == GroupEmailCode.Monthly))
+                            {
+                                <tr>
+                                    <td>@Html.RadioButton(option.Code, true, option.Value)</td>
+                                    <td>@Html.RadioButton(option.Code, false, option.Value == false)</td>
+                                    <td>@Html.Raw(option.Description)</td>
+                                </tr>
+                            }
+                        }
+                        
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section JsDocumentReady{
+    $("#SubmitButton").click(function(){
+    
+        var inputs = $("#EmailOptionForm input[type='radio']");
+        var subscribed = [];
+        $.each(inputs, function(i, val){
+            if($(this).attr('value') == 'True' && $(this).attr('checked')){
+            console.log($(this).attr('name') + ' Subscribe')
+            subscribed.push($(this).attr('name'));
+            }
+        });
+        $("#SubscribedOptions").val(subscribed);
+    });
+    
+}

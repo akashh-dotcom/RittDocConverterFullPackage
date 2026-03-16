@@ -1,0 +1,167 @@
+# RittDocConverter Docker Compose
+# ================================
+# EPUB processing service with optional local MongoDB
+#
+# Usage:
+#   # Connect to EXTERNAL MongoDB (recommended for production)
+#   MONGODB_URI=mongodb://your-mongodb:27017 docker-compose up -d
+#
+#   # With LOCAL MongoDB (for development)
+#   docker-compose --profile mongodb up -d
+#
+#   # Start only EPUB service (assumes external MongoDB)
+#   docker-compose up -d epub-service
+#
+# For production, use docker-compose.prod.yml
+
+version: '3.8'
+
+services:
+  # ==========================================================================
+  # EPUB Processing Service
+  # ==========================================================================
+  epub-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rittdoc-epub-service
+    restart: unless-stopped
+    ports:
+      - "${EPUB_API_PORT:-5001}:5001"
+    environment:
+      # API Configuration
+      - API_HOST=0.0.0.0
+      - API_PORT=5001
+      - API_DEBUG=${API_DEBUG:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+
+      # MongoDB Configuration (external by default)
+      # For local MongoDB, use: mongodb://mongodb:27017
+      # For external/shared: mongodb://your-mongodb-host:27017
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017}
+      - MONGODB_DATABASE=${MONGODB_DATABASE:-RittenhouseXMLConverter}
+      - MONGODB_COLLECTION=${MONGODB_COLLECTION:-conversion_dashboard}
+
+      # Processing Configuration
+      - MAX_CONCURRENT_JOBS=${MAX_CONCURRENT_JOBS:-4}
+      - JOB_TIMEOUT_SECONDS=${JOB_TIMEOUT_SECONDS:-3600}
+
+      # S3 Configuration (optional)
+      - S3_ENABLED=${S3_ENABLED:-false}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME:-}
+      - S3_REGION=${S3_REGION:-us-east-1}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-}
+    volumes:
+      # Persistent data
+      - epub-output:/app/Output
+      - epub-logs:/app/logs
+      - epub-data:/app/data
+      - epub-uploads:/app/uploads
+    networks:
+      - rittdoc-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5001/api/v1/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # ==========================================================================
+  # Editor Service
+  # ==========================================================================
+  editor:
+    build:
+      context: ./editor
+      dockerfile: Dockerfile
+    container_name: rittdoc-editor
+    restart: unless-stopped
+    ports:
+      - "${EDITOR_PORT:-5000}:5000"
+    environment:
+      - EDITOR_HOST=0.0.0.0
+      - EDITOR_PORT=5000
+    volumes:
+      # Share output directory with epub-service for package editing
+      - epub-output:/app/Output:ro
+    networks:
+      - rittdoc-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # ==========================================================================
+  # MongoDB Database (LOCAL - Development Only)
+  # ==========================================================================
+  # Use profile 'mongodb' to start local MongoDB:
+  #   docker-compose --profile mongodb up -d
+  #
+  # For production/shared MongoDB, use external instance instead
+  mongodb:
+    image: mongo:7.0
+    container_name: rittdoc-mongodb
+    restart: unless-stopped
+    ports:
+      - "${MONGODB_PORT:-27017}:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE:-RittenhouseXMLConverter}
+    volumes:
+      - mongodb-data:/data/db
+      - mongodb-config:/data/configdb
+      - ./docker/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - rittdoc-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    profiles:
+      - mongodb  # Only starts with: docker-compose --profile mongodb up
+
+  # ==========================================================================
+  # MongoDB Express (Admin UI) - Development Only
+  # ==========================================================================
+  mongo-express:
+    image: mongo-express:latest
+    container_name: rittdoc-mongo-express
+    restart: unless-stopped
+    ports:
+      - "${MONGO_EXPRESS_PORT:-8081}:8081"
+    environment:
+      - ME_CONFIG_MONGODB_URL=${MONGODB_URI:-mongodb://mongodb:27017}
+      - ME_CONFIG_BASICAUTH_USERNAME=${MONGO_EXPRESS_USER:-admin}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_EXPRESS_PASSWORD:-admin}
+    networks:
+      - rittdoc-network
+    profiles:
+      - mongodb  # Only starts with: docker-compose --profile mongodb up
+
+# ==========================================================================
+# Networks
+# ==========================================================================
+networks:
+  rittdoc-network:
+    driver: bridge
+    name: rittdoc-network
+
+# ==========================================================================
+# Volumes
+# ==========================================================================
+volumes:
+  epub-output:
+    name: rittdoc-epub-output
+  epub-logs:
+    name: rittdoc-epub-logs
+  epub-data:
+    name: rittdoc-epub-data
+  epub-uploads:
+    name: rittdoc-epub-uploads
+  mongodb-data:
+    name: rittdoc-mongodb-data
+  mongodb-config:
+    name: rittdoc-mongodb-config

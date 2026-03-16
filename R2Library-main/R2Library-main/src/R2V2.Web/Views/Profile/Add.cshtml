@@ -1,0 +1,111 @@
+﻿@model R2V2.Web.Models.Profile.ProfileAdd
+
+@{
+    ViewBag.Title = "Create User Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="onecol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Create User Profile</h1>
+        
+        @using (Html.BeginForm("Add", "Profile", FormMethod.Post))
+        {
+            @Html.HiddenFor(x=> x.User.AthensTargetedId)
+            <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><button class="btn-medium" type="submit"><span>Create</span></button></li>
+                    <li><a class="btn btn-medium" data-history="back"><span>Cancel</span></a></li>
+                </ul>
+            </div></div>
+    
+            <div class="tablecontent">
+                <table class="edit">
+                    <tbody>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.FirstName)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(model => model.User.FirstName, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.User.FirstName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.LastName)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(model => model.User.LastName, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.User.LastName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.UserName)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(model => model.UserName, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.UserName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.Email)</td>
+                            <td class="field">
+                                @Html.TextBoxFor(model => model.User.Email, new { @class = "input-full" })
+                                @Html.ValidationMessageFor(model => model.User.Email)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.User.DepartmentSelectList)</td>
+                            <td class="field">
+                                @Html.DropDownListFor(model => model.User.Department.Id, Model.User.DepartmentSelectList)
+                                @Html.EditorFor(model => model.User.CustomDepartment) @Html.HiddenFor(model => model.User.CustomDepartmentId)
+                                @Html.ValidationMessageFor(model => model.User.DepartmentSelectList)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">@Html.LabelFor(model => model.NewPassword)</td>
+                            <td class="field">
+                                @Html.PasswordFor(model => model.NewPassword, new { @class = "input-medium" })
+                                @Html.ValidationMessageFor(model => model.NewPassword)                            
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="label">@Html.LabelFor(model => model.ConfirmPassword)</td>
+                        <td class="field">
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "input-medium" })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword)                            
+                        </td>
+                    </tr>
+                        @if (Model.User.Id > 0)
+                        {
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.User.AthensTargetedId)</td>
+                                <td class="field">
+                                    @if (!string.IsNullOrWhiteSpace(Model.User.AthensTargetedId))
+                                    {
+                                        @Html.ActionLink("Remove Athens Link", "RemoveAthensLink")
+                                    }
+                                    else
+                                    {
+	                                    <span>To link account click "Athens log in" in the upper right corner.</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        
+                        @if (Model.IsExpertReviewerEnabled)
+                        {
+                            <tr>
+                                <td class="label">@Html.LabelFor(model => model.User.ExpertReviewerRequestDate)</td>
+                                <td class="field">
+                                    @Html.EditorFor(model => model.User.ExpertReviewerRequest)
+                                    @Html.ValidationMessageFor(model => model.User.ExpertReviewerRequest)
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td class="label">Email Preferences:</td>
+                            <td class="field">Will be set to default values. Can edit after creation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

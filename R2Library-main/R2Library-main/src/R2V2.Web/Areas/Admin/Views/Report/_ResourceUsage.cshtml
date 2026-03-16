@@ -1,0 +1,324 @@
+﻿@using R2V2.Core.Institution
+@model R2V2.Web.Areas.Admin.Models.Report.ReportModel
+           
+<div id="content" class="content" role="main">
+    <h1>Resource Usage Report</h1>
+        
+    @if (Model.InstitutionId > 0)
+    {
+        @Html.Partial("_InstitutionInfo")
+    }
+    
+    @if (!string.IsNullOrWhiteSpace(Model.PublisherName))
+     {
+        <div class="institution-info">
+            <p>@Model.PublisherName</p>
+        </div>
+     } 
+
+    @if (Model.ActionsMenu != null)
+    {
+        using (Html.BeginForm("ResourceUsage", "Report", new {institutionId = Model.InstitutionId}, FormMethod.Post))
+        {
+            @Html.Hidden("ReportQuery.ReportTypeId", (int) Model.Type)
+            @Html.HiddenFor(model => model.Type)
+            @Html.Hidden("ReportQuery.InstitutionId", Model.ReportQuery.InstitutionId)
+            @*@Html.Hidden("ReportQuery.ActionType", Model.ReportQuery.ActionType)*@
+            <div id="report-filters" class="tablecontent">
+                <table class="edit compact">
+                    @Html.Partial("_Period")
+                    @Html.Partial("_LicenseTypeFilter")
+                    @Html.Partial("_ResourceUsageOptions")
+                    @Html.Partial("_IpRangeOptions")
+                    @Html.Partial("_SortBy")
+                    <tr>
+                        <td></td>
+                        <td class="actions">
+                            <button class="btn-medium" type="submit" id="run-report-submit"><span>Run Report</span></button>
+                            @if (Model.IsSaveEnabled)
+                            {
+                                <button class="btn-medium" type="submit" id="save-report-submit"><span>Save / Schedule Report</span></button>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            if (Model.PageLinks.Count() > 1 && Model.ActionsMenu != null)
+            {
+                <div class="nav-section-wrapper">
+                    <div class="clearfix nav-section" data-implement="fixed">
+                        <div class="previous">
+                            @if (Model.PreviousLink.Active)
+                            {
+                                <a href="@Model.FirstLink.Href" class="nav-page-link">&lt; @Model.FirstLink.Text</a>
+                                <a href="@Model.PreviousLink.Href" class="nav-page-link">&lt;&lt; @Model.PreviousLink.Text</a>
+                            }
+                        </div>
+
+                        <div class="next">
+                            @if (Model.NextLink.Active)
+                            {
+                                <a href="@Model.NextLink.Href" class="nav-page-link">@Model.NextLink.Text &gt;&gt;</a>
+                                <a href="@Model.LastLink.Href" class="nav-page-link">@Model.LastLink.Text &gt;</a>
+                            }
+                        </div>
+
+                        <ul class="nav-number nav-content">
+                            <li><strong>Jump to page:</strong></li>
+                            @foreach (var link in Model.PageLinks)
+                            {
+                                if (link.Active)
+                                {
+                                    <li@(StyleHelpers.AddSelectedState(link.Selected))><a href="@link.Href" class="nav-page-link"><span>@link.Text</span></a></li>
+                                }
+                                else
+                                {
+                                    <li><span>@link.Text</span></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        }
+    }
+
+    @if (Model.Items != null && Model.Items.Any())
+    {
+        <div class="alertbox">
+            <p>Showing Resources @string.Format("{0:#,##0}", Model.PageResourceFirstNumber) to @string.Format("{0:#,##0}", Model.PageResourceLastNumber) of @string.Format("{0:#,##0}", Model.ResourceCount)</p>
+        </div>
+
+        <div class="tablecontent">
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th class="resource-report-image">&nbsp;</th>
+                        <th class="resource-report-usage">Usage Stats</th>
+                        <th class="resource-report-cost">Cost Stats</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td class="resource-report-image">
+                                <div class="title-image">
+                                    @if (Model.ActionsMenu != null)
+                              {
+                                        <img alt="@item.ResourceTitle" src="@item.ResourceImageUrl" width="80" />
+                              }
+                                </div>
+                                <div class="resource-report-status">@ResourceHelpers.ResourceStatus(item.Status)</div>
+                            </td>
+                            <td colspan="2">
+                                <div class="titleitem">
+                                    <h2><a href="@Url.Action("Title", "Resource", new { Area = "", item.Resource.Isbn })" data-toggle="collapse" data-target="#item-@item.Resource.Isbn">@Html.DisplayFor(x => item.Resource.Title)</a></h2>
+                                    @*<h2>@Html.DisplayFor(modelItem => item.ResourceTitle)</h2>*@
+
+                                    <table>
+                                        <tr>
+                                            <td class="resource-report-usage">
+                                                <table>
+                                                    <tr>
+                                                        <td class="success">@Html.LabelFor(modelItem => item.ContentRetrievalCount)</td>
+                                                        <td class="success">@Html.DisplayFor(modelItem => @item.ContentRetrievalCount)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(modelItem => item.TocRetrievalCount)</td>
+                                                        <td><strong>@Html.DisplayFor(modelItem => @item.TocRetrievalCount)</strong></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(modelItem => item.SessionCount)</td>
+                                                        <td><strong>@Html.DisplayFor(modelItem => @item.SessionCount)</strong></td>
+                                                    </tr>
+                                                    @if (string.IsNullOrWhiteSpace(Model.PublisherName))
+                                                    {
+                                                        <tr>
+                                                            <td>@Html.LabelFor(modelItem => item.PrintCount)</td>
+                                                            <td><strong>@Html.DisplayFor(modelItem => @item.PrintCount)</strong></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(modelItem => item.EmailCount)</td>
+                                                            <td><strong>@Html.DisplayFor(modelItem => @item.EmailCount)</strong></td>
+                                                        </tr>
+                                                    }
+                                                    <tr>
+                                                        <td class="turnaway">@Html.LabelFor(modelItem => item.ConcurrencyTurnawayCount)</td>
+                                                        <td class="turnaway">@Html.DisplayFor(modelItem => @item.ConcurrencyTurnawayCount)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="turnaway">@Html.LabelFor(modelItem => item.AccessTurnawayCount)</td>
+                                                        <td class="turnaway">@Html.DisplayFor(modelItem => @item.AccessTurnawayCount)</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="resource-report-cost">
+                                                <table>
+                                                    @if (string.IsNullOrWhiteSpace(Model.PublisherName))
+                                                    {
+                                                        <tr>
+                                                            <td>@Html.LabelFor(modelItem => item.TotalLicenseCount)</td>
+                                                            <td>
+                                                                @PurchaseHelper.GetPublisherReportLicenseCount(item)
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(modelItem => item.ResourceAveragePrice)</td>
+                                                            <td>
+                                                                @PurchaseHelper.GetPublisherReportCostCount(item)
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+
+                                                    @if (item.IsFreeResource)
+                                                    {
+                                                        if (string.IsNullOrWhiteSpace(Model.PublisherName))
+                                                        {
+                                                            <tr>
+                                                                <td class="success">@Html.LabelFor(modelItem => item.ResourceTotalPrice)</td>
+                                                                <td class="success">Free</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>@Html.LabelFor(modelItem => item.AverageAccessCost)</td>
+                                                                <td><strong>Free</strong></td>
+                                                            </tr>
+                                                        }
+                                                        <tr>
+                                                            <td>@Html.LabelFor(modelItem => item.FirstPurchasedDate)</td>
+                                                            <td>@Html.DisplayFor(modelItem => @item.FirstPurchasedDate)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(modelItem => item.OriginalSource)</td>
+                                                            <td>Firm Order</td>
+                                                        </tr>
+                                                    }
+                                                    else if (item.OriginalSource == LicenseOriginalSource.FirmOrder)
+                                                    {
+                                                        if (string.IsNullOrWhiteSpace(Model.PublisherName))
+                                                        {
+                                                            <tr>
+                                                                <td class="success">@Html.LabelFor(modelItem => item.ResourceTotalPrice)</td>
+                                                                <td class="success">@Html.DisplayFor(modelItem => @item.ResourceTotalPrice)</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>@Html.LabelFor(modelItem => item.AverageAccessCost)</td>
+                                                                <td><strong>@Html.DisplayFor(modelItem => @item.AverageAccessCost)</strong></td>
+                                                            </tr>
+                                                        }
+                                                        <tr>
+                                                            <td>@Html.LabelFor(modelItem => item.FirstPurchasedDate)</td>
+                                                            <td>@Html.DisplayFor(modelItem => @item.FirstPurchasedDate)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(modelItem => item.OriginalSource)</td>
+                                                            <td>@Html.DisplayFor(modelItem => @item.OriginalSourceString)</td>
+                                                        </tr>
+                                                    }
+                                                    else if (item.OriginalSource == LicenseOriginalSource.Pda)
+                                                    {
+                                                        if (item.FirstPurchasedDate != DateTime.MinValue)
+                                                        {
+                                                            if (string.IsNullOrWhiteSpace(Model.PublisherName))
+                                                            {
+                                                                <tr>
+                                                                    <td class="success">@Html.LabelFor(modelItem => item.ResourceTotalPrice)</td>
+                                                                    <td class="success">@Html.DisplayFor(modelItem => @item.ResourceTotalPrice)</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>@Html.LabelFor(modelItem => item.AverageAccessCost)</td>
+                                                                    <td><strong>@Html.DisplayFor(modelItem => @item.AverageAccessCost)</strong></td>
+                                                                </tr>
+                                                            }
+
+                                                            <tr>
+                                                                <td>@Html.LabelFor(modelItem => item.FirstPurchasedDate)</td>
+                                                                <td>@Html.DisplayFor(modelItem => @item.FirstPurchasedDate)</td>
+                                                            </tr>
+                                                        }
+                                                        <tr>
+                                                            <td>@Html.LabelFor(modelItem => item.OriginalSource)</td>
+                                                            <td>@Html.DisplayFor(modelItem => @item.OriginalSourceString)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(modelItem => item.TotalPdaAccess)</td>
+                                                            <td>@Html.DisplayFor(modelItem => @item.TotalPdaAccess)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(modelItem => item.PdaCreatedDate)</td>
+                                                            <td>@Html.DisplayFor(modelItem => @item.PdaCreatedDate)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(modelItem => item.PdaAddedToCartDate)</td>
+                                                            <td>@Html.DisplayFor(modelItem => @item.PdaAddedToCartDate)</td>
+                                                        </tr>
+                                                    }
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div id="item-@item.ResourceIsbn" class="collapse title-detail">
+                                        <div class="clearfix">
+                                            @*<div class="title-image"><img alt="@item.Title" src="@Model.ImageUrl" /></div>*@
+
+                                            <div class="title-meta">
+                                                <ul style="float: left; width: 279px;">
+                                                    <li>@Html.LabelFor(x => item.Resource.Authors) @Html.DisplayFor(x => item.Resource.Authors)</li>
+                                                    <li>@Html.LabelFor(x => item.Resource.PublisherName) @Html.DisplayFor(x => item.Resource.PublisherName)</li>
+                                                    <li><strong>Affiliation: </strong>@Html.Raw(item.Resource.Affiliation)</li>
+                                                    <li>@Html.LabelFor(x => item.Resource.PublicationDate) @Html.DisplayFor(x => item.Resource.PublicationDate)</li>
+                                                    <li>@Html.LabelFor(x => item.Resource.ReleaseDate) @Html.DisplayFor(x => item.Resource.ReleaseDate)</li>
+                                                </ul>
+                                                <ul style="float: left; margin-left: 50px;">
+                                                    
+                                                    @if (item.Resource.PracticeAreas != null && item.Resource.PracticeAreas.Any())
+                                                    {
+                                                        var firstPracticeArea = true;
+                                                        <li>
+                                                            @Html.LabelFor(x => item.Resource.PracticeAreas)
+                                                            @foreach (var practiceArea in item.Resource.PracticeAreas)
+                                                            {
+                                                                @(firstPracticeArea ? "" : ", ")@practiceArea.Name
+                                                                firstPracticeArea = false;
+                                                            }
+                                                        </li>
+                                                    }
+                                                    @if (item.Resource.Specialties != null && item.Resource.Specialties.Any())
+                                                    {
+                                                        var firstSpecialty = true;
+                                                        <li>
+                                                            @Html.LabelFor(x => item.Resource.Specialties)
+                                                            @foreach (var specialty in item.Resource.Specialties)
+                                                            {
+                                                                @(firstSpecialty ? "" : ", ")@specialty.Name
+                                                                firstSpecialty = false;
+                                                            }
+                                                        </li>
+                                                    }
+                                                    <li>@Html.LabelFor(x => item.Resource.Isbn10) @Html.DisplayFor(x => item.Resource.Isbn10)</li>
+                                                    <li>@Html.LabelFor(x => item.Resource.Isbn13) @Html.DisplayFor(x => item.Resource.Isbn13)</li>
+                                                    @if (item.Resource.EIsbn != null)
+                                                    {
+                                                        <li>@Html.LabelFor(x => item.Resource.EIsbn) @Html.DisplayFor(x => item.Resource.EIsbn)</li>
+                                                    }
+                                                    <li>@Html.LabelFor(modelItem => item.Resource.Edition) @Html.DisplayFor(modelItem => item.Resource.Edition)</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <p>@item.Resource.ResourceDescription</p>
+                                        <p><strong><a href="@Url.Action("Title", "Resource", new { Area = "", item.Resource.Isbn })" target="_blank" data-toggle="window">View Full Detail</a></strong></p>
+                                        <p><strong><a href="@Url.Action("List", "CollectionManagement", new { Model.InstitutionId, query=  item.Resource.Isbn })">Purchase License</a></strong></p>
+                                    </div>
+                                </div>
+                            
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

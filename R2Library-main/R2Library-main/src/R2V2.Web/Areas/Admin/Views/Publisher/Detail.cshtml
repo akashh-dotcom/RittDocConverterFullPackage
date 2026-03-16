@@ -1,0 +1,155 @@
+﻿@model R2V2.Web.Areas.Admin.Models.PublisherConsolidation.PublisherDetail
+@{
+    ViewBag.Title = "Publisher Consolidation";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="fullcol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>@Html.Raw(Model.EditPublisher.IsFeaturedPublisher ? "Featured Publisher" : "Publisher ")</h1>
+        
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions">
+                <ul class="actions">
+                    @if (!Model.EditPublisher.NotSaleableDate.HasValue)
+                    {
+                        <li><a href="@Url.Action("NotSaleable", new {publisherId = Model.EditPublisher.Id})" class="btn btn-medium btn-add" data-implement="modal"><span>Mark Not Saleable</span></a></li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                    }
+                    @if (Model.DisplayPublisherDelete)
+                    {
+                        <li><a href="@Url.Action("Delete", new {publisherId = Model.EditPublisher.Id})" class="btn btn-medium"><span>Delete Publisher</span></a></li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                    }
+                    <li><a class="btn btn-medium" href="@Url.Action("Edit", new {publisherId = Model.EditPublisher.Id})"><span>Edit Publisher</span></a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="tablecontent">
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th class="publishers-status">&nbsp;</th>
+                        <th class="publishers-id">Id</th>
+                        <th class="publishers-name">Publisher</th>
+                        <th class="publishers-number">Vendor #</th>
+                        <th class="publishers-address">City, State</th>
+                        <th class="publishers-resource-count">Resource Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="@(Model.EditPublisher.NotSaleableDate.HasValue ? "notsaleable" :"selected")">
+                        <td class="publishers-status"><strong class="@Model.EditPublisher.RecordStatus.ToLower().Replace(" ", "-")">@Model.EditPublisher.RecordStatus</strong></td>
+                        <td class="publishers-id">@Model.EditPublisher.Id</td>
+                        <td class="publishers-name">
+                            <strong>@Model.EditPublisher.Name</strong>
+                            @if (Model.EditPublisher.ConsolidatedPublisher != null)
+                            {
+                                <p>Colidated to: @Model.EditPublisher.ConsolidatedPublisher.Name (@Model.EditPublisher.ConsolidatedPublisher.Id), @Model.EditPublisher.ConsolidatedPublisher.CityAndState, Status: <strong class="@Model.EditPublisher.ConsolidatedPublisher.RecordStatus.ToLower().Replace(" ", "-")">@Model.EditPublisher.ConsolidatedPublisher.RecordStatus</strong></p>
+                            }
+                            @if (Model.EditPublisher.NotSaleableDate.HasValue)
+                            {
+                                <br /><span>Publisher was marked as Not Saleable on @Html.DisplayFor(x => Model.EditPublisher.NotSaleableDate)</span>
+                            }
+                        </td>
+                        <td class="publishers-number">@Model.EditPublisher.VendorNumber</td>
+                        <td class="publishers-address">@Model.EditPublisher.CityAndState</td>
+                        <td class="publishers-resource-count">@Model.EditPublisher.ResourceCount</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        @if (Model.ChildPublishers != null && Model.ChildPublishers.Any())
+        {
+            <div class="group-actions-wrapper"><div class="clearfix group-actions">
+                <p class="header">Consolidation</p>
+                <p class="message">This publisher has publishers consolidated under it and cannot be consolidated itself.</p>
+            </div></div>
+            
+            <div class="tablecontent">
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th class="publishers-status">&nbsp;</th>
+                            <th class="publishers-id">Id</th>
+                            <th class="publishers-name">Publisher</th>
+                            <th class="publishers-number">Vendor #</th>
+                            <th class="publishers-address">City, State</th>
+                            <th class="publishers-resource-count">Resource Count</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ChildPublishers)
+                        {
+                        <tr>
+                            <td class="publishers-status"><strong class="@item.RecordStatus.ToLower().Replace(" ", "-")">@item.RecordStatus</strong></td>
+                            <td class="publishers-id">@item.Id</td>
+                            <td class="publishers-name">
+                                @item.Name
+                                @if (item.ConsolidatedPublisher != null)
+                                {
+                                    <p>Colidated to: @item.ConsolidatedPublisher.Name (@item.ConsolidatedPublisher.Id), @item.ConsolidatedPublisher.CityAndState, Status: <strong class="@item.ConsolidatedPublisher.RecordStatus.ToLower().Replace(" ", "-")">@item.ConsolidatedPublisher.RecordStatus</strong></p>
+                                }
+                            </td>
+                            <td class="publishers-number">@item.VendorNumber</td>
+                            <td class="publishers-address">@item.CityAndState</td>
+                            <td class="publishers-resource-count">@item.ResourceCount</td>
+                            <td><a class="btn btn-medium" href="@Url.Action("DeleteConsolidation", new{publisherId = item.Id, parentPublisherId = Model.EditPublisher.Id})"><span>Delete</span></a></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            using (Html.BeginForm())
+            {
+                <div class="group-actions-wrapper"><div class="clearfix group-actions">
+                    <p class="header">Consolidation</p>
+                    <ul class="actions">
+                        <li><button class="btn-medium" type="submit"><span>Consolidate</span></button></li>
+                        <li><a class="btn btn-medium" href="@Url.Action("List")"><span>Cancel</span></a></li>
+                    </ul>
+                </div></div>
+                
+                <div class="tablecontent">
+                    <table class="edit">
+                        <tr>
+                            <td class="label">@Html.LabelFor(x => x.PublisherSelectList)</td>
+                            <td class="field">
+                                @Html.DropDownListFor(x => x.ConsolidatedPublisherId, Model.PublisherSelectList)
+                                @Html.HiddenFor(x => x.EditPublisher.Id)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+        }
+
+        <div class="group-actions-wrapper"><div class="clearfix group-actions">
+            <p class="header">Users</p>
+            <ul class="actions">
+                <li><a class="btn btn-medium" href="@Url.Action("AddPublisherUser", new { publisherId = Model.EditPublisher.Id})"><span>Add New User</span></a></li>
+            </ul>
+        </div></div>
+        
+       @Html.Partial("_EditPublisherUser", Model)
+    </div>
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.PdaCollection({ $parent: $('#container'), triggers: ['.btn-add'] });
+}

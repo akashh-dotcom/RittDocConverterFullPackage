@@ -1,0 +1,73 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Special.SpecialView
+
+<div class="tablecontent">    
+    <table class="edit">
+        <tbody>
+            @if (Model.EditSpecialDiscount != null)
+            {
+                @Html.HiddenFor(x=>x.EditSpecialDiscount.Id)
+                @Html.HiddenFor(x=>x.EditSpecialDiscount.SpecialId)
+                @Html.ValidationMessageFor(x => Model.EditSpecialDiscount.DiscountPercentage)
+                <tr>
+                    <td class="label">@Html.LabelFor(x => Model.EditSpecialDiscount.DiscountPercentage) </td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.EditSpecialDiscount.DiscountPercentage, new { @class = "input-xsmall" })
+                        
+                    </td>
+                    <td>
+                        <ul>
+                            @if (Model.EditSpecialDiscount.AvailableIcons != null)
+                            {
+                                for (var i = 0; i < Model.EditSpecialDiscount.AvailableIcons.Count; i++)
+                                {
+                                    <li>
+                                        @Html.RadioButtonFor(x=>Model.EditSpecialDiscount.SelectIconIndex, i)
+                                        <img src="@Model.EditSpecialDiscount.AvailableIcons[i]" alt="@Model.EditSpecialDiscount.AvailableIcons[i]"/>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </td>                    
+                    <td class="actions">
+                        @if (Model.EditSpecialDiscount.Id == 0)
+                        {
+                            <input type="hidden" name="IsDiscountEdit" value="true"/>
+                            <button class="btn btn-medium" type="submit"><span>Save</span></button>
+                            <a href="@Url.Action("Edit", new {specialId = Model.Special.Id})" class="btn btn-medium"><span>Cancel</span></a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("DeleteSpecialDiscount", new {specialId = Model.Special.Id, specialDiscountId = Model.EditSpecialDiscount.Id})" class="btn btn-medium"><span>Delete</span></a>
+                        }
+
+                    </td>
+                </tr>
+            }
+            @if (Model.SpecialDiscounts != null)
+            {
+                foreach (var item in Model.SpecialDiscounts)
+                {
+                    @Html.HiddenFor(x=>item.Id)
+                    <tr>
+                        <td class="label">@Html.LabelFor(x => item.DiscountPercentage)</td>
+                        <td>@Html.DisplayFor(x => item.DiscountPercentage, new { @class = "input-xsmall" })</td>
+                        <td><img src="@item.IconName" alt="@item.IconName"/></td>                    
+                        <td class="actions">
+                            <a href="@Url.Action("BulkAddResources", new { specialId = Model.Special.Id, specialDiscountId = item.Id })" class="btn btn-medium btn-add" data-implement="modal"><span>Bulk Add Resources</span></a>
+                            <a href="@Url.Action("Edit", new { specialId = Model.Special.Id, specialDiscountId = item.Id })" class="btn btn-medium"><span>Edit</span></a>
+                            <a href="@Url.Action("DeleteSpecialDiscount", new {specialId = Model.Special.Id, specialDiscountId = item.Id})" class="btn btn-medium"><span>Delete</span></a>
+                        </td>
+                    </tr>
+                }
+           }
+            @* else
+            {
+                <tr>
+                    <td colspan="4">No Discounts Available.</td>
+                </tr>
+            }*@
+        </tbody>
+    </table>
+</div>
+                
+

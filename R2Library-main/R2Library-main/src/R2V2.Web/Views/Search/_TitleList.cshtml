@@ -1,0 +1,11 @@
+﻿@model R2V2.Web.Models.Search.SearchResultSet
+
+@if (Model.SearchResults != null)
+{
+    <div class="titlelist">
+        @foreach (var searchResult in Model.SearchResults)
+        {
+            @Html.Partial("_ResourceSummary", searchResult)
+        }
+    </div>
+}

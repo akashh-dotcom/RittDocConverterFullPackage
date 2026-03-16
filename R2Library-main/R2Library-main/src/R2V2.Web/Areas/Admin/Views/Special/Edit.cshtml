@@ -1,0 +1,49 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Special.SpecialView
+
+@{
+    ViewBag.Title = "Special Detail";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+@using (Html.BeginForm())
+{
+    
+
+<div class="clearfix fullcol contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Special Edit</h1>
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><a href="@Url.Action("List")" class="btn btn-medium"><span>Cancel</span></a></li>
+                    <li><button class="btn btn-medium" type="submit"><span>Save</span></button></li>
+                </ul>                              
+            </div>
+        </div>
+
+        @Html.Partial("_EditSpecial")
+        
+        <div class="group-actions-wrapper">
+            <div class="clearfix group-actions" data-implement="fixed">
+                <ul class="actions">
+                    <li><a href="@Url.Action("AddDiscount", new{specialId = Model.Special.Id})" class="btn btn-medium"><span>Add Discount</span></a></li>
+                    <li><a href="@Url.Action("AddIcon", new{specialId = Model.Special.Id})" class="btn btn-medium"><span>Add Icons</span></a></li>
+                </ul>                              
+            </div>
+        </div>
+        @Html.Partial("_EditDiscounts")
+        
+        @Html.Partial("_EditResources")
+        
+
+    </div>
+</div>
+
+}
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.PdaCollection({ $parent: $('#container'), triggers: ['.btn-add'] });
+}

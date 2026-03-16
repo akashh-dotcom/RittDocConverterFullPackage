@@ -1,0 +1,27 @@
+﻿@using R2V2.Core.Resource
+@using R2V2.Web
+@model R2V2.Web.Models.Resource.ResourceDetail
+
+<div id="turnaway" class="content modal turnaway">
+    <div class="modal-header">
+        <h1>Request Access</h1>
+        <a class="close" data-dismiss="modal" href="#">Close</a>
+    </div>
+            
+    <div class="modal-body">
+        @using (Html.BeginForm("LogTurnaway", "Resource", new { resourceId = Model.Id, access = Model.ResourceAccess }))
+        {
+            <p>@Html.Raw(Model.TurnawayMessage)</p> 
+            if (Model.TurnawayMessage == Resources.PdaAccessDenied)
+            {
+                <nav id="nav-main">
+                    <a href="@Url.Action("MyAdministrators", "Contact", new {isbn = Model.Isbn})" class="resource-public-button"><span>Suggest for Purchase</span></a>
+                </nav>
+            }
+        }
+    </div>
+</div>
+@if (Model.ResourceAccess == ResourceAccess.Denied)
+{
+    <div class="hidden-text">@Html.ActionLink("...", "Index", "Cloak", new { Model.RequestId }, null)</div>
+}

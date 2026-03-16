@@ -1,0 +1,39 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Report.CounterIndexDetail
+@{
+    ViewBag.Title = "Counter Reports";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_Tabs")
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Counter Reports</h1>
+        @if (Model.InstitutionId > 0)
+        {
+            @Html.Partial("_InstitutionInfo")
+        }
+
+        <ul class="list-links">
+            <li>
+                @Html.ActionLink("Book Requests (Excluding OA_Gold)", "BookRequests", Model.DefaultQueries.BookRequests.ToAdminRouteValues(Model.InstitutionId))
+                <div>Number of Successful Section Requests by Month and Title</div>
+            </li>
+            <li>
+                @Html.ActionLink("Book Access Denied", "BookAccessDeniedRequests", Model.DefaultQueries.BookAccessDeniedRequests.ToAdminRouteValues(Model.InstitutionId))
+                <div>Access Denied to Content Items by Month, Title, and Category</div>
+            </li>
+            <li>
+                @Html.ActionLink("Platform Usage", "PlatformRequests", Model.DefaultQueries.PlatformRequests.ToAdminRouteValues(Model.InstitutionId))
+                <div>Total Item Requests, Unique Item Requests, and Unique Title Requests by Month</div>
+            </li>
+        </ul>
+    </div>
+    
+    @Html.Partial("_LeftNav")
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}{{ section }} - {{ isbn }}{% endblock %}
+
+{% block body %}
+<div class="section-nav-bar">
+    <div>
+        {% if prev_section %}
+        <a href="/viewer/{{ isbn }}/{{ prev_section }}">&larr; Previous</a>
+        {% else %}
+        <span class="nav-placeholder"></span>
+        {% endif %}
+    </div>
+    <div>
+        <a href="/viewer/{{ isbn }}/">TOC</a>
+    </div>
+    <div>
+        {% if next_section %}
+        <a href="/viewer/{{ isbn }}/{{ next_section }}">Next &rarr;</a>
+        {% else %}
+        <span class="nav-placeholder"></span>
+        {% endif %}
+    </div>
+</div>
+<div class="main-content">
+    <div class="card">
+        <div id="resource-content" class="content">
+            {{ content_html|safe }}
+        </div>
+    </div>
+</div>
+{% endblock %}

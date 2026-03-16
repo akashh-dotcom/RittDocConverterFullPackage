@@ -1,0 +1,68 @@
+﻿@model R2V2.Web.Areas.Admin.Models.Notes.NotesList           
+@{
+    ViewBag.Title = "Institution Notes";
+    ViewBag.BodyCssClass = "admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_Tabs")
+
+@Html.Partial("ActionsMenus/_ActionsMenu", Model.ActionsMenu)
+
+<div class="clearfix twocol-with-subnav contentcontainer">
+    <div id="content" class="content" role="main">
+        <h1>Institution Notes</h1>
+        
+        @Html.Partial("_InstitutionInfo")
+        
+        <div class="group-actions-wrapper"><div class="clearfix group-actions" data-implement="fixed">
+            <ul class="actions">
+                <li><a href="@Url.Action("Edit", new { institutionId = Model.InstitutionId, id = 0 })" class="btn btn-medium"><span>Add New Note</span></a></li>
+            </ul>                              
+        </div></div>            
+        
+        @if (Model.Notes != null && Model.Notes.Any())
+        {
+            <div class="tablecontent">
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th class="notes-creator">Creator</th>
+                            <th class="notes-updater">Updated By</th>
+                            <th class="notes-modified-date">Last Updated</th>
+                            <th class="notes-comment">Note</th>
+                            <th class="notes-actions"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Notes)
+                        {
+                            <tr>
+                                <td class="notes-creator">@Html.DisplayFor(modelItem => item.CreatedBy)</td>
+                                <td class="notes-updater">@Html.DisplayFor(modelItem => item.UpdatedBy)</td>
+                                <td class="notes-modified-date">@Html.Raw(item.LastUpdated.ToShortDateString())</td>
+                                <td class="notes-comment">@Html.Raw(item.Comment)</td>
+                                <td class="notes-actions actions">
+                                    <a href="@Url.Action("Edit", new { institutionId = Model.InstitutionId, item.Id })" class="btn btn-medium"><span>Edit</span></a>
+                                    <a href="@Url.Action("Delete", new { institutionId = Model.InstitutionId, item.Id })" class="btn btn-medium"><span>Delete</span></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p><strong>No Notes Available.</strong></p>
+        }
+    </div>
+
+    @Html.Partial("_LeftNav", Model)
+</div>
+
+@section JsDocumentReady
+{
+    new R2V2.Admin.ActionsMenu({ $container: $('.actions-menu') });
+    new R2V2.Admin.LeftNav({ $container: $('.admin-left-nav') });
+}

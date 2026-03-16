@@ -1,0 +1,88 @@
+﻿@using R2V2.Web.Areas.Admin.Models.PdaRules
+@model R2V2.Web.Areas.Admin.Models.PdaRules.PdaRuleModel
+
+@using (Html.BeginForm("SaveRule", "Pda"))
+{
+    @Html.HiddenFor(x => x.InstitutionId)
+    @Html.HiddenFor(x => x.Id)
+
+    <div id="content" class="content" role="main">
+        <h1>PDA Wizard Task</h1>
+
+        @Html.Partial("_InstitutionInfo")
+        
+        <div class="formGroup formGroup--checkbox">
+            <label>
+                @Html.EditorFor(x => x.ApplyToAllResources)
+                @Html.Encode(ModelMetadata.FromLambdaExpression(x => x.ApplyToAllResources, ViewData).DisplayName)
+            </label>
+        </div>
+        
+        <div class="formGroup formGroup--checkbox">
+            <label>
+                @Html.EditorFor(x => x.IncludeNewEditionFirm)
+                @Html.Encode(ModelMetadata.FromLambdaExpression(x => x.IncludeNewEditionFirm, ViewData).DisplayName)
+            </label>
+        </div>
+
+        <div class="formGroup formGroup--checkbox">
+            <label>
+                @Html.EditorFor(x => x.IncludeNewEditionPda)
+                @Html.Encode(ModelMetadata.FromLambdaExpression(x => x.IncludeNewEditionPda, ViewData).DisplayName)
+            </label>
+        </div>
+        <div class="formGroup">
+            @Html.LabelFor(x => x.Name)
+            @Html.TextBoxFor(x => x.Name, new { @class = "formGroup__control input-large" })
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+
+        <div class="clearfix" id="rules">
+
+
+            <div class="formGroup">
+                @Html.LabelFor(x => x.CollectionsSelectListItems) <div class="pdaProfile__clear"><a class="btn-addSelected" id="Clear-Collections"><span>clear</span></a></div>
+                @Html.ListBoxFor(x => x.CollectionsSelected, Model.CollectionsSelectListItems, new { placeholder = "-- Reviews --" })
+            </div>
+
+            <div class="formGroup">
+                @Html.LabelFor(x => x.PracticeAreaSelectListItems) <div class="pdaProfile__clear"><a class="btn-addSelected" id="Clear-PracticeAreas"><span>clear</span></a></div>
+                @Html.ListBoxFor(x => x.PracticeAreasSelected, Model.PracticeAreaSelectListItems, new { placeholder = "-- Practice Area --" })
+
+            </div>
+
+            <div class="formGroup">
+                @Html.LabelFor(x => x.SpecialtiesSelectListItems) <div class="pdaProfile__clear"><a class="btn-addSelected" id="Clear-Specialties"><span>clear</span></a></div>
+                @Html.ListBoxFor(x => x.SpecialtiesSelected, Model.SpecialtiesSelectListItems, new { placeholder = "-- Discipline --" })
+            </div>
+
+            <div class="formGroup">
+                @Html.LabelFor(x => x.MaxPrice)
+                @Html.TextBoxFor(x => x.MaxPrice, new { @class = "formGroup__control input-medium" })
+            </div>
+
+            
+        </div>
+
+        <div class="formActions">
+            <div class="formActions__formGroup formGroup formGroup--checkbox">
+                <label>
+                    @Html.EditorFor(x => x.ExecuteNow)
+                    @Html.Encode(ModelMetadata.FromLambdaExpression<PdaRuleModel, bool>(x => x.ExecuteNow, ViewData).DisplayName)
+                </label>
+            </div>
+
+            <div class="formActions__formGroup formGroup formGroup--checkbox">
+                <label>
+                    @Html.EditorFor(x => x.ExecuteForFuture)
+                    @Html.Encode(ModelMetadata.FromLambdaExpression<PdaRuleModel, bool>(x => x.ExecuteForFuture, ViewData).DisplayName)
+                </label>
+            </div>
+
+            <div class="formActions__buttonGroup">
+                <button class="btn btn-medium" type="submit"><span>Save</span></button>
+                <a href="@Url.Action("PdaProfile", new { Model.InstitutionId })">Cancel</a>
+            </div>
+        </div>
+    </div>
+}
