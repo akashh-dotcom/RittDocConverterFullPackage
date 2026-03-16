@@ -404,52 +404,68 @@ def _parse_toc_structure(toc_xml_path, isbn):
 
 
 def _get_sections(isbn):
-    """List all sections for a given ISBN."""
+    """List all sections for a given ISBN, ordered by TOC reading order.
+
+    The TOC XML defines the correct reading sequence (e.g. the chapter
+    landing/metadata page comes *before* the first content section, even
+    though its filename sorts *after* it alphabetically).  Sections on
+    disk that are absent from the TOC are appended at the end.
+    """
     content_dir = Path(current_app.config.get("CONTENT_DIR", CONTENT_DIR))
     book_dir = content_dir / isbn
     if not book_dir.exists():
         return []
 
-    sections = []
+    # 1. Index every section file on disk
+    disk_sections = {}
     for f in sorted(book_dir.glob("*.xml")):
         name = f.stem
-        # Extract section id from filename like sect1.{isbn}.{section}
-        if name.startswith("sect1."):
-            parts = name.split(".", 2)
-            if len(parts) >= 3:
-                section_id = parts[2]
-                sections.append({
-                    "id": section_id,
-                    "file": f.name,
-                    "type": "section",
-                })
-        elif name.startswith("appendix."):
-            parts = name.split(".", 2)
-            if len(parts) >= 3:
-                section_id = parts[2]
-                sections.append({
-                    "id": section_id,
-                    "file": f.name,
-                    "type": "appendix",
-                })
-        elif name.startswith("preface."):
-            parts = name.split(".", 2)
-            if len(parts) >= 3:
-                section_id = parts[2]
-                sections.append({
-                    "id": section_id,
-                    "file": f.name,
-                    "type": "preface",
-                })
-        elif name.startswith("dedication."):
-            parts = name.split(".", 2)
-            if len(parts) >= 3:
-                section_id = parts[2]
-                sections.append({
-                    "id": section_id,
-                    "file": f.name,
-                    "type": "dedication",
-                })
+        for prefix, stype in [("sect1.", "section"), ("appendix.", "appendix"),
+                               ("preface.", "preface"), ("dedication.", "dedication")]:
+            if name.startswith(prefix):
+                parts = name.split(".", 2)
+                if len(parts) >= 3:
+                    disk_sections[parts[2]] = {
+                        "id": parts[2], "file": f.name, "type": stype,
+                    }
+                break
+
+    # 2. Extract reading order from TOC XML
+    toc_order = []
+    toc_files = list(book_dir.glob(f"toc.{isbn}.xml")) + list(book_dir.glob("toc.*.xml"))
+    if toc_files:
+        try:
+            parser = etree.XMLParser(recover=True, dtd_validation=False,
+                                     load_dtd=False, no_network=True)
+            root = etree.parse(str(toc_files[0]), parser).getroot()
+            for entry in root.findall("tocentry"):
+                lid = entry.get("linkend", "")
+                if lid:
+                    toc_order.append(lid)
+            for chap in root.findall("tocchap"):
+                for sect in chap.findall("tocsect1"):
+                    sid = sect.get("linkend", "")
+                    if sid:
+                        toc_order.append(sid)
+            for entry in root.findall("tocback"):
+                lid = entry.get("linkend", "")
+                if lid:
+                    toc_order.append(lid)
+        except Exception:
+            pass
+
+    # 3. Build ordered list: TOC order first, then remaining files
+    seen = set()
+    sections = []
+    for sid in toc_order:
+        if sid in disk_sections and sid not in seen:
+            sections.append(disk_sections[sid])
+            seen.add(sid)
+    for sid in sorted(disk_sections):
+        if sid not in seen:
+            sections.append(disk_sections[sid])
+            seen.add(sid)
+
     return sections
 
 
@@ -702,5 +718,12 @@ def _resolve_section_file(book_dir, isbn, section):
     matches = list(book_dir.glob(f"*.{isbn}.{section}.xml"))
     if matches:
         return matches[0]
+
+    # Subsection fallback: ch0001s0002s0001 -> try ch0001s0002 (parent sect1)
+    # XSL-generated links may point to deep subsection IDs that live inside
+    # the parent section's XML file.
+    if re.match(r'ch\d+s\d+s\d+', section):
+        parent = re.match(r'(ch\d+s\d+)', section).group(1)
+        return _resolve_section_file(book_dir, isbn, parent)
 
     return None

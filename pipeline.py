@@ -441,6 +441,14 @@ def _fix_bookloader_output(job_id, output_dir, temp_dir, isbn):
         _generate_toc_xml(job_id, root, isbn, toc_file)
 
 
+def _get_full_title_text(element):
+    """Get all text from a title element, including text inside child elements like <emphasis>."""
+    if element is None:
+        return ""
+    # itertext() yields all text from element and children recursively
+    return "".join(element.itertext()).strip()
+
+
 def _generate_toc_xml(job_id, book_root, isbn, toc_path):
     """Generate a TOC XML file from the book structure."""
     from lxml import etree
@@ -451,13 +459,15 @@ def _generate_toc_xml(job_id, book_root, isbn, toc_path):
     bookinfo = book_root.find(".//bookinfo")
     if bookinfo is not None:
         title_el = bookinfo.find("title")
-        if title_el is not None and title_el.text:
+        title_text = _get_full_title_text(title_el)
+        if title_text:
             toc_title = etree.SubElement(toc, "title")
-            toc_title.text = title_el.text
+            toc_title.text = title_text
 
     for preface in book_root.findall(".//preface"):
         pref_id = preface.get("id", "")
-        title = preface.findtext("title") or "Preface"
+        title_el = preface.find("title")
+        title = _get_full_title_text(title_el) or "Preface"
         entry = etree.SubElement(toc, "tocentry")
         entry.set("linkend", pref_id)
         entry_title = etree.SubElement(entry, "title")
@@ -466,7 +476,8 @@ def _generate_toc_xml(job_id, book_root, isbn, toc_path):
     for chapter in book_root.findall(".//chapter"):
         ch_id = chapter.get("id", "")
         ch_label = chapter.get("label", "")
-        ch_title = chapter.findtext("title") or f"Chapter {ch_label}"
+        ch_title_el = chapter.find("title")
+        ch_title = _get_full_title_text(ch_title_el) or f"Chapter {ch_label}"
         ch_entry = etree.SubElement(toc, "tocchap")
         ch_entry.set("linkend", ch_id)
         ch_entry.set("label", ch_label)
@@ -474,7 +485,8 @@ def _generate_toc_xml(job_id, book_root, isbn, toc_path):
         ch_entry_title.text = ch_title
         for sect1 in chapter.findall("sect1"):
             s1_id = sect1.get("id", "")
-            s1_title = sect1.findtext("title") or s1_id
+            s1_title_el = sect1.find("title")
+            s1_title = _get_full_title_text(s1_title_el) or s1_id
             s1_entry = etree.SubElement(ch_entry, "tocsect1")
             s1_entry.set("linkend", s1_id)
             s1_entry_title = etree.SubElement(s1_entry, "title")
